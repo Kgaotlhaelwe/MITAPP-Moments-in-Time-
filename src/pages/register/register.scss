@@ -1,0 +1,104 @@
+page-register {
+    .background{
+        background-image:linear-gradient(to bottom, rgba(249, 178, 183, 0.877) ,rgba(107,43,93, 0.877)),url('../../assets/imgs/b4.jpg');
+        background-size: cover;
+        background-position: right;
+        background-repeat: no-repeat;
+        background-position-x: center;
+        // background-color:rgb(249, 178, 183);
+        position: fixed;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    .button{
+        width: 100%;
+     margin-top:8%
+    }
+ 
+    p{
+        font-weight: bold;
+    }
+    .logo{
+        position: relative;
+        text-align: center;
+        top: 15px;
+    }
+    .main{
+        height: auto;
+        position: relative;
+        top: 80px;
+    }
+    .inputs{
+        position: relative;
+        top: 5px;
+        
+    }
+    .ion-item{
+        background-color: rgba(255, 228, 196, 0);
+        
+    }
+    ion-icon{
+        margin-right: 6px;
+            font-size: 1.5em;
+        
+
+    }
+    h1{
+        position: relative;
+        font-size: 5em;
+        text-align: center;
+        top: 25%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        color: white
+       
+    }
+    p{
+        position: absolute;
+        font-size: 15px;
+        top: 25px;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        color: white;
+        font-family: cursive
+    }
+    .text-input::-moz-placeholder {
+        color: white;
+        
+      }
+      
+      .text-input:-ms-input-placeholder {
+        color: white;
+      
+      }
+      
+      .text-input::-webkit-input-placeholder {
+        color: white;
+
+      }
+      .item-input ion-input, .item-input ion-textarea {
+        position: static;
+        color: white;
+    }
+    // #text-input-md {
+    //     text-align: left;
+    //     margin: 8px ;
+    //     /* padding: unset; */
+    //     // width: calc(100% - 8px - 8px);
+    // }
+
+   
+
+}
+    

@@ -1,0 +1,53 @@
+
+
+<ion-content text-center class="background">
+  <div padding class="body" ion-fixed >
+
+    <div class="logo-sec">
+     <h1>MIT</h1>
+     <p>Moment in Time</p>
+   </div>
+   <!-- close body -->
+
+   <div class="inputs" >
+  
+     <ion-item class="items" >
+        <ion-label ><ion-icon color="light" ios="ios-mail" md="md-mail"></ion-icon> &nbsp; </ion-label>
+       <ion-input type="email"   placeholder="Email" [(ngModel)]="user.email"></ion-input>
+     </ion-item>
+   
+     <ion-item class="items" >
+        <ion-label>  <ion-icon color="light" ios="ios-lock" md="md-lock"></ion-icon> &nbsp;&nbsp; </ion-label>
+       <ion-input type="password"  placeholder="Password" [(ngModel)]="user.password"></ion-input>
+     </ion-item>
+  
+   <div class="buttons" >
+     <button block ion-button round class="Login"outline color="light" (click)="Login(user)">Login</button>
+    </div>
+    
+  </div>
+  <!-- close inputs -->
+  <!-- <div class="signwith" >
+      <h6 color="primary" >or sign in with:</h6>
+      <ion-grid class="signin-icons">
+        <ion-row align-items-center>
+          <ion-col col-2 align-self-center (click)="logInWithFaceBook()">
+            <img class="img" src="../../assets/imgs/facebook-black-social-button-circle.png" alt="facebook icon">
+          </ion-col>
+          <!-- <ion-col col-2 (click)="loginwithGooogle()">
+            <img  class="img" src="../../assets/imgs/google-plus (8).png" alt="google icon">
+          </ion-col> -->
+        <!-- </ion-row>
+      </ion-grid>
+  </div> -->
+  <!-- close sigin with -->
+
+  <!-- close register section --> 
+  </div>           
+   </ion-content>
+   <ion-footer  [hidden]="keyboard.isOpen()" >
+     <div class="register" >
+      <button ion-button clear color="light"  class="reg"  (click)="register()">Don't have account?</button>
+      <button ion-button clear  color="light" class="Forget" (click)="forgetPassword(user)">Forgot Password</button>
+  </div>
+   </ion-footer>

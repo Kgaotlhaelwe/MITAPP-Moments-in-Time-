@@ -1,0 +1,48 @@
+page-contact {
+    .background{
+
+        background-color: 	rgb(245, 245, 245);
+
+    }
+    h6{
+        position: relative;
+        // border: 1px solid #fdfdfd;
+        background-color:  #F8A7C8;
+        color: white;
+        border-radius: 100px;
+        width: 50%;
+        margin-bottom: 0%;
+        top: 20px;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+         z-index: 1;
+        margin-top: 0%;
+        box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.657)
+    }
+    .item{
+        position: relative;
+        border-radius: 20px;
+        // background-color: rgb(241, 241, 241)
+    }
+    .card{
+        margin-top: -1%
+    }
+    .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block{
+        border-bottom:0px;
+    }
+    .list-ios > .item-block:last-child, .list-ios > .item-wrapper:last-child .item-block{
+        border-top:0px;
+    }
+
+    h2{
+        position: relative;
+        top: 5px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: rgb(104, 104, 104)
+    }
+}

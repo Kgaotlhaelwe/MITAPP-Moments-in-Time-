@@ -1,0 +1,39 @@
+<ion-content padding class="background" >
+
+  <div class="main" > 
+    <!-- app logo -->
+      <div class="logo" >
+          <h1>MIT</h1>
+          <p>Moment in Time</p>
+        </div>
+         <!-- end of app logo -->
+
+        <!-- start inputs section -->
+        <div class="inputs">
+            <ion-item class="ion-item"  >
+              <ion-label > <ion-icon color="light" ios="ios-contact" md="md-contact"></ion-icon></ion-label>
+              <ion-input placeholder=" Username" type="userame" value="" [(ngModel)]="user.name"></ion-input>
+            </ion-item>
+            
+            <ion-item  class="ion-item">
+              <ion-label ><ion-icon color="light" ios="ios-mail" md="md-mail"></ion-icon> &nbsp; </ion-label>
+              <ion-input placeholder="Email" type="email" value=""  [(ngModel)]="user.email"></ion-input>
+            </ion-item>
+            
+            <ion-item  class="ion-item" >
+              <ion-label>  <ion-icon color="light" ios="ios-lock" md="md-lock"></ion-icon> &nbsp;&nbsp; </ion-label>
+              <ion-input placeholder="Password" type="password"  [(ngModel)]="user.password"></ion-input>
+            </ion-item>
+
+          
+          <div class="button" >
+            <button  ion-button round block outline color="light" (click)="Register(user)">Register</button>
+            <button block ion-button round class="Login"  color="light" (click)="LoginPage()"> &nbsp; Sign in</button>
+          </div>
+             </div>
+               <!-- close inputs section  -->
+            
+          </div>
+          <!-- close main section -->
+
+</ion-content>

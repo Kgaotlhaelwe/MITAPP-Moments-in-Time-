@@ -1,0 +1,50 @@
+<ion-header>
+
+    <ion-navbar color="b" >
+        <ion-buttons end>
+            <button ion-button icon-only  color="royal"  (click)="Personalcard()">
+              <ion-icon name="ios-create"></ion-icon>
+            </button>
+          </ion-buttons>
+      <ion-title align="center">
+          Home
+      </ion-title>
+     
+    </ion-navbar>
+  </ion-header>
+<ion-content  class="backgroud" padding >
+  <div class="card-container" *ngIf="ready">
+    <sc-card  *ngFor="let attendant of attendants"
+[orientation]="cardDirection" [tinder-card]="cardOverlay"[callDestroy]="attendant.destroyEvent" [callLike]="attendant.likeEvent" (onLike)="onCardInteract($event)">
+
+<div class="user_img" [style.background-image]="attendant.asBg"></div>
+    </sc-card>
+    
+</div>
+
+
+<ion-grid>
+<ion-row>
+  <ion-col> <ion-fab  left bottom >
+          <button ion-fab  class="fabs" color="light"><ion-icon color="danger" name="md-close" (click)="getMessage()" ></ion-icon></button>
+        </ion-fab>
+  
+  </ion-col>
+  <ion-col>
+      
+    <ion-fab center bottom >
+      <button ion-fab mini color="light" (click)="shareVia()"><ion-icon color="primary" name="share"></ion-icon></button>
+     </ion-fab>
+  </ion-col>
+  <ion-col>
+     <ion-fab right bottom>
+      <button ion-fab class="fabs" color="light"><ion-icon color="secondary" name="md-heart" (click)="getMessage()" ></ion-icon></button>
+    </ion-fab>
+  </ion-col>
+</ion-row>
+</ion-grid>
+        
+  <!-- <button (click)="Personalcard()">Personalcard</button> -->
+
+         
+      </ion-content>

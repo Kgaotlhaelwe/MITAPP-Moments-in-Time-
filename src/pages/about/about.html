@@ -1,0 +1,163 @@
+<!--  
+<ion-content padding class="background" text-center>
+  <ion-list *ngFor="let v of sentMessages; let u = index" >
+    <div (click)="sendVia(v.message)" >
+      <ion-item-sliding no-lines class="item"  >
+        <ion-item   >
+          <div class="heading" >
+            {{v.name}}
+          </div>
+          
+          <div  >
+            {{v.message}}
+             {{v.automessage}}
+          </div>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+              </ion-col>
+              <ion-col center text-right>
+                <ion-note  color="grey" >
+                  {{countDown}}
+                </ion-note>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button color="b" (click)="Delete(v.key)">
+            <ion-icon name="delete"></ion-icon>
+            Delete
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </div>
+  </ion-list>
+</ion-content> -->
+<!-- 
+<ion-header>
+
+    <ion-navbar color="b" >
+        <ion-buttons left>
+            <button ion-button  color="royal">
+              <ion-icon name=""></ion-icon>
+            </button>
+          </ion-buttons>
+      <ion-title text-center>
+          Review
+      </ion-title>
+     
+    </ion-navbar>
+  </ion-header>
+ 
+<ion-content  class="background" text-center>
+
+    <ion-list *ngFor="let v of sentMessages; let u = index" >
+
+      <!-- <div (click)="sendVia(v.message)" >
+
+        <ion-item-sliding class="item"  >
+          <ion-item text-wrap >
+              <ion-avatar item-start class="ion-avatar" id="avatar" >
+                  <!-- <img src="img/avatar-cher.png"> -->
+                  <!-- {{cat}}
+                </ion-avatar>
+                <h2 class="heading" >
+              {{v.name}}
+                </h2>
+                <ion-grid>
+              <ion-row>
+                <ion-col>
+                </ion-col>
+                <ion-col center text-right>
+                  <ion-note  color="grey" >
+                  5 HOURS
+                  </ion-note>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          
+            <div  >
+              {{v.message}}
+               {{v.automessage}}
+            </div>
+           
+          </ion-item>
+          <ion-item-options side="right">
+            <button ion-button color="b" (click)="Delete(v.key)">
+              <ion-icon name="delete"></ion-icon>
+              Delete
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </div> -->
+    <!-- </ion-list>
+  </ion-content> --> -->
+<ion-header>
+  <ion-navbar color="b" >
+      <ion-buttons left>
+          <button ion-button  color="royal">
+            <ion-icon name=""></ion-icon>
+          </button>
+        </ion-buttons>
+    <ion-title text-center>
+        Review
+    </ion-title>
+    <ion-buttons end>
+        <button ion-button icon-only  color="royal" (click)="presentModal()">
+          <ion-icon name="ios-information-circle"></ion-icon>
+        </button>
+      </ion-buttons>
+  </ion-navbar>
+</ion-header>
+<img src="../../assets/imgs/BIRTHDAY.png">
+<ion-content padding class="background" >
+ 
+<div  *ngFor="let v of sentMessages; let u = index" (press)="sendVia(v.message, v.key)" >
+
+
+    <ion-list   >
+        <ion-item-sliding>
+          <ion-item   >
+            <ion-avatar item-start  >
+              <img src="{{v.image}}">
+            </ion-avatar>
+            <h2>{{v.name}}</h2>
+
+            {{v.message}}
+            {{v.automessage}}
+
+            <br>
+            {{countDownDate}}
+            <ion-grid>
+              <ion-row>
+                <ion-col>
+                </ion-col>
+                <ion-col center text-right>
+                  <ion-note  color="grey" >
+                    <p id="demo"></p>
+
+                  </ion-note>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
+          </ion-item>
+          <ion-item-options side="left">
+            <button ion-button color="b" (click)="readMore(v.message)">
+              <ion-icon name="mail"></ion-icon>
+              Read
+            </button>
+          </ion-item-options>
+          <ion-item-options side="right">
+            <button ion-button color="b" (click)="Delete(v.key)">
+              <ion-icon name="delete"></ion-icon>
+              Delete
+            </button>
+          </ion-item-options>
+        </ion-item-sliding>
+      </ion-list></div>
+
+      <!-- <img src="../../assets/imgs/color1.PNG" alt=""> -->
+
+</ion-content>

@@ -1,0 +1,7 @@
+{
+  "name": "MITAPP",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}

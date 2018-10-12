@@ -1,0 +1,33 @@
+<!--
+  Generated template for the FavouriteMessagesPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar color="b">
+    <ion-title>Favourite Messages</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding class="card-background-page">
+ <div *ngFor="let a of  favouriteArray"   >
+    <ion-card>
+        <!-- <img src="{{a.message}}"/> -->
+        
+          <img src="{{a.message}}"/>
+          <div class="card-title"> <ion-icon text-center name="heart"></ion-icon></div>
+         
+        </ion-card>
+      
+ </div>
+   
+
+
+
+  
+
+</ion-content>

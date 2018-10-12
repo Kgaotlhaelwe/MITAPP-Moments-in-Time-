@@ -1,0 +1,191 @@
+page-event {
+    img{
+        position: relative;
+        top: 10px;
+        width:100%;
+        height: 20%;
+        max-width: 40px;
+        margin-top: 5%;
+        max-height: 40px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .body{
+          position: relative;
+          top:2%;
+      }
+      ion-card-title{
+          font-size: 1em;
+          font-family: system;
+          font-style: normal;
+      }
+      .card{
+          position: relative;
+          text-align: center;
+          width: 95%;
+          left: -3%;
+          height: 19vh;
+          margin-bottom: -7% !important;
+          border-radius: 10px;
+      }
+      h3{
+          position: relative;
+          top: 10px;
+        font-weight: 900;
+      } 
+      ion-card-content{
+          color: white;
+      }
+    .card-md h3, .card-md h4, .card-md h5, .card-md h6 {
+        margin: 2px 0;
+        font-size: 1.4rem;
+        font-weight: normal;
+        color: white;
+        font-family: system;
+        color: white;
+    }
+    .no-scroll .scroll-content{
+        overflow: auto;
+      }
+      .card-title-ios {
+        display: block;
+        font-size: 1.8rem;
+        line-height: 1.2;
+        color: white;
+    }
+    // .toolbar-title {
+    //     display: block;
+    //     overflow: hidden;
+    //     width: 50%;
+    //     text-overflow: ellipsis;
+    //     white-space: nowrap;
+    // }
+
+}
+
+
+
+
+// page-event {
+//     .no-scroll{
+//         background-color: #F9B2B8;
+     
+//         // background-size: cover;
+//         // background-repeat: no-repeat;
+//         //  background-color: #D8E1DC;
+//     }
+//     img{
+//         width:80%;
+//         height: 5%;
+//         max-width: 55px;
+//         margin-top: 5%;
+//         max-height: 70px;
+//         text-align: center;
+//         margin-left: auto;
+//         margin-right: auto;
+       
+//       }
+//       .body{
+//           position: relative;
+//         //   bottom:-45%;
+//           margin-left: -12%;
+//           margin-right: -5%;
+//         //   padding: 20px;
+//       }
+//       ion-card-title{
+//           font-size: 1em;
+//           font-family: system;
+//           font-style: normal;
+//       }
+//       .card{
+//           text-align: center;
+//           width: 90%;
+//           border-radius: 15px;
+//           height: 18vh;
+//         //   background-color: rgba(247, 238, 238, 0.356) ;
+//           margin-bottom: -7% !important;
+//           background-color: rgba(250, 250, 250, 0.925)
+ 
+//       }
+//       h3{
+//           position: relative;
+//         font-weight: 900;
+//       } 
+//       ion-card-content{
+//           color: black;
+//       }
+//     .card-md h3, .card-md h4, .card-md h5, .card-md h6 {
+//         margin: 2px 0;
+//         font-size: 1.4rem;
+//         font-weight: normal;
+//         color: black;
+//         font-family: system;
+//         color: black;
+//     }
+//     .no-scroll .scroll-content{
+//         overflow: auto;
+//       }
+//       .card-title-ios {
+//         display: block;
+//         font-size: 1.8rem;
+//         line-height: 1.2;
+//         color: black;
+//         margin: 2px 0;
+//         padding: 8px 0;
+//     }
+//     // .img{
+//         // height: 38vh;
+//     //     width: 80vw;
+//     //     border-radius: 25px;
+//     // }
+//     .Slide{
+//        border-radius: 25px; 
+//        box-shadow: 2px solid;
+//        position: relative;
+//        top: -5px;
+//     //    padding-left: 15px;
+
+//     }
+//     fab-size{
+//         font-size:100px
+//     }
+//     .header-md::after, .tabs-md[tabsPlacement="top"] > .tabbar::after, .footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before{
+//         height: 0;
+//     }
+//     .fabs{
+//         // height: 70px;
+//         // width: 70px;
+//     }
+//     ion-slides{
+//         height: 50%;
+//         width: 100%
+       
+//     }
+//     .top{
+//         position: relative;
+//         top: -47px;
+//     }
+//     .bottom{
+//         position: relative;
+//         width: 104%;
+//        top: -125px;
+      
+
+//     }
+//     .icons{
+//         position: relative;
+//         top: -85px;
+//         padding-left: 20px;
+        
+//     }
+//     .fab[mini] {
+//         margin: 8px;
+//         width: 40px;
+//         height: 40px;
+//         line-height: 40px;
+//         // background-color: #F9B2B8;
+//     }
+    
+  
+// }

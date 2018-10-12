@@ -1,0 +1,45 @@
+<!--
+  Generated template for the AdminPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Admin</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-item>
+        <ion-label>Gaming</ion-label>
+        <ion-select [(ngModel)]="relationship">
+            <ion-option value="newJob">job</ion-option>
+            <ion-option value="Birthday">Birthday</ion-option>
+            <ion-option value="babyShower">Baby shower</ion-option>
+          <ion-option value="friend">friend</ion-option>
+          <ion-option value="spouse">spouse</ion-option>
+          <ion-option value="family">family</ion-option>
+          <ion-option value="Lover">Lover</ion-option>
+          <ion-option value="Graduation">Graduation</ion-option>
+          <ion-option value="Weddings">Weddings</ion-option>
+          <ion-option value="ANNIVERSARY">ANNIVERSARY</ion-option>
+          <ion-option value="General">General</ion-option>
+          <ion-option value="Other">Other</ion-option>
+
+         
+        </ion-select>
+      </ion-item>
+
+
+      <ion-item>
+        <ion-textarea  [(ngModel)]="message"></ion-textarea>
+      </ion-item>
+
+      <button (click)="send()">Send</button>
+      
+</ion-content>

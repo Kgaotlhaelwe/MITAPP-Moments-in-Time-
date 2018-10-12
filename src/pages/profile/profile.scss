@@ -1,0 +1,73 @@
+page-profile {
+  .Avatar {
+      width:130px;
+      height:130px;
+ 
+      border-radius:100px;
+  }
+  .add{
+    font-size: 3em;
+    position: relative;
+    left: 40%;
+    bottom: 1em
+  }
+  #hide{
+     display: none
+  }
+    .header{
+      text-align: center;
+    }
+
+    .fab-md{
+      position: relative;
+      top: -370px;
+      left: 300%;
+    
+    // font-size: 0.2em;
+    
+    }
+    .fab{ $fab-size:6px;
+      
+    }
+    .segment-md .segment-button.activated, .segment-md .segment-button.segment-activated {
+      border-color: #F9B2B8;
+      opacity: 1;
+    }
+    .segment-md .segment-button{
+      color: #F9B2B8
+    }
+    
+    .h1{
+     margin: 0%
+
+    }
+ 
+    .item-md.item-block .item-inner{
+      padding-right:0%
+    }
+    .item-md{
+      padding-left: 0%
+    }
+    .grid{
+      padding: 0%
+    }
+    .flex{
+      display: flex;
+      justify-content: center
+    }
+    .text{
+      position: relative;
+      top: -50px
+    }
+    .create{
+      position: relative;
+      
+    }
+ 
+ 
+  
+
+      
+        
+
+}

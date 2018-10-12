@@ -62,13 +62,23 @@ export class DatabaseProvider {
         firebase.database().ref("user/"+uid).set({
           name:name,
           email:email,
-          profileimage:"../../assets/icon/download.png"
+         
  
+        }).then(()=>{
+
+          firebase
+          .database()
+          .ref("Pic/"+uid)
+          .set({
+            url: "../../assets/icon/download.png"
+          });
         })
  
  
+      
  
         resolve();
+        
       } , (error)=>{
         reject(error);
       });

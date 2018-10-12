@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,AlertController,PopoverController} from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { PopoverPage } from '../popover/popover';
+import {DatabaseProvider} from '../../providers/database/database';
 
 declare var firebase ;
 
@@ -29,7 +30,7 @@ export class ProfilePage {
   url ;
 
   profileimage ;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl:AlertController, private camera: Camera,public popoverCtrl: PopoverController ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl:AlertController, private camera: Camera,public popoverCtrl: PopoverController, private db:DatabaseProvider ) {
 
    
   
@@ -59,6 +60,8 @@ export class ProfilePage {
     })
     firebase.database().ref("Pic/"+this.users.uid).on('value', (data: any) => {
       var profilepic = data.val();
+      console.log(this.profileimage);
+      
 
 
         this.profileimage = profilepic.url
@@ -74,7 +77,37 @@ export class ProfilePage {
     
   }
 
+  ShareDelete(a, key){
+  
+    const prompt = this.alertCtrl.create({
+      subTitle: " Share or delete" ,
+      buttons: [
+        {
+          text: 'Delete',
+          handler: data => {
+            console.log('Cancel clicked');
 
+            var users= firebase.auth().currentUser;
+            var userid=users.uid
+    
+            this.favouriteArray=[]
+          firebase.database().ref('likedPictures/'+userid).child(key).remove();
+          }
+        },
+        {
+          text: 'Share',
+          handler: data => {
+            console.log('Saved clicked');
+            this.db.shareYourfav(a)
+
+            
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+  
   upload(event: any) {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
@@ -203,7 +236,7 @@ export class ProfilePage {
           for (var i = 0; i < keys.length; i++) {
             var k = keys[i];
             let  obj = {
-              k:keys ,
+              key:k ,
               message:name[k].message,
               }
             this.favouriteArray.push(obj);

@@ -6,6 +6,11 @@
 -->
 <ion-header>
   <ion-navbar color="b">
+      <ion-buttons left>
+          <button ion-button icon-only large color="royal" (click)="update()">
+            <ion-icon ios="ios-create" md="md-create"></ion-icon>
+          </button>
+        </ion-buttons>
     <ion-title>
       Profile
     </ion-title>
@@ -14,49 +19,56 @@
           <ion-icon name="more"></ion-icon>
         </button>
       </ion-buttons>
+      <!-- <button ion-button icon-only  color="dust" align="right" ion-button clear icon-only (click)="update()">
+          <ion-icon ios="ios-create" md="md-create"></ion-icon>
+      </button > -->
   </ion-navbar>
 </ion-header>
 
 <ion-content class="background">
-<br>
-  
- 
+
+
   <div class="flex" align="center">
   <ion-avatar align="center">
-        <img src="{{profileimage}}" class="Avatar">
-    <label for="hide"><ion-icon class="add" color="dust" ios="ios-add-circle" md="md-add-circle"></ion-icon></label>
+     
+        <img id="images" src="{{profileimage}}" class="Avatar">
+    <label for="hide"><ion-icon class="add" color="b" ios="ios-add-circle" md="md-add-circle"></ion-icon></label>
        <input type="file" id="hide" #image accept="image/png, image/jpeg" (change)="upload($event)"/>
   </ion-avatar>
 </div>
+
+
 <div class="text">
-<h1 align="center"> {{name}}</h1>
+    <h1 align="center"> {{name}}</h1>
 <p align="center" class="ion-note" >
     {{email}}
 </p> 
 </div>
-<div class="create">
-<button  align="center" ion-button full color="b" (click)="update()">
-  Update Profile
-</button >
-</div>                            
+<div class="create" align="right">
+
+</div> 
+<img src="../../assets/icon/"/>
+<div class="segment"> 
+                         
 <ion-list>
-    <ion-item><div padding>
+    <ion-item>
+
         <ion-segment [(ngModel)]="pet">
           <ion-segment-button value="Favourites">
           FAVOURITE
           </ion-segment-button>
-          <ion-segment-button value="puppies">
+          <!-- <ion-segment-button value="puppies">
             Customized cards
-          </ion-segment-button>
+          </ion-segment-button> -->
         </ion-segment>
-      </div>
+      
       <div [ngSwitch]="pet"   >
         <div class="container" >
-        <ion-list *ngSwitchCase="'Favourites'">
+        <ion-list *ngSwitchCase="'Favourites'" color="dust" >
           <ion-item>
                 <ion-grid >
                 <ion-row>
-                    <ion-col col-6 *ngFor="let a of  favouriteArray" >
+                    <ion-col col-6 *ngFor="let a of  favouriteArray"   (click)="ShareDelete(a.message, a.key)">
                         <img src="{{a.message}}"  class="image">   
                     </ion-col>
                 </ion-row>
@@ -67,16 +79,17 @@
         </ion-list>
       </div>
 
-        <ion-list *ngSwitchCase="'puppies'">
+        <!-- <ion-list *ngSwitchCase="'puppies'">
           <ion-item>
             <ion-thumbnail item-start>
               <img src="img/thumbnail-kitten-1.jpg">
             </ion-thumbnail>
             <h2>Luna</h2>
           </ion-item>
-        </ion-list>
+        </ion-list> -->
       </div>
       <br>
     </ion-item>
   </ion-list> 
+</div> 
 </ion-content>

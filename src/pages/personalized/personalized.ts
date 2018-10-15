@@ -184,9 +184,9 @@ export class PersonalizedPage {
     console.log(date);
     
    this.localNotifications.schedule({
-     title:"MOMENT IN TIME" ,
-     text: this.name,
-     icon: 'http://example.com/icon.png' ,
+     title:this.name ,
+     text: this.categoryChosen,
+     icon: "../../assets/icon/splashM.png" ,
      trigger: {at: new Date(new Date(date) )} ,
    })
    this.db.saveSentMessages(this.name ,this.message, this.chosenDate,this.image).then(()=>{} , (error)=>{})

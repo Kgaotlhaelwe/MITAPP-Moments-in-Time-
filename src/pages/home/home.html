@@ -2,8 +2,8 @@
 
     <ion-navbar color="b" >
         <ion-buttons end>
-            <button ion-button icon-only  color="royal"  (click)="Personalcard()">
-              <ion-icon name="ios-create"></ion-icon>
+            <button ion-button icon-only  (click)="Personalcard()">
+              <ion-icon name=""></ion-icon>
             </button>
           </ion-buttons>
       <ion-title align="center">
@@ -17,7 +17,10 @@
     <sc-card  *ngFor="let attendant of attendants"
 [orientation]="cardDirection" [tinder-card]="cardOverlay"[callDestroy]="attendant.destroyEvent" [callLike]="attendant.likeEvent" (onLike)="onCardInteract($event)">
 
-<div class="user_img" [style.background-image]="attendant.asBg"></div>
+<div class="user_img" >
+
+<img src="{{slidingImage}}">
+</div>
     </sc-card>
     
 </div>
@@ -26,7 +29,7 @@
 <ion-grid>
 <ion-row>
   <ion-col> <ion-fab  left bottom >
-          <button ion-fab  class="fabs" color="light"><ion-icon color="danger" name="md-close" (click)="getMessage()" ></ion-icon></button>
+          <button ion-fab  class="fabs" color="light" (click)="dislike()"><ion-icon color="danger" name="md-close"  ></ion-icon></button>
         </ion-fab>
   
   </ion-col>
@@ -38,7 +41,7 @@
   </ion-col>
   <ion-col>
      <ion-fab right bottom>
-      <button ion-fab class="fabs" color="light"><ion-icon color="secondary" name="md-heart" (click)="getMessage()" ></ion-icon></button>
+      <button ion-fab class="fabs" color="light" (click)="like()"><ion-icon color="secondary" name="md-heart"  ></ion-icon></button>
     </ion-fab>
   </ion-col>
 </ion-row>

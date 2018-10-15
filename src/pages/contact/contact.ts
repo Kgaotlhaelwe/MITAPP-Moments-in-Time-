@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController,AlertController} from 'ionic-angular';
+import { NavController,AlertController, ModalController } from 'ionic-angular';
 import { ViewPage } from '../view/view';
+import { InfosentPage } from '../infosent/infosent';
 
 declare var firebase
 
@@ -13,7 +14,7 @@ export class ContactPage {
 
   sentMessages = []
 
-  constructor(public navCtrl: NavController , private alertCtrl :AlertController) {
+  constructor(public navCtrl: NavController , private alertCtrl :AlertController,public modalCtrl: ModalController) {
     this.sentMessages=[];
 
     var users= firebase.auth().currentUser;
@@ -60,6 +61,10 @@ export class ContactPage {
   readMore(message){
     this.navCtrl.push(ViewPage ,{message:message} )
 
+  }
+  presentModal() {
+    const modal = this.modalCtrl.create(InfosentPage);
+    modal.present();
   }
   }
 

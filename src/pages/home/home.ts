@@ -59,21 +59,25 @@ export class HomePage {
 
 
  images= [];
-
-
+slidingImage ;
 
  constructor(public navCtrl: NavController , private db:DatabaseProvider, private socialSharing: SocialSharing, public actionSheetCtrl: ActionSheetController,public popoverCtrl: PopoverController , private sanitizer: DomSanitizer) {
    this.db.getMessages().then((data:any)=>{
      console.log(data);
 
-     this.images=data
 
+     this.images=data
      console.log(this.images);
+     
+    this.slidingImage =this.images[this.liked].message
+     console.log(this.slidingImage);
 
      
 
 
-     for (let i = 0; i < this.images.length; i++) {
+     for (let i = 0; i < this.images.length-1; i++) {
+
+      
        this.attendants.push({
            id: i + 1,
            likeEvent: new EventEmitter(),
@@ -82,8 +86,17 @@ export class HomePage {
 
 
        });
+      
+      //  if(i==this.images.length-2){
+      //    //console.log(i);
+      //    console.log("in");
+         
+         
+      //  // i =3
+      // }
 
    }
+   
 
    this.ready = true;
 
@@ -106,22 +119,32 @@ onCardInteract(event) {
 
 
 if(event.like == false){
- this.liked =this.liked+1 ;
+ 
+ 
+ this.liked = this.liked + 1
+ console.log(this.liked);
+ this.slidingImage =this.images[this.liked].message
+ 
+ 
+  
+ //this.db.temporaryliked(this.msgz)
+ 
 }
 
 
  if(event.like == true){
-   console.log(this.liked);
+  console.log("in");
+  this.liked = this.liked + 1
+  this.slidingImage =this.images[this.liked].message
+  console.log(this.liked);
 
-
-
-   this.msgz =this.images[this.liked].message
-   this.liked =this.liked+1 ;
-   console.log("liked");
-   console.log(this.msgz);
-   console.log(this.liked);
-
-   this.db.likedMessage(this.msgz).then(()=>{})
+ 
+  
+  
+ 
+   
+   //this.db.temporaryliked(this.msgz)
+   this.db.likedMessage(this.slidingImage).then(()=>{})
 
 
 
@@ -158,11 +181,9 @@ shareVia(){
         handler: () => {
           //console.log(this.indx);
  
-          this.shareMsg=this.images[this.liked].message ;
-          this.imgstring=this.shareMsg ;
-          console.log(this.shareMsg);
+          this.slidingImage =this.images[this.liked].message
  
-          this.db.sendviaWhatsApps(this.shareMsg)
+          this.db.sendviaWhatsApps(this.slidingImage)
           console.log('Destructive clicked');
           console.log(this.shareMsg);
           console.log(this.liked);
@@ -173,16 +194,19 @@ shareVia(){
         text: 'Facebook',
         handler: () => {
           console.log('Archive clicked');
-          this.shareMsg=this.images[this.liked].message
-          this.db.sendviaFacebook(this.shareMsg,this.shareMsg)
+          this.slidingImage =this.images[this.liked].message
+ 
+          this.db.sendviaFacebook( this.slidingImage, this.slidingImage)
         }
       },{
         text: 'Email',
         role: 'cancel',
         handler: () => {
           console.log('Cancel clicked');
-          this.db.sendViaemail(this.shareMsg)
-          this.db.sendViaemail(this.shareMsg)
+          this.slidingImage =this.images[this.liked].message
+          
+          this.db.sendViaemail( this.slidingImage)
+         
         }
       }
     ]
@@ -193,6 +217,21 @@ shareVia(){
 
  Personalcard(){
    this.navCtrl.push(PersonalisedcardPage)
+ }
+
+
+ like(){
+  this.liked =this.liked+1 ;
+  this.slidingImage =this.images[this.liked].message
+ 
+
+ }
+
+ dislike(){
+  this.liked =this.liked+1 ;
+  this.slidingImage =this.images[this.liked].message
+ 
+
  }
 
 }

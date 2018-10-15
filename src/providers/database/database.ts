@@ -56,16 +56,16 @@ export class DatabaseProvider {
  
  
     return new Promise((resolve, reject)=>{
- 
+
       firebase.auth().createUserWithEmailAndPassword(email , password) .then(()=>{
         var uid= firebase.auth().currentUser.uid;
         firebase.database().ref("user/"+uid).set({
           name:name,
           email:email,
-         
+ 
  
         }).then(()=>{
-
+ 
           firebase
           .database()
           .ref("Pic/"+uid)
@@ -75,10 +75,10 @@ export class DatabaseProvider {
         })
  
  
-      
+ 
  
         resolve();
-        
+ 
       } , (error)=>{
         reject(error);
       });
@@ -87,7 +87,6 @@ export class DatabaseProvider {
  })
  
  }
- 
 
  login(email , password){
 
@@ -241,6 +240,24 @@ birthdayMessages(){
 
 }
 
+
+
+temporaryliked(message){
+  var users= firebase.auth().currentUser;
+  var userid=users.uid
+ 
+  return new Promise((resolve, reject)=>{
+    firebase.database().ref('category/'+ 'General').push({
+ 
+ 
+      message:message ,
+ 
+    })
+ 
+    resolve();
+ 
+ })
+}
 babyShowerMessages(){
   return new Promise((resolve, reject)=>{
     firebase.database().ref('category/'+ 'babyShower' ).on('value', (data: any) => {

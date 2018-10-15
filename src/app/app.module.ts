@@ -38,7 +38,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import {  CanvasDrawComponent } from '../components/canvas-draw/canvas-draw';
 
 import {PersonalisedcardPage} from '../pages/personalisedcard/personalisedcard'
-
+import { InfosentPage } from '../pages/infosent/infosent';
+import { SplashPage } from '../pages/splash/splash'
 
 var config = {
   apiKey: "AIzaSyD-60vJrUA-k0qFjOyc-2quuULN2t9DKAc",
@@ -64,8 +65,9 @@ var config = {
     MessagePage,
     EventPage,
     PopoverPage,
+    SplashPage,
     FavouriteMessagesPage,
-    ViewPage,ProfilePage,InfoPage , CanvasDrawComponent, PersonalisedcardPage
+    ViewPage,ProfilePage,InfoPage , CanvasDrawComponent, PersonalisedcardPage,InfosentPage
   ],
   imports: [
     BrowserModule,HttpClientModule , SwingModule,SwipeCardsModule,
@@ -89,7 +91,8 @@ var config = {
     EventPage,
     PopoverPage,
     FavouriteMessagesPage,
-    ViewPage,ProfilePage,InfoPage, PersonalisedcardPage,
+    SplashPage,
+    ViewPage,ProfilePage,InfoPage, PersonalisedcardPage,InfosentPage
   ],
   providers: [
     StatusBar,

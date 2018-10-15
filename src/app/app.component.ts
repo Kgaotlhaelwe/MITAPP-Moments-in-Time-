@@ -11,6 +11,7 @@ import {HomePage} from '../pages/home/home'
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { EventPage } from '../pages/event/event';
+import { SplashPage } from '../pages/splash/splash';
 
 @Component({
   templateUrl: 'app.html'
@@ -27,7 +28,7 @@ export class MyApp {
      
       }
       else {
-        this.rootPage = LoginPage
+        this.rootPage = SplashPage
       }
      })
 

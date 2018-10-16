@@ -13,19 +13,14 @@ export class FavouriteMessagesPage {
   favouriteArray = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams ,  private db:DatabaseProvider,public alertCtrl: AlertController) {
-    // this.db.getFavourite().then((data:any)=>{
-    //   console.log(data);
-    //   this.favouriteArray.push(data)
-    // }, (error)=>{
-     
-      
-    // })
+    
 
 
 
-    var users= firebase.auth().currentUser;
+var users= firebase.auth().currentUser;
  var userid=users.uid
  console.log(userid);
+ this.favouriteArray = [];
  firebase.database().ref("likedPictures/"+userid).on('value', (data: any) => {
  var name = data.val();
    if (name !== null) {
@@ -49,6 +44,7 @@ export class FavouriteMessagesPage {
    }
 })
 
+this.favouriteArray = [];
   }
 
   ionViewDidLoad() {

@@ -13,6 +13,7 @@ declare var firebase
 export class ContactPage {
 
   sentMessages = []
+  notsend ;
 
   constructor(public navCtrl: NavController , private alertCtrl :AlertController,public modalCtrl: ModalController) {
     this.sentMessages=[];
@@ -45,15 +46,10 @@ export class ContactPage {
          
         };
       } else{
-        const alert = this.alertCtrl.create({
-          title: 'Confirmation',
-          subTitle: 'YOUR DONT HAVE Sent Messages CURRENTLY',
-          buttons: ['OK']
-        });
-        alert.present();
+
+        document.getElementById("notsent").innerHTML="You do not have sent messages currently"
       }
-   
-   
+
    
    
    })

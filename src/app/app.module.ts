@@ -40,6 +40,7 @@ import {  CanvasDrawComponent } from '../components/canvas-draw/canvas-draw';
 import {PersonalisedcardPage} from '../pages/personalisedcard/personalisedcard'
 import { InfosentPage } from '../pages/infosent/infosent';
 import { SplashPage } from '../pages/splash/splash'
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 var config = {
   apiKey: "AIzaSyD-60vJrUA-k0qFjOyc-2quuULN2t9DKAc",
@@ -73,7 +74,7 @@ var config = {
     BrowserModule,HttpClientModule , SwingModule,SwipeCardsModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(config),
-    AngularFireAuthModule
+    AngularFireAuthModule 
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -96,7 +97,7 @@ var config = {
   ],
   providers: [
     StatusBar,
-    SplashScreen, DatabaseProvider , SMS , SocialSharing ,Contacts,LocalNotifications,Camera ,
+    SplashScreen, DatabaseProvider , SMS , SocialSharing ,Contacts,LocalNotifications,Camera ,BackgroundMode ,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   
   ]

@@ -46,20 +46,23 @@ export class HomePage {
 
 
  ready = false;
- attendants = [];
+  attendants = [];
  cardDirection = "xy";
  cardOverlay: any = {
      like: {
-         backgroundColor: '#28e93b'
+         backgroundColor: '#28e93b' ,
+         indicator:"LIKE"
      },
      dislike: {
-         backgroundColor: '#e92828'
+         backgroundColor: '#e92828' ,
+         indicator:"Dislike"
      }
  };
 
 
  images= [];
 slidingImage ;
+textdisplay;
 
  constructor(public navCtrl: NavController , private db:DatabaseProvider, private socialSharing: SocialSharing, public actionSheetCtrl: ActionSheetController,public popoverCtrl: PopoverController , private sanitizer: DomSanitizer) {
    this.db.getMessages().then((data:any)=>{
@@ -119,45 +122,38 @@ onCardInteract(event) {
 
 
 if(event.like == false){
+  this.liked = this.liked + 1
+  this.slidingImage =this.images[this.liked].message
+  this.textdisplay=this.cardOverlay.dislike. indicator
+
+
+  console.log(this.textdisplay);
+  
  
- 
- this.liked = this.liked + 1
- console.log(this.liked);
- this.slidingImage =this.images[this.liked].message
  
  
   
- //this.db.temporaryliked(this.msgz)
+ 
  
 }
 
 
  if(event.like == true){
-  console.log("in");
+  this.db.likedMessage(this.slidingImage).then(()=>{})
   this.liked = this.liked + 1
   this.slidingImage =this.images[this.liked].message
-  console.log(this.liked);
+ // this.liked = this.liked + 1
 
- 
+  this.textdisplay=this.cardOverlay.like. indicator
+
+  console.log(this.textdisplay);
   
-  
  
-   
-   //this.db.temporaryliked(this.msgz)
-   this.db.likedMessage(this.slidingImage).then(()=>{})
-
-
-
-
- }
+}
 
  else{
-   //console.log(event);
-   console.log("disliked");
-
-
-
- }
+   
+  }
 }
 
 
@@ -172,47 +168,10 @@ presentPopover(myEvent) {
 
 
 shareVia(){
-  const actionSheet = this.actionSheetCtrl.create({
-    title: 'Share via',
-    buttons: [
-      {
-        text: 'Whatsapp',
-        role: 'destructive',
-        handler: () => {
-          //console.log(this.indx);
+  this.slidingImage =this.images[this.liked].message
  
-          this.slidingImage =this.images[this.liked].message
- 
-          this.db.sendviaWhatsApps(this.slidingImage)
-          console.log('Destructive clicked');
-          console.log(this.shareMsg);
-          console.log(this.liked);
-          console.log(this.imgstring);
-          
-        }
-      },{
-        text: 'Facebook',
-        handler: () => {
-          console.log('Archive clicked');
-          this.slidingImage =this.images[this.liked].message
- 
-          this.db.sendviaFacebook( this.slidingImage, this.slidingImage)
-        }
-      },{
-        text: 'Email',
-        role: 'cancel',
-        handler: () => {
-          console.log('Cancel clicked');
-          this.slidingImage =this.images[this.liked].message
-          
-          this.db.sendViaemail( this.slidingImage)
-         
-        }
-      }
-    ]
-  });
-  actionSheet.present();
- }
+           this.db.sendviaWhatsApps(this.slidingImage)
+}
  
 
  Personalcard(){
@@ -221,17 +180,16 @@ shareVia(){
 
 
  like(){
+  this.db.likedMessage(this.slidingImage).then(()=>{})
   this.liked =this.liked+1 ;
   this.slidingImage =this.images[this.liked].message
  
-
  }
 
  dislike(){
   this.liked =this.liked+1 ;
   this.slidingImage =this.images[this.liked].message
- 
-
+  //this.liked =this.liked+1 ;
  }
 
 }

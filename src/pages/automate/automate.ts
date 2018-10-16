@@ -133,7 +133,9 @@ export class AutomatePage {
               console.log(this.phoneNumber);
            
               this.sms.send(this.phoneNumber, this.message).then(()=>{
-                            alert('success')
+                
+                            // alert('success')
+                            
                           } , (error)=>{
                             alert(error)
               

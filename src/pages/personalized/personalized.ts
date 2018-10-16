@@ -11,6 +11,7 @@ declare var firebase
 import {DatabaseProvider} from '../../providers/database/database';
 import { LoginPage } from '../login/login';
 import { AboutPage } from '../about/about';
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 @IonicPage()
 @Component({
@@ -28,7 +29,7 @@ export class PersonalizedPage {
   categoryChosen = this.navParams.get("categoryChosen") ;
   date = new Date() ;
   image
-  constructor(public navCtrl: NavController, public navParams: NavParams, private contacts: Contacts, public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController, private localNotifications: LocalNotifications,private sms:SMS ,private socialSharing:SocialSharing, private db:DatabaseProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private contacts: Contacts, public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController, private localNotifications: LocalNotifications,private sms:SMS ,private socialSharing:SocialSharing, private db:DatabaseProvider, private backgroundMode: BackgroundMode) {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad PersonalizedPage');
@@ -178,10 +179,11 @@ export class PersonalizedPage {
  
   
   schedule(){
+
     
     let date = moment(this.chosenDate + " " + this.chosenTime).format('MMMM DD YYYY, h:mm:ss a');
    
-    console.log(date);
+    this.backgroundMode.enable();
     
    this.localNotifications.schedule({
      title:this.name ,

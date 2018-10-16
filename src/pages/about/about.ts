@@ -84,17 +84,11 @@ users
         this.sentMessages.push(obj);
      
         console.log(this.sentMessages);
-        //this.sentMessages=[];
+       
       };
     } else{
 
-      const alert = this.alertCtrl.create({
-            // title: 'Confirmation',
-            subTitle: 'YOU DONT HAVE MESSAGES SCHEDULED',
-            buttons: ['OK']
-          });
-          alert.present();
-      // alert("YOU DONT HAVE MESSAGES SCHEDULED")
+     document.getElementById("notsent").innerHTML="You currently don't have messages to review"
     }
     
    
@@ -108,79 +102,12 @@ users
   
 
   ionViewDidLoad() {
-    // var x = setInterval(()=> {
-    //   this.countDownDate = new Date(this.date).getTime();
-    //  // Get todays date and time
-    //  var now = new Date().getTime();
-    
-    //  // Find the distance between now and the count down date
-    //  var distance = this.countDownDate - now;
-    
-    //  // Time calculations for days, hours, minutes and seconds
-    //  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    //  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    //  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    //  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
-    //  // Display the result in the element with id="demo"
-    //  this.countDownDate = days + "d " + hours + "h "
-    //  + minutes + "m " + seconds + "s ";
-    // console.log(this.countDownDate);
-    
-    
-    // }, 10000);
+   
 
     console.log(this.date);
     console.log(this.chosenCategory);
     console.log(this.countDownDate);
     
-    
-    
-
-    // if("Birthday" ==this.chosenCategory){
-    //   this.cat="B";
-    //   document.getElementById("avatar").style.backgroundColor="yellow" ;
-
-    // }
-//       var countDownDate = new Date(this.date).getTime();
-
-// // Update the count down every 1 second
-// var x = setInterval(function() {
-
-//     // Get todays date and time
-//     var now = new Date().getTime();
-    
-//     // Find the distance between now and the count down date
-//     var distance = countDownDate - now;
-    
-//     // Time calculations for days, hours, minutes and seconds
-//     var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-//     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-//     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-//     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
-//     // Output the result in an element with id="demo"
-//    document.getElementById("demo").innerHTML = days + "d " + hours + "h "
-//     + minutes + "m " + seconds + "s ";
-
-//     this.countDown =days + "d " + hours + "h "
-//     + minutes + "m " + seconds + "s ";
-//     console.log(this.countDown);
-    
-    
-//     // If the count down is over, write some text 
-//     if (distance < 0) {
-//         clearInterval(x);
-//         document.getElementById("demo").innerHTML = "EXPIRED";
-//         this.countDown =days + "d " + hours + "h "
-//     + minutes + "m " + seconds + "s ";
-
-    
-//     }
-// }, 1000);
-
-
-
 if("Birthday" == this.chosenCategory){
   this.image ="../../assets/icon/icons8_Wedding_Cake_100px.png";
 }
@@ -211,7 +138,8 @@ else if("General" == this.chosenCategory ){
   this.image = "../../assets/icon/icons8_People_100px.png";
 
 }
-  }
+  
+}
   
 
 
@@ -302,7 +230,7 @@ else if("General" == this.chosenCategory ){
              this.sentMessages = [];
              firebase.database().ref('messagesent/'+userid).child(key).remove();
 
-             alert("sucess")
+            //  alert("sucess")
             }
             
             , (error)=>{
@@ -321,7 +249,7 @@ else if("General" == this.chosenCategory ){
          //this.db.sendviaWhatsApp(message ).then;
          this.db.sendviaWhatsApps(message).then(()=>{
           // console.log(this.dates);
-          alert(this.name)
+          // alert(this.name)
          this.db.sentMessage(message, this.cat, this.name).then(()=>{
           
          
@@ -395,10 +323,10 @@ else if("General" == this.chosenCategory ){
  
         // alert(a)
             this.sms.send(this.phoneNumber, a).then(()=>{
-                          alert('success')
+                          // alert('success')
                           this.icon="checkmark-circle";
                         } , (error)=>{
-                          alert(error)
+                          // alert(error)
  
                        })
  

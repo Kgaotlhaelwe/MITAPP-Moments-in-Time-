@@ -46,18 +46,7 @@ export class ProfilePage {
         this. name = profile.name
         this. email =profile.email ;
         this.profileimage=profile.profileimage
-       
- 
-        console.log(this.name);
-        console.log(this.email);
- 
- 
- 
- 
- 
- 
- 
-    })
+       })
     firebase.database().ref("Pic/"+this.users.uid).on('value', (data: any) => {
       var profilepic = data.val();
       console.log(this.profileimage);
@@ -222,15 +211,11 @@ export class ProfilePage {
 
     var users= firebase.auth().currentUser;
     this. userid=users.uid
+    
     firebase.database().ref("likedPictures/"+this.userid).on('value', 
-    
-    
-    
-    
-    
-    
     (data: any) => {
       var name = data.val();
+      this.favouriteArray=[];
         if (name !== null) {
           var keys: any = Object.keys(name);
           for (var i = 0; i < keys.length; i++) {
@@ -239,19 +224,22 @@ export class ProfilePage {
               key:k ,
               message:name[k].message,
               }
+              
             this.favouriteArray.push(obj);
             console.log(this.favouriteArray);
           };
         } else{
-          // const alert = this.alertCtrl.create({
-          //   title: 'Confirmation',
-          //   subTitle: 'YOUR DONT HAVE FAVOURITE CURRENTLY',
-          //   buttons: ['OK']
-          // });
-          //alert.present();
+ 
         }
+       
+
      })
   }
+  
+  
+  
+  
+  
   async takeApic(){
 
     try {

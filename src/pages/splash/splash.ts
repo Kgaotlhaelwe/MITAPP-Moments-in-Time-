@@ -17,17 +17,13 @@ import { LoginPage } from '../login/login';
 export class SplashPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.navToLogin()
+   
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SplashPage');
   }
 
-  navToLogin(){
-    setTimeout(()=>{
-      this.navCtrl.setRoot(LoginPage)
-    }, 5000)
-  }
 
+ 
 }

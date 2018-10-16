@@ -567,7 +567,7 @@ getFavourite(){
          
    }
        }else{
-         alert("YOU DONT FAV MESSAGE") ;
+        //  alert("YOU DONT FAV MESSAGE") ;
        }
  
       
@@ -674,7 +674,4 @@ sentMessage(message,a,name){
  
  
  }
-
-
- 
 }

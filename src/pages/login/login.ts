@@ -9,6 +9,7 @@ import { TabsPage } from '../tabs/tabs';
 //import { THIS_EXPR } from '../../../node_modules/@angular/compiler/src/output/output_ast';
 //import {HomePage} from '../home/home';
 import { MessagePage } from '../message/message';
+import { EventPage } from '../event/event';
 
 declare var firebase
 /**

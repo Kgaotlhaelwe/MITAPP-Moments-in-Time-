@@ -8,7 +8,7 @@ page-message {
  
     .item{
         position: relative;
-        top: 10px;
+        top: 50px;
         margin-top: 8%;
 
     }
@@ -45,10 +45,76 @@ page-message {
     }
     ion-title {
         position: relative;
-        left: -10%;
+        left: -6%;
+    }
+    textarea{
+        height: 15vh;
+        width: 50vh;
+    }
+    .textarea{
+        width: 100%;
+        border: 2px solid rgb(245, 244, 244)
+    }
+    // .input-cover{
+    //     width: 50vh
+    // }
+    //nexus10
+    @media only screen and (min-device-width:800px) and (max-device-width:1280px){
+        .list-ios > .item-block:first-child{
+            border-top: 0.55px solid rgba(0, 0, 0, 0);
+        }
+        .body{
+            position: relative;
+            top: 120px;
+        }
+     
+        .item{
+            position: relative;
+            top: 70px;
+            margin-bottom: 15% !important;
+
+    
+        }
+        .top{
+            position: relative;
+            top: 40px;
+            padding-left: 7%;
+            padding-right: 7%;
+            
+        }
+        h1{
+            position: relative;
+            top: -15px;
+            color: rgb(168, 164, 164);
+            text-align: center;
+            font-size: 2em;  
+            font-family: cursive;
+            margin-top: 10%;
+            // text-shadow: 2px 2px black
+            
+        }
+        .buttons{
+            position: relative;
+            top: 100px;
+            padding-left: 25px;
+            padding-right: 25px;
+            
+        }
+        .btn{
+            height: 35px;
+        }
+        ion-icon{
+         font-size: 40px;
+        }
+        ion-title {
+            position: relative;
+            left: -2%;
+        }
     }
 
     
- 
+ #btnz{
+     display: none;
+ }
     
 }

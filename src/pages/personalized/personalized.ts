@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,AlertController , ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,AlertController , ActionSheetController, ToastController,ModalController } from 'ionic-angular';
 import { MessagePage } from '../message/message';
 import { SMS } from '@ionic-native/sms';
 import { SocialSharing } from '@ionic-native/social-sharing';
@@ -12,7 +12,9 @@ import {DatabaseProvider} from '../../providers/database/database';
 import { LoginPage } from '../login/login';
 import { AboutPage } from '../about/about';
 import { BackgroundMode } from '@ionic-native/background-mode';
-
+import { EventPage } from '../event/event';
+import { Calendar } from '@ionic-native/calendar';
+import { ModalmessagePage } from '../modalmessage/modalmessage';
 @IonicPage()
 @Component({
   selector: 'page-personalized',
@@ -22,19 +24,18 @@ export class PersonalizedPage {
   phoneNumber ;
   peronalisedMsg
   message ;
-  countDownDate = this.navParams.get('countDownDate');
   chosenDate =this.navParams.get("chosenDate");
   chosenTime =this.navParams.get("chosenTime");
   name = this.navParams.get("name");
   categoryChosen = this.navParams.get("categoryChosen") ;
   date = new Date() ;
   image
-  constructor(public navCtrl: NavController, public navParams: NavParams, private contacts: Contacts, public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController, private localNotifications: LocalNotifications,private sms:SMS ,private socialSharing:SocialSharing, private db:DatabaseProvider, private backgroundMode: BackgroundMode) {
+  today
+  constructor(public navCtrl: NavController, public navParams: NavParams,public toastCtrl: ToastController  , private contacts: Contacts, public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController, private localNotifications: LocalNotifications,private sms:SMS ,private socialSharing:SocialSharing, private db:DatabaseProvider, private backgroundMode: BackgroundMode,private calendar: Calendar,public modalCtrl: ModalController) {
   }
   ionViewDidLoad() {
-    console.log('ionViewDidLoad PersonalizedPage');
-    console.log(this.countDownDate);
     
+    console.log('ionViewDidLoad PersonalizedPage');   
     console.log(this.chosenDate);
     console.log(this.chosenTime);
     console.log(this.name);
@@ -43,140 +44,53 @@ export class PersonalizedPage {
 
     if("Birthday" == this.categoryChosen){
       this.image ="../../assets/icon/icons8_Wedding_Cake_100px.png";
+      console.log(this.image );
+      
     }
-    else if("Graduation"== this.categoryChosen ){
+    else if("Graduations"== this.categoryChosen ){
       this.image ="../../assets/icon/icons8_Graduation_Cap_100px.png" ;
+      console.log(this.image );
 
     }else if("Baby Shower" == this.categoryChosen ){
       this.image = "../../assets/icon/icons8_Pram_100px.png";
+      console.log(this.image );
 
     }
-    else if("New Job" == this.categoryChosen ){
+    else if("New Jobs" == this.categoryChosen ){
       this.image = "../../assets/icon/icons8_Briefcase_100px.png";
+      console.log(this.image );
 
     }
     else if("Anniversary" == this.categoryChosen ){
       this.image ="../../assets/icon/icons8_Wedding_Gift_96px.png";
+      console.log(this.image );
 
     }
-    else if("Wedding" == this.categoryChosen ){
+    else if("Weddings" == this.categoryChosen ){
       this.image = "../../assets/icon/icons8_Diamond_Ring_100px.png";
+      console.log(this.image );
 
     }
     else if("Thinking of you" == this.categoryChosen ){
       this.image = " ../../assets/icon/icons8_Collaboration_Female_Male_100px_1.png";
+      console.log(this.image );
 
     }
     else if("General" == this.categoryChosen ){
       this.image = "../../assets/icon/icons8_People_100px.png";
+      console.log(this.image );
 
     }
  
   }
   
   back(){
-    this.navCtrl.push(MessagePage);
+    this.navCtrl.pop();
   }
   
-  contactss(){
-    this.contacts.pickContact().then((data:any)=>{
-    console.log(data);
+
  
-     this.phoneNumber=(data.phoneNumbers[0].value);
-   this.name=(data.displayName);
-   } , (error)=>{
-     alert(error)
-   })
-  }
-  sendviaWhatsApp(){
-    this.socialSharing.shareViaWhatsApp(this.message , null , null).then((data)=>{
-      console.log(data);
-      
- 
-    } , (error)=>{
- 
-    })
- 
-  }
-  sendviaFacebook(){
-    this.socialSharing.shareViaFacebook(this.message , null , null).then(()=>{} , (error)=>{})
-  }
-  sendViaemail(){
-    this.socialSharing.shareViaEmail(this.message ,null ,null).then(()=>{
-      
-    } , 
-    
-    (error)=>{
-    })
-  }
-  sendvia() {
-    const actionSheet = this.actionSheetCtrl.create({
-      title: 'Send Via',
-      buttons: [
-        {
-          text: 'SMS',
-          role: 'destructive',
-          handler: () => {
-            this.contactss();
-          }
-        },
-        {
-          text: 'Email',
-          role: 'destructive',
-          handler: () => {
-            this.sendViaemail();
-            
-          }
-        },
-        
-        {
-          text: 'WhatsAPP',
-          handler: () => {
-         
-         this.sendviaWhatsApp();
-          }
-        },{
-          text: 'Facebook',
-          role: 'cancel',
-          handler: () => {
-           this.sendviaFacebook() ;
-          }
-        }
-      ]
-    });
- actionSheet.present();
-    setTimeout(()=>{ this.showConfirm() }, 10000);
-  }
- 
-  showConfirm() {
-    const confirm = this.alertCtrl.create({
-      title: this.name,
-      message: this.phoneNumber,
-      buttons: [
-        {
-          text: 'Disagree',
-          handler: () => {
-            console.log('Disagree clicked');
-          }
-        },
-        {
-          text: 'Set Rimender',
-          handler: () => {
-           
-            this.sms.send(this.phoneNumber, this.message).then(()=>{
-                        } , (error)=>{
-                          //alert(error)
-            
-                       }) 
- 
- 
-          }
-        }
-      ]
-    });
-    confirm.present(); 
-  }
- 
+
   
   schedule(){
 
@@ -191,8 +105,45 @@ export class PersonalizedPage {
      icon: "../../assets/icon/splashM.png" ,
      trigger: {at: new Date(new Date(date) )} ,
    })
+   
+   this.today =new Date(this.chosenDate.toString())
+   let options = { firstReminderMinutes: 15 };
+
+     this.calendar.createEventWithOptions(this.name, '', this.categoryChosen, this.today, this.today, options).then(res => {
+      }, err => {
+        console.log('err: ', err);
+      });
+  //  this.calendar.createEvent(this.name,"", "Please go to the MIT app",this.today,this.today ).then(()=>{
+  //  })
+
+
+
+
    this.db.saveSentMessages(this.name ,this.message, this.chosenDate,this.image).then(()=>{} , (error)=>{})
-   this.navCtrl.push(AboutPage,{date:date, name:this.name, countDownDate:this.countDownDate,  chosenCategory:this.categoryChosen})
+  
+    const modal = this.modalCtrl.create(ModalmessagePage);
+    modal.present();
+  }
 
   }
-}
+
+//   ngAfterViewInit() {
+//     let tabs = document.querySelectorAll('.show-tabbar');
+//     if (tabs !== null) {
+//         Object.keys(tabs).map((key) => {
+//             tabs[key].style.display = 'none';
+//         });
+//     }
+//   }
+
+//   ionViewWillLeave() {
+//   let tabs = document.querySelectorAll('.show-tabbar');
+//   if (tabs !== null) {
+//       Object.keys(tabs).map((key) => {
+//           tabs[key].style.display = 'flex';
+//       });
+
+//   }
+// }
+
+

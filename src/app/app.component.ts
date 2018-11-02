@@ -13,6 +13,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { EventPage } from '../pages/event/event';
 import { SplashPage } from '../pages/splash/splash';
 import { timer } from 'rxjs/observable/timer'
+import { MessagePage } from '../pages/message/message';
 @Component({
   templateUrl: 'app.html'
 })

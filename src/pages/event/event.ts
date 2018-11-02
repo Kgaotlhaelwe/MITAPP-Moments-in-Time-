@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,PopoverController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,PopoverController, ModalController} from 'ionic-angular';
 import {DatabaseProvider} from '../../providers/database/database' ;
 import { AutomatePage } from '../automate/automate';
 import { MessagePage } from '../message/message';
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { ActionSheetController } from 'ionic-angular';
 import { PopoverPage } from '../popover/popover';
+import { ModalmessagePage } from '../modalmessage/modalmessage';
 
 /**
  * Generated class for the EventPage page.
@@ -24,7 +25,7 @@ export class EventPage {
   msgz =[]
 
   indx =1
-  constructor(public navCtrl: NavController, public navParams: NavParams, private db:DatabaseProvider,public popoverCtrl: PopoverController, private socialSharing: SocialSharing, public actionSheetCtrl: ActionSheetController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db:DatabaseProvider,public popoverCtrl: PopoverController, private socialSharing: SocialSharing, public actionSheetCtrl: ActionSheetController,public modalCtrl: ModalController) {
     this.db.getMessages().then((data:any)=>{
       this.mesaagesArray=data
 
@@ -39,13 +40,17 @@ export class EventPage {
   }
 
   ionViewDidLoad() {
+   
     console.log('ionViewDidLoad EventPage');
   }
   graduation(a){
+
     this.db.GraduationMessages().then((data:any)=>{
     
       console.log(data);
-      this.navCtrl.push(MessagePage  , {graduationMsg:data,categoryChosen:a} )
+      // this.navCtrl.push(MessagePage  , )
+      const modal = this.modalCtrl.create(MessagePage,{graduationMsg:data,categoryChosen:a});
+      modal.present();
       
     } , (error)=>{})
     
@@ -56,7 +61,10 @@ export class EventPage {
         this.db.weddingMessage().then((data:any)=>{
     
           console.log(data);
-          this.navCtrl.push(MessagePage  , {graduationMsg:data,categoryChosen:a} )
+          // this.navCtrl.push(MessagePage  )
+          const modal = this.modalCtrl.create(MessagePage , {graduationMsg:data,categoryChosen:a});
+          modal.present();
+      
           
         } , (error)=>{})
         
@@ -66,7 +74,10 @@ export class EventPage {
         this.db.anniversaryMessage().then((data:any)=>{
     
           console.log(data);
-          this.navCtrl.push(MessagePage  , {graduationMsg:data ,categoryChosen:a} )
+          // this.navCtrl.push(MessagePage   )
+          const modal = this.modalCtrl.create(MessagePage, {graduationMsg:data ,categoryChosen:a});
+          modal.present();
+      
           
         } , (error)=>{})
         
@@ -76,7 +87,10 @@ export class EventPage {
         this.db.newJobMessage().then((data:any)=>{
     
           console.log(data);
-          this.navCtrl.push(MessagePage  , {graduationMsg:data , categoryChosen:a} )
+          // this.navCtrl.push(MessagePage )
+          const modal = this.modalCtrl.create(MessagePage , {graduationMsg:data , categoryChosen:a} );
+          modal.present();
+        
           
         } , (error)=>{})
         
@@ -86,7 +100,10 @@ export class EventPage {
         this.db.babyShowerMessages().then((data:any)=>{
     
           console.log(data);
-          this.navCtrl.push(MessagePage  , {graduationMsg:data, categoryChosen:a} )
+          // this.navCtrl.push(MessagePage  )
+          const modal = this.modalCtrl.create(MessagePage , {graduationMsg:data, categoryChosen:a});
+          modal.present();
+        
           
         } , (error)=>{})
         
@@ -97,7 +114,10 @@ export class EventPage {
         this.db.birthdayMessages().then((data:any)=>{
     
           console.log(data);
-          this.navCtrl.push(MessagePage  , {graduationMsg:data ,categoryChosen:a} )
+          // this.navCtrl.push(MessagePage )
+          const modal = this.modalCtrl.create(MessagePage , {graduationMsg:data ,categoryChosen:a} );
+          modal.present();
+       
           
         } , (error)=>{})
         
@@ -105,7 +125,10 @@ export class EventPage {
       }
       thinkingofyou(a){
         this.db.thinkingofyou().then((data:any)=>{
-          this.navCtrl.push(MessagePage  , {graduationMsg:data ,categoryChosen:a} )
+          // this.navCtrl.push(MessagePage  )
+          const modal = this.modalCtrl.create(MessagePage , {graduationMsg:data ,categoryChosen:a});
+          modal.present();
+        
  
         })
  
@@ -115,9 +138,13 @@ export class EventPage {
         this.db.General().then((data:any)=>{
  
           console.log(data);
-          this.navCtrl.push(MessagePage  , {graduationMsg:data ,categoryChosen:a} )
+          // this.navCtrl.push(MessagePage )
+          const modal = this.modalCtrl.create(MessagePage  , {graduationMsg:data ,categoryChosen:a});
+          modal.present();
+          
  
         } , (error)=>{})
+     
  
  
       }

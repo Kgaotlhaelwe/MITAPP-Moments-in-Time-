@@ -41,7 +41,8 @@ export class RegisterPage {
     if(this.user.email !=null  && this.user.password  !=null  ){
     this.db.register(user.email ,user.password, user.name,user.image ).then(()=>{
       const toast = this.toastCtrl.create({
-        message: 'Successfully Registered',
+        message: 'Thank you. You have been successfully Registered',
+        cssClass:'toast3' ,
         duration: 3000,
         position: 'end'
       });

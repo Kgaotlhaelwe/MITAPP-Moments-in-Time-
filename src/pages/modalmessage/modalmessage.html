@@ -1,0 +1,30 @@
+<!--
+  Generated template for the ModalmessagePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-toolbar color="b" >
+        <ion-buttons left>
+           <button ion-button icon-only color="light" (click)="back()">
+             <ion-icon name="arrow-round-back"></ion-icon>
+           </button>
+         </ion-buttons>
+    <ion-title>Saved message</ion-title>
+  </ion-toolbar >
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="body">
+<h1 text-center>The message has been scheduled on the review page and<br/> on your phone calender.</h1>
+<br> <br>
+<ion-icon class="con" ios="ios-calendar" md="md-calendar"></ion-icon>
+<br><br>
+<button ion-button color="b" full round (click)="poptoevent()">Ok</button>
+ </div>
+</ion-content>
+

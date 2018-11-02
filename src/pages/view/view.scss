@@ -1,3 +1,49 @@
 page-view {
+    .background{
+         background-color: rgb(240, 240, 240);
+
+    }
+
+    .items{
+        text-align: center;
+        border-radius: 25%;
+         background-color: red;
+        position: relative;
+        
+    }
+    ion-title{
+        text-align: center;
+        position: relative;
+        left: -5px;
+    }
+
+    .image{
+        position: relative;
+        top: -20px;
+
+    }
+ 
+    .body{
+        position: relative;
+        top: 10px;
+
+    }
+    ion-avanter{
+        width: 100px;
+    }
+    .input-wrapper{
+        background-color: white;
+        border-radius: 10px
+
+    }
+    .item-md{
+        background-color: rgb(240, 240, 240);
+        padding: 0%
+    }
+    .item-md.item-block .item-inner{
+        padding: 0%
+    }
+ 
+    
 
 }

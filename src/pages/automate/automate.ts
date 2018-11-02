@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ActionSheetController } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, AlertController, ActionSheetController, Tabs,ModalController,ViewController } from 'ionic-angular';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { SMS } from '@ionic-native/sms';
@@ -7,6 +7,14 @@ import { Contacts } from '@ionic-native/contacts';
 import * as moment from 'moment';
 import { AboutPage } from '../about/about';
 import { DatabaseProvider } from '../../providers/database/database';
+import { TabsPage } from '../tabs/tabs';
+import { EventPage } from '../event/event';
+import { Calendar } from '@ionic-native/calendar';
+import { ToastController } from 'ionic-angular';
+import { ModalmessagePage } from '../modalmessage/modalmessage';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { MessagePage } from '../message/message';
+
 /**
  * Generated class for the AutomatePage page.
  *
@@ -20,12 +28,14 @@ import { DatabaseProvider } from '../../providers/database/database';
   templateUrl: 'automate.html',
 })
 export class AutomatePage {
+
+@ViewChild('baseTabs') tabsRef : Tabs;
   phoneNumber ;
- // name ;
   peronalisedMsg
-  //sms ;
   graduation = this.navParams.get("graduation")
+
   message ;
+  today
 
   date = new Date() ;
   countDownDate = this.navParams.get("countDownDate")
@@ -36,7 +46,8 @@ export class AutomatePage {
   categoryChosen = this.navParams.get("categoryChosen") ;
 
   image ;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController, private localNotifications: LocalNotifications,private sms:SMS, private contacts: Contacts, private db:DatabaseProvider ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController, private localNotifications: LocalNotifications,private sms:SMS, private contacts: Contacts, private db:DatabaseProvider, private calendar:Calendar,public toastCtrl: ToastController,public modalCtrl: ModalController, public viewCtrl: ViewController ) {
+  
   }
 
   ionViewDidLoad() {
@@ -44,34 +55,44 @@ export class AutomatePage {
 
     console.log(this.graduation);
 
+    
     if("Birthday" == this.categoryChosen){
       this.image ="../../assets/icon/icons8_Wedding_Cake_100px.png";
+      console.log(this.image );
+      
     }
-    else if("Graduation"== this.categoryChosen ){
+    else if("Graduations"== this.categoryChosen ){
       this.image ="../../assets/icon/icons8_Graduation_Cap_100px.png" ;
+      console.log(this.image );
 
     }else if("Baby Shower" == this.categoryChosen ){
       this.image = "../../assets/icon/icons8_Pram_100px.png";
+      console.log(this.image );
 
     }
-    else if("New Job" == this.categoryChosen ){
+    else if("New Jobs" == this.categoryChosen ){
       this.image = "../../assets/icon/icons8_Briefcase_100px.png";
+      console.log(this.image );
 
     }
     else if("Anniversary" == this.categoryChosen ){
       this.image ="../../assets/icon/icons8_Wedding_Gift_96px.png";
+      console.log(this.image );
 
     }
-    else if("Wedding" == this.categoryChosen ){
+    else if("Weddings" == this.categoryChosen ){
       this.image = "../../assets/icon/icons8_Diamond_Ring_100px.png";
+      console.log(this.image );
 
     }
     else if("Thinking of you" == this.categoryChosen ){
       this.image = " ../../assets/icon/icons8_Collaboration_Female_Male_100px_1.png";
+      console.log(this.image );
 
     }
     else if("General" == this.categoryChosen ){
       this.image = "../../assets/icon/icons8_People_100px.png";
+      console.log(this.image );
 
     }
   }
@@ -90,32 +111,25 @@ export class AutomatePage {
 
   autoMessagessssss(message){
 
-   let date = moment(this.chosenDate + " " + this.chosenTime).format('MMMM DD YYYY, h:mm:ss a');
-  // nnnnn
-     console.log(date);
-
-      // const alert = this.alertCtrl.create({
-      //       title: 'Confirmation',
-      //       subTitle: message,
-      //       buttons: ['OK']
-      //     });
-      //     alert.present();
+   console.log(message);
    
-    
+   let obj = {message:message}
 
+   arry.push(obj)
 
- this.localNotifications.schedule({
-  title:this.name ,
-  text: this.categoryChosen,
-  icon: 'http://example.com/icon.png' ,
-  trigger: {at: new Date(new Date(date) )} ,
- })
+   console.log(arry);
+
+   this.navCtrl.popTo(MessagePage)
+   
+
  
-    this.db.saveSentMessages(this.name ,message, this.chosenDate, this.image).then(()=>{}, (error)=>{}) ;
-   
-    this.navCtrl.push(AboutPage,{message:message, countDownDate:this.countDownDate, name:this.name})
-
 }
+   
+
+
+  
+
+
     showConfirm() {
       const confirm = this.alertCtrl.create({
         title: this.name,
@@ -147,10 +161,31 @@ export class AutomatePage {
         ]
       });
       confirm.present();
+
+      
       
     }
+    back(){
+      this.navCtrl.pop();
+    }
 
-
+    // ngAfterViewInit() {
+    //   let tabs = document.querySelectorAll('.show-tabbar');
+    //   if (tabs !== null) {
+    //       Object.keys(tabs).map((key) => {
+    //           tabs[key].style.display = 'none';
+    //       });
+    //   }
+    // }
   
 
+  
 }
+
+
+
+var arry = [] ;
+
+export default arry ;
+
+

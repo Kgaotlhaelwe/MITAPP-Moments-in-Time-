@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController,AlertController, ModalController } from 'ionic-angular';
+import { NavController,AlertController, ModalController, NavParams } from 'ionic-angular';
 import { ViewPage } from '../view/view';
 import { InfosentPage } from '../infosent/infosent';
+import { SplashPage } from '../splash/splash';
 
 declare var firebase
 
@@ -12,18 +13,74 @@ declare var firebase
 })
 export class ContactPage {
 
+
   sentMessages = []
   notsend ;
+  image ;
+  hasMessages : boolean = false;
+  chosenCategory = this.navParams.get("chosenCategory");
 
-  constructor(public navCtrl: NavController , private alertCtrl :AlertController,public modalCtrl: ModalController) {
-    this.sentMessages=[];
+  constructor(public navCtrl: NavController , public navParams: NavParams,private alertCtrl :AlertController,public modalCtrl: ModalController) {
+    if("Birthday" == this.chosenCategory){
+      this.image ="../../assets/icon/icons8_Wedding_Cake_100px.png";
+    }
+    else if("Graduation"== this.chosenCategory ){
+      this.image ="../../assets/icon/icons8_Graduation_Cap_100px.png" ;
+    }else if("Baby Shower" == this.chosenCategory ){
+      this.image = "../../assets/icon/icons8_Pram_100px.png";
+    }
+    else if("New Job" == this.chosenCategory ){
+      this.image = "../../assets/icon/icons8_Briefcase_100px.png";
+    }
+    else if("Anniversary" == this.chosenCategory ){
+      this.image ="../../assets/icon/icons8_Wedding_Gift_96px.png";
+    }
+    else if("Weddings" == this.chosenCategory ){
+      this.image = "../../assets/icon/icons8_Diamond_Ring_100px.png";
+    }
+    else if("Thinking of you" == this.chosenCategory ){
+      this.image = " ../../assets/icon/icons8_Collaboration_Female_Male_100px_1.png";
+    }
+    else if("General" == this.chosenCategory ){
+      this.image = "../../assets/icon/icons8_People_100px.png";
+    }
+  
+  }
+  readMore(msg, name ){
+
+    let obj = {
+      message:msg ,
+      name:name ,
+      // image:image
+     
+}
+    this.navCtrl.push(SplashPage ,{message:obj} )
+
+  }
+
+  Delete(key){
+    this.sentMessages = [];
+   var users= firebase.auth().currentUser;
+   var userid=users.uid
+    
+   
+    firebase.database().ref('Testingmsg/'+userid).child(key).remove();
+  }
+  
+  presentModal() {
+    const modal = this.modalCtrl.create(InfosentPage);
+    modal.present();
+  }
+
+  ionViewWillEnter(){
+   
 
     var users= firebase.auth().currentUser;
     console.log(users.uid);
-    firebase.database().ref("sentMessages/"+users.uid).on('value', (data: any) => {
+    firebase.database().ref("Testingmsg/"+users.uid).on('value', (data: any) => {
     var name = data.val();
    
-   
+    this.sentMessages=[];
       if (name !== null) {
    
    
@@ -45,22 +102,20 @@ export class ContactPage {
           console.log(this.sentMessages);
          
         };
+        if(this.sentMessages.length > 0){
+          this.hasMessages = true;
+        }
       } else{
-
-        document.getElementById("notsent").innerHTML="You do not have sent messages currently"
+          this.hasMessages =  false;
       }
 
    
    
    })
   }
-  readMore(message){
-    this.navCtrl.push(ViewPage ,{message:message} )
 
-  }
-  presentModal() {
-    const modal = this.modalCtrl.create(InfosentPage);
-    modal.present();
-  }
+  
+
+  
   }
 

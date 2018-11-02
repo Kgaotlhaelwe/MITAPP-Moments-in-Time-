@@ -7,26 +7,79 @@
 <ion-header>
 
   <ion-navbar color="b">
-    <ion-title>personalisedcard</ion-title>
+    <ion-title>Personalised card</ion-title>
   </ion-navbar>
 
 </ion-header>
 
+<!-- <ion-toolbar id="top-toolbar" > -->
+    
+<!--    
+    <ion-buttons right> -->
+        <!-- <button style="border: 1px solid #e76f6f;" ion-button icon-only style.color="#fff" (click)="changeColour('#fff')">
+            <ion-icon style="color: #fff;" name="square"></ion-icon> -->
+        <!-- </button> -->
+    <!-- </ion-buttons>
+ </ion-toolbar> -->
 
 <ion-content >
-  <div  >
-    <canvas-draw id="mycanvas"></canvas-draw>
-  </div>
 
+  
+       
+       
+       <canvas class="canvas"  #myCanvas (touchstart)="handleStart($event)" (touchmove)="handleMove($event)" >
+          <canvas-draw >
+              
+               </canvas-draw>   
+   </canvas>  
+ 
+  
+      
+  <!-- <h1 [ngStyle]="myObj">dsfdsfds</h1> -->
 
-  <button (click)="saveImage()">saveimage</button>
-
-
-  <div>
-
-   <img src="" id="output">
-  </div>
-        
-    
 
 </ion-content>
+
+<ion-footer class="footer">
+        <div class="flex">
+                <ion-item >
+                       <ion-input type="text" placeholder="Please type your text " [(ngModel)]="textz"></ion-input>
+                     </ion-item>
+                   
+                <button ion-button  color="b" (click)="text()">Send</button>
+                <!-- <button ion-button  color="b" (click)="text1()">text</button> -->
+               </div>
+    <ion-toolbar id="bottom-toolbar" color="b" >
+       <ion-buttons left>
+           <button ion-button  icon-only (click)="back()"><ion-icon ios="ios-color-palette" md="md-color-palette"></ion-icon></button>
+            <button *ngFor="let colour of availableColours" icon-only ion-button (click)="changeColour(colour)"> 
+             <ion-icon [style.color]="colour" name="brush"></ion-icon>
+            </button>
+            <!-- <button ion-button  icon-only (click)="font()" >  <ion-icon ios="logo-tumblr" md="logo-tumblr"></ion-icon></button> -->
+            <!-- <button ion-button  icon-only (click)="fontsize()" >  <ion-icon ios="logo-tumblr" md="logo-tumblr"></ion-icon></button> -->
+        </ion-buttons>
+        <ion-buttons right>
+            <button  ion-button icon-only (click)="clearCanvas()">  <ion-icon ios="ios-trash" md="md-trash"></ion-icon></button>
+            <button ion-button right (click)="savePad()">Save</button>
+        </ion-buttons>
+
+
+
+           <!-- <button color="light" ion-button icon-only (click)="changeSize(5)"><ion-icon style="font-size: 0.25em;" name="radio-button-on"></ion-icon></button>
+           <button color="light" ion-button icon-only (click)="changeSize(10)"><ion-icon style="font-size: 0.5em;" name="radio-button-on"></ion-icon></button> -->
+           <!-- <button color="light" ion-button icon-only (click)="changeSize(20)"><ion-icon style="font-size: 1em;" name="radio-button-on"></ion-icon></button>
+           <button color="light" ion-button icon-only (click)="changeSize(50)"><ion-icon style="font-size: 2em;" name="radio-button-on"></ion-icon></button>
+           <button color="light" ion-button icon-only (click)="changeSize(100)"><ion-icon style="font-size: 3em;" name="radio-button-on"></ion-icon></button> -->
+     
+       
+      
+      
+    </ion-toolbar>
+
+          <!-- <div class="flex">
+    <button ion-button  full (click)="savePad()">Save</button>
+
+   </div> -->
+
+   
+   </ion-footer>

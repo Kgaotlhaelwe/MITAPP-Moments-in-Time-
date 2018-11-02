@@ -15,13 +15,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ViewPage {
 
-  message = this.navParams.get("message");
-
+message =this.navParams.get("message");
+msg ;
+name;
+image;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.msg =this.message.message;
+    this.name =this.message.name;
+    this.image=this.message.image;
+    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ViewPage');
+    console.log(this.message);
+   
   }
 
 }

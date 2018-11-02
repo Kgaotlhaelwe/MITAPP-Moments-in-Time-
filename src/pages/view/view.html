@@ -7,20 +7,31 @@
 <ion-header>
 
   <ion-navbar color="b" >
-    <ion-title>view</ion-title>
+    <ion-title>{{name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-  <!-- <ion-card>
-    <ion-content>
-       {{message}}
+<ion-content padding class="background" >
+  <div class="body" >
+    <ion-list>
+      <ion-item  >
+        <ion-avatar item-start  class="image" >
+            <img src="{{image}} "  alt="{{name}}">
+        </ion-avatar>
+        <!-- <h2>{{name}}</h2> -->
+        <ion-item  text-wrap class="items">
+           <p padding>{{msg}}</p>
+        </ion-item>
+       
+      </ion-item>
+    </ion-list>
+  </div>
+  
 
-       {{automessage}}
-    </ion-content>
-  </ion-card> -->
-  {{message}}
+
+ 
+
  
 </ion-content>

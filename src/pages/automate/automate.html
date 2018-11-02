@@ -7,11 +7,14 @@
 
 
 <ion-header>
-
-  <ion-navbar color="b">
-    <ion-title>Automated messages</ion-title>
-  </ion-navbar>
-
+    <ion-toolbar color="b"   >
+        <ion-buttons left>
+           <button ion-button icon-only color="light" (click)="back()">
+             <ion-icon name="arrow-round-back"></ion-icon>
+           </button>
+         </ion-buttons>  
+         <ion-title>Automated messages</ion-title>
+   </ion-toolbar>
 </ion-header>
 
 <ion-content padding  class="background">

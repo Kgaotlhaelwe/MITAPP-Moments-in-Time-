@@ -10,6 +10,14 @@ import { TabsPage } from '../tabs/tabs';
 import { EventPage } from '../event/event';
 import *as moment from 'moment'
 
+import { LocalNotifications } from '@ionic-native/local-notifications';
+import { Calendar } from '@ionic-native/calendar';
+import { BackgroundMode } from '@ionic-native/background-mode';
+import {DatabaseProvider} from '../../providers/database/database';
+import arry from '../automate/automate'
+import { ModalmessagePage } from '../modalmessage/modalmessage';
+import { LoginPage } from '../login/login';
+
 /**
  * Generated class for the MessagePage page.
  *
@@ -23,38 +31,156 @@ import *as moment from 'moment'
   templateUrl: 'message.html',
 })
 export class MessagePage {
+
   graduationMsg = this.navParams.get("graduationMsg");
   weddingMsg = this.navParams.get("weddingMsg");
   newJobMsg = this.navParams.get("newJobMsg");
   birthdayMsg = this.navParams.get("birthdayMsg");
   babyShowerMsg = this.navParams.get("babyShowerMsg");
   anniversaryMsg = this.navParams.get("anniversaryMsg");
-
+  modalMessage = this.navParams.get("modalMessage");
   peronalisedMsg = this.navParams.get("peronalisedMsg") ;
 
   categoryChosen = this.navParams.get("categoryChosen") ;
 
 phoneNumber;
-name;
-date
-time ;
+name =this.navParams.get("name");;
+date=this.navParams.get("date");
+time =this.navParams.get("time");
 countDownDate;
+messageType ;
+today ;
+messagez ;
+image ;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController,public modalCtrl: ModalController,public alertCtrl: AlertController ,private sms: SMS , private socialSharing: SocialSharing,private contacts: Contacts) {
+messagezz ;
+// name1 =this.navParams.get("name1"); ;
+date1 ;
+
+messageArry = arry ;
+personalisedMessage :boolean =false ;
+autoMessage :boolean =false ;
+automsg ;
+saveMessage ;
+  constructor(public navCtrl: NavController, public navParams: NavParams,public actionSheetCtrl: ActionSheetController,public alertCtrl: AlertController ,private sms: SMS , private socialSharing: SocialSharing,private contacts: Contacts,public modalCtrl: ModalController, private localNotifications: LocalNotifications,  private backgroundMode: BackgroundMode,  private db:DatabaseProvider ,private calendar: Calendar) {
+  
+  
+   
   }
 
-  ionViewDidLoad() {
+  ionViewDidEnter() {
     console.log('ionViewDidLoad MessagePage');
     console.log(this.graduationMsg);
-
     console.log(this.peronalisedMsg);
     console.log(this.categoryChosen);
+    console.log(this.modalMessage);
+    console.log(this.messageArry);
+    
+if(this.messageArry.length ==1){
+  this.automsg =this.messageArry[0].message
+  console.log(this.messageArry);
+  
+  this.messageArry.splice(0,this.messageArry.length)
+}
+    
+
+
     
     
+    
+    if(this.messageType =='a'){
+      const modal = this.modalCtrl.create(AutomatePage , {graduation:this.graduationMsg, chosenDate:this.date , chosenTime:this.time, name:this.name ,categoryChosen:this.categoryChosen,  countDownDate:this.countDownDate});
+      modal.present();
+
+    }
+
+
+
+    if("Birthday" == this.categoryChosen){
+      this.image ="../../assets/icon/icons8_Wedding_Cake_100px.png";
+      console.log(this.image );
+      
+    }
+    else if("Graduations"== this.categoryChosen ){
+      this.image ="../../assets/icon/icons8_Graduation_Cap_100px.png" ;
+      console.log(this.image );
+
+    }else if("Baby Shower" == this.categoryChosen ){
+      this.image = "../../assets/icon/icons8_Pram_100px.png";
+      console.log(this.image );
+
+    }
+    else if("New Jobs" == this.categoryChosen ){
+      this.image = "../../assets/icon/icons8_Briefcase_100px.png";
+      console.log(this.image );
+
+    }
+    else if("Anniversary" == this.categoryChosen ){
+      this.image ="../../assets/icon/icons8_Wedding_Gift_96px.png";
+      console.log(this.image );
+
+    }
+    else if("Weddings" == this.categoryChosen ){
+      this.image = "../../assets/icon/icons8_Diamond_Ring_100px.png";
+      console.log(this.image );
+
+    }
+    else if("Thinking of you" == this.categoryChosen ){
+      this.image = " ../../assets/icon/icons8_Collaboration_Female_Male_100px_1.png";
+      console.log(this.image );
+
+    }
+    else if("General" == this.categoryChosen ){
+      this.image = "../../assets/icon/icons8_People_100px.png";
+      console.log(this.image );
+
+    }
+ 
   }
   
+  
+  chooseMessageType(){
+    const prompt = this.alertCtrl.create({
+      title: 'Message Type',
+    
+     
+      buttons: [
+        {
+          text: 'Personalised',
+          handler: data => {
+            console.log('Cancel clicked');
+
+           this.personalisedMessage=true ;
+
+           document.getElementById("btnz").style.display="block" ;
+           document.getElementById("btnMessageType").style.display="none"
+          }
+        },
+        {
+          text: 'Automated',
+          handler: data => {
+           
+           
+            
+             this.autoMessage =true ;
+            
+             document.getElementById("btnz").style.display="block" ;
+              document.getElementById("btnMessageType").style.display="none"
+              this.navCtrl.push(AutomatePage,{graduation:this.graduationMsg, chosenDate:this.date , chosenTime:this.time, name:this.name ,categoryChosen:this.categoryChosen,  countDownDate:this.countDownDate}) ;
+        
+            }
+
+
+          
+        }
+      ]
+    });
+    prompt.present();
+
+  }
 
   chooseDate(){
+    
 
     let d = new Date();
     var day = d.getDate();
@@ -64,106 +190,133 @@ countDownDate;
     var minute = d.getMinutes();
     var second = d.getSeconds();
     var today = year + "-" + '0' + month + "-" +  day + "T" + hour +":"+ minute +":"+ second;
-    // this.countDown= moment(this.date).fromNow();
+  
     console.log(today);
     console.log(this.date);
-    console.log(this.countDownDate);
+
  
- if( this.date == undefined){
+ if( this.date == undefined  ){
   
-  const alert = this.alertCtrl.create({
-    title: 'Alert',
-    subTitle: "You need to set date and time",
-    buttons: ['OK']
+      const alert = this.alertCtrl.create({
+
+        subTitle: "Please enter all details",
+         buttons: ['OK']
   });
   alert.present();
+
+ }
+
+ else if (this.name ==undefined){
+  const alert = this.alertCtrl.create({
+
+    subTitle: "Please fill in the name",
+     buttons: ['OK']
+});
+alert.present();
+
  }
 else if (this.date < today){
   const alert = this.alertCtrl.create({
-    title: 'Alert',
-    subTitle: "wrong date",
+  
+    subTitle: "You have selected the previous year, please select current year or greater.",
     buttons: ['OK']
   });
   alert.present();
 }
 
 else{
-  this.message() ;}
+  //this.message() ;}
 
- 
-  var x = setInterval(()=> {
-     this.countDownDate = new Date(this.date).getTime();
-    // Get todays date and time
-    var now = new Date().getTime();
-   
-    // Find the distance between now and the count down date
-    var distance = this.countDownDate - now;
-   
-    // Time calculations for days, hours, minutes and seconds
-    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-   
-    // Display the result in the element with id="demo"
-    this.countDownDate = days + "d " + hours + "h "
-    + minutes + "m " + seconds + "s ";
-   console.log(this.countDownDate);
-   
-   
-   }, 10000);
+}
+}
+  
+back(){
+  this.navCtrl.pop()
+}
+
+// ngAfterViewInit() {
+//   let tabs = document.querySelectorAll('.show-tabbar');
+//   if (tabs !== null) {
+//       Object.keys(tabs).map((key) => {
+//           tabs[key].style.display = 'none';
+//       });
+//   }
+// }
+// ionViewWillLeave() {
+//   let tabs = document.querySelectorAll('.show-tabbar');
+//   if (tabs !== null) {
+//       Object.keys(tabs).map((key) => {
+//           tabs[key].style.display = 'flex';
+//       });
+
+//   }
+// }
+
+
+  
+
+schedule(autoMessage , personalisedMessage){
+
+  if(this.name !=undefined && this.time !=undefined && this.date !=undefined){
+    if(this.automsg == autoMessage && this.automsg !=undefined ){
+      this.saveMessage =autoMessage ;
+    }else{
+      this.saveMessage =personalisedMessage
+  
     }
   
-  message() {
-    const actionSheet = this.actionSheetCtrl.create({
-      title: 'Choose message type',
-      buttons: [
-        {
-          text: 'Personalize Message',
-          handler: () => {
-           
-            this.navCtrl.push(PersonalizedPage ,{chosenDate:this.date , chosenTime:this.time, name:this.name ,categoryChosen:this.categoryChosen, countDownDate:this.countDownDate}) ;
-          }
-        },{
-          text: 'Automated Message',
-          handler: () => {
-          
-            this.navCtrl.push(AutomatePage , {graduation:this.graduationMsg, chosenDate:this.date , chosenTime:this.time, name:this.name ,categoryChosen:this.categoryChosen,  countDownDate:this.countDownDate})
-          }
-        },{
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        }
-      ]
-    });
-    actionSheet.present();
-  }
-
-back(){
-  this.navCtrl.push(EventPage)
-}
-
-ngAfterViewInit() {
-  let tabs = document.querySelectorAll('.show-tabbar');
-  if (tabs !== null) {
-      Object.keys(tabs).map((key) => {
-          tabs[key].style.display = 'none';
+      
+    let date = moment(this.date + " " + this.time).format('MMMM DD YYYY, h:mm:ss a');
+   
+    this.backgroundMode.enable();
+    
+   this.localNotifications.schedule({
+     title:this.name ,
+     text: this.categoryChosen,
+     icon: "../../assets/icon/splashM.png" ,
+     trigger: {at: new Date(new Date(date) )} ,
+   })
+   
+   this.today =new Date(this.date.toString())
+   let options = { firstReminderMinutes: 10 };
+  
+     this.calendar.createEventWithOptions(this.name, 'Go to the MIT App', this.categoryChosen, this.today, this.today, options).then(res => {
+      }, err => {
+        console.log('err: ', err);
       });
-  }
-}
-ionViewWillLeave() {
-  let tabs = document.querySelectorAll('.show-tabbar');
-  if (tabs !== null) {
-      Object.keys(tabs).map((key) => {
-          tabs[key].style.display = 'flex';
-      });
+  
+  
+  
+  
+  
+   this.db.saveSentMessages(this.name ,this.saveMessage, this.date,this.image).then(()=>{} , (error)=>{})
+  
+   const modal = this.modalCtrl.create(ModalmessagePage);
+    modal.present();
+
 
   }
-}
+  
+  
+  
+  else {
+    const alert = this.alertCtrl.create({
 
+      subTitle: "Please enter all details",
+       buttons: ['OK']
+});
+alert.present();
+    
+
+  }
 
   
+  
+
+
+ 
 }
+
+}
+
+

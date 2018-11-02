@@ -29,7 +29,7 @@ page-register {
     .main{
         height: auto;
         position: relative;
-        top: 80px;
+        top: 110px;
     }
     .inputs{
         position: relative;
@@ -91,12 +91,38 @@ page-register {
         position: static;
         color: white;
     }
-    // #text-input-md {
-    //     text-align: left;
-    //     margin: 8px ;
-    //     /* padding: unset; */
-    //     // width: calc(100% - 8px - 8px);
-    // }
+    // iphone x
+@media only screen and (min-device-width: 375px) and (max-device-width: 812px){
+    
+    .main{
+        height: auto;
+        position: relative;
+        top:180px;
+    }
+
+
+}
+
+//ipadpro
+@media only screen and (min-device-width: 1024px) and (max-device-width: 1366px){
+    .main{
+        height: auto;
+        position: relative;
+        top:300px;
+    }
+}
+
+//ipadpro
+@media only screen and (min-device-width: 800px) and (max-device-width: 1280px){
+    .main{
+        height: auto;
+        position: relative;
+        top:300px;
+    }
+}
+
+
+
 
    
 

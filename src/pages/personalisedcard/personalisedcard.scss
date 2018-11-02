@@ -1,3 +1,25 @@
 page-personalisedcard {
+  .canvas{
+    position: relative;
+    text-align: center;
+    
+    top:20px;
+    height: 450px;
+    width: 100%;
+    
+  }
+  .flex{
+    display: flex;
+    flex-wrap: nowrap;
+}
+.footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before{
+  background-color: rgba(145, 145, 145, 0.363);
+  height: 1px;
+}
+ion-title{
+  position: relative;
+  left: 50px;
+}
+ 
 
 }

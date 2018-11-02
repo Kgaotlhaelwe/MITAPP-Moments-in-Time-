@@ -76,3 +76,13 @@
       -webkit-transform: scale(1.0);
     }
   }
+
+
+  .toast{.toast-wrapper { text-align: center;  background: color($colors, toast1);}
+};
+
+
+.toast1{.toast-wrapper { text-align: center;  background: color($colors,  toast2);}
+};
+// .toast3{.toast-wrapper { text-align: center;  background: color($colors, toast3);}
+// };

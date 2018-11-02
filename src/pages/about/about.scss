@@ -1,229 +1,5 @@
-// page-about {
-//     .ion-avatar{
-//         background-color: red;
-//         border-radius: 50px;
-//         height: 50px;
-//         width: 50px;
-//         position: relative;
-//         // top: -20px;
-        
-//     }
-//     .ion-note{
-//         font-size: 0.1em;
-//         position: relative;
-//         top: 10px;
-//     }
-
-//     .background{
-//         background-color: rgb(245, 255, 255)
-//         // border-radius: 
-//     }
-//     .date{
-//         text-align: center;
-//         position: relative;
-    
-//     }
- 
-    // .heading{
-    //     position: relative;
-    //     // top: -2px;
-    //     font-weight: bold;
-    //     text-align: center;
-    //     font-size: 1.2em;
-    // }
-//     ion-row {
-//         position: relative;
-//         top: 5px;
-//     }
-//     .text{
-//         text-align: left;
-//         // position: relative;
-//         // top: 10px;
-
-//     }
-// ion-list{
-//     background-color: rgb(240, 240, 240);
-// }
-// .ion-item-sliding{
-//     background-color: rgba(197, 193, 193, 0.404);
-
-// }
-    
-// element.style {
-//     margin-top: 44px;
-//     margin-bottom: -50px;
-// }
-//     .item{
-//       border-radius: 15px;
-//     margin-bottom: 1px;
-//     background-color: rgb(245, 255, 255)
-//   } 
-  
-
-// .item-md  {
-//     margin: 0 0 2px;
-//     overflow: inherit;
-//     font-size: 1.4rem;
-//     line-height: normal;
-//     text-overflow: inherit;
-//     // color: #666;
-// }
-
-// .heading{
-//     position: relative;
-//     // top: -2px;
-//     font-weight: bold;
-//     text-align: left;
-//     font-size: 1.2em;
-// }
-
-    
-   
-
-// }
-
-
-
-
-// page-about {
-//     .ion-avatar{
-//                 background-color: red;
-//                 border-radius: 50px;
-//                 height: 50px;
-//                 width: 50px;
-//                 position: relative;
-              
-//                   // top: -20px;
-//             }
-
-
-// .background{
-//     background-color: rgb(240, 240, 240);
-//     // border-radius: 
-// }
-// .item{
-//   border-radius: 15px;
-// } 
-// .item-md  {
-// margin: 0 0 2px;
-// overflow: inherit;
-// font-size: 1.4rem;
-// // line-height: normal;
-// text-overflow: inherit;
-// // color: #666;
-// }
-// .heading{
-//     position: relative;
-//     // top: -2px;
-//     font-weight: bold;
-//     text-align: center;
-//     font-size: 1.2em;
-// }
-// .flex{
-//     display: flex;
-//     padding-bottom: 5%;
-//     padding-top: 5;
-
-
-// }
-
-
-
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// page-about {
-
-
-//         .background{
-//             background-color: rgb(240, 240, 240);
-//             // border-radius: 
-//         }
-//         .date{
-//             text-align: center;
-//             position: relative;
-        
-//         }
-     
-//         .heading{
-//             position: relative;
-//             top: -2px;
-//             font-weight: bold;
-//             text-align: center;
-//             font-size: 1.2em;
-//         }
-//         ion-row {
-//             position: relative;
-//             // bottom: -10px;
-//         }
-//         .text{
-//             position: relative;
-//             top: 10px;
-    
-//         }
-//         .text {
-     
-//         }
-//         .item{
-//         //   border-radius: 15px;
-//       } 
-      
-    
-//     .item-md  {
-//         margin: 0 0 2px;
-//         overflow: inherit;
-//         font-size: 1.4rem;
-//         line-height: normal;
-//         text-overflow: inherit;
-//         // color: #666;
-//     }
-        
-       
-    
-//     }
-    
-
-
 
 page-about {
-
-
     .background{
         background-color: rgb(240, 240, 240); 
     }
@@ -240,47 +16,35 @@ page-about {
     }
     ion-row {
         position: relative;
-        // bottom: -10px;
     }
-
     .item{
        border-radius: 15px;
-    //    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.322)
-  }
-  .ion-avatar{
-            // background-color: red;
-            border-radius: 50px;
-            height: 50px;
-            width: 50px;
-            position: relative;
-            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.322)
-    
-            
+    }
+    .ion-avatar{
+        border-radius: 50px;
+        height: 50px;
+        width: 50px;
+        position: relative;
+        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.322) 
         }
         .flex{
-                display: flex;
-                padding-bottom: 5%;
-                padding-top: 5;
+            display: flex;
+            padding-bottom: 5%;
+            padding-top: 5;
             }
             ion-avatar{
-                // background-color: red;
                 border-radius: 50px;
                 height: 50px;
                 width: 50px;
                 position: relative;
-                //box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.322)
-
             }
             ion-item-sliding{
-                // height: 9vh;
                 border-radius: 15px;
             }
             h1{
              position: relative;
              top: 30%;
-                text-align: center;
-                color: rgb(141, 141, 141)
+            text-align: center;
+            color: rgb(141, 141, 141)
             }
-   
-
 }

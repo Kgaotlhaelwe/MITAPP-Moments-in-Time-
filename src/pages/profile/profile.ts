@@ -24,6 +24,7 @@ export class ProfilePage {
   image
   userid ;
   favouriteArray =[];
+  customizedCard = [] ;
   pet;
   key ;
   users ;
@@ -66,10 +67,43 @@ export class ProfilePage {
     
   }
 
+  
+
+  ShareD(a, key){
+
+    const prompt = this.alertCtrl.create({
+      subTitle: " Please share or delete the picture" ,
+      buttons: [
+        {
+          text: 'Delete',
+          handler: data => {
+            console.log('Cancel clicked');
+
+            var users= firebase.auth().currentUser;
+            var userid=users.uid
+    
+            this.favouriteArray=[]
+          firebase.database().ref('customisedCard/'+userid).child(key).remove();
+          }
+        },
+        {
+          text: 'Share',
+          handler: data => {
+            console.log('Saved clicked');
+            this.db.shareYourcut(a)
+
+            
+          }
+        }
+      ]
+    });
+    prompt.present();
+  }
+  
   ShareDelete(a, key){
   
     const prompt = this.alertCtrl.create({
-      subTitle: " Share or delete" ,
+      subTitle: " Please share or delete the picture" ,
       buttons: [
         {
           text: 'Delete',
@@ -153,7 +187,6 @@ export class ProfilePage {
         }
       );
  
-      //});
     }
   }
 
@@ -171,7 +204,8 @@ export class ProfilePage {
       inputs: [
         {
           name: 'name',
-          placeholder: 'name'
+          placeholder: 'name',
+          value:this.name
         },
 
         
@@ -227,6 +261,34 @@ export class ProfilePage {
               
             this.favouriteArray.push(obj);
             console.log(this.favouriteArray);
+            
+          };
+        } else{
+ 
+        }
+       
+
+     })
+
+
+     
+   
+    
+    firebase.database().ref("customisedCard/"+this.userid).on('value', 
+    (data: any) => {
+      var name = data.val();
+      this.customizedCard=[];
+        if (name !== null) {
+          var keys: any = Object.keys(name);
+          for (var i = 0; i < keys.length; i++) {
+            var k = keys[i];
+            let  obj = {
+              key:k ,
+              image:name[k].image,
+              }
+              
+            this.customizedCard.push(obj);
+            console.log(this.customizedCard);
           };
         } else{
  

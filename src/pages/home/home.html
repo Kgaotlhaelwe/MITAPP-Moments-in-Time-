@@ -1,11 +1,11 @@
 <ion-header>
 
     <ion-navbar color="b" >
-        <!-- <ion-buttons end>
-            <button ion-button icon-only  (click)="Personalcard()">
-              <ion-icon name=""></ion-icon>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="Personalcard()">
+              <ion-icon ios="ios-create" md="md-create"></ion-icon>
             </button> 
-          </ion-buttons>-->
+          </ion-buttons>
       <ion-title align="center">
           Home
       </ion-title>
@@ -15,17 +15,18 @@
 <ion-content  class="backgroud" padding >
   <div class="card-container" *ngIf="ready">
     <sc-card  *ngFor="let attendant of attendants"
-[orientation]="cardDirection" [tinder-card]="cardOverlay"[callDestroy]="attendant.destroyEvent" [callLike]="attendant.likeEvent" (onLike)="onCardInteract($event)"  id="display">
+[orientation]="cardDirection" [tinder-card]="cardOverlay"[callDestroy]="attendant.destroyEvent" [callLike]="attendant.likeEvent" (onLike)="onCardInteract($event)"  >
 
 
 <!-- {{textdisplay}}  -->
 
-<div class="user_img" >
+<!-- <div class="user_img" [style.background-image]="imzx.asBg" > -->
     
-<img src="{{slidingImage}} ">
-</div>
+<!-- <img src="{{slidingImage}} "> -->
+<img src="{{imzx}}">
+<!-- </div> -->
     </sc-card>
-    
+  
 </div>
 
 

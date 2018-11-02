@@ -11,136 +11,144 @@ import {DatabaseProvider} from '../../providers/database/database';
 import { InfoPage } from '../info/info';
 import { ViewPage } from '../view/view';
 
-
 @Component({
   selector: 'page-about',
   templateUrl: 'about.html'
 })
 export class AboutPage {
   sentMessages = new Array();
-
-
   phoneNumber ;
-
   peronalisedMsg
-  
   message ;
-  name =this.navParams.get('name');;
-
-
-  automessage=this.navParams.get('automessage');
-  date = this.navParams.get("date");
+  image ;
+  dates ;
+  icon;
+  users;
   time = new Date() ;
 
- 
-
-  countDownDate = this.navParams.get('countDownDate') ;
-     
-     
+  name =this.navParams.get('name');
+  automessage=this.navParams.get('automessage');
+  date = this.navParams.get("date");
+  // countDownDate = this.navParams.get('countDownDate') ;     
   chosenCategory = this.navParams.get("chosenCategory");
-  image ;
+  hasMessages : boolean = false;
 
-  cat ;
-  
-icon
- 
-users
+  obj
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private contacts: Contacts, public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController, private localNotifications: LocalNotifications,private sms:SMS ,private socialSharing:SocialSharing, private db:DatabaseProvider,public modalCtrl: ModalController) {
-    console.log(this.icon);
+//     console.log(this.icon);
     
-    console.log(this.automessage);
+//     console.log(this.automessage);
 
-   this.cat = moment(this.time).format('MMM Do YYYY,');
+    this.dates = moment(this.time).format('MMM Do YYYY,');
 
-    console.log(this.cat);
+//     console.log(this.cat);
     
     
-  this.sentMessages=[];
+//   this.sentMessages=[];
   
-  this. users= firebase.auth().currentUser;
+//   this. users= firebase.auth().currentUser;
  
-  firebase.database().ref("messagesent/"+this.users.uid).on('value', (data: any) => {
-  var name = data.val();
+//   firebase.database().ref("messagesent/"+this.users.uid).on('value', (data: any) => {
+//   var name = data.val();
   
     
-    if (name !== null) {
+//     if (name !== null) {
      
       
-      var keys: any = Object.keys(name);
+//       var keys: any = Object.keys(name);
 
-      for (var i = 0; i < keys.length; i++) {
-        var k = keys[i];
+//       for (var i = 0; i < keys.length; i++) {
+//         var k = keys[i];
   
-        let  obj = {
-         message: name[k].message,
-          name: name[k].name,
-          key: k ,
-          icon:this.icon,
-          date:name[k].date,
-          image:name[k].image 
+//         let  obj = {
+//          message: name[k].message,
+//           name: name[k].name,
+//           key: k ,
+//           icon:this.icon,
+//           date:name[k].date,
+//           image:name[k].image 
          
-          }
-        this.sentMessages.push(obj);
+//           }
+//         this.sentMessages.push(obj);
      
-        console.log(this.sentMessages);
+//         console.log(this.sentMessages);
        
-      };
-    } else{
+//       };
 
-     document.getElementById("notsent").innerHTML="You currently don't have messages to review"
-    }
-    
-   
-
-
-})
-
-
-
-  }
+//       if(this.sentMessages.length > 0){
+//         this.hasMessages = true;
+//       }
+//     } else{
+//         this.hasMessages =  false;
+//     }
   
-
+// })
+  }
   ionViewDidLoad() {
-   
-
     console.log(this.date);
     console.log(this.chosenCategory);
-    console.log(this.countDownDate);
-    
-if("Birthday" == this.chosenCategory){
-  this.image ="../../assets/icon/icons8_Wedding_Cake_100px.png";
-}
-else if("Graduation"== this.chosenCategory ){
-  this.image ="../../assets/icon/icons8_Graduation_Cap_100px.png" ;
-
-}else if("Baby Shower" == this.chosenCategory ){
-  this.image = "../../assets/icon/icons8_Pram_100px.png";
-
-}
-else if("New Job" == this.chosenCategory ){
-  this.image = "../../assets/icon/icons8_Briefcase_100px.png";
-
-}
-else if("Anniversary" == this.chosenCategory ){
-  this.image ="../../assets/icon/icons8_Wedding_Gift_96px.png";
-
-}
-else if("Wedding" == this.chosenCategory ){
-  this.image = "../../assets/icon/icons8_Diamond_Ring_100px.png";
-
-}
-else if("Thinking of you" == this.chosenCategory ){
-  this.image = " ../../assets/icon/icons8_Collaboration_Female_Male_100px_1.png";
-
-}
-else if("General" == this.chosenCategory ){
-  this.image = "../../assets/icon/icons8_People_100px.png";
-
-}
+    // console.log(this.countDownDate);
+    if("Birthday" == this.chosenCategory){
+      this.image ="../../assets/icon/icons8_Wedding_Cake_100px.png";
+    }
+    else if("Graduation"== this.chosenCategory ){
+      this.image ="../../assets/icon/icons8_Graduation_Cap_100px.png" ;
+    }else if("Baby Shower" == this.chosenCategory ){
+      this.image = "../../assets/icon/icons8_Pram_100px.png";
+    }
+    else if("New Job" == this.chosenCategory ){
+      this.image = "../../assets/icon/icons8_Briefcase_100px.png";
+    }
+    else if("Anniversary" == this.chosenCategory ){
+      this.image ="../../assets/icon/icons8_Wedding_Gift_96px.png";
+    }
+    else if("Weddings" == this.chosenCategory ){
+      this.image = "../../assets/icon/icons8_Diamond_Ring_100px.png";
+    }
+    else if("Thinking of you" == this.chosenCategory ){
+      this.image = " ../../assets/icon/icons8_Collaboration_Female_Male_100px_1.png";
+    }
+    else if("General" == this.chosenCategory ){
+      this.image = "../../assets/icon/icons8_People_100px.png";
+    }
   
 }
-  
+ionViewWillEnter(){
+  console.log(this.icon);
+  console.log(this.automessage);
+  this.dates = moment(this.time).format('MMM Do YYYY,');
+  console.log(this.dates);
+  this.sentMessages=[];
+  this. users= firebase.auth().currentUser;
+firebase.database().ref("messagesent/"+this.users.uid).on('value', (data: any) => {
+var name = data.val();
+this.sentMessages=[];
+
+if (name !== null) {
+  var keys: any = Object.keys(name);
+  for (var i = 0; i < keys.length; i++) {
+    var k = keys[i];
+    this.obj = {
+      message: name[k].message,
+      name: name[k].name,
+      key: k ,
+      icon:this.icon,
+      date:name[k].date,
+      image:name[k].image
+    }
+    this.sentMessages.push(this.obj);
+    console.log(this.sentMessages);
+  };
+  if(this.sentMessages.length > 0){
+    this.hasMessages = true;
+  }
+}
+else{
+  this.hasMessages =  false;
+}
+})
+}
 
 
   Delete(key){
@@ -152,20 +160,27 @@ else if("General" == this.chosenCategory ){
   }
  
   
-  contactss(message){
+  contactss(message, name, key){
     this.contacts.pickContact().then((data:any)=>{
     console.log(data);
  
      this.phoneNumber=(data.phoneNumbers[0].value);
       this.name=(data.displayName);
    } , (error)=>{
-     alert(error)
+     //alert(error)
    })
 
-   setTimeout(()=>{ this.showConfirm(message) }, 10000);
+   setTimeout(()=>{
+    this.showConfirm(message, name ,key) 
+
+   } , 3000)
+
+ 
+
+   
   }
   sendviaWhatsApp(message){
-    this.socialSharing.canShareVia(message, null , message).then((data)=>{
+    this.socialSharing.shareViaWhatsApp(message, null , null).then((data)=>{
       console.log(data);
       this.icon="checkmark-circle";
       
@@ -183,7 +198,7 @@ else if("General" == this.chosenCategory ){
 
   sendViaemail(message){
     this.socialSharing.shareViaEmail(message ,null ,null).then(()=>{
-      this.icon="checkmark-circle";
+     
       
     } , 
     
@@ -195,7 +210,7 @@ else if("General" == this.chosenCategory ){
 
   }
 
-  sendVia(message, key) {
+  sendVia(message,name , key) {
 
 
     const actionSheet = this.actionSheetCtrl.create({
@@ -205,14 +220,9 @@ else if("General" == this.chosenCategory ){
           text: 'SMS',
           role: 'destructive',
           handler: () => {
-            this.contactss(message);
+            this.contactss(message, name, key);
  
-            this.db.sentMessage(message, this.cat, this.name).then(()=>{})
-            //var users= firebase.auth().currentUser;
-            //var userid=users.uid
- 
-           this.sentMessages = [];
-           firebase.database().ref('messagesent/'+this.users.id).child(key).remove();
+           
  
  
           }
@@ -221,74 +231,68 @@ else if("General" == this.chosenCategory ){
           text: 'Email',
           role: 'destructive',
           handler: () => {
-            this.db.sendViaemail(message ).then(()=>{
+         
 
-              this.db.sentMessage(message, this.cat, this.name).then(()=>{})
-              var users= firebase.auth().currentUser;
-              var userid=users.uid
-   
-             this.sentMessages = [];
-             firebase.database().ref('messagesent/'+userid).child(key).remove();
 
-            //  alert("sucess")
-            }
-            
-            , (error)=>{
+          this.sendViaemail(message)
 
-            });
+       
+          this.db.Testing(message ,name,this.dates)
+          console.log(message);
+          
+          firebase.database().ref('messagesent/'+this.users.uid).child(key).remove();
  
            
  
-          }
+           }
         },
  
         {
-          text: 'WhatsAPP',
+          text: 'WhatsApp',
           handler: () => {
+
+           
  
-         //this.db.sendviaWhatsApp(message ).then;
-         this.db.sendviaWhatsApps(message).then(()=>{
-          // console.log(this.dates);
-          // alert(this.name)
-         this.db.sentMessage(message, this.cat, this.name).then(()=>{
+           this.sendviaWhatsApp(message)
+          // this.sentMessages=[];
           
-         
-         })
-         firebase.database().ref('messagesent/'+this.users.uid).child(key).remove();
-          console.log(this.cat);
+            this.db.Testing(message ,name,this.dates)
+            //this.sentMessages=[];
+            firebase.database().ref('messagesent/'+this.users.uid).child(key).remove();
+           // this.sentMessages=[];
+        
+        
+       
   
        
         
 
-         }, 
-         
-         
-         (error)=>{
-
-
-         })
+ 
  
         
- 
- 
+       
           }
         },{
           text: 'Facebook',
           role: 'cancel',
           handler: () => {
-           this.db.sendviaFacebook(message, message).then(()=>{
-            //this.db.sentMessage(message, this.name , this.dates).then(()=>{})
-            var users= firebase.auth().currentUser;
-            var userid=users.uid
+          //  this.db.sendviaFacebook(message, message).then(()=>{
+          //   //this.db.sentMessage(message, this.name , this.dates).then(()=>{})
+          //   var users= firebase.auth().currentUser;
+          //   var userid=users.uid
   
              
-           firebase.database().ref('messagesent/'+userid).child(key).remove();
-           } , 
+          //  firebase.database().ref('messagesent/'+userid).child(key).remove();
+          //  } , 
            
-           (error)=>{}) ;
- 
-           
+          //  (error)=>{}) ;
+          this.sendviaFacebook(message)
+          this.db.Testing(message ,this.obj.name,this.dates)
+           firebase.database().ref('messagesent/'+this.users.uid).child(key).remove();
+          
           }
+
+          
         },
         {
           text: 'Cancel',
@@ -304,7 +308,7 @@ else if("General" == this.chosenCategory ){
  
   }
 
-  showConfirm(a) {
+  showConfirm(message, name , key) {
     const confirm = this.alertCtrl.create({
       title: this.name,
       message: this.phoneNumber,
@@ -321,17 +325,31 @@ else if("General" == this.chosenCategory ){
  
  
  
-        // alert(a)
-            this.sms.send(this.phoneNumber, a).then(()=>{
-                          // alert('success')
+        
+            this.sms.send(this.phoneNumber, message).then(()=>{
+                          
                           this.icon="checkmark-circle";
                         } , (error)=>{
-                          // alert(error)
+                          
  
                        })
+
+      
+    this.db.Testing(message ,name,this.dates)
+    
+    // alert("out");
+    // firebase.database().ref('messagesent/'+this.users.uid).child(key).remove();
+    
+    firebase.database().ref('messagesent/'+this.users.uid).child(key).remove();
+
+    // alert("in");
+    
+
+    
+          
  
- 
-          }
+
+ }
         }
       ]
     });
@@ -347,8 +365,15 @@ else if("General" == this.chosenCategory ){
     modal.present();
   }
 
-  readMore(message){
-    this.navCtrl.push(ViewPage ,{message:message} )
+  readMore(msg, name , image){
+
+    let obj = {
+      message:msg ,
+      name:name ,
+      image:image
+
+    }
+    this.navCtrl.push(ViewPage ,{message:obj} )
 
   }
 }

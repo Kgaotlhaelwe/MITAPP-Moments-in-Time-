@@ -1,13 +1,19 @@
 import { Component, ViewChild, Renderer } from '@angular/core';
 import { Platform } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+import {DatabaseProvider} from '../../providers/database/database' ;
+
 
 @Component({
  selector: 'canvas-draw',
  templateUrl: 'canvas-draw.html'
 })
 export class CanvasDrawComponent {
-
+    file: any;
+    storeImage = []
+    
    @ViewChild('myCanvas') canvas: any;
+  
 
    canvasElement: any;
    lastX: number;
@@ -17,8 +23,10 @@ export class CanvasDrawComponent {
    availableColours: any;
 
    brushSize: number = 10;
+   colornumber = 0 ;
+   textz ;
 
-   constructor(public platform: Platform, public renderer: Renderer) {
+   constructor(public platform: Platform, public renderer: Renderer, private db :DatabaseProvider) {
        console.log('Hello CanvasDraw Component');
 
        this.availableColours = [
@@ -28,55 +36,88 @@ export class CanvasDrawComponent {
            '#e67e22',
            '#e74c3c'
        ];
-
+     
    }
 
-   ngAfterViewInit(){
+//    ngAfterViewInit(){
 
-       this.canvasElement = this.canvas.nativeElement;
+//        this.canvasElement = this.canvas.nativeElement;
 
-       this.renderer.setElementAttribute(this.canvasElement, 'width', this.platform.width() + '');
-       this.renderer.setElementAttribute(this.canvasElement, 'height', this.platform.height() + '');
+//        this.renderer.setElementAttribute(this.canvasElement, 'width', this.platform.width() + '');
+//        this.renderer.setElementAttribute(this.canvasElement, 'height', this.platform.height() + '');
 
-   }
+//    }
 
-   changeColour(colour){
-       this.currentColour = colour;
-   }
+//    changeColour(colour){
+//        this.currentColour = colour;
+//    }
 
-   changeSize(size){
-       this.brushSize = size;
-   }
+//    changeSize(size){
+//        this.brushSize = size;
+//    }
 
-   handleStart(ev){
+//    handleStart(ev){
 
-       this.lastX = ev.touches[0].pageX;
-       this.lastY = ev.touches[0].pageY;
-   }
+//        this.lastX = ev.touches[0].pageX;
+//        this.lastY = ev.touches[0].pageY;
+       
+//    }
 
-   handleMove(ev){
+//    handleMove(ev){
 
-       let ctx = this.canvasElement.getContext('2d');
-       let currentX = ev.touches[0].pageX;
-       let currentY = ev.touches[0].pageY;
+//        let ctx = this.canvasElement.getContext('2d');
+//        let currentX = ev.touches[0].pageX;
+//        let currentY = ev.touches[0].pageY;
 
-       ctx.beginPath();
-       ctx.lineJoin = "round";
-       ctx.moveTo(this.lastX, this.lastY);
-       ctx.lineTo(currentX, currentY);
-       ctx.closePath();
-       ctx.strokeStyle = this.currentColour;
-       ctx.lineWidth = this.brushSize;
-       ctx.stroke();
+//        ctx.beginPath();
+//        ctx.lineJoin = "round";
+//        ctx.moveTo(this.lastX, this.lastY);
+//        ctx.lineTo(currentX, currentY);
+//        ctx.closePath();
+//        ctx.strokeStyle = this.currentColour;
+//        ctx.lineWidth = this.brushSize;
+//        ctx.stroke();
 
-       this.lastX = currentX;
-       this.lastY = currentY;
+//        this.lastX = currentX;
+//        this.lastY = currentY;
 
-   }
+ 
 
-   clearCanvas(){
-       let ctx = this.canvasElement.getContext('2d');
-       ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
-   }
+//    }
+//  text(){      
+// let c = document.getElementById("myCanvas");
+//  var ctx = this.canvasElement.getContext("2d");
+//  ctx.fillStyle = 'blue';
+// ctx.font = "50px Verdana";
+// ctx.fillText(this.textz, 10, 90);
+//    }
+
+
+//    clearCanvas(){
+//        let ctx = this.canvasElement.getContext('2d');
+//        ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
+//    }
+//    savePad() {
+//   let test =  this.canvasElement = this.canvas.nativeElement.toDataURL();
+//   this.db.customizedCard(test).then(()=>{
+      
+//   })
+//   console.log(test);
+  
+//    }
+
+//    back(){
+//     var c=document.getElementById("myCanvas");
+//     var ctx=this.canvasElement.getContext("2d");
+//     var color =["red", "yellow","black"];
+//     console.log(color[this.colornumber]);
+    
+//     ctx.fillStyle=color[this.colornumber]
+//     this.colornumber++ ;
+//     ctx.fillRect(0,0,500,700);
+
+ 
+      
+//    }
 
 }

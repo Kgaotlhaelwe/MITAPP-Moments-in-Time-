@@ -56,6 +56,7 @@ export class LoginPage {
           duration: 3000
         });
         loader.present();
+      
         this.navCtrl.setRoot(TabsPage);
        
       } ,(error)=>{
@@ -97,10 +98,6 @@ export class LoginPage {
       alert.present();
 
     })
-  }
-// remove after am done  its for navigation to register
-  de(){
-    this.navCtrl.push(RegisterPage)
   }
   message=function(){
     this.navCtrl.push(MessagePage)

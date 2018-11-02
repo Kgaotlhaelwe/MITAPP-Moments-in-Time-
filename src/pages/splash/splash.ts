@@ -16,12 +16,21 @@ import { LoginPage } from '../login/login';
 })
 export class SplashPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-   
-  }
-
+  message =this.navParams.get("message");
+  msg ;
+  name;
+  image;
+    constructor(public navCtrl: NavController, public navParams: NavParams) {
+      this.msg =this.message.message;
+      this.name =this.message.name;
+      this.image=this.message.image;
+      
+    }
   ionViewDidLoad() {
     console.log('ionViewDidLoad SplashPage');
+
+    console.log(this.message);
+    
   }
 
 

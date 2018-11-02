@@ -446,10 +446,49 @@ likedMessage(message){
 
 }
 
+
+Testing(message,name,date){
+  var users= firebase.auth().currentUser;
+  var userid=users.uid
+ 
+  return new Promise((resolve, reject)=>{
+    firebase.database().ref("Testingmsg/"+userid).push({
+      
+      
+      message:message ,
+     date:date ,
+      name:name,
+    
+      
+    })
+
+    resolve();
+
+})
+
+}
+
+customizedCard(image) {
+  var users= firebase.auth().currentUser;
+  var userid=users.uid
+ 
+  return new Promise((resolve, reject)=>{
+    firebase.database().ref("customisedCard/"+userid).push({
+      
+      
+      image:image ,
+   })
+
+    resolve();
+
+})
+
+}
+
 getMessages(){
   return new Promise((resolve, reject)=>{
     firebase.database().ref('category/'+ 'General' ).on('value', (data: any) => {
-
+ 
       var message = data.val();
        console.log(data.val());
  
@@ -466,22 +505,22 @@ getMessages(){
  
         }
         this.messageArray.push(obj)
-
+ 
         resolve(this.messageArray);
   }
  
  
   })
-
+ 
  })
-
-}
+ 
+ }
 
 sendviaWhatsApps(message){
 
   return new Promise((resolve, reject)=>{
-    this.socialSharing.share(message)
-     resolve(message)
+    this.socialSharing.share(null,null,message,null)
+     resolve()
      
       
   
@@ -525,6 +564,20 @@ sendViaemail(message){
 shareYourfav(message){
   return new Promise((resolve, reject)=>{
     this.socialSharing.share(message)
+     resolve(message)
+     
+      
+  
+    
+  })
+
+  
+
+}
+
+shareYourcut(message){
+  return new Promise((resolve, reject)=>{
+    this.socialSharing.share(null,null,message,null)
      resolve(message)
      
       
@@ -586,13 +639,13 @@ signout(){
   });
 }
 
-sentMessage(message,a,name){
+savetoSentMessage(message,a,name){
   
- 
+  var users= firebase.auth().currentUser;
+  var userid=users.uid
   return new Promise((resolve, reject)=>{
-    var users= firebase.auth().currentUser;
-    var userid=users.uid
-    firebase.database().ref("sentMessages/"+userid).push({
+    
+    firebase.database().ref("savetoSentMessage/"+userid).push({
  
  
       message:message ,

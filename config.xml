@@ -88,4 +88,5 @@
     <plugin name="cordova-sms-plugin" spec="^0.1.13" />
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.1" />
     <plugin name="cordova-plugin-background-mode" spec="^0.7.2" />
+    <plugin name="cordova-plugin-calendar" spec="^5.1.2" />
 </widget>

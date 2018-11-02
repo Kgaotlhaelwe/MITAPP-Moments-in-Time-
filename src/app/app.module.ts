@@ -41,7 +41,11 @@ import {PersonalisedcardPage} from '../pages/personalisedcard/personalisedcard'
 import { InfosentPage } from '../pages/infosent/infosent';
 import { SplashPage } from '../pages/splash/splash'
 import { BackgroundMode } from '@ionic-native/background-mode';
-
+import { IonicImageViewerModule } from 'ionic-img-viewer';
+import { SignaturePadModule } from 'angular2-signaturepad';
+import { IonicStorageModule } from '@ionic/storage';
+import { Calendar } from '@ionic-native/calendar';
+import { ModalmessagePage } from '../pages/modalmessage/modalmessage';
 var config = {
   apiKey: "AIzaSyD-60vJrUA-k0qFjOyc-2quuULN2t9DKAc",
   authDomain: "momentsintime-a9b60.firebaseapp.com",
@@ -68,13 +72,22 @@ var config = {
     PopoverPage,
     SplashPage,
     FavouriteMessagesPage,
-    ViewPage,ProfilePage,InfoPage , CanvasDrawComponent, PersonalisedcardPage,InfosentPage
+    ViewPage,
+    ProfilePage,
+    InfoPage ,
+     CanvasDrawComponent,
+      PersonalisedcardPage,
+      InfosentPage,
+      ModalmessagePage
+  
   ],
   imports: [
     BrowserModule,HttpClientModule , SwingModule,SwipeCardsModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(config),
-    AngularFireAuthModule 
+    AngularFireAuthModule,IonicImageViewerModule,
+    SignaturePadModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -93,11 +106,16 @@ var config = {
     PopoverPage,
     FavouriteMessagesPage,
     SplashPage,
-    ViewPage,ProfilePage,InfoPage, PersonalisedcardPage,InfosentPage
+    ViewPage,
+    ProfilePage,
+    InfoPage, 
+    PersonalisedcardPage,
+    InfosentPage,
+    ModalmessagePage,
   ],
   providers: [
     StatusBar,
-    SplashScreen, DatabaseProvider , SMS , SocialSharing ,Contacts,LocalNotifications,Camera ,BackgroundMode ,
+    SplashScreen, DatabaseProvider , SMS , SocialSharing ,Contacts,LocalNotifications,Camera ,BackgroundMode ,Calendar ,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   
   ]

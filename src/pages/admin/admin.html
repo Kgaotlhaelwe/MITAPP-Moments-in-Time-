@@ -30,12 +30,14 @@
           <ion-option value="ANNIVERSARY">ANNIVERSARY</ion-option>
           <ion-option value="General">General</ion-option>
           <ion-option value="Other">Other</ion-option>
+          <ion-option value="TestingImage">TestingImage</ion-option>
 
          
         </ion-select>
       </ion-item>
 
-
+<input type="file" accept="image/*" (change)="insertpic($event)">
+<img [src]="url">
       <ion-item>
         <ion-textarea  [(ngModel)]="message"></ion-textarea>
       </ion-item>

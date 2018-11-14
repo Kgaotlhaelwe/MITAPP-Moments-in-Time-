@@ -1,12 +1,7 @@
 page-personalisedcard {
   .canvas{
-    position: relative;
-    text-align: center;
-    
-    top:20px;
-    height: 450px;
-    width: 100%;
-    
+    // height: 530px;
+  width: 100%;  
   }
   .flex{
     display: flex;
@@ -20,6 +15,27 @@ ion-title{
   position: relative;
   left: 50px;
 }
- 
+
+#hide{
+  display: none;
+  background-color: white;
+  flex-wrap: nowrap;
+}
+#Displayhide {
+  display: none;
+  flex-wrap: nowrap;
+}
+#Displaytrash {
+  display: none;
+  flex-wrap: nowrap;
+}
+#textpalette{
+  display: inline;
+  text-align: center;
+  color: white
+}
+#Displayhided{
+  display: none;
+}
 
 }

@@ -7,6 +7,11 @@
 <ion-header>
 
   <ion-navbar color="b" >
+      <ion-buttons end>
+          <button ion-button icon-only (click)="sendVia(msg,name , key) ">
+            <ion-icon ios="ios-share" md="md-share"></ion-icon>
+          </button> 
+        </ion-buttons>
     <ion-title>{{name}}</ion-title>
   </ion-navbar>
 
@@ -14,21 +19,39 @@
 
 
 <ion-content padding class="background" >
-  <div class="body" >
+  <!-- <div id="body" >
     <ion-list>
       <ion-item  >
-        <ion-avatar item-start  class="image" >
-            <img src="{{image}} "  alt="{{name}}">
-        </ion-avatar>
-        <!-- <h2>{{name}}</h2> -->
+
         <ion-item  text-wrap class="items">
            <p padding>{{msg}}</p>
+
+           <ion-buttons right>
+            <button ion-button icon-only  (click)="update(key)">
+              <ion-icon ios="ios-create" md="md-create"></ion-icon>
+            </button>
+          </ion-buttons>
         </ion-item>
        
       </ion-item>
     </ion-list>
-  </div>
+
+  </div> -->
+
   
+  <ion-item left no-padding >
+
+    <ion-textarea text-wrap  class="textarea"  value ="{{msg}}"  [(ngModel)]="msg" ></ion-textarea>
+  </ion-item>
+  <ion-item no-padding *ngIf="autoMessage" >
+
+    <ion-textarea text-wrap class="textarea" placeholder="Type your text....."   value="{{automsg}}"  [(ngModel)]="automsg"></ion-textarea> 
+  </ion-item>
+  <br>
+  <br>
+  <ion-buttons><button color="b" block full ion-button (click)="update()" >
+ Save</button>
+</ion-buttons>
 
 
  

@@ -68,8 +68,8 @@
           <ion-item>
                 <ion-grid >
                 <ion-row>
-                    <ion-col col-6 *ngFor="let a of  favouriteArray"   (press)="ShareDelete(a.message, a.key)">
-                        <img src="{{a.message}}"  class="image" imageViewer>   
+                    <ion-col col-6 *ngFor="let a of  favouriteArray"   (press)="ShareDelete(a.message, a.id)">
+                        <img src="{{a.image}}"  class="image" imageViewer>   
                     </ion-col>
                 </ion-row>
               </ion-grid> 
@@ -85,7 +85,7 @@
             <ion-item>
                   <ion-grid >
                   <ion-row>
-                      <ion-col col-6 *ngFor="let a of  customizedCard"   (press)="ShareD(a.image, a.key)">
+                      <ion-col col-6 *ngFor="let a of  customizedCard"   (press)="ShareD(a.image, a.id)">
                           <img src="{{a.image}}"  class="image" imageViewer>   
                       </ion-col>
                   </ion-row>

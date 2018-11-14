@@ -16,14 +16,16 @@ page-profile {
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+      border: solid 1px rgb(213, 216, 213);
       
 
   }
+ 
   .add{
     font-size: 3em;
     position: relative;
     left: 40%;
-    bottom: 1em
+    bottom: 0.5em
   }
   #hide{
      display: none
@@ -67,7 +69,8 @@ page-profile {
     }
     .flex{
       display: flex;
-      justify-content: center
+      justify-content: center;
+      // border: solid 2px;
     }
     .text{
       position: relative;

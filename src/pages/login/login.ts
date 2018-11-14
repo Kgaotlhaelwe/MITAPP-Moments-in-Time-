@@ -1,16 +1,14 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,Platform,App,LoadingController, Keyboard } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,Platform,App, LoadingController, Keyboard } from 'ionic-angular';
 import {user} from '../model/user';
 import {DatabaseProvider} from '../../providers/database/database' ;
 import { RegisterPage } from '../register/register';
 import { AlertController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
-//import {AdminPage} from '../admin/admin'
-//import { THIS_EXPR } from '../../../node_modules/@angular/compiler/src/output/output_ast';
-//import {HomePage} from '../home/home';
 import { MessagePage } from '../message/message';
 import { EventPage } from '../event/event';
-
+import { Network } from '@ionic-native/network';
+import { ToastController } from 'ionic-angular';
 declare var firebase
 /**
  * Generated class for the LoginPage page.
@@ -29,7 +27,7 @@ export class LoginPage {
 
   user = {} as user ;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams , private keyboard: Keyboard, private db:DatabaseProvider ,public alertCtrl: AlertController,public loadingCtrl: LoadingController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams , private keyboard: Keyboard, private db:DatabaseProvider ,public alertCtrl: AlertController,public loadingCtrl: LoadingController, private network: Network, public toastCtrl: ToastController) {
 
   }
   
@@ -37,9 +35,32 @@ export class LoginPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
   }
-  presentLoading() {
+  
+  // displayNetworkUpdate(connectionState:string){
+  //   let networkType =this.network.type
+  //   this.toastCtrl.create({
+  //     message:`You are now `+' '+connectionState  ,
+  //     duration:3000 ,
+  //   }).present()
+   
+  //  }
+  
+  // ionViewDidEnter() {
+  //   this.network.onConnect().subscribe(data=>{
+  //     console.log(data)
+  //     this.displayNetworkUpdate('Connected')
+     
+  //    }
     
-  }
+  //   ,error=>console.error(error));
+     
+  //    this.network.onDisconnect().subscribe(data=>{
+     
+  //     console.log(data)
+  //     this.displayNetworkUpdate('Disconnected')
+  //    },error=>console.error(error));
+    
+  //   }
 
   Login(user:user){
 
@@ -48,14 +69,15 @@ export class LoginPage {
     if(user.email !=undefined && user.password !=undefined){
       this.db.login(user.email ,user.password).then(()=>{
         var users= firebase.auth().currentUser;
-        console.log(users.uid);
-        
-      
-        const loader = this.loadingCtrl.create({
-          content: "Logging in please wait...",
-          duration: 3000
-        });
-        loader.present();
+        console.log(users.uid);      
+        // let loading = this.loadingCtrl.create({
+        //   spinner: 'ios',
+        //   content: 'Logging in please wait...',
+        //   cssClass: "loading-md .loading-wrapper ",
+        //   duration: 3000
+        // });
+    
+        // loading.present();
       
         this.navCtrl.setRoot(TabsPage);
        
@@ -79,6 +101,16 @@ export class LoginPage {
 
     }
   }
+  
+
+  // presentLoading1() {
+  //   const loader = this.loadingCtrl.create({
+  //     content: "Please wait...",
+  //     duration: 3000
+  //   });
+  //   loader.present();
+  // }
+
 
   forgetPassword(user:user){
     this.db.forgetPassword(user.email).then(()=>{

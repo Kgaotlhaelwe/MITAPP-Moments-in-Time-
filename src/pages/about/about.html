@@ -18,19 +18,21 @@
 <img src="../../assets/imgs/BIRTHDAY.png">
 <ion-content padding class="background" >
   <h1 *ngIf="!hasMessages">You currently don't have messages to review</h1>
-<div  *ngFor="let v of sentMessages; let u = index" (press)="sendVia(v.message,v.name , v.key)" >
+<div  *ngFor="let v of sentMessages; let u = index" (press)="sendVia(v.message,v.name , v.id)" >
 
 
     <ion-list   >
         <ion-item-sliding>
-          <ion-item   >
+          <ion-item   (click)="readMore(v.message,v.name , v.image, v.id)" >
             <ion-avatar item-start  >
               <img src="{{v.image}}">
             </ion-avatar>
-            <h2>{{v.name}}</h2>
-
-            {{v.message}}
+            <h2 class="h2" >{{v.name}}</h2>
+            <p> {{v.message}}
             {{v.automessage}}
+          </p>
+
+           
 
             <br>
             <!-- {{countDownDate}} -->
@@ -48,14 +50,14 @@
             </ion-grid>
 
           </ion-item>
-          <ion-item-options side="left">
-            <button ion-button color="b" (click)="readMore(v.message,v.name , v.image)">
+          <!-- <ion-item-options side="left">
+            <button ion-button class="buttons"  (click)="update()" >
               <ion-icon name="mail"></ion-icon>
-              Read
+              Edit
             </button>
-          </ion-item-options>
+          </ion-item-options> -->
           <ion-item-options side="right">
-            <button ion-button color="b" (click)="Delete(v.key)">
+            <button ion-button color="b" class="buttons"  (click)="Delete(v.id)">
               <ion-icon name="delete"></ion-icon>
               Delete
             </button>

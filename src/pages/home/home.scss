@@ -49,12 +49,22 @@ page-home {
         background-color: white;
         touch-action: none !important;
     }
-    ion-grid{
-        position: relative;
-        top: 20%;
-        font-family: cursive
-    }
 
+    .footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before{
+             top: 0px; 
+ 
+     background-position: left 0 top 0; 
+     height: 0px; 
+
+    }
+    .hasmess{
+        text-align: center;
+        position: absolute;
+        top: 100px;
+        color: rgb(175, 174, 174)
+       
+
+    }
 
 
    

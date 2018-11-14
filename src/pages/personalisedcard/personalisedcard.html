@@ -7,79 +7,88 @@
 <ion-header>
 
   <ion-navbar color="b">
-    <ion-title>Personalised card</ion-title>
+    <ion-title>Customize card</ion-title>
   </ion-navbar>
 
 </ion-header>
 
-<!-- <ion-toolbar id="top-toolbar" > -->
-    
-<!--    
-    <ion-buttons right> -->
-        <!-- <button style="border: 1px solid #e76f6f;" ion-button icon-only style.color="#fff" (click)="changeColour('#fff')">
-            <ion-icon style="color: #fff;" name="square"></ion-icon> -->
-        <!-- </button> -->
-    <!-- </ion-buttons>
- </ion-toolbar> -->
 
-<ion-content >
 
-  
-       
-       
-       <canvas class="canvas"  #myCanvas (touchstart)="handleStart($event)" (touchmove)="handleMove($event)" >
-          <canvas-draw >
-              
-               </canvas-draw>   
-   </canvas>  
+
+
  
-  
+        <!-- <div #fixedContainer ion-fixed>
+          <ion-row>
+            <ion-col *ngFor="let color of colors" [style.background]="color" class="color-block" tappable (click)="selectColor(color)"></ion-col>
+          </ion-row>
+       
+          <ion-row radio-group [(ngModel)]="selectedColor">
+            <ion-col *ngFor="let color of colors" text-center>
+              <ion-radio [value]="color"></ion-radio>
+            </ion-col>
+          </ion-row>
+       
+          <canvas #imageCanvas (touchstart)="startDrawing($event)" (touchmove)="moved($event)"></canvas>
+        </div>
+        
       
-  <!-- <h1 [ngStyle]="myObj">dsfdsfds</h1> -->
+       
+        <ion-list *ngIf="storedImages.length > 0">
+          <ion-list-header>Previous Drawings</ion-list-header>
+          <ion-card *ngFor="let obj of storedImages; let i = index">
+            <ion-card-content>
+              <img [src]="getImagePath(obj.img)">
+            </ion-card-content>
+            <ion-row>
+              <button ion-button full icon-only color="danger" (click)="removeImageAtIndex(i)">
+                <ion-icon name="trash"></ion-icon>
+              </button>
+            </ion-row>
+          </ion-card>
+        </ion-list>
+      </ion-content>
+      <ion-footer #fixedContainer ion-fixed>
+          <button ion-button full (click)="saveCanvasImage()">Save Image</button>
+        </ion-footer> -->
+        <ion-content > 
+       <canvas ion-fixed class="canvas"  #myCanvas  id="canvasbackground"(touchstart)="handleStart($event)" (touchmove)="handleMove($event)" >
+      
 
+               <ion-item >
+                <ion-input type="text" placeholder="Please type your text " [(ngModel)]="textz"></ion-input>
+              </ion-item>
+   </canvas>  
 
-</ion-content>
+</ion-content> 
 
-<ion-footer class="footer">
-        <div class="flex">
+ <ion-footer  ion-fixed  class="footer">
+        <div class="flex" id="hide">
                 <ion-item >
-                       <ion-input type="text" placeholder="Please type your text " [(ngModel)]="textz"></ion-input>
+                       <ion-input type="text" placeholder="Please type your text "  [(ngModel)]="textz"  ></ion-input>
                      </ion-item>
                    
-                <button ion-button  color="b" (click)="text()">Send</button>
-                <!-- <button ion-button  color="b" (click)="text1()">text</button> -->
+                <button ion-button  color="b"  (click)="wrapText( )">Display</button>
                </div>
-    <ion-toolbar id="bottom-toolbar" color="b" >
+    <ion-toolbar class="buttons" id="bottom-toolbar" color="b" >
        <ion-buttons left>
-           <button ion-button  icon-only (click)="back()"><ion-icon ios="ios-color-palette" md="md-color-palette"></ion-icon></button>
-            <button *ngFor="let colour of availableColours" icon-only ion-button (click)="changeColour(colour)"> 
-             <ion-icon [style.color]="colour" name="brush"></ion-icon>
-            </button>
-            <!-- <button ion-button  icon-only (click)="font()" >  <ion-icon ios="logo-tumblr" md="logo-tumblr"></ion-icon></button> -->
-            <!-- <button ion-button  icon-only (click)="fontsize()" >  <ion-icon ios="logo-tumblr" md="logo-tumblr"></ion-icon></button> -->
+           <button ion-button  icon-only (click)="back()">
+             <ion-icon ios="ios-color-palette" md="md-color-palette"></ion-icon> </button>
+        
+            <!-- <button *ngFor="let colour of availableColours" icon-only ion-button (click)="changeColour(colour)">  -->
+             <!-- <ion-icon [style.color]="colour" name="brush"></ion-icon> -->
+            <!-- </button> -->
+  
         </ion-buttons>
-        <ion-buttons right>
-            <button  ion-button icon-only (click)="clearCanvas()">  <ion-icon ios="ios-trash" md="md-trash"></ion-icon></button>
-            <button ion-button right (click)="savePad()">Save</button>
+        <p id="textpalette"> <b> Click paint board  to start </b></p>
+        <ion-buttons right >
+            <button  ion-button icon-only id="Displaytrash" (click)="clearCanvas()">  <ion-icon ios="ios-trash" md="md-trash"></ion-icon></button>
+            <button ion-button right id="Displayhide" (click)="savePad()">Save</button>
         </ion-buttons>
 
-
-
-           <!-- <button color="light" ion-button icon-only (click)="changeSize(5)"><ion-icon style="font-size: 0.25em;" name="radio-button-on"></ion-icon></button>
-           <button color="light" ion-button icon-only (click)="changeSize(10)"><ion-icon style="font-size: 0.5em;" name="radio-button-on"></ion-icon></button> -->
-           <!-- <button color="light" ion-button icon-only (click)="changeSize(20)"><ion-icon style="font-size: 1em;" name="radio-button-on"></ion-icon></button>
-           <button color="light" ion-button icon-only (click)="changeSize(50)"><ion-icon style="font-size: 2em;" name="radio-button-on"></ion-icon></button>
-           <button color="light" ion-button icon-only (click)="changeSize(100)"><ion-icon style="font-size: 3em;" name="radio-button-on"></ion-icon></button> -->
-     
-       
-      
       
     </ion-toolbar>
 
-          <!-- <div class="flex">
-    <button ion-button  full (click)="savePad()">Save</button>
 
-   </div> -->
 
    
-   </ion-footer>
+   </ion-footer> 

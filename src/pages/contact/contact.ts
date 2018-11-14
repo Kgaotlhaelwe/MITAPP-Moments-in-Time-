@@ -3,6 +3,7 @@ import { NavController,AlertController, ModalController, NavParams } from 'ionic
 import { ViewPage } from '../view/view';
 import { InfosentPage } from '../infosent/infosent';
 import { SplashPage } from '../splash/splash';
+import { DatabaseProvider } from '../../providers/database/database';
 
 declare var firebase
 
@@ -20,7 +21,7 @@ export class ContactPage {
   hasMessages : boolean = false;
   chosenCategory = this.navParams.get("chosenCategory");
 
-  constructor(public navCtrl: NavController , public navParams: NavParams,private alertCtrl :AlertController,public modalCtrl: ModalController) {
+  constructor(public navCtrl: NavController , public navParams: NavParams,private alertCtrl :AlertController,public modalCtrl: ModalController, private db: DatabaseProvider) {
     if("Birthday" == this.chosenCategory){
       this.image ="../../assets/icon/icons8_Wedding_Cake_100px.png";
     }
@@ -59,12 +60,9 @@ export class ContactPage {
   }
 
   Delete(key){
-    this.sentMessages = [];
-   var users= firebase.auth().currentUser;
-   var userid=users.uid
-    
-   
-    firebase.database().ref('Testingmsg/'+userid).child(key).remove();
+    this.db.deleteSentMessage(key).then(()=>{
+      this.navCtrl.push(ContactPage)
+    })
   }
   
   presentModal() {
@@ -75,43 +73,60 @@ export class ContactPage {
   ionViewWillEnter(){
    
 
-    var users= firebase.auth().currentUser;
-    console.log(users.uid);
-    firebase.database().ref("Testingmsg/"+users.uid).on('value', (data: any) => {
-    var name = data.val();
+  //   var users= firebase.auth().currentUser;
+  //   console.log(users.uid);
+  //   firebase.database().ref("Testingmsg/"+users.uid).on('value', (data: any) => {
+  //   var name = data.val();
    
-    this.sentMessages=[];
-      if (name !== null) {
+  //   this.sentMessages=[];
+  //     if (name !== null) {
    
    
-        var keys: any = Object.keys(name);
+  //       var keys: any = Object.keys(name);
    
-        for (var i = 0; i < keys.length; i++) {
-          var k = keys[i];
+  //       for (var i = 0; i < keys.length; i++) {
+  //         var k = keys[i];
    
-          let  obj = {
-           message: name[k].message,
-            name: name[k].name,
-            key: k ,
+  //         let  obj = {
+  //          message: name[k].message,
+  //           name: name[k].name,
+  //           key: k ,
    
-            date:name[k].date
+  //           date:name[k].date
    
-            }
-          this.sentMessages.push(obj);
+  //           }
+  //         this.sentMessages.push(obj);
    
-          console.log(this.sentMessages);
+  //         console.log(this.sentMessages);
          
-        };
-        if(this.sentMessages.length > 0){
-          this.hasMessages = true;
-        }
-      } else{
-          this.hasMessages =  false;
-      }
+  //       };
+  //       if(this.sentMessages.length > 0){
+  //         this.hasMessages = true;
+  //       }
+  //     } else{
+  //         this.hasMessages =  false;
+  //     }
 
    
    
-   })
+  //  })
+
+    this.db.getSentMessage().then((data:any)=>{
+    console.log(data);
+
+    this.sentMessages = data ;
+
+    if (this.sentMessages.length > 0) {
+      this.hasMessages = true;
+    }
+    else {
+      this.hasMessages = false;
+    }
+
+  
+
+})
+  
   }
 
   

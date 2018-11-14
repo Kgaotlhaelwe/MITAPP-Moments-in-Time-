@@ -7,6 +7,8 @@ import { SocialSharing } from '@ionic-native/social-sharing';
 import { ActionSheetController } from 'ionic-angular';
 import { PopoverPage } from '../popover/popover';
 import { ModalmessagePage } from '../modalmessage/modalmessage';
+import { Network } from '@ionic-native/network';
+import { ToastController } from 'ionic-angular';
 
 /**
  * Generated class for the EventPage page.
@@ -25,7 +27,9 @@ export class EventPage {
   msgz =[]
 
   indx =1
-  constructor(public navCtrl: NavController, public navParams: NavParams, private db:DatabaseProvider,public popoverCtrl: PopoverController, private socialSharing: SocialSharing, public actionSheetCtrl: ActionSheetController,public modalCtrl: ModalController) {
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db:DatabaseProvider,public popoverCtrl: PopoverController, private socialSharing: SocialSharing, public actionSheetCtrl: ActionSheetController,public modalCtrl: ModalController,private network: Network , public toastCtrl: ToastController ) {
     this.db.getMessages().then((data:any)=>{
       this.mesaagesArray=data
 
@@ -43,16 +47,51 @@ export class EventPage {
    
     console.log('ionViewDidLoad EventPage');
   }
+
+
+
+  
+
+
+
+  // displayNetworkUpdate(connectionState:string){
+  //   let networkType =this.network.type
+  //   this.toastCtrl.create({
+  //     message:connectionState ,
+  //     duration:3000 ,
+  //   }).present()
+   
+  //  }
+  
+  // ionViewDidEnter() {
+  //   this.network.onConnect().subscribe(data=>{
+  //     console.log(data)
+  //     this.displayNetworkUpdate('Connected')
+     
+  //    }
+    
+  //   ,error=>console.error(error));
+     
+  //    this.network.onDisconnect().subscribe(data=>{
+     
+  //     console.log(data)
+  //     this.displayNetworkUpdate('Disconected')
+  //    },error=>console.error(error));
+    
+  //   }
   graduation(a){
 
     this.db.GraduationMessages().then((data:any)=>{
     
       console.log(data);
-      // this.navCtrl.push(MessagePage  , )
-      const modal = this.modalCtrl.create(MessagePage,{graduationMsg:data,categoryChosen:a});
-      modal.present();
+       this.navCtrl.push(MessagePage,{graduationMsg:data,categoryChosen:a});
+     // modal.present();
+     //const modal = this.modalCtrl.create(MessagePage,{graduationMsg:data,categoryChosen:a});
       
-    } , (error)=>{})
+      
+    } , (error)=>{
+      alert(error)
+    })
     
       }
     
@@ -61,12 +100,15 @@ export class EventPage {
         this.db.weddingMessage().then((data:any)=>{
     
           console.log(data);
-          // this.navCtrl.push(MessagePage  )
-          const modal = this.modalCtrl.create(MessagePage , {graduationMsg:data,categoryChosen:a});
-          modal.present();
+           this.navCtrl.push(MessagePage , {graduationMsg:data,categoryChosen:a});
+         // const modal = this.modalCtrl.create(MessagePage , {graduationMsg:data,categoryChosen:a});
+          //modal.present();
       
           
-        } , (error)=>{})
+        } , (error)=>{
+
+          alert(error)
+        })
         
     
       }
@@ -74,12 +116,15 @@ export class EventPage {
         this.db.anniversaryMessage().then((data:any)=>{
     
           console.log(data);
-          // this.navCtrl.push(MessagePage   )
-          const modal = this.modalCtrl.create(MessagePage, {graduationMsg:data ,categoryChosen:a});
-          modal.present();
+         this.navCtrl.push(MessagePage, {graduationMsg:data ,categoryChosen:a});
+         const modal = this.modalCtrl.create(MessagePage, {graduationMsg:data ,categoryChosen:a});
+         // modal.present();
       
           
-        } , (error)=>{})
+        } , (error)=>{
+
+          alert(error)
+        })
         
     
       }
@@ -87,12 +132,15 @@ export class EventPage {
         this.db.newJobMessage().then((data:any)=>{
     
           console.log(data);
-          // this.navCtrl.push(MessagePage )
-          const modal = this.modalCtrl.create(MessagePage , {graduationMsg:data , categoryChosen:a} );
-          modal.present();
+         this.navCtrl.push(MessagePage , {graduationMsg:data , categoryChosen:a} );
+          //  const modal = this.modalCtrl.create(MessagePage , {graduationMsg:data , categoryChosen:a} );
+         // modal.present();
         
           
-        } , (error)=>{})
+        } , (error)=>{
+
+          alert(error)
+        })
         
     
       }
@@ -100,12 +148,14 @@ export class EventPage {
         this.db.babyShowerMessages().then((data:any)=>{
     
           console.log(data);
-          // this.navCtrl.push(MessagePage  )
-          const modal = this.modalCtrl.create(MessagePage , {graduationMsg:data, categoryChosen:a});
-          modal.present();
+          this.navCtrl.push(MessagePage , {graduationMsg:data, categoryChosen:a});
+           //const modal = this.modalCtrl.create(MessagePage , {graduationMsg:data, categoryChosen:a});
+         // modal.present();
         
           
-        } , (error)=>{})
+        } , (error)=>{
+          alert(error)
+        })
         
     
       }
@@ -114,23 +164,30 @@ export class EventPage {
         this.db.birthdayMessages().then((data:any)=>{
     
           console.log(data);
-          // this.navCtrl.push(MessagePage )
-          const modal = this.modalCtrl.create(MessagePage , {graduationMsg:data ,categoryChosen:a} );
-          modal.present();
+          this.navCtrl.push(MessagePage , {graduationMsg:data ,categoryChosen:a} );
+           //const modal = this.modalCtrl.create(MessagePage , {graduationMsg:data ,categoryChosen:a} );
+         // modal.present();
        
           
-        } , (error)=>{})
+        } , (error)=>{
+          alert(error)
+        })
         
     
       }
       thinkingofyou(a){
         this.db.thinkingofyou().then((data:any)=>{
-          // this.navCtrl.push(MessagePage  )
-          const modal = this.modalCtrl.create(MessagePage , {graduationMsg:data ,categoryChosen:a});
-          modal.present();
+          this.navCtrl.push(MessagePage , {graduationMsg:data ,categoryChosen:a} );
+         
+          // const modal = this.modalCtrl.create(MessagePage , {graduationMsg:data ,categoryChosen:a});
+         // modal.present();
         
  
+        }, (error)=>{
+          alert(error)
+        
         })
+        
  
       }
  
@@ -138,12 +195,14 @@ export class EventPage {
         this.db.General().then((data:any)=>{
  
           console.log(data);
-          // this.navCtrl.push(MessagePage )
-          const modal = this.modalCtrl.create(MessagePage  , {graduationMsg:data ,categoryChosen:a});
-          modal.present();
+          this.navCtrl.push(MessagePage  , {graduationMsg:data ,categoryChosen:a});
+          // const modal = this.modalCtrl.create(MessagePage  , {graduationMsg:data ,categoryChosen:a});
+          //modal.present();
           
  
-        } , (error)=>{})
+        } , (error)=>{
+          alert(error)
+        })
      
  
  

@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams,ViewController,AlertController} fro
 import {DatabaseProvider} from '../../providers/database/database' ;
 import { LoginPage } from '../login/login';
 import { FavouriteMessagesPage } from '../favourite-messages/favourite-messages';
-
+import { Storage } from '@ionic/storage';
 /**
  * Generated class for the PopoverPage page.
  *
@@ -19,9 +19,9 @@ import { FavouriteMessagesPage } from '../favourite-messages/favourite-messages'
 })
 export class PopoverPage {
 
-  
-  constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController, private db:DatabaseProvider,public alertCtrl: AlertController) {
-  
+  selectedTheme: String;
+  constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController, private db:DatabaseProvider,public alertCtrl: AlertController, private storage: Storage) {
+    //  this.db.getActiveTheme().subscribe(val => this.selectedTheme = val);
   }
 
   ionViewDidLoad() {
@@ -54,4 +54,24 @@ export class PopoverPage {
   favorite(){
     this.navCtrl.push(FavouriteMessagesPage)
   }
+  changeTheme = function(){
+    // this.db.getActiveTheme().subscribe(val => this.selectedTheme = val);
+    this.db.getActiveTheme().subscribe((val)=>{
+      this.selectedTheme = val
+     })
+    if(this.selectedTheme == 'maincolor-theme'){
+      this.db.setAciveTheme('blue-theme');
+      
+    }else if(this.selectedTheme == 'blue-theme'){
+      this.db.setAciveTheme('orange-theme');
+     
+    }else if(this.selectedTheme == 'orange-theme'){
+      this.db.setAciveTheme('purple-theme');
+      
+    }else {
+      this.db.setAciveTheme('maincolor-theme');
+      
+    }
+  }
+
 }

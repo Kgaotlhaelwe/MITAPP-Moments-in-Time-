@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams ,AlertController,PopoverController}
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { PopoverPage } from '../popover/popover';
 import {DatabaseProvider} from '../../providers/database/database';
+import { Network } from '@ionic-native/network';
+import { ToastController } from 'ionic-angular';
 
 declare var firebase ;
 
@@ -31,7 +33,7 @@ export class ProfilePage {
   url ;
 
   profileimage ;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl:AlertController, private camera: Camera,public popoverCtrl: PopoverController, private db:DatabaseProvider ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl:AlertController, private camera: Camera,public popoverCtrl: PopoverController, private db:DatabaseProvider, private network: Network , public toastCtrl: ToastController ) {
 
    
   
@@ -79,11 +81,8 @@ export class ProfilePage {
           handler: data => {
             console.log('Cancel clicked');
 
-            var users= firebase.auth().currentUser;
-            var userid=users.uid
-    
-            this.favouriteArray=[]
-          firebase.database().ref('customisedCard/'+userid).child(key).remove();
+           this.db.deletecustomizedCard(key).then(()=>{})
+           this.navCtrl.push(ProfilePage);
           }
         },
         {
@@ -108,20 +107,16 @@ export class ProfilePage {
         {
           text: 'Delete',
           handler: data => {
-            console.log('Cancel clicked');
-
-            var users= firebase.auth().currentUser;
-            var userid=users.uid
-    
-            this.favouriteArray=[]
-          firebase.database().ref('likedPictures/'+userid).child(key).remove();
+           
+            this.db.deletelikedImages(key).then(()=>{})
+            this.navCtrl.push(ProfilePage);
           }
         },
         {
           text: 'Share',
           handler: data => {
             console.log('Saved clicked');
-            this.db.shareYourfav(a)
+            this.db.sendviaWhatsApps(a)
 
             
           }
@@ -199,8 +194,8 @@ export class ProfilePage {
   update(){
     // alert(this.key)
     const prompt = this.alertCtrl.create({
-      title: 'UPDATE',
-      message: "Update your Details",
+      title: 'Update',
+      message: "Update your username.",
       inputs: [
         {
           name: 'name',
@@ -237,38 +232,52 @@ export class ProfilePage {
     prompt.present();
   }
 
-
+  // displayNetworkUpdate(connectionState:string){
+  //   let networkType =this.network.type
+  //   this.toastCtrl.create({
+  //     message:connectionState ,
+  //     duration:3000 ,
+  //   }).present()
+   
+  //  }
+  
+  // ionViewDidEnter() {
+  //   this.network.onConnect().subscribe(data=>{
+  //     console.log(data)
+  //     this.displayNetworkUpdate('Connected')
+     
+  //    }
+    
+  //   ,error=>console.error(error));
+     
+  //    this.network.onDisconnect().subscribe(data=>{
+     
+  //     console.log(data)
+  //     this.displayNetworkUpdate('Disconected')
+  //    },error=>console.error(error));
+    
+  //   }
   
 
-   ionViewDidLoad() {
+   ionViewDidEnter() {
     console.log('ionViewDidLoad ProfilePage');
+    this.db.getlikedImage().then((data:any)=>{
+      console.log(data);
 
-    var users= firebase.auth().currentUser;
-    this. userid=users.uid
-    
-    firebase.database().ref("likedPictures/"+this.userid).on('value', 
-    (data: any) => {
-      var name = data.val();
-      this.favouriteArray=[];
-        if (name !== null) {
-          var keys: any = Object.keys(name);
-          for (var i = 0; i < keys.length; i++) {
-            var k = keys[i];
-            let  obj = {
-              key:k ,
-              message:name[k].message,
-              }
-              
-            this.favouriteArray.push(obj);
-            console.log(this.favouriteArray);
-            
-          };
-        } else{
- 
-        }
-       
+      this.favouriteArray =data ;
+      console.log(this.favouriteArray);
 
-     })
+//getcustomizedCard
+      this.db.getcustomizedCard().then((data:any)=>{
+        console.log(data);
+        this.customizedCard =data ;
+        console.log(this.customizedCard);
+        
+        
+      })
+      
+      
+    })
 
 
      
@@ -302,32 +311,7 @@ export class ProfilePage {
   
   
   
-  async takeApic(){
-
-    try {
-      const options: CameraOptions = {
-        quality: 100,
-        destinationType: this.camera.DestinationType.FILE_URI,
-        encodingType: this.camera.EncodingType.JPEG,
-        mediaType: this.camera.MediaType.PICTURE
-      }
-      
-      const result = await this.camera.getPicture(options);
-      const image = 'data:image/jpeg;'+result;
-     
-      const pictures  = firebase.storage().ref("profile/" );
-      pictures.putString(image, 'data_url')
   
-    
-  
-      
-    } catch (error) {
-      console.log(error);
-      
-      
-    }
-    
-  }
   
 presentPopover(myEvent) {
   let popover = this.popoverCtrl.create(PopoverPage);

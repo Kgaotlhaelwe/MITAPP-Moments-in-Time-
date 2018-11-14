@@ -78,11 +78,26 @@
   }
 
 
-  .toast{.toast-wrapper { text-align: center;  background: color($colors, toast1);}
+  .toast{
+    .toast-wrapper
+     { text-align: center;  background: color($colors, toast1)
+      ;}
 };
 
 
 .toast1{.toast-wrapper { text-align: center;  background: color($colors,  toast2);}
 };
+  .loading-md .loading-wrapper {
+    max-height: 13%;
+    border-radius: 25px
+
+   
+  }
+
+
+
+  
+
+
 // .toast3{.toast-wrapper { text-align: center;  background: color($colors, toast3);}
 // };

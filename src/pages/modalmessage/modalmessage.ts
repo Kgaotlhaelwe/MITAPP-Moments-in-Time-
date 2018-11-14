@@ -26,12 +26,13 @@ export class ModalmessagePage {
     this.navCtrl.length());
   }
   poptoevent(){
+    this.navCtrl.popAll();
    
-    this.viewCtrl.dismiss().then(_=>{
-  let activePortal = this.ionicApp._modalPortal.getActive()
-  if (activePortal) {
-    activePortal.dismiss(); //can use another .then here
-  }
-});
-  }
+//     this.viewCtrl.dismiss().then(_=>{
+//   let activePortal = this.ionicApp._modalPortal.getActive()
+//   if (activePortal) {
+//     activePortal.dismiss(); //can use another .then here
+//   }
+// });
+ }
 }

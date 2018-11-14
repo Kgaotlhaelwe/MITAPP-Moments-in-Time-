@@ -12,6 +12,8 @@
      
     </ion-navbar>
   </ion-header>
+
+
 <ion-content  class="backgroud" padding >
   <div class="card-container" *ngIf="ready">
     <sc-card  *ngFor="let attendant of attendants"
@@ -21,37 +23,25 @@
 <!-- {{textdisplay}}  -->
 
 <!-- <div class="user_img" [style.background-image]="imzx.asBg" > -->
-    
+ 
 <!-- <img src="{{slidingImage}} "> -->
-<img src="{{imzx}}">
+<img src="{{imzx}}" (load)="onImageLoad($event)" >
+
 <!-- </div> -->
     </sc-card>
-  
+   
 </div>
 
-
-<ion-grid>
-<ion-row>
-  <ion-col> <ion-fab  left bottom >
+<h1 class="hasmess" padding>{{hasMessages}}</h1>
+      </ion-content>
+      <ion-footer >
+        <ion-fab  left bottom padding>
           <button ion-fab  class="fabs" color="light" (click)="dislike()"><ion-icon color="danger" name="md-close"  ></ion-icon></button>
         </ion-fab>
-  
-  </ion-col>
-  <ion-col>
-      
-    <ion-fab center bottom >
-      <button ion-fab mini color="light" (click)="shareVia()"><ion-icon color="primary" name="share"></ion-icon></button>
-     </ion-fab>
-  </ion-col>
-  <ion-col>
-     <ion-fab right bottom>
-      <button ion-fab class="fabs" color="light" (click)="like()"><ion-icon color="secondary" name="md-heart"  ></ion-icon></button>
-    </ion-fab>
-  </ion-col>
-</ion-row>
-</ion-grid>
-        
-  <!-- <button (click)="Personalcard()">Personalcard</button> -->
-
-         
-      </ion-content>
+        <ion-fab center bottom >
+          <button ion-fab mini color="light" (click)="shareVia()"><ion-icon color="primary" name="share"></ion-icon></button>
+        </ion-fab>
+        <ion-fab right bottom padding>
+          <button ion-fab class="fabs" color="light" (click)="like()"><ion-icon color="secondary" name="md-heart"  ></ion-icon></button>
+         </ion-fab>
+         </ion-footer>

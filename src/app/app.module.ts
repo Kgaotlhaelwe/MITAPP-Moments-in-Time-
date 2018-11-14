@@ -36,6 +36,7 @@ import { InfoPage } from '../pages/info/info';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 import {  CanvasDrawComponent } from '../components/canvas-draw/canvas-draw';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
 import {PersonalisedcardPage} from '../pages/personalisedcard/personalisedcard'
 import { InfosentPage } from '../pages/infosent/infosent';
@@ -46,6 +47,8 @@ import { SignaturePadModule } from 'angular2-signaturepad';
 import { IonicStorageModule } from '@ionic/storage';
 import { Calendar } from '@ionic-native/calendar';
 import { ModalmessagePage } from '../pages/modalmessage/modalmessage';
+import { IonicImageLoader } from 'ionic-image-loader';
+import { Network } from '@ionic-native/network';
 var config = {
   apiKey: "AIzaSyD-60vJrUA-k0qFjOyc-2quuULN2t9DKAc",
   authDomain: "momentsintime-a9b60.firebaseapp.com",
@@ -78,7 +81,7 @@ var config = {
      CanvasDrawComponent,
       PersonalisedcardPage,
       InfosentPage,
-      ModalmessagePage
+      ModalmessagePage , 
   
   ],
   imports: [
@@ -87,7 +90,8 @@ var config = {
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule,IonicImageViewerModule,
     SignaturePadModule,
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    IonicImageLoader.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -114,8 +118,8 @@ var config = {
     ModalmessagePage,
   ],
   providers: [
-    StatusBar,
-    SplashScreen, DatabaseProvider , SMS , SocialSharing ,Contacts,LocalNotifications,Camera ,BackgroundMode ,Calendar ,
+    StatusBar,   SQLite ,
+    SplashScreen, DatabaseProvider , SMS , SocialSharing ,Contacts,LocalNotifications,Camera ,BackgroundMode ,Calendar ,Network ,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   
   ]

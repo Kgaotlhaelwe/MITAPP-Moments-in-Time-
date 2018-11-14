@@ -8,6 +8,7 @@ import {HomePage} from '../../pages/home/home'
 import { AlertController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { LoginPage } from '../login/login';
+import { Network } from '@ionic-native/network';
 declare var firebase
 
 /**
@@ -27,12 +28,40 @@ export class RegisterPage {
   user = {} as user ;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams ,private db:DatabaseProvider, public toastCtrl: ToastController,public alertCtrl: AlertController ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams ,private db:DatabaseProvider, public toastCtrl: ToastController,public alertCtrl: AlertController , private network: Network ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
   }
+
+
+
+  // displayNetworkUpdate(connectionState:string){
+  //   let networkType =this.network.type
+  //   this.toastCtrl.create({
+  //     message:`YOU ARE NOW`+connectionState +'via'+networkType ,
+  //     duration:3000 ,
+  //   }).present()
+   
+  //  }
+  
+  // ionViewDidEnter() {
+  //   this.network.onConnect().subscribe(data=>{
+  //     console.log(data)
+  //     this.displayNetworkUpdate(data.type)
+     
+  //    }
+    
+  //   ,error=>console.error(error));
+     
+  //    this.network.onDisconnect().subscribe(data=>{
+     
+  //     console.log(data)
+  //     this.displayNetworkUpdate(data.type)
+  //    },error=>console.error(error));
+    
+  //   }
 
   Register(user:user){
     console.log(user.name);

@@ -32,7 +32,7 @@ url ;
 
     firebase.database().ref('category/' + this.relationship).push({
 
-      message :this.url
+      message :this.message
    
 
     });

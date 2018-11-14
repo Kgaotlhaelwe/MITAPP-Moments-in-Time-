@@ -3,6 +3,13 @@ import { Injectable } from '@angular/core';
 
 import { AngularFireAuth } from '../../../node_modules/angularfire2/auth';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { Network } from '@ionic-native/network';
+import { ToastController } from 'ionic-angular';
+import { LoadingController } from 'ionic-angular';
+import { LoginPage } from '../../pages/login/login';
+import { BehaviorSubject } from 'rxjs/Rx';
+import { Storage } from '@ionic/storage';
+import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 declare var firebase ;
 
 /*
@@ -27,8 +34,45 @@ export class DatabaseProvider {
 
   messageArray =[];
   condition;
-  constructor(public http: HttpClient,private fire:AngularFireAuth ,private socialSharing:SocialSharing) {
+  tempTheme:string;
+
+  private db: SQLiteObject;
+  private isOpen: boolean;
+  private theme: BehaviorSubject<String>;//declare
+  constructor(public http: HttpClient,private fire:AngularFireAuth ,private socialSharing:SocialSharing, private networks: Network,public toastCtrl: ToastController,  public loadingCtrl: LoadingController, private storage: Storage ,  public sql: SQLite) {
     console.log('Hello DatabaseProvider Provider');
+    storage.get('theme').then((val) => {
+      console.log('Your theme', val);
+      this.tempTheme = val
+      console.log(this.tempTheme);
+      
+    });
+    this.theme = new BehaviorSubject(this.tempTheme);
+
+
+    if (!this.isOpen) {
+      this.sql = new SQLite();
+      this.sql.create({ name: "MIT.db", location: "default" }).then((db: SQLiteObject) => {
+        this.db = db;
+        db.executeSql("CREATE TABLE IF NOT EXISTS reviewMessage (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, image TEXT, message TEXT )", []);
+        db.executeSql("CREATE TABLE IF NOT EXISTS sentMessages (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, date TEXT, message TEXT )", []);
+        db.executeSql("CREATE TABLE IF NOT EXISTS likedPictures (id INTEGER PRIMARY KEY AUTOINCREMENT, image TEXT  )", []);
+        db.executeSql("CREATE TABLE IF NOT EXISTS customizedCard (id INTEGER PRIMARY KEY AUTOINCREMENT, image TEXT  )", []);
+        
+        this.isOpen = true;
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
+  }
+
+  setAciveTheme(value){
+    this.storage.set('theme', value);
+    this.theme.next(value);
+  }
+  getActiveTheme(){ 
+   
+    return this.theme.asObservable();
   }
 
   checkstate(){
@@ -210,7 +254,7 @@ logInWithFaceBook(){
 
 birthdayMessages(){
   return new Promise((resolve, reject)=>{
-    firebase.database().ref('category/'+ 'Other' ).on('value', (data: any) => {
+    firebase.database().ref('category/'+ 'Birthday' ).on('value', (data: any) => {
 
       var message = data.val();
        console.log(data.val());
@@ -486,8 +530,16 @@ customizedCard(image) {
 }
 
 getMessages(){
+
+  const loader = this.loadingCtrl.create({
+    content: "Please wait...",
+    cssClass: "loading-md .loading-wrapper ",
+  
+  });
+  loader.present();
+ 
   return new Promise((resolve, reject)=>{
-    firebase.database().ref('category/'+ 'General' ).on('value', (data: any) => {
+    firebase.database().ref('category/'+ 'Cards' ).on('value', (data: any) => {
  
       var message = data.val();
        console.log(data.val());
@@ -507,6 +559,7 @@ getMessages(){
         this.messageArray.push(obj)
  
         resolve(this.messageArray);
+         loader.dismiss();
   }
  
  
@@ -519,7 +572,7 @@ getMessages(){
 sendviaWhatsApps(message){
 
   return new Promise((resolve, reject)=>{
-    this.socialSharing.share(null,null,message,null)
+    this.socialSharing.share(message,null,null,null)
      resolve()
      
       
@@ -664,7 +717,7 @@ savetoSentMessage(message,a,name){
 
  General(){
   return new Promise((resolve, reject)=>{
-    firebase.database().ref('category/'+ 'Generalz' ).on('value', (data: any) => {
+    firebase.database().ref('category/'+ 'General' ).on('value', (data: any) => {
  
       var message = data.val();
        console.log(data.val());
@@ -693,9 +746,36 @@ savetoSentMessage(message,a,name){
  
  
  }
+ displayNetworkUpdate(connectionState:string){
+  let networkType =this.networks.type
+  this.toastCtrl.create({
+    message:`YOU ARE NOW`+connectionState +'via'+networkType ,
+    duration:3000 ,
+  }).present()
  
+ }
  
- 
+ network(){
+
+   return new Promise((resolve, reject)=>{
+
+    this.networks.onConnect().subscribe(data=>{
+      console.log(data)
+      this.displayNetworkUpdate(data.type)
+     
+     }
+    
+    ,error=>console.error(error));
+     
+     this.networks.onDisconnect().subscribe(data=>{
+     
+      console.log(data)
+      this.displayNetworkUpdate(data.type)
+     },error=>console.error(error));
+    resolve();
+   
+  })
+ }
  thinkingofyou(){
   return new Promise((resolve, reject)=>{
     firebase.database().ref('category/'+ 'thinking of you' ).on('value', (data: any) => {
@@ -716,15 +796,231 @@ savetoSentMessage(message,a,name){
  
         }
         this.newJobArray.push(obj)
+        alert
  
         resolve(this.newJobArray);
   }
- 
- 
-  })
+   Error =>{
+    // reject(Error)
+    console.log("clicked")
+    alert(Error)
+   }
  
  })
  
+
+})
+
+
+
+
+
  
- }
+}
+
+// reviewMessage
+creatReviewMessage( name:string, image:string, message:string){
+  return new Promise ((resolve, reject) => {
+    let sql = "INSERT INTO  reviewMessage (name, image, message) VALUES (?, ?, ?)";
+    this.db.executeSql(sql, [ name, image, message ]).then((data) =>{
+      resolve(data);
+    }, (error) => {
+      reject(error);
+    });
+  });
+}
+
+
+
+creatSentessage( name:string, date:string, message:string){
+  return new Promise ((resolve, reject) => {
+    let sql = "INSERT INTO  sentMessages (name, date, message) VALUES (?, ?, ?)";
+    this.db.executeSql(sql, [ name, date, message ]).then((data) =>{
+      resolve(data);
+    }, (error) => {
+      reject(error);
+    });
+  });
+}
+
+
+
+creatlikeImage( image){
+  return new Promise ((resolve, reject) => {
+    let sql = "INSERT INTO  likedPictures (image) VALUES (?)";
+    this.db.executeSql(sql, [ image]).then((data) =>{
+      resolve(data);
+    }, (error) => {
+      reject(error);
+    });
+  });
+}
+
+creatcustomisedCard( image){
+  return new Promise ((resolve, reject) => {
+    let sql = "INSERT INTO customizedCard (image) VALUES (?)";
+    this.db.executeSql(sql, [ image]).then((data) =>{
+      resolve(data);
+    }, (error) => {
+      reject(error);
+    });
+  });
+}
+
+
+getReviewMessages(){
+  return new Promise ((resolve, reject) => {
+    this.db.executeSql("SELECT * FROM reviewMessage", []).then((data) => {
+      let arrayReviewMessage = [];
+      if (data.rows.length > 0) {
+        for (var i = 0; i < data.rows.length; i++) {
+          arrayReviewMessage.push({
+            id: data.rows.item(i).id,
+            name: data.rows.item(i).name,
+            image: data.rows.item(i).image,
+         
+            message: data.rows.item(i).message,
+           
+          });            
+        }          
+      }
+      resolve( arrayReviewMessage);
+    }, (error) => {
+      reject(error);
+    })
+  })
+}
+
+
+
+getlikedImage(){
+  return new Promise ((resolve, reject) => {
+    this.db.executeSql("SELECT * FROM likedPictures", []).then((data) => {
+      let arrayReviewMessage = [];
+      if (data.rows.length > 0) {
+        for (var i = 0; i < data.rows.length; i++) {
+          arrayReviewMessage.push({
+            id: data.rows.item(i).id,
+            
+            image: data.rows.item(i).image,
+         
+          
+           
+          });            
+        }          
+      }
+      resolve( arrayReviewMessage);
+    }, (error) => {
+      reject(error);
+    })
+  })
+}
+
+
+
+
+getSentMessage(){
+  return new Promise ((resolve, reject) => {
+    this.db.executeSql("SELECT * FROM sentMessages", []).then((data) => {
+      let arrayReviewMessage = [];
+      if (data.rows.length > 0) {
+        for (var i = 0; i < data.rows.length; i++) {
+          arrayReviewMessage.push({
+            id: data.rows.item(i).id,
+            name: data.rows.item(i).name,
+            date: data.rows.item(i).date,
+         
+            message: data.rows.item(i).message,
+           
+          });            
+        }          
+      }
+      resolve( arrayReviewMessage);
+    }, (error) => {
+      reject(error);
+    })
+  })
+}
+
+
+getcustomizedCard(){
+  return new Promise ((resolve, reject) => {
+    this.db.executeSql("SELECT * FROM customizedCard", []).then((data) => {
+      let arrayReviewMessage = [];
+      if (data.rows.length > 0) {
+        for (var i = 0; i < data.rows.length; i++) {
+          arrayReviewMessage.push({
+            id: data.rows.item(i).id,
+            image: data.rows.item(i).image,
+         
+           
+          });            
+        }          
+      }
+      resolve( arrayReviewMessage);
+    }, (error) => {
+      reject(error);
+    })
+  })
+}
+
+
+
+
+
+
+deleteReviewMessage(id){
+  return new Promise ((resolve, reject) => {
+    this.db.executeSql("DELETE FROM reviewMessage where id=?", [id]).then((data) => {
+      resolve(data);
+    }, (error) => {
+      reject(error);
+    })
+  });
+}
+
+
+
+deleteSentMessage(id){
+  return new Promise ((resolve, reject) => {
+    this.db.executeSql("DELETE FROM sentMessages where id=?", [id]).then((data) => {
+      resolve(data);
+    }, (error) => {
+      reject(error);
+    })
+  });
+}
+
+
+deletelikedImages(id){
+  return new Promise ((resolve, reject) => {
+    this.db.executeSql("DELETE FROM likedPictures where id=?", [id]).then((data) => {
+      resolve(data);
+    }, (error) => {
+      reject(error);
+    })
+  });
+}
+
+
+deletecustomizedCard(id){
+  return new Promise ((resolve, reject) => {
+    this.db.executeSql("DELETE FROM customizedCard where id=?", [id]).then((data) => {
+      resolve(data);
+    }, (error) => {
+      reject(error);
+    })
+  });
+}
+
+updateReviewMessage(message, id){
+  return new Promise ((resolve, reject) => {
+    this.db.executeSql("UPDATE  reviewMessage SET message=?   WHERE id=?", [message, id]).then((data) => {
+      resolve(data);
+    }, (error) => {
+      reject(error);
+    })
+  });
+}
+ 
 }

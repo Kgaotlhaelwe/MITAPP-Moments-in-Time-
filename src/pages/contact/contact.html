@@ -17,21 +17,21 @@
 
   <ion-list class="item">
         <ion-item-sliding>
-          <ion-item>
+          <ion-item  (click)="readMore(v.message,v.name )">
             <h2><b>{{v.name}}</b></h2>
             <p>
             {{v.message}}
             </p> 
           </ion-item>
-          <ion-item-options side="left">
-                <button ion-button color="b" (click)="readMore(v.message,v.name )">
+          <!-- <ion-item-options side="left">
+                <button ion-button class="buttons" >
                   <ion-icon name="mail"></ion-icon>
                   Read
                 </button>
-              </ion-item-options>
+              </ion-item-options> -->
               <ion-item-options side="right">
-                <button ion-button color="b" (click)="Delete(v.key)">
-                  <ion-icon name="delete"></ion-icon>
+                <button ion-button color="b" class="buttons"  (click)="Delete(v.id)">
+                  <ion-icon name="trash"></ion-icon>
                   Delete
                 </button>
               </ion-item-options>

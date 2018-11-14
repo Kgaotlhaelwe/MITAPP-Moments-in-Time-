@@ -38,8 +38,6 @@
 
           
         </div>
-        <br>
-        <br>
                <ion-item no-padding *ngIf="personalisedMessage" >
 
                 <ion-textarea text-wrap class="textarea" placeholder="Type your message....."    [(ngModel)]="messagez"></ion-textarea>
@@ -48,12 +46,12 @@
 
               <ion-item no-padding *ngIf="autoMessage" >
 
-                <ion-textarea text-wrap class="textarea" placeholder="Type your messagez....."   value="{{automsg}}"  [(ngModel)]="automsg"></ion-textarea> 
+                <ion-textarea text-wrap class="textarea" placeholder="Type your text....."   value="{{automsg}}"  [(ngModel)]="automsg"></ion-textarea> 
                </ion-item> 
           
-              <button ion-button color="b" class="buttons" full round (click)="chooseMessageType()" id="btnMessageType">message type</button>
+              <button ion-button color="b" class="buttons" full round (click)="chooseMessageType()" id="btnMessageType">Choose message type</button>
              
-              <button ion-button block color="b" class="buttons" round (click)="schedule(automsg , messagez)" id="btnz">Set Rimender</button>
+              <button ion-button block color="b" class="buttons" round (click)="schedule(automsg , messagez)" id="btnz">Set Reminder</button>
     
    
 

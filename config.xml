@@ -89,4 +89,7 @@
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.1" />
     <plugin name="cordova-plugin-background-mode" spec="^0.7.2" />
     <plugin name="cordova-plugin-calendar" spec="^5.1.2" />
+    <plugin name="cordova-plugin-network-information" spec="^2.0.1" />
+    <plugin name="cordova-sqlite-storage" spec="^2.5.1" />
+    <plugin name="cordova-plugin-file" spec="^6.0.1" />
 </widget>

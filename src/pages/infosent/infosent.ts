@@ -9,7 +9,7 @@ import { ContactPage } from '../contact/contact';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-infosent',
   templateUrl: 'infosent.html',

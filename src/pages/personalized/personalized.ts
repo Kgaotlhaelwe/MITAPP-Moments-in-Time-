@@ -15,7 +15,7 @@ import { BackgroundMode } from '@ionic-native/background-mode';
 import { EventPage } from '../event/event';
 import { Calendar } from '@ionic-native/calendar';
 import { ModalmessagePage } from '../modalmessage/modalmessage';
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-personalized',
   templateUrl: 'personalized.html',

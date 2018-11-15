@@ -85,7 +85,7 @@ var config = {
   
   ],
   imports: [
-    BrowserModule,HttpClientModule , SwingModule,SwipeCardsModule,
+    BrowserModule,HttpClientModule ,SwipeCardsModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule,IonicImageViewerModule,

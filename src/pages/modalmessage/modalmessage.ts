@@ -11,7 +11,7 @@ import { TabsPage } from '../tabs/tabs';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-modalmessage',
   templateUrl: 'modalmessage.html',

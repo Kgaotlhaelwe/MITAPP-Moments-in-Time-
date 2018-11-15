@@ -18,6 +18,7 @@ import { Network } from '@ionic-native/network';
 import { LoadingController } from 'ionic-angular';
 import { ImageLoader } from 'ionic-image-loader';
 import { AlertController } from 'ionic-angular';
+
 //import { IonicImageLoader } from 'ionic-image-loader';
 //import { ImgLoader } from 'ionic-image-loader';
 
@@ -59,6 +60,15 @@ textdisplay;
 imzx=[] ;
 hasMessages ;
 
+
+url ;
+
+imagesArray = []
+
+
+
+
+
  constructor(public navCtrl: NavController , private db:DatabaseProvider, private socialSharing: SocialSharing, public actionSheetCtrl: ActionSheetController,public popoverCtrl: PopoverController , private sanitizer: DomSanitizer, public toastCtrl: ToastController,private network: Network, public loadingCtrl: LoadingController , private imageLoader: ImageLoader, public alertCtrl: AlertController ) {
  
   
@@ -92,6 +102,10 @@ hasMessages ;
     
    } , (error)=>{})
 }
+
+
+
+
 
 
 clearCache(refresher) {
@@ -380,4 +394,32 @@ dislike(){
   }
 
 
-}
+
+
+  insertpic(event){
+    if (event.target.files && event.target.files[0]) {
+      let reader = new FileReader();
+      reader.onload = (event: any) => {
+        this.url = event.target.result;
+
+        this.imagesArray.push(this.url)
+        console.log(this.imagesArray);
+
+
+
+
+
+
+        
+        
+      };
+      reader.readAsDataURL(event.target.files[0]);
+      //console.log(event.target.files);
+      let selectedfile = event.target.files[0];
+
+  }
+
+  }}
+
+
+

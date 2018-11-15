@@ -22,7 +22,7 @@ import { MessagePage } from '../message/message';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-automate',
   templateUrl: 'automate.html',

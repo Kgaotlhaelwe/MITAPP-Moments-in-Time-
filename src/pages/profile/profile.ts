@@ -15,7 +15,7 @@ declare var firebase ;
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-profile',
   templateUrl: 'profile.html',
@@ -150,7 +150,7 @@ export class ProfilePage {
         function(snapshot) {},
         function(error) {
           // Handle unsuccessful uploads
-          alert("error !!1");
+          alert(error);
         },
         function () {
           // Handle successful uploads on complete

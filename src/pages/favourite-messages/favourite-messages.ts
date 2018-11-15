@@ -4,7 +4,7 @@ import {DatabaseProvider} from '../../providers/database/database' ;
 
 declare var firebase
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-favourite-messages',
   templateUrl: 'favourite-messages.html',

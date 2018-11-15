@@ -18,7 +18,7 @@ declare var firebase
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-register',
   templateUrl: 'register.html',
@@ -69,13 +69,13 @@ export class RegisterPage {
   
     if(this.user.email !=null  && this.user.password  !=null  ){
     this.db.register(user.email ,user.password, user.name,user.image ).then(()=>{
-      const toast = this.toastCtrl.create({
-        message: 'Thank you. You have been successfully Registered',
-        cssClass:'toast3' ,
-        duration: 3000,
-        position: 'end'
-      });
-      toast.present();
+      // const toast = this.toastCtrl.create({
+      //   message: 'Thank you. You have been successfully Registered',
+      //   cssClass:'toast3' ,
+      //   duration: 3000,
+      //   position: 'end'
+      // });
+      // toast.present();
       this.navCtrl.setRoot(TabsPage);
       
     } , (error)=>{

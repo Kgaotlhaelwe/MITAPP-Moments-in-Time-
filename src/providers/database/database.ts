@@ -534,6 +534,7 @@ getMessages(){
   const loader = this.loadingCtrl.create({
     content: "Please wait...",
     cssClass: "loading-md .loading-wrapper ",
+    duration :30000
   
   });
   loader.present();

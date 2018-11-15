@@ -9,7 +9,7 @@ import { LoginPage } from '../login/login';
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-splash',
   templateUrl: 'splash.html',

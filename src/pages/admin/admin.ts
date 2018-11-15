@@ -10,7 +10,7 @@ declare var firebase ;
  * Ionic pages and navigation.
  */
 
-@IonicPage()
+// @IonicPage()
 @Component({
   selector: 'page-admin',
   templateUrl: 'admin.html',
@@ -46,6 +46,9 @@ url ;
       reader.onload = (event: any) => {
         this.url = event.target.result;
         console.log(this.url);
+
+
+        
         
       };
       reader.readAsDataURL(event.target.files[0]);

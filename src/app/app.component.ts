@@ -19,7 +19,7 @@ import { ImageLoaderConfig } from 'ionic-image-loader';
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage :any  
+  rootPage :any = AdminPage 
 
   showSplash=true;
   selectedTheme
@@ -31,16 +31,16 @@ export class MyApp {
     console.log(this.selectedTheme);
     
    })
-    db.checkstate().then((data:any)=>{
+    // db.checkstate().then((data:any)=>{
 
-      if (data ==1){
-        this.rootPage = TabsPage;
+    //   if (data ==1){
+    //     this.rootPage = TabsPage;
      
-      }
-      else {
-        this.rootPage = LoginPage;
-      }
-     })
+    //   }
+    //   else {
+    //     this.rootPage = LoginPage;
+    //   }
+    //  })
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.

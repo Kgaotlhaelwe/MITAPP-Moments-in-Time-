@@ -18,6 +18,9 @@ import { Network } from '@ionic-native/network';
 import { LoadingController } from 'ionic-angular';
 import { ImageLoader } from 'ionic-image-loader';
 import { AlertController } from 'ionic-angular';
+import { DiconnectedPage } from '../diconnected/diconnected';
+
+// 
 
 //import { IonicImageLoader } from 'ionic-image-loader';
 //import { ImgLoader } from 'ionic-image-loader';
@@ -133,18 +136,19 @@ displayNetworkUpdate(connectionState:string){
  }
 
 ionViewDidEnter() {
-  // this.network.onConnect().subscribe(data=>{
-  //   console.log(data)
-  //  // this.displayNetworkUpdate('Connected')
-   
-  //  }
+  this.network.onConnect().subscribe(data=>{
+    console.log(data)
+   // this.displayNetworkUpdate('Connected')
+   this.navCtrl.push(HomePage);
+   }
   
-  // ,error=>console.error(error));
+  ,error=>console.error(error));
    
    this.network.onDisconnect().subscribe(data=>{
    
     console.log(data)
-    this.displayNetworkUpdate('Disconected to the network, please try again')
+    this.displayNetworkUpdate('Disconnected to the network, please try again')
+    this.navCtrl.push(DiconnectedPage);
    },error=>console.error(error));
   
   }

@@ -25,14 +25,14 @@
     <div class="top">
 
           <ion-item>
-            <ion-input placeholder="Name" type="text" [(ngModel)]="name" value="{{name}}"></ion-input>
+            <ion-input type="text"  maxlength="20" placeholder="Name  " type="text" [(ngModel)]="name" value="{{name}}"></ion-input>
           </ion-item>
        <ion-item class="item">
         <ion-datetime placeholder="Time" displayFormat="h:mm A" pickerFormat="HH:mm A"  [(ngModel)]="time"  ></ion-datetime>
         </ion-item>
 
         <ion-item class="item">
-            <ion-datetime placeholder="Date" displayFormat="DD MMM YYYY"  [(ngModel)]="date" required="required" ></ion-datetime>
+            <ion-datetime placeholder="Date" displayFormat="DD MMM YYYY"  [(ngModel)]="date" required="required"  min="{{tempdate}}" max="2030"></ion-datetime>
          </ion-item>
            
 

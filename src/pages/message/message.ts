@@ -44,7 +44,7 @@ export class MessagePage {
   peronalisedMsg = this.navParams.get("peronalisedMsg");
 
   categoryChosen = this.navParams.get("categoryChosen");
-
+  
   phoneNumber;
   name = this.navParams.get("name");;
   date = this.navParams.get("date");
@@ -64,10 +64,15 @@ export class MessagePage {
   autoMessage: boolean = false;
   automsg;
   saveMessage;
+
+
+  temptime ;
+  tempdate
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, private sms: SMS, private socialSharing: SocialSharing, private contacts: Contacts, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private backgroundMode: BackgroundMode, private db: DatabaseProvider, private calendar: Calendar, private network: Network, public toastCtrl: ToastController, public loadingCtrl: LoadingController) {
-
-
-
+    //this.time = moment(new Date()).format()
+    this.tempdate = moment(new Date ()).format()
+    
+      
   }
 
 
@@ -102,6 +107,16 @@ export class MessagePage {
       console.log(this.messageArry);
 
       this.messageArry.splice(0, this.messageArry.length)
+
+     
+
+
+
+    
+        this.autoMessage = true;
+        document.getElementById("btnz").style.display = "block";
+        document.getElementById("btnMessageType").style.display = "none"
+      
     }
 
 
@@ -184,10 +199,13 @@ export class MessagePage {
 
 
 
-            this.autoMessage = true;
+           
+           //console.log(this.trac);
+           
+            
+           
 
-            document.getElementById("btnz").style.display = "block";
-            document.getElementById("btnMessageType").style.display = "none"
+           
             this.navCtrl.push(AutomatePage, { graduation: this.graduationMsg, chosenDate: this.date, chosenTime: this.time, name: this.name, categoryChosen: this.categoryChosen, countDownDate: this.countDownDate });
 
           }
@@ -208,13 +226,15 @@ export class MessagePage {
     var day = d.getDate();
     var month = d.getMonth() + 1;
     var year = d.getFullYear();
-    var hour = d.getHours();
-    var minute = d.getMinutes();
-    var second = d.getSeconds();
+    var hour = d.getUTCHours();
+    var minute = d.getUTCMinutes();
+    var second = d.getUTCSeconds();
     var today = year + "-" + '0' + month + "-" + day + "T" + hour + ":" + minute + ":" + second;
 
     console.log(today);
     console.log(this.date);
+    
+    
 
 
     if (this.date == undefined) {

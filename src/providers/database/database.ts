@@ -532,9 +532,9 @@ customizedCard(image) {
 getMessages(){
 
   const loader = this.loadingCtrl.create({
-    content: "Please wait...",
+    content: "Please wait... still connecting ",
     cssClass: "loading-md .loading-wrapper ",
-    duration :30000
+    //duration :30000
   
   });
   loader.present();

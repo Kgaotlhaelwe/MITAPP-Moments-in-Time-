@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {user} from '../model/user'
 import {DatabaseProvider} from '../../providers/database/database' ;
-import { ToastController } from 'ionic-angular';
+import { ToastController,LoadingController } from 'ionic-angular';
 import {HomePage} from '../../pages/home/home'
 
 import { AlertController } from 'ionic-angular';
@@ -28,7 +28,7 @@ export class RegisterPage {
   user = {} as user ;
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams ,private db:DatabaseProvider, public toastCtrl: ToastController,public alertCtrl: AlertController , private network: Network ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams ,private db:DatabaseProvider, public toastCtrl: ToastController,public alertCtrl: AlertController , private network: Network,public loadingCtrl: LoadingController ) {
   }
 
   ionViewDidLoad() {
@@ -76,6 +76,13 @@ export class RegisterPage {
       //   position: 'end'
       // });
       // toast.present();
+      // const loader = this.loadingCtrl.create({
+      //   content: "Please wait... still connecting ",
+      //   cssClass: "loading-md .loading-wrapper ",
+      //   duration :3000
+      
+      // });
+      // loader.present();
       this.navCtrl.setRoot(TabsPage);
       
     } , (error)=>{

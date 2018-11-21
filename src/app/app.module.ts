@@ -49,6 +49,8 @@ import { Calendar } from '@ionic-native/calendar';
 import { ModalmessagePage } from '../pages/modalmessage/modalmessage';
 import { IonicImageLoader } from 'ionic-image-loader';
 import { Network } from '@ionic-native/network';
+import { DiconnectedPage } from '../pages/diconnected/diconnected'
+
 var config = {
   apiKey: "AIzaSyD-60vJrUA-k0qFjOyc-2quuULN2t9DKAc",
   authDomain: "momentsintime-a9b60.firebaseapp.com",
@@ -82,7 +84,7 @@ var config = {
       PersonalisedcardPage,
       InfosentPage,
       ModalmessagePage , 
-  
+      DiconnectedPage
   ],
   imports: [
     BrowserModule,HttpClientModule ,SwipeCardsModule,
@@ -116,6 +118,7 @@ var config = {
     PersonalisedcardPage,
     InfosentPage,
     ModalmessagePage,
+    DiconnectedPage
   ],
   providers: [
     StatusBar,   SQLite ,

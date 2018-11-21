@@ -217,14 +217,22 @@ export class ProfilePage {
         {
           text: 'Save',
           handler: data => {
-            console.log('Saved clicked');
+           // console.log('Saved clicked');
+            console.log(data.name);
 
+            
             var update ={
               name:data.name
 
+
             }
 
-            return firebase.database().ref('user/'+this.userid).update(update);
+            // console.log(data.name);
+             console.log(update);
+            
+            console.log(this.users.uid);
+            
+            return firebase.database().ref('user/'+this.users.uid).update(update);
           }
         }
       ]

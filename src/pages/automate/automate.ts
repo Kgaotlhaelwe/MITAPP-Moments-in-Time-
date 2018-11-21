@@ -112,6 +112,8 @@ export class AutomatePage {
   autoMessagessssss(message){
 
    console.log(message);
+
+  
    
    let obj = {message:message}
 

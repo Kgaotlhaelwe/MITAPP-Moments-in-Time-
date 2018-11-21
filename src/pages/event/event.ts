@@ -97,26 +97,26 @@ birthdayMessage = [{message:"Count your life by smiles, not tears. Count your ag
 
 ]
 
-thinkingofyouMessage = [{message:"Darling, you are a wonderful bloom in a beautiful garden where only true love grows! Wishing you a brilliant Birthday"},
-                        {message:"Did you hear a light tap on your shoulder this midnight? It wasn’t Santa Claus, it was me wishing you a very Happy Birthday!"} ,
-                        {message:"I wish I could attach my heart to this Birthday wish. That’s how much you mean to me. I wish you always be happy and I’ll do everything to make you so"} ,
-                        {message:"Falling in love with you was easy. Staying in love with you is easier. Happy birthday. I can’t wait until next year"} ,
-                        {message:"Sometimes words are hard to find to form that perfect line to let you know you are always on my mind. Happy birthday dear!"},
-                        {message:"Dance as though no one is watching you, Love as though you have never loved before, Sing as though no one can hear you, Live as though heaven is on earth! I Wish you a very warm and Happy Birthday!"},
-                        {message:"I wish I could attach my heart to this Birthday wish. That’s how much you mean to me. I wish you always be happy and I’ll do everything to make you so."}
+thinkingofyouMessage = [{message:"There is one good thing about not seeing you… I can think of you!"},
+                        {message:"When you fall asleep every night, I can`t! Thoughts about you don`t let me sleep!"} ,
+                        {message:"As old saying claims: we are what we are thinking about. As for me, I`m thinking of you. What about you?"} ,
+                        {message:"It doesn`t matter when we`re not together. Because I`m thinking of you, and this fact makes me closer to you!"} ,
+                        {message:"I hope once you`ll realize how hard it can be thinking of you!"},
+                        {message:"Don`t worry about all problems you have… Someone is thinking of you!"},
+                        {message:" If you love someone, you realize it when cannot stop thinking about this person…"}
 
 
 ]
 
 
-generalMesage  = [{message:"Count your anniversaries not by years alone, but by the great memories and happy times you’ve known"},
-                  {message:"Love is just a word until someone comes along and gives it meaning. Congratulations!"},
-                  {message:"May your new job bring make you a billionaire so that we can party at your expense. Congrats"} ,
-                  {message:"It takes only a few seconds to say I love you but it will take me an entire lifetime to show you how much"},
-                  {message:"It takes only a few seconds to say I love you but it will take me an entire lifetime to show you how much"} ,
-                  {message:"I wish I could attach my heart to this Birthday wish. That’s how much you mean to me. I wish you always be happy and I’ll do everything to make you so."} ,
-                  {message:"Count your anniversaries not by years alone, but by the great memories and happy times you’ve known"} ,
-                  {message:"Graduation is an exciting time. It marks both an ending and a beginning; it’s warm memories of the past and big dreams for the future."} ,
+generalMesage  = [{message:"A man loves his sweetheart the most, his wife the best, but his mother the longest."},
+                  {message:"Your absence is creating a vacuum and we are missing you so much. You have always made a great difference in our lives when you were fit. Now you’re ill, we wish you speedy recovery and join our hands in prayer to proclaim you healing."},
+                  {message:"Get well soon lazy brother. Your absence has created more work than I can handle. The more you stay in the hospital, the more work I have to do. Anyway, get well very quickly and come home. I’m missing you."} ,
+                  {message:"I do not wish to consider why you are taking long to recover; no, you are not been nursed there. To be frank, I think I’m missing you badly, wishing you speedy recovery, for I can’t wait any longer. Get well soondear."},
+                  {message:"There are several reasons your family is worried and needs you at home, and one of it is that you are so wonderful and we just need you back here. Get well soon. We love you."} ,
+                  {message:"As the beauty and gifts of yuletide fades to usher a New Year, may your new beginnings be renewed with good tidings, happiness, hope and peace."} ,
+                  {message:"A new year is a fresh start for realization of dreams, may the beginning of this year fill you with new strength, bravery and faith necessary to achieve your dreams. Happy New Year."} ,
+                  {message:"Wishing you the best during this joyful season. I hope your holidays are filled with festivities and plenty of merry enjoyment."} ,
 
 
 

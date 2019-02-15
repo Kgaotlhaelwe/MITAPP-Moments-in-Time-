@@ -18,9 +18,7 @@ page-register {
      margin-top:8%
     }
  
-    p{
-        font-weight: bold;
-    }
+  
     .logo{
         position: relative;
         text-align: center;
@@ -71,7 +69,8 @@ page-register {
         -ms-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
         color: white;
-        font-family: cursive
+        font-family: cursive;
+       
     }
     .text-input::-moz-placeholder {
         color: white;
@@ -99,8 +98,6 @@ page-register {
         position: relative;
         top:180px;
     }
-
-
 }
 
 //ipadpro
@@ -120,36 +117,34 @@ page-register {
         top:300px;
     }
 }
-
-
 .text-input-md {
     margin-left: 0px;
     padding: 0;
     width: calc(100% - 8px - 8px);
 }
-    .body{
-        position: relative;
-        top: -10px;
-    }
+.body{
+    position: relative;
+    top: -10px;
+}
 
 
-    .err{
-        color: red;
-        font-size: 2rem;
-    }
+.err{
+    position: relative;
+    color: red;
+    font-size: 2rem;
+    top: -0px;
+    padding: 0px;
+    margin: 0px;
+}
 
-    .dis{
-        animation: .3s fadeIn ease;
-        // position: relative;
-        // left: 50%;
-        // top: 50%;
-        // transform: translate(-50%, -50%)
-    }
-
+.dis{
+    position: relative;
+    animation: .3s fadeIn ease;
+   
+}
 
 
 
    
 
 }
-    

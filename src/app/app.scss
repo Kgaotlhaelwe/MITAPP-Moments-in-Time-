@@ -119,9 +119,30 @@
     // border-top-style: double;
 }
 
-
+.myAlert {
+  
+  color: #ffffff;
+  button {
+    color: deeppink;
+    width: 50%;
+       
+    margin: 0 auto;
+    text-transform: uppercase;
+  }
+  .alert-message {
+    color: black; // text color for confirm alerts
+  }
+  .alert-wrapper {
+     background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    color: black;
+    animation: 0.7s bounceIn;
+  }
+  .alert-subTitle{
+    color: black;
+   
+  }
+}
   
 
 
-// .toast3{.toast-wrapper { text-align: center;  background: color($colors, toast3);}
-// };

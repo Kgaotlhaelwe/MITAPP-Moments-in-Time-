@@ -1,8 +1,11 @@
 page-contact {
     .background{
 
-        background-color: 	rgb(248, 248, 248);
-
+        background-image:linear-gradient(rgba(189, 146, 146, 0.521),#f5c3c3),url('../../assets/9512d7cc3af9d3c25abee36754e5d01a.jpg');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        filter: blur(0px);
     }
     h1{
         color: gray;
@@ -19,7 +22,7 @@ page-contact {
            color: rgb(141, 141, 141)
        }
     .fabres{
-        background: linear-gradient(170deg,  rgb(193, 252, 245) 10% , lightpink 70% );
+        background: linear-gradient(170deg,  rgb(193, 252, 245) 10% , rgba(255, 182, 193, 0.432) 70% );
     }
     .note{
         padding: 0%;
@@ -28,7 +31,19 @@ page-contact {
          top: 54%;
          left: 70%
     }
-    .listcrop{
-        height: 15px;
+    .item-md {
+        padding-left: 16px;
+        padding-right: 0;
+        position: relative;
+        font-size: 1.6rem;
+        font-weight: normal;
+        text-transform: none;
+        color: #000;
+        background-color: #fff;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        -webkit-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        // background-color:transparent;
     }
 }

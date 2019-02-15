@@ -87,7 +87,7 @@ imzxx ;
  
      console.log(this.imzx);
     
-     for (let i = 0; i < this.images.length-2; i++) {
+     for (let i = 0; i < this.images.length; i++) {
       
        this.attendants.push({
             id: i + 1,
@@ -162,49 +162,37 @@ ionViewDidEnter() {
   }
 onCardInteract(event) {
   
- console.log(event.like);
+ 
 if(event.like == false){
-  console.log(this.liked);
-  
+  console.log(event.like);
   this.liked = this.liked + 1
-  this.textdisplay=this.cardOverlay.dislike.indicator
-  const toast = this.toastCtrl.create({
-    message: this.textdisplay,
-    cssClass:'toast1' ,
-    duration: 3000
-  });
-  toast.present();
-  console.log( this.textdisplay);
+//   // this.textdisplay=this.cardOverlay.dislike.indicator
+//   // const toast = this.toastCtrl.create({
+//   //   message: this.textdisplay,
+//   //   cssClass:'toast1' ,
+//   //   duration: 3000
+//   // });
+//   // toast.present();
+//   // console.log( this.textdisplay);
   
  
   
-  if(this.liked ==this.images.length-2){
+  if(this.liked == this.images.length){
     
-    const prompt = this.alertCtrl.create({
-      title:"Oops! you ran out of cards ",
-      message: " You have no cards to swipe from ",
-   
-      buttons: [
-        {
-          text: 'OK',
-          handler: data => {
-            console.log('Cancel clicked');
-            this.noCards = 0
-            this.hasMessages="You have no cards left to swipe from "
-          }
-        },
-       
-      ]
-    });
-    prompt.present();
-   
-
-   
-   
     
-  }
-  console.log( this.imzx);
-  this.imzx =this.images[this.liked].message
+   console.log(this.images.length);
+   console.log(this.liked);
+   
+   
+    this.liked = 0 ;
+   console.log( this.liked);
+   
+}
+ 
+//  console.log( this.liked);
+ 
+   this.imzx =this.images[this.liked].message
+  
   
   
  
@@ -239,23 +227,25 @@ if(event.like == false){
   
   if(this.liked ==this.images.length-2){
    
-    const prompt = this.alertCtrl.create({
-      title:"Oops! you ran out of cards ",
-      message: " You have no cards to swipe from ",
+    // const prompt = this.alertCtrl.create({
+    //   title:"Oops! you ran out of cards ",
+    //   message: " You have no cards to swipe from ",
    
-      buttons: [
-        {
-          text: 'OK',
-          handler: data => {
-            console.log('Cancel clicked');
-            this.noCards = 0
-            this.hasMessages="You have no cards left to swipe from "
-          }
-        },
+    //   buttons: [
+    //     {
+    //       text: 'OK',
+    //       handler: data => {
+    //         console.log('Cancel clicked');
+    //         this.noCards = 0
+    //         this.hasMessages="You have no cards left to swipe from "
+    //       }
+    //     },
      
-      ]
-    });
-    prompt.present();
+    //   ]
+    // });
+    // prompt.present();
+
+    this.liked = 0 ;
   }
   this.imzx =this.images[this.liked].message
 

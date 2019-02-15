@@ -10,7 +10,7 @@
 
         <!-- start inputs section -->
         <div class="inputs">
-            <ion-item class="ion-item"  >
+            <!-- <ion-item class="ion-item"  >
               <ion-label > <ion-icon color="light" ios="ios-contact" md="md-contact"></ion-icon></ion-label>
               <ion-input placeholder=" Username" type="userame" value="" [(ngModel)]="user.name"></ion-input>
             </ion-item>
@@ -23,17 +23,46 @@
             <ion-item  class="ion-item" >
               <ion-label>  <ion-icon color="light" ios="ios-lock" md="md-lock"></ion-icon> &nbsp;&nbsp; </ion-label>
               <ion-input placeholder="Password" type="password"   [(ngModel)]="user.password"></ion-input>
-            </ion-item>
+            </ion-item> -->
+
+
+
+            <form>
+                <ion-item class="items">
+                    <ion-label>
+                      <ion-icon color="light" ios="ios-mail" md="md-mail"></ion-icon> &nbsp; </ion-label>
+                    <ion-input type="text" name="email" placeholder="Email" ngModel #user="ngModel" required="true" id="email"></ion-input>
+                  </ion-item>
+
+                  <p padding-top style='font-family: Arial, Helvetica, sans-serif; font-size: 15px;color: red' *ngIf="!user.valid && user.touched" class="err dis">Username Cannot Be Empty!</p>
+             
+             
+                  <ion-item class="items">
+
+
+                <ion-label>
+                  <ion-icon color="light" ios="ios-mail" md="md-mail"></ion-icon> &nbsp; </ion-label>
+                <ion-input type="email" name="email" placeholder="Email" ngModel #email="ngModel" required="true" id="email"></ion-input>
+              </ion-item>
+      
+              <p padding-top style='font-family: Arial, Helvetica, sans-serif; font-size: 15px; color:red' *ngIf="email.valid && email.touched" class="err dis">Email Cannot Be Empty!</p>
+      
+              <ion-item class="items">
+                <ion-label>
+                  <ion-icon color="light" ios="ios-lock" md="md-lock"></ion-icon> &nbsp;&nbsp; </ion-label>
+                <ion-input type="password" name="passoword" placeholder="Password" ngModel #password="ngModel" required="true" id="pass"></ion-input>
+              </ion-item>
+      
+              <p padding-top style='font-family: Arial, Helvetica, sans-serif; font-size: 15px; color:red' *ngIf="!password.valid && password.touched" class="err dis">Password Cannot Be Empty!</p>
+            </form>
 
           
           <div class="button" >
-            <button  ion-button round block  color="light"  (click)="Register(user)">Register</button>
+            <button  ion-button round block  color="light"  (click)="Register(user.value , email.value , password.value)">Register</button>
             <button block ion-button round class="Login" color="light" outline (click)="LoginPage()"> &nbsp; Sign in</button>
           </div>
              </div>
-               <!-- close inputs section  -->
             
           </div>
-          <!-- close main section -->
-
+       
 </ion-content>

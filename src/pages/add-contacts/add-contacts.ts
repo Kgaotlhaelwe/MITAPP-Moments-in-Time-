@@ -107,60 +107,61 @@ export class AddContactsPage {
 
       if (this.name != undefined && this.email != undefined && this.myDate != undefined) {
 
-        let date = moment(this.myDate).format('ll');
-        // this.db.saveContactList(this.name , this.email , date).then(()=>{
-        //   // const loader = this.loadingCtrl.create({
-        //   //   content: "Please wait...",
-        //   //   duration: 3000
-        //   // });
-        //   // console.log(this.tempCategory);
-
-        //   // loader.present();
+        let atpos = this.email.indexOf("@");
+        let dotpos = this.email.lastIndexOf(".")
+        console.log(atpos);
+        console.log(dotpos);
 
 
 
-        // let obj = {
-        //   name:this.name ,
-        //   email:this.email , 
-        //   date:this.myDate ,
-        //   categoryChosen:this.tempCategory
-        // }
+        if (atpos < 1 || (dotpos - atpos < 2)) {
+          console.log("in");
 
-        //  //this.navCtrl.push(MessagePage, { selectedDetails:obj})
-        //  setTimeout(()=>{
-        //   let currentIndex = this.navCtrl.getActive().index;
-        //   this.navCtrl.push(MessagePage, { selectedDetails:obj}).then(() => {
-        //      this.navCtrl.remove(currentIndex);
-        //    });
+          this.db.showAlert("Email Incorrect", "Please Enter the correct email")
 
-        //  }, 3000)
+
+        } else {
 
 
 
-        // })
-        var dup
+          let date = moment(this.myDate).format('ll');
 
-        if (this.temparray.length > 0) {
-          for (let index = 0; index < this.temparray.length; index++) {
+          var dup
 
-            console.log(this.email);
-            console.log(this.temparray[index].email);
+          if (this.temparray.length > 0) {
+            for (let index = 0; index < this.temparray.length; index++) {
+
+              console.log(this.email);
+              console.log(this.temparray[index].email);
 
 
-            if (this.temparray[index].email == this.email) {
-              dup = 1
-              console.log(dup);
+              if (this.temparray[index].email == this.email) {
+                dup = 1
+                console.log(dup);
 
-              break;
-            } else {
-              dup = 0
+                break;
+              } else {
+                dup = 0
 
+
+              }
 
             }
 
-          }
+            if (dup == 0) {
+              this.db.saveContactList(this.name, this.email, date).then(() => {
+                const loader = this.loadingCtrl.create({
+                  content: "Please wait...",
+                  duration: 3000
+                });
+                console.log(this.tempCategory);
 
-          if (dup == 0) {
+                loader.present();
+              })
+            }
+
+          } else {
+
             this.db.saveContactList(this.name, this.email, date).then(() => {
               const loader = this.loadingCtrl.create({
                 content: "Please wait...",
@@ -170,52 +171,39 @@ export class AddContactsPage {
 
               loader.present();
             })
+
           }
 
-        } else {
-
-          this.db.saveContactList(this.name, this.email, date).then(() => {
-            const loader = this.loadingCtrl.create({
-              content: "Please wait...",
-              duration: 3000
-            });
-            console.log(this.tempCategory);
-
-            loader.present();
-          })
-
-        }
 
 
+          let obj = {
+            name: this.name,
+            email: this.email,
+            date: this.myDate,
+            categoryChosen: this.tempCategory
+          }
 
-        let obj = {
-          name: this.name,
-          email: this.email,
-          date: this.myDate,
-          categoryChosen: this.tempCategory
-        }
+          //this.navCtrl.push(MessagePage, { selectedDetails:obj})
+          const loader = this.loadingCtrl.create({
+            content: "Please wait...",
+            duration: 3000
+          });
+          loader.present();
 
-        //this.navCtrl.push(MessagePage, { selectedDetails:obj})
-        const loader = this.loadingCtrl.create({
-          content: "Please wait...",
-          duration: 3000
-        });
-        loader.present();
-        
-          
+
           let currentIndex = this.navCtrl.getActive().index;
           this.navCtrl.push(MessagePage, { selectedDetails: obj }).then(() => {
-           
+
             setTimeout(() => {
               this.navCtrl.remove(currentIndex);
             }, 1000);
 
-            
+
           });
-          
 
-      
 
+
+        }
 
       } else {
         const alert = this.alertCtrl.create({
@@ -240,12 +228,18 @@ export class AddContactsPage {
     }
 
 
-
-
-
-
-
   }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -12,6 +12,7 @@ import { Storage } from '@ionic/storage';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { Events } from 'ionic-angular';
 import Swal from 'sweetalert2'
+import { AlertController } from 'ionic-angular';
 
 declare var firebase ;
 
@@ -44,7 +45,7 @@ export class DatabaseProvider {
   private db: SQLiteObject;
   private isOpen: boolean;
   private theme: BehaviorSubject<String>;//declare
-  constructor(public http: HttpClient,private fire:AngularFireAuth ,private socialSharing:SocialSharing, private networks: Network,public toastCtrl: ToastController,  public loadingCtrl: LoadingController, private storage: Storage ,  public sql: SQLite, public events: Events , private ngZone: NgZone) {
+  constructor(public http: HttpClient,private fire:AngularFireAuth ,private socialSharing:SocialSharing, private networks: Network,public toastCtrl: ToastController,  public loadingCtrl: LoadingController, private storage: Storage ,  public sql: SQLite, public events: Events , private ngZone: NgZone,public alertCtrl: AlertController) {
     console.log('Hello DatabaseProvider Provider');
     storage.get('theme').then((val) => {
       console.log('Your theme', val);
@@ -1239,21 +1240,16 @@ scheduleEmailForFunction(occassion, date,emailto,message, namefrom, uniquedate){
  }
  
  errorAlert(message){
-  Swal.fire({
-    title: 'Ooops',
-    text: message,
-    type: 'error',
-    //confirmButtonText: 'Cool'
-  })
+ 
  }
 
- successAlert(message){
-  Swal.fire({
-    title: 'Successful',
-    text: message,
-    type: 'error',
-    //confirmButtonText: 'Cool'
-  })
+ showAlert(title , message) {
+  const alert = this.alertCtrl.create({
+    title: title,
+    subTitle:message ,
+    buttons: ['OK']
+  });
+  alert.present();
+}
 
- }
 }

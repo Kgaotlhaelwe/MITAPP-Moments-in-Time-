@@ -48,6 +48,7 @@ export class LoginPage {
 
 
     if(email != '' && password != ''){
+     // document.getElementById("btnlogin").style.backgroundColor="yellow" ;
       this.db.loginx(email , password).then((data)=>{
         if(data.user.emailVerified == true){
           const loader = this.loadingCtrl.create({
@@ -57,14 +58,18 @@ export class LoginPage {
                   
                   });
                   loader.present();
-
+               
+                
+                
                   setTimeout(() => {
+                  
+                  
                            this.navCtrl.setRoot(TabsPage);
                          }, 3000);
 
         }else{
         
-          this.db.errorAlert("Please Verify your Email")
+          this.db.showAlert("Email Verication" ,"Please Verify your Email")
                   
                
 
@@ -72,14 +77,22 @@ export class LoginPage {
       }).catch((error)=>{
        
           
-      this.db.errorAlert(error.message) ;
+      this.db.showAlert("" ,error.message) ;
       
       
           })
      
     }else{
       
-      this.db.errorAlert("Please Enter all Details");
+     
+     
+    //  var btn = <HTMLInputElement>document.getElementById("btnlogin") ;
+    //  btn.style.backgroundColor="blue" ;
+    //  btn.disabled=false ;
+    //  //this.db.showAlert("Oops" ,"Please Enter all Details");
+    //  console.log("kb");
+     
+     
 
       
     }
@@ -130,7 +143,7 @@ export class LoginPage {
               setTimeout(()=>{
                
 
-                this.db.successAlert("We have sent you email to recover password, Please check your Email") ;
+                this.db.showAlert("Registered Successfully" ,"We have sent you email to recover password, Please check your Email") ;
 
               } , 3000)
 
@@ -158,7 +171,7 @@ export class LoginPage {
   tabs(){
     this.navCtrl.push(TabsPage)
   }
-  
+
   logInWithFaceBook(){
     this.db.logInWithFaceBook();
   }

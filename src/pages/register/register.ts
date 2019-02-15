@@ -63,29 +63,31 @@ export class RegisterPage {
     
   //   }
 
-  Register(user:user){
-    console.log(user.name);
+  Register(name , email , pass){
+    
+ console.log(name);
+ console.log(email);
+ console.log(pass);
  
  
-    if(this.user.email !=null  && this.user.password  !=null  ){
-    this.db.register(user.email ,user.password, user.name,user.image ).then(()=>{
-      // const toast = this.toastCtrl.create({
-      //   message: 'Thank you. You have been successfully Registered',
-      //   cssClass:'toast3' ,
-      //   duration: 3000,
-      //   position: 'end'
-      // });
-      // toast.present();
-      // const loader = this.loadingCtrl.create({
-      //   content: "Please wait... still connecting ",
-      //   cssClass: "loading-md .loading-wrapper ",
-      //   duration :3000
  
-      // });
-      // loader.present();
-      const alert = this.alertCtrl.create({
+    if(email !=""  && pass  !=""  ){
+    this.db.register(email ,pass, name, ).then(()=>{
+
+       
+      const loader = this.loadingCtrl.create({
+        content: "Please wait... still connecting ",
+        cssClass: "loading-md .loading-wrapper ",
+        duration :3000
+ 
+      });
+      loader.present();
+
+      
+
+     const alert = this.alertCtrl.create({
         title: 'Email Confirmation',
-        subTitle: 'We have sent an email to ' + this.user.email + ', please click the link to confirm your email',
+        subTitle: '',
         buttons: [{
           text: 'OK',
           handler: data => {
@@ -104,9 +106,10 @@ export class RegisterPage {
       });
       alert.present();
 
-      user.email = "" 
-      user.password = ""
-      user.name = ""
+   
+    name="" ;
+    email="" ;
+    pass = "" ;
  
     } , (error)=>{
  
@@ -126,6 +129,9 @@ export class RegisterPage {
     });
     alert.present();
   }
+
+
+
   }
 
 

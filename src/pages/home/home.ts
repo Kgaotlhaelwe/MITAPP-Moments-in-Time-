@@ -20,6 +20,8 @@ import { ImageLoader } from 'ionic-image-loader';
 import { AlertController } from 'ionic-angular';
 import { DiconnectedPage } from '../diconnected/diconnected';
 
+declare var firebase ;
+
 // 
 
 //import { IonicImageLoader } from 'ionic-image-loader';
@@ -68,6 +70,8 @@ url ;
 
 imagesArray = []
 
+favouriteArray =[]
+
 
 imzxx ;
 
@@ -87,7 +91,7 @@ imzxx ;
  
      console.log(this.imzx);
     
-     for (let i = 0; i < this.images.length; i++) {
+     for (let i = 0; i < this.images.length-2; i++) {
       
        this.attendants.push({
             id: i + 1,
@@ -105,8 +109,13 @@ imzxx ;
     
    } , (error)=>{})
 
+  this.db.getFavourite().then((data:any)=>{
+    console.log(data);
+    this.favouriteArray = data ;
+    
+  })
 
-   this.db.testNumbers([1, 2, 3],[1, 2, 3],[1, 2, 3])
+   
 }
 
 
@@ -166,26 +175,20 @@ onCardInteract(event) {
 if(event.like == false){
   console.log(event.like);
   this.liked = this.liked + 1
-//   // this.textdisplay=this.cardOverlay.dislike.indicator
-//   // const toast = this.toastCtrl.create({
-//   //   message: this.textdisplay,
-//   //   cssClass:'toast1' ,
-//   //   duration: 3000
-//   // });
-//   // toast.present();
-//   // console.log( this.textdisplay);
+  this.textdisplay=this.cardOverlay.dislike.indicator
+  const toast = this.toastCtrl.create({
+    message: this.textdisplay,
+    cssClass:'toast1' ,
+    duration: 3000
+  });
+  toast.present();
+  console.log( this.textdisplay);
   
  
   
-  if(this.liked == this.images.length){
+  if(this.liked == this.images.length-2){
     
-    
-   console.log(this.images.length);
-   console.log(this.liked);
-   
-   
-    this.liked = 0 ;
-   console.log( this.liked);
+    this.hasMessages="Oops! you ran out of cards "
    
 }
  
@@ -207,49 +210,71 @@ if(event.like == false){
 }
 
 
-//////////////////////////
+
  if(event.like == true){
+
+  // console.log(this.favouriteArray[0].k);
+  // console.log(this.images[0].k);
+
+  console.log(this.favouriteArray[0].message);
+  console.log(this.images[0].message);
+  
+  
+  
+  
+ 
+  console.log(this.images);
+  
+  
+  // for (let index = 0; index < this.images.length; index++) {
+  //   for (let i = 0; i < this.favouriteArray.length; i++) {
+  //     console.log("out");
+      
+  //     if(this.images[index].message ==this.favouriteArray[i].message){
+  //       console.log("clicked twice");
+  //       console.log("in");
+        
+
+  //     }else {
+
+  //     }
+      
+      
+  //   }
+
+  
+    
+  // }
+
+ 
   //this.db.likedMessage(  this.imzx).then(()=>{})
   //this.db.creatlikeImage(this.imzx).then(()=>{})
-  this.db.likedMessage( this.imzx).then(()=>{})
-  this.liked = this.liked + 1
-  this.textdisplay=this.cardOverlay.like.indicator
-  const toast = this.toastCtrl.create({
-    message: this.textdisplay,
-    cssClass:'toast' ,
-    duration: 2000
-  });
-  toast.present();
-  console.log( this.textdisplay);
+//   this.db.likedMessage( this.imzx).then(()=>{})
+//   this.liked = this.liked + 1
+//   this.textdisplay=this.cardOverlay.like.indicator
+//   const toast = this.toastCtrl.create({
+//     message: this.textdisplay,
+//     cssClass:'toast' ,
+//     duration: 2000
+//   });
+//   toast.present();
+//   console.log( this.textdisplay);
   
   
-  console.log(this.textdisplay);
+//   console.log(this.textdisplay);
   
-  if(this.liked ==this.images.length-2){
+//   if(this.liked ==this.images.length-2){
    
-    // const prompt = this.alertCtrl.create({
-    //   title:"Oops! you ran out of cards ",
-    //   message: " You have no cards to swipe from ",
-   
-    //   buttons: [
-    //     {
-    //       text: 'OK',
-    //       handler: data => {
-    //         console.log('Cancel clicked');
-    //         this.noCards = 0
-    //         this.hasMessages="You have no cards left to swipe from "
-    //       }
-    //     },
+    
+//           this.noCards = 0
+//             this.hasMessages="Oops! you ran out of cards "
+          
+        
      
-    //   ]
-    // });
-    // prompt.present();
+// }
+//   this.imzx =this.images[this.liked].message
 
-    this.liked = 0 ;
-  }
-  this.imzx =this.images[this.liked].message
-
-  console.log(this.imzx);
+ 
   
   
 }

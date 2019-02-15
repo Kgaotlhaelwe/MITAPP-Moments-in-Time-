@@ -108,7 +108,7 @@ export class DatabaseProvider {
   })
   }
 
-  register(email , password , name, image){
+  register(email , password , name, ){
 
 
 
@@ -1237,6 +1237,54 @@ scheduleEmailForFunction(occassion, date,emailto,message, namefrom, uniquedate){
  
  })
  
+ }
+
+ getFavourite(){
+  return new Promise((resolve, reject)=>{
+
+    firebase.database().ref("likedPictures/").on('value', (data: any) => {
+ 
+      var contactList = data.val();
+       console.log(data.val());
+       if(contactList !=null){
+ 
+        this.likedArray= []
+ 
+        var keys: any = Object.keys(contactList);
+ 
+        console.log(keys);
+ 
+        for (var i = 0; i < keys.length-2; i++){
+         var k = keys[i];
+ 
+         let obj = {
+           k:k,
+         
+          message:contactList[k].message,
+ 
+ 
+
+         }
+         
+        this.likedArray.push(obj) ;
+        console.log(this.likedArray);
+        
+ 
+        resolve( this.likedArray);
+ 
+ 
+   }
+       }else{
+      
+        }
+ 
+ 
+ })
+
+
+  })
+
+
  }
  
  errorAlert(message){

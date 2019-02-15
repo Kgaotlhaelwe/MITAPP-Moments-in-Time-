@@ -20,6 +20,8 @@ import { AboutPage } from '../about/about';
 })
 export class ModalmessagePage {
 
+  showbtn ;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,private app:App, public viewCtrl :ViewController,public ionicApp: IonicApp, public alertCtrl: AlertController) {
   }
 
@@ -30,37 +32,23 @@ export class ModalmessagePage {
   poptoevent(){
  
 
-
-   const confirm = this.alertCtrl.create({
-    title: 'Choose A Page ',
-   // message: 'Do you agree to use this lightsaber to do good across the intergalactic galaxy?',
-    buttons: [
-      {
-        text: 'HOME',
-        handler: () => {
-          //this.navCtrl.push(TabsPage);
-          let currentIndex = this.navCtrl.getActive().index;
-          this.navCtrl.push(TabsPage).then(() => {
-             this.navCtrl.remove(currentIndex);
-           });
-        }
-
-
-      },
-      {
-        text: 'SCHEDULED',
-        handler: () => {
-          //this.navCtrl.push(AboutPage);
-          let currentIndex = this.navCtrl.getActive().index;
-          this.navCtrl.push(AboutPage).then(() => {
-             this.navCtrl.remove(currentIndex);
-           });
-        }
-      }
-    ]
-  });
-  confirm.present();
-
+this.showbtn = true ;
+document.getElementById("hidebtn").style.display="none"
+   
 
 }
+
+
+
+viewScheduled(){
+  this.navCtrl.push(AboutPage) ;
+
+}
+
+CreateScheduled(){
+  this.navCtrl.push(EventPage) ;
+}
+
+
+
 }

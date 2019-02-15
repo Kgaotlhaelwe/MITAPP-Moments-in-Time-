@@ -17,7 +17,13 @@
   <div class="body">
 <h2 text-center>Your message has been scheduled. <hr> When the set date comes it automatical sends the message on that day.<hr> To view the scheduled message(s) click on the schedule tab.</h2>
 <br> <br>
-<button class="buttons" ion-button color="b" full round (click)="poptoevent()">Ok</button>
+<button class="buttons" ion-button color="b" full round (click)="poptoevent()" id="hidebtn">Ok</button>
+
+<div *ngIf="showbtn">
+  <button (click)="viewScheduled()"  ion-button>View Scheduled Message</button>
+
+  <button (click)="CreateScheduled()" ion-button>Create another Scheduled</button>
+</div>
  </div>
 </ion-content>
 

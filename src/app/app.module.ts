@@ -48,8 +48,13 @@ import { IonicStorageModule } from '@ionic/storage';
 import { Calendar } from '@ionic-native/calendar';
 import { ModalmessagePage } from '../pages/modalmessage/modalmessage';
 import { IonicImageLoader } from 'ionic-image-loader';
+// import { ExpandableHeader } from '../components/expandable-header/expandable-header';
+import {  } from '../components/expandable-header/expandable-header'
 import { Network } from '@ionic-native/network';
-import { DiconnectedPage } from '../pages/diconnected/diconnected'
+import { DiconnectedPage } from '../pages/diconnected/diconnected';
+import {AddContactsPage} from '../pages/add-contacts/add-contacts'
+
+import { from } from 'rxjs/observable/from';
 
 var config = {
   apiKey: "AIzaSyD-60vJrUA-k0qFjOyc-2quuULN2t9DKAc",
@@ -84,7 +89,8 @@ var config = {
       PersonalisedcardPage,
       InfosentPage,
       ModalmessagePage , 
-      DiconnectedPage
+      DiconnectedPage, AddContactsPage
+      // ExpandableHeader
   ],
   imports: [
     BrowserModule,HttpClientModule ,SwipeCardsModule,
@@ -118,7 +124,7 @@ var config = {
     PersonalisedcardPage,
     InfosentPage,
     ModalmessagePage,
-    DiconnectedPage
+    DiconnectedPage , AddContactsPage
   ],
   providers: [
     StatusBar,   SQLite ,

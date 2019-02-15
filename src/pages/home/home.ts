@@ -62,14 +62,14 @@ slidingImage ;
 textdisplay;
 imzx=[] ;
 hasMessages ;
-
+noCards =1
 
 url ;
 
 imagesArray = []
 
 
-
+imzxx ;
 
 
  constructor(public navCtrl: NavController , private db:DatabaseProvider, private socialSharing: SocialSharing, public actionSheetCtrl: ActionSheetController,public popoverCtrl: PopoverController , private sanitizer: DomSanitizer, public toastCtrl: ToastController,private network: Network, public loadingCtrl: LoadingController , private imageLoader: ImageLoader, public alertCtrl: AlertController ) {
@@ -86,7 +86,7 @@ imagesArray = []
      
  
      console.log(this.imzx);
-     if (name !== null) {}
+    
      for (let i = 0; i < this.images.length-2; i++) {
       
        this.attendants.push({
@@ -104,6 +104,9 @@ imagesArray = []
    this.ready = true;
     
    } , (error)=>{})
+
+
+   this.db.testNumbers([1, 2, 3],[1, 2, 3],[1, 2, 3])
 }
 
 
@@ -117,12 +120,17 @@ clearCache(refresher) {
 }
 
 onImageLoad(event) {
-  console.log('image ready: ', event);
+  //console.log('image ready: ', event);
 }
 
 
 presentLoading() {
  
+}
+
+
+ sum(x, y, z) {
+  //return x + y + z;
 }
 displayNetworkUpdate(connectionState:string){
   let networkType =this.network.type
@@ -153,8 +161,11 @@ ionViewDidEnter() {
   
   }
 onCardInteract(event) {
+  
  console.log(event.like);
 if(event.like == false){
+  console.log(this.liked);
+  
   this.liked = this.liked + 1
   this.textdisplay=this.cardOverlay.dislike.indicator
   const toast = this.toastCtrl.create({
@@ -168,27 +179,21 @@ if(event.like == false){
  
   
   if(this.liked ==this.images.length-2){
-
+    
     const prompt = this.alertCtrl.create({
       title:"Oops! you ran out of cards ",
-      message: " You have no cards to swipe but you can create your own card",
+      message: " You have no cards to swipe from ",
    
       buttons: [
         {
-          text: 'NO',
+          text: 'OK',
           handler: data => {
             console.log('Cancel clicked');
-            this.hasMessages="You have no cards left to swipe but you can create your own card click on the pen tool at the top right  "
+            this.noCards = 0
+            this.hasMessages="You have no cards left to swipe from "
           }
         },
-        {
-          text: ' YES ',
-          handler: data => {
-            console.log('Saved clicked');
-
-            this.navCtrl.push(PersonalisedcardPage)
-          }
-        }
+       
       ]
     });
     prompt.present();
@@ -198,8 +203,10 @@ if(event.like == false){
    
     
   }
-
+  console.log( this.imzx);
   this.imzx =this.images[this.liked].message
+  
+  
  
  
   
@@ -210,9 +217,13 @@ if(event.like == false){
  
  
 }
+
+
+//////////////////////////
  if(event.like == true){
   //this.db.likedMessage(  this.imzx).then(()=>{})
-  this.db.creatlikeImage(this.imzx).then(()=>{})
+  //this.db.creatlikeImage(this.imzx).then(()=>{})
+  this.db.likedMessage( this.imzx).then(()=>{})
   this.liked = this.liked + 1
   this.textdisplay=this.cardOverlay.like.indicator
   const toast = this.toastCtrl.create({
@@ -230,29 +241,26 @@ if(event.like == false){
    
     const prompt = this.alertCtrl.create({
       title:"Oops! you ran out of cards ",
-      message: " You have no cards to swipe but you can create your own card",
+      message: " You have no cards to swipe from ",
    
       buttons: [
         {
-          text: 'NO',
+          text: 'OK',
           handler: data => {
             console.log('Cancel clicked');
-            this.hasMessages="You have no cards left to swipe but you can create your own card click on the pen tool at the top right  "
+            this.noCards = 0
+            this.hasMessages="You have no cards left to swipe from "
           }
         },
-        {
-          text: ' YES ',
-          handler: data => {
-            console.log('Saved clicked');
-
-            this.navCtrl.push(PersonalisedcardPage)
-          }
-        }
+     
       ]
     });
     prompt.present();
   }
   this.imzx =this.images[this.liked].message
+
+  console.log(this.imzx);
+  
   
 }
  
@@ -264,7 +272,10 @@ presentPopover(myEvent) {
  }); 
 }
 shareVia(){
+  ///this.liked = this.liked + 1
     this.imzx =this.images[this.liked].message
+
+   
  
            this.db.sendviaWhatsApps(this.imzx)
 }
@@ -275,127 +286,127 @@ shareVia(){
  like(){
 
 
-  if(this.liked != this.images.length-2){
-    this.db.creatlikeImage(this.imzx).then(()=>{})
-  this.liked = this.liked + 1
-  this.textdisplay=this.cardOverlay.like.indicator
-  const toast = this.toastCtrl.create({
-    message: this.textdisplay,
-    cssClass:'toast' ,
-    duration: 2000
-  });
-  toast.present();
-  console.log( this.textdisplay);
   
-  
-  console.log(this.textdisplay);
-  
-  if(this.liked ==this.images.length-2){
-    // this.images.splice(0,this.images.length);
-    // console.log(this.images);
+   
+ 
+  // this.db.likedMessage( this.imzx).then(()=>{})
+ 
+  // if(this.liked ==this.images.length-2){
+  //   document.getElementById("cards").style.display="none"
+
+  //   const prompt = this.alertCtrl.create({
+  //     title:"Oops! you ran out of cards ",
+  //     message: " You have no cards to swipe from ",
+   
+  //     buttons: [
+  //       {
+  //         text: 'OK',
+  //         handler: data => {
+  //           console.log('Cancel clicked');
+  //           this.noCards = 0
+  //           this.hasMessages="You have no cards left to swipe from "
+  //         }
+  //       },
+       
+  //     ]
+  //   });
+  //   prompt.present();
+   
+
+   
+   
     
-    // this.db.getMessages().then((data:any)=>{
-    //   this.images=data
-    // })
-    // this.liked = 0 ;
+  // } else {
+  //   this.textdisplay=this.cardOverlay.dislike.indicator
+  //   const toast = this.toastCtrl.create({
+  //     message: this.textdisplay,
+  //     cssClass:'toast1' ,
+  //     duration: 3000
+  //   });
+  //   toast.present();
+  //   console.log( this.textdisplay);
+  //   this.liked = this.liked + 1
+  // this.imzx =this.images[this.liked].message
+  
 
+  // }
+  
+  
 
+  this.db.likedMessage( this.imzx).then(()=>{})
+  if(this.liked ==this.images.length-2){
+    console.log("nothing");
+    document.getElementById("cards").style.display="none"
+  
     const prompt = this.alertCtrl.create({
       title:"Oops! you ran out of cards ",
-      message: " You have no cards to swipe but you can create your own card",
+      message: " You have no cards to swipe from ",
+   
       buttons: [
         {
-          text: 'NO',
+          text: 'OK',
           handler: data => {
             console.log('Cancel clicked');
-            this.hasMessages="You have no cards left to swipe but you can create your own card click on the pen tool at the top right  "
-
+            this.noCards = 0
+            this.hasMessages="You have no cards left to swipe from "
           }
         },
-        {
-          text: ' YES ',
-          handler: data => {
-            console.log('Saved clicked');
-
-            this.navCtrl.push(PersonalisedcardPage)
-          }
-        }
+       
       ]
     });
     prompt.present();
-  }
-  this.imzx =this.images[this.liked].message
-
-
-
-  }else{
-    const toast = this.toastCtrl.create({
-      message: "You have no cards to like",
-      cssClass:'toast1' ,
-      duration: 3000
-    });
-    toast.present();
-  }
-
+   
+    this.hasMessages="You have no cards left to swipe from "
+   
   
-  
+    }else{
+      this.liked = this.liked + 1
+    this.imzx =this.images[this.liked].message
+    }
+    
 }
  
  
  
 dislike(){
 
-  if(this.liked != this.images.length -2){
+ if(this.liked ==this.images.length-2){
+  console.log("nothing");
+  document.getElementById("cards").style.display="none"
 
-    this.liked = this.liked + 1
-    this.textdisplay=this.cardOverlay.dislike.indicator
-    const toast = this.toastCtrl.create({
-      message: this.textdisplay,
-      cssClass:'toast1' ,
-      duration: 2000
-    });
-    toast.present();
-    console.log( this.textdisplay);
-    
-   
-    
-    if(this.liked ==this.images.length-2){
-      const prompt = this.alertCtrl.create({
-        title:"Oops! you ran out of cards ",
-        message: " You have no cards to swipe but you can create your own card",
+  const prompt = this.alertCtrl.create({
+    title:"Oops! you ran out of cards ",
+    message: " You have no cards to swipe from ",
+ 
+    buttons: [
+      {
+        text: 'OK',
+        handler: data => {
+          console.log('Cancel clicked');
+          this.noCards = 0
+          this.hasMessages="You have no cards left to swipe from "
+        }
+      },
      
-        buttons: [
-          {
-            text: 'NO',
-            handler: data => {
-              console.log('Cancel clicked');
-              this.hasMessages="You have no cards left to swipe but you can create your own card click on the pen tool at the top right  "
-            }
-          },
-          {
-            text: ' YES ',
-            handler: data => {
-              console.log('Saved clicked');
-  
-              this.navCtrl.push(PersonalisedcardPage)
-            }
-          }
-        ]
-      });
-      prompt.present();
-    }
-    this.imzx =this.images[this.liked].message
-   
-   }else {
-    const toast = this.toastCtrl.create({
-      message: "You have no cards to dislike",
-      cssClass:'toast1' ,
-      duration: 3000
-    });
-    toast.present();
-   }
-  
+    ]
+  });
+  prompt.present();
+ 
+  this.hasMessages="You have no cards left to swipe from "
+ 
+
+  }else{
+    this.liked = this.liked + 1
+  this.imzx =this.images[this.liked].message
   }
+  
+ 
+ 
+  
+ 
+ 
+
+}
 
 
 

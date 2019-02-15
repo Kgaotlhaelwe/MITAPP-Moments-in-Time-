@@ -6,7 +6,7 @@
       </button>
     </ion-buttons>
     <ion-title text-center>
-      Review
+      Scheduled messages
     </ion-title>
     <ion-buttons end>
       <button ion-button icon-only  color="royal" (click)="presentModal()">
@@ -18,46 +18,26 @@
 <img src="../../assets/imgs/BIRTHDAY.png">
 <ion-content padding class="background" >
   <h1 *ngIf="!hasMessages">You currently don't have messages to review</h1>
-<div  *ngFor="let v of sentMessages; let u = index" (press)="sendVia(v.message,v.name , v.id)" >
+<div  *ngFor="let v of sentMessages; let u = index" >
 
 
     <ion-list   >
         <ion-item-sliding>
-          <ion-item   (click)="readMore(v.message,v.name , v.image, v.id)" >
-            <ion-avatar item-start  >
+          <ion-item >
+            <!-- <ion-avatar item-start  >
               <img src="{{v.image}}">
-            </ion-avatar>
-            <h2 class="h2" >{{v.name}}</h2>
+            </ion-avatar> -->
+            <h2 class="h2" >{{v.emailto}}</h2>
             <p> {{v.message}}
             {{v.automessage}}
           </p>
 
-           
-
-            <br>
-            <!-- {{countDownDate}} -->
-            <ion-grid>
-              <ion-row>
-                <ion-col>
-                </ion-col>
-                <ion-col center text-right>
-                  <ion-note  color="grey" >
-                    <p id="demo"></p>
-
-                  </ion-note>
-                </ion-col>
-              </ion-row>
-            </ion-grid>
+        
 
           </ion-item>
-          <!-- <ion-item-options side="left">
-            <button ion-button class="buttons"  (click)="update()" >
-              <ion-icon name="mail"></ion-icon>
-              Edit
-            </button>
-          </ion-item-options> -->
+     
           <ion-item-options side="right">
-            <button ion-button color="b" class="buttons"  (click)="Delete(v.id)">
+            <button ion-button color="b" class="buttons"  (click)="Delete(v.k ,v.uniquedate)">
               <ion-icon name="delete"></ion-icon>
               Delete
             </button>

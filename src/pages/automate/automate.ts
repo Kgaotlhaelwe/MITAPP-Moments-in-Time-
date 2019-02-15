@@ -32,7 +32,7 @@ export class AutomatePage {
 @ViewChild('baseTabs') tabsRef : Tabs;
   phoneNumber ;
   peronalisedMsg
-  graduation = this.navParams.get("graduation")
+  autoMsgArray = this.navParams.get("autoMsgArray")
 
   message ;
   today
@@ -53,7 +53,7 @@ export class AutomatePage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad AutomatePage');
 
-    console.log(this.graduation);
+   
 
     
     if("Birthday" == this.categoryChosen){
@@ -122,6 +122,7 @@ export class AutomatePage {
    console.log(arry);
 
    this.navCtrl.popTo(MessagePage)
+
    
 
  

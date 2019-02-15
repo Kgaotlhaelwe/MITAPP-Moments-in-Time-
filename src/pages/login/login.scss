@@ -680,6 +680,21 @@ img{
         position: relative;
         top: -10px;
     }
+
+
+    .err{
+        color: red;
+        font-size: 2rem;
+    }
+
+    .dis{
+        animation: .3s fadeIn ease;
+        // position: relative;
+        // left: 50%;
+        // top: 50%;
+        // transform: translate(-50%, -50%)
+    }
+    
 }
 
 

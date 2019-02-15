@@ -8,18 +8,18 @@
 
 <ion-header>
     <ion-toolbar color="b"   >
-        <ion-buttons left>
+        <!-- <ion-buttons left>
            <button ion-button icon-only color="light" (click)="back()">
              <ion-icon name="arrow-round-back"></ion-icon>
            </button> 
-          </ion-buttons>   
+          </ion-buttons>    -->
          <ion-title>Automated messages</ion-title>
    </ion-toolbar>
 </ion-header>
 
 <ion-content padding  class="background">
 
-     <ion-card *ngFor="let a of graduation; let u = index"  class="main2" (click)="autoMessagessssss(a.message)">
+     <ion-card *ngFor="let a of autoMsgArray; let u = index"  class="main2" (click)="autoMessagessssss(a.message)">
 
       
 

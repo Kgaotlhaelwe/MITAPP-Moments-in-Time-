@@ -9,6 +9,7 @@ import { MessagePage } from '../message/message';
 import { EventPage } from '../event/event';
 import { Network } from '@ionic-native/network';
 import { ToastController } from 'ionic-angular';
+
 declare var firebase
 /**
  * Generated class for the LoginPage page.
@@ -25,6 +26,7 @@ declare var firebase
 export class LoginPage {
   
 
+  show = {}
   user = {} as user ;
 
   constructor(public navCtrl: NavController, public navParams: NavParams , private keyboard: Keyboard, private db:DatabaseProvider ,public alertCtrl: AlertController,public loadingCtrl: LoadingController, private network: Network, public toastCtrl: ToastController) {
@@ -36,100 +38,117 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
   
-  // displayNetworkUpdate(connectionState:string){
-  //   let networkType =this.network.type
-  //   this.toastCtrl.create({
-  //     message:`You are now `+' '+connectionState  ,
-  //     duration:3000 ,
-  //   }).present()
-   
-  //  }
   
-  // ionViewDidEnter() {
-  //   this.network.onConnect().subscribe(data=>{
-  //     console.log(data)
-  //     this.displayNetworkUpdate('Connected')
      
-  //    }
-    
-  //   ,error=>console.error(error));
-     
-  //    this.network.onDisconnect().subscribe(data=>{
-     
-  //     console.log(data)
-  //     this.displayNetworkUpdate('Disconnected')
-  //    },error=>console.error(error));
-    
-  //   }
 
-  Login(user:user){
 
-    
-   
-    if(user.email !=undefined && user.password !=undefined){
-      this.db.login(user.email ,user.password).then(()=>{
-        var users= firebase.auth().currentUser;
-        console.log(users.uid);      
-        // let loading = this.loadingCtrl.create({
-        //   spinner: 'ios',
-        //   content: 'Logging in please wait...',
-        //   cssClass: "loading-md .loading-wrapper ",
-        //   duration: 3000
-        // });
-    
-        // loading.present();
-      
-        this.navCtrl.setRoot(TabsPage);
+
+
+  Login(email , password){
+
+
+    if(email != '' && password != ''){
+      this.db.loginx(email , password).then((data)=>{
+        if(data.user.emailVerified == true){
+          const loader = this.loadingCtrl.create({
+                    content: "Loggin...",
+                    cssClass: "loading-md .loading-wrapper ",
+                    duration :2000
+                  
+                  });
+                  loader.present();
+
+                  setTimeout(() => {
+                           this.navCtrl.setRoot(TabsPage);
+                         }, 3000);
+
+        }else{
+        
+          this.db.errorAlert("Please Verify your Email")
+                  
+               
+
+        }
+      }).catch((error)=>{
        
-      } ,(error)=>{
-        const alert = this.alertCtrl.create({
-          // title: 'Error!',
-          subTitle:  error.message,
-          buttons: ['OK']
-        });
-        alert.present();
-       
+          
+      this.db.errorAlert(error.message) ;
       
-  
-      })
+      
+          })
+     
     }else{
-      const alert = this.alertCtrl.create({
-        subTitle: 'Please enter all details',
-        buttons: ['OK']
-      });
-      alert.present();
-
-    }
-  }
-  
-
-  // presentLoading1() {
-  //   const loader = this.loadingCtrl.create({
-  //     content: "Please wait...",
-  //     duration: 3000
-  //   });
-  //   loader.present();
-  // }
-
-
-  forgetPassword(user:user){
-    this.db.forgetPassword(user.email).then(()=>{
-
-      const alert = this.alertCtrl.create({
-        subTitle:  "Please check your Email",
-        buttons: ['OK']
-      });
-      alert.present();
       
-    } , (error)=>{
+      this.db.errorAlert("Please Enter all Details");
 
-      const alert = this.alertCtrl.create({
-        subTitle:  "Please fill in the email field. ",
-        buttons: ['OK']
-      });
-      alert.present();
+      
+    }
+    
 
-    })
+   
+   
+     
+
+  }
+
+  forgetPassword(){
+    const prompt = this.alertCtrl.create({
+      title: 'Forget Password',
+      //message: "Enter your Email....",
+      inputs: [
+        {
+          name: 'name',
+          placeholder: 'Enter your Email....'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Reset',
+          handler: data => {
+            console.log('Saved clicked');
+
+            
+           ;
+            this.db.forgetPassword(data.name).then(()=>{
+              
+             
+
+              const loader = this.loadingCtrl.create({
+                content: "Please wait, still processing",
+                cssClass: "loading-md .loading-wrapper ",
+                duration :2000
+              
+              });
+              loader.present()
+
+              setTimeout(()=>{
+               
+
+                this.db.successAlert("We have sent you email to recover password, Please check your Email") ;
+
+              } , 3000)
+
+           
+ 
+ 
+ 
+            }).catch((error)=>{
+              
+            this.db.errorAlert(error.message)
+
+
+            })
+          }
+        }
+      ]
+    });
+    prompt.present();
   }
   message=function(){
     this.navCtrl.push(MessagePage)
@@ -139,6 +158,7 @@ export class LoginPage {
   tabs(){
     this.navCtrl.push(TabsPage)
   }
+  
   logInWithFaceBook(){
     this.db.logInWithFaceBook();
   }
@@ -149,7 +169,13 @@ export class LoginPage {
     });
   }
 
+  input(){
+  console.log("innnnnnnnnnnnnnnnnnnnnnnnn") ;
+  }
+
   register(){
     this.navCtrl.push(RegisterPage);
   }
+
+  
 }

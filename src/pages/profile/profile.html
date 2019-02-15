@@ -5,86 +5,104 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar color="b">
-      <ion-buttons left>
-          <button ion-button icon-only large color="royal" (click)="update()">
-            <ion-icon ios="ios-create" md="md-create"></ion-icon>
-          </button>
-        </ion-buttons>
+  <ion-toolbar color="b">
+
     <ion-title>
       Profile
     </ion-title>
     <ion-buttons end>
-        <button ion-button icon-only large color="royal" (click)="presentPopover($event)">
-          <ion-icon name="more"></ion-icon>
-        </button>
-        <button ion-button icon-only  color="dust" align="right" ion-button clear icon-only (click)="update()">
-          </button >
-      </ion-buttons>
-  </ion-navbar>
+      <button ion-button icon-only large color="royal" (click)="presentPopover($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+      <button ion-button icon-only color="dust" align="right" ion-button clear icon-only (click)="update()">
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content class="background">
 
 
   <div class="flex" align="center">
-  <ion-avatar align="center">
-     
-        <img id="images" src="{{profileimage}}" class="Avatar" imageViewer>
-    <label for="hide"><ion-icon class="add" color="b" ios="ios-add-circle" md="md-add-circle"></ion-icon></label>
-       <input type="file" id="hide" accept="image/*" (change)="upload($event)"/>
-  </ion-avatar>
-</div>
+    <ion-avatar align="center">
 
+      <img id="images" [src]="profileimage" onerror="this.style.opacity='1'" class="Avatar" imageViewer>
+      <!-- <label for="hide"><ion-icon class="add" color="b" ios="ios-add-circle" md="md-add-circle"></ion-icon></label> -->
+      <!-- <input type="file" id="hide"  (change)="upload($event)"/>
+       <input type="file" class="filechoose"  (change)="upload($event)"/> -->
 
-<div class="text">
-    <h1 align="center"> {{name}}</h1>
-<p align="center" class="ion-note" >
-    {{email}}
-</p> 
-</div>
-<div class="create" align="right">
+      <button class="add" ion-button icon-only clear large color="b" (click)="uploadImage()">
+        <ion-icon name="add-circle"></ion-icon>
+      </button>
+    </ion-avatar>
+  </div>
 
-</div> 
-<img src="../../assets/icon/"/>
-<div class="segment"> 
-                         
-<ion-list>
-    <ion-item>
+  <!-- <div id="btnhide">
+
+ 
+  </div> -->
+
+  <div id='nameinput' *ngIf="showinput">
+    <ion-list style="display: flex" padding-left  padding-bottom>
+      <ion-item >
+        <ion-input type="text" placeholder="{{name}}" [(ngModel)]="updatename"></ion-input>
+      </ion-item>
+      <button ion-button color="b" clear (click)="save()">save</button>
+
+    </ion-list>
+  </div>
+
+  <div class="text">
+    <span><h1 align="center" id="namehide"> {{name}}</h1>  
+     <button id="btnhide" ion-button color="b" icon-only clear large (click)="edit()">
+      <ion-icon id="pen" name="create"></ion-icon>
+    </button> </span>
+    <p align="center" class="ion-note">
+      {{email}}
+    </p>
+  </div>
+  <div class="create" align="right">
+
+  </div>
+  <img src="../../assets/icon/" />
+  <div class="segment">
+
+    <ion-list>
+      <ion-item>
 
         <ion-segment [(ngModel)]="pet">
           <ion-segment-button value="Favourites">
-          FAVOURITE
+            FAVOURITE
           </ion-segment-button>
-          <ion-segment-button value="puppies">
+          <!-- <ion-segment-button value="puppies">
             Customized cards
-          </ion-segment-button>
+          </ion-segment-button> -->
         </ion-segment>
-      
-      <div [ngSwitch]="pet"   >
-        <div class="container" >
-        <ion-list *ngSwitchCase="'Favourites'" color="dust" >
-          <ion-item>
-                <ion-grid >
-                <ion-row>
-                    <ion-col col-6 *ngFor="let a of  favouriteArray"   (press)="ShareDelete(a.image, a.id)">
-                        <img src="{{a.image}}"  class="image" imageViewer>   
+
+        <div [ngSwitch]="pet">
+          <div class="container">
+            <ion-list *ngSwitchCase="'Favourites'" color="dust">
+              <ion-item>
+                <ion-grid>
+                  <ion-row>
+                    <ion-col col-6 *ngFor="let a of  favouriteArray" (press)="ShareDelete(a.image, a.k)">
+                      <img src="{{a.message}}" class="image" imageViewer>
                     </ion-col>
-                </ion-row>
-              </ion-grid> 
-          </ion-item>
-        </ion-list>
-      </div>
-      </div>
+                  </ion-row>
+                </ion-grid>
+              </ion-item>
+            </ion-list>
+          </div>
+        </div>
 
 
-      <div [ngSwitch]="pet"   >
+        <!-- <div [ngSwitch]="pet"   >
           <div class="container" >
           <ion-list *ngSwitchCase="'puppies'" color="dust" >
             <ion-item>
                   <ion-grid >
                   <ion-row>
-                      <ion-col col-6 *ngFor="let a of  customizedCard"   (press)="ShareD(a.image, a.id)">
+                      <ion-col col-6 *ngFor="let a of  customizedCard"   (press)="ShareD(a.image, a.key)">
                           <img src="{{a.image}}"  class="image" imageViewer>   
                       </ion-col>
                   </ion-row>
@@ -92,8 +110,8 @@
             </ion-item>
           </ion-list>
         </div>
-        </div>
-    </ion-item>
-  </ion-list> 
-</div> 
+        </div> -->
+      </ion-item>
+    </ion-list>
+  </div>
 </ion-content>

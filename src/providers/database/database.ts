@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 
 import { AngularFireAuth } from '../../../node_modules/angularfire2/auth';
 import { SocialSharing } from '@ionic-native/social-sharing';
@@ -10,6 +10,9 @@ import { LoginPage } from '../../pages/login/login';
 import { BehaviorSubject } from 'rxjs/Rx';
 import { Storage } from '@ionic/storage';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
+import { Events } from 'ionic-angular';
+import Swal from 'sweetalert2'
+
 declare var firebase ;
 
 /*
@@ -29,17 +32,19 @@ export class DatabaseProvider {
   babyShowerArray=[];
   newJobArray=[];
   provider = new firebase.auth.GoogleAuthProvider();
+  userID ;
 
   likedArray =[] ;
 
   messageArray =[];
   condition;
   tempTheme:string;
-
+  customizedCardarray = []
+  contactListArray = []
   private db: SQLiteObject;
   private isOpen: boolean;
   private theme: BehaviorSubject<String>;//declare
-  constructor(public http: HttpClient,private fire:AngularFireAuth ,private socialSharing:SocialSharing, private networks: Network,public toastCtrl: ToastController,  public loadingCtrl: LoadingController, private storage: Storage ,  public sql: SQLite) {
+  constructor(public http: HttpClient,private fire:AngularFireAuth ,private socialSharing:SocialSharing, private networks: Network,public toastCtrl: ToastController,  public loadingCtrl: LoadingController, private storage: Storage ,  public sql: SQLite, public events: Events , private ngZone: NgZone) {
     console.log('Hello DatabaseProvider Provider');
     storage.get('theme').then((val) => {
       console.log('Your theme', val);
@@ -77,19 +82,27 @@ export class DatabaseProvider {
 
   checkstate(){
     return new Promise((resolve, reject)=>{
-    firebase.auth().onAuthStateChanged((user)=>
-     {
-      if (user != null) {
-       // alert('user signed in')
-       this.condition = 1
-   
-      } else {
-   
-        this.condition = 0
-       // alert('no user signed in')
-      }
-      resolve(this.condition)
+    this.ngZone.run(()=>{
+
+      firebase.auth().onAuthStateChanged((user)=>
+      {
+       if (user != null) {
+        // alert('user signed in')
+        this.condition = 1
+        this.userID = user.uid
+        this.events.publish('user:created', this.userID, Date.now());
+        console.log("got this from events",  this.userID);
+        
+       } else {
+    
+         this.condition = 0
+        // alert('no user signed in')
+       }
+       resolve(this.condition)
+     })
+
     })
+ 
  
   })
   }
@@ -97,28 +110,28 @@ export class DatabaseProvider {
   register(email , password , name, image){
 
 
- 
- 
-    return new Promise((resolve, reject)=>{
 
+
+
+
+    return new Promise((resolve, reject)=>{
+ 
       firebase.auth().createUserWithEmailAndPassword(email , password) .then(()=>{
         var uid= firebase.auth().currentUser.uid;
         firebase.database().ref("user/"+uid).set({
           name:name,
           email:email,
- 
- 
-        }).then(()=>{
- 
-          firebase
-          .database()
-          .ref("Pic/"+uid)
-          .set({
-            url: "../../assets/icon/download.png"
-          });
+          proPicture: "../../assets/icon/download.png"
         })
+       
  
+        var user = firebase.auth().currentUser;
  
+        user.sendEmailVerification().then(function() {
+        // Email sent.
+        }).catch(function(error) {
+        // An error happened.
+        });
  
  
         resolve();
@@ -127,25 +140,121 @@ export class DatabaseProvider {
         reject(error);
       });
  
+   
+
+      
  
  })
  
+ 
+ 
+ 
+ 
  }
+
+
+ getUser(){
+   
+
+  return new Promise((resolve, reject)=>{
+      
+this.ngZone.run(()=>{
+
+  firebase.database().ref("user/"+this.userID).on('value', (data: any) => {
+    var profile = data.val();
+
+      console.log(profile);
+      var obj = {
+        name :profile.name ,
+        email :profile.email  ,
+        profileimage:profile.proPicture
+
+      }
+
+      resolve(obj)
+    
+     })
+
+  
+})
+
+   
+
+
+
+  })
+   
+
+
+      
+ }
+
+
+ 
+ getUid(){
+   return this.userID
+
+}
+
+
+updateProfileName(name){
+
+  return new Promise((resolve, reject)=>{
+
+    this.ngZone.run(()=>{
+
+        
+    var update = {
+      name:name
+
+
+    }
+
+    
+     firebase.database().ref('user/' + this.userID).update(update).then(() => {
+
+     
+
+    });
+
+
+    })
+
+  
+    
+
+    })
+
+
+}
 
  login(email , password){
 
+
   
   return new Promise((resolve, reject)=>{
-    firebase.auth().signInWithEmailAndPassword(email , password).then(()=>{
-      resolve();
+   this.ngZone.run(()=>{
+    firebase.auth().signInWithEmailAndPassword(email , password).then((data)=>{
+      console.log(data);
+      
+      resolve(data);
     }, Error =>{
       reject(Error)
-    }) ;
+    }) 
+
+   })
+   ;
   
    
 })
 
 
+}
+
+
+loginx(email , password){
+ 
+  return firebase.auth().signInWithEmailAndPassword(email, password) ;
 }
 
 
@@ -168,6 +277,69 @@ forgetPassword(email){
 }
 
 
+saveContactList(name , email,date){
+  var users= firebase.auth().currentUser;
+  var userid=users.uid
+
+  return new Promise((resolve, reject)=>{
+    firebase.database().ref('contactList/'+ userid).push({
+      name:name ,
+      email:email,
+      date:date
+      
+ 
+      
+    })
+ 
+    resolve();
+ 
+ })
+}
+
+
+getContactlist(){
+  var users= firebase.auth().currentUser;
+  var userid=users.uid
+  
+  return new Promise((resolve, reject)=>{
+    firebase.database().ref("contactList/"+userid).on('value', (data: any) => {
+
+      var contactList = data.val();
+       console.log(data.val());
+       if(contactList !=null){
+
+        this.contactListArray = []
+
+        var keys: any = Object.keys(contactList);
+ 
+        console.log(keys);
+  
+        for (var i = 0; i < keys.length; i++){
+         var k = keys[i];
+  
+         let obj = {
+           k:k,
+           name:contactList[k].name ,
+           email:contactList[k].email ,
+           date:contactList[k].date ,
+  
+         }
+         //this.likedArray = [];
+        this.contactListArray.push(obj)
+ 
+        resolve( this.contactListArray);
+ 
+         
+   }
+       }else{
+        //  alert("YOU DONT FAV MESSAGE") ;
+       }
+ 
+      
+ })
+
+ })
+}
 
 SignWithGoogle(){
   var users= firebase.auth().currentUser;
@@ -220,70 +392,17 @@ logInWithFaceBook(){
  }
 
 
- anniversaryMessage(){
+
+
+
+deletePic(key){
   return new Promise((resolve, reject)=>{
-    firebase.database().ref('category/'+ 'ANNIVERSARY' ).on('value', (data: any) => {
-
-      var message = data.val();
-       console.log(data.val());
- 
-       var keys: any = Object.keys(message);
- 
-       console.log(keys);
- 
-       for (var i = 0; i < keys.length; i++){
-        var k = keys[i];
- 
-        let obj = {
-          k:keys ,
-          message:message[k].message
- 
-        }
-        this.anniversaryArray.push(obj)
-
-        resolve(this.anniversaryArray);
-  }
- 
- 
+    console.log(this.userID);
+    
+    firebase.database().ref('likedPictures/' + this.userID).child(key).remove();
   })
-
- })
-  
-
- }
-
-birthdayMessages(){
-  return new Promise((resolve, reject)=>{
-    firebase.database().ref('category/'+ 'Birthday' ).on('value', (data: any) => {
-
-      var message = data.val();
-       console.log(data.val());
  
-       var keys: any = Object.keys(message);
- 
-       console.log(keys);
- 
-       for (var i = 0; i < keys.length; i++){
-        var k = keys[i];
- 
-        let obj = {
-          k:keys ,
-          message:message[k].message
- 
-        }
-        this.birthdayArray.push(obj)
-
-        resolve(this.birthdayArray);
-  }
- 
- 
-  })
-
- })
-  
-
 }
-
 
 
 temporaryliked(message){
@@ -302,137 +421,14 @@ temporaryliked(message){
  
  })
 }
-babyShowerMessages(){
-  return new Promise((resolve, reject)=>{
-    firebase.database().ref('category/'+ 'babyShower' ).on('value', (data: any) => {
-
-      var message = data.val();
-       console.log(data.val());
- 
-       var keys: any = Object.keys(message);
- 
-       console.log(keys);
- 
-       for (var i = 0; i < keys.length; i++){
-        var k = keys[i];
- 
-        let obj = {
-          k:keys ,
-          message:message[k].message
- 
-        }
-        this.babyShowerArray.push(obj)
-
-        resolve(this.babyShowerArray);
-  }
- 
- 
-  })
-
- })
-  
-
-
-}
-
-
-GraduationMessages(){
-  return new Promise((resolve, reject)=>{
-    firebase.database().ref('category/'+ 'Graduation' ).on('value', (data: any) => {
-
-      var message = data.val();
-       console.log(data.val());
- 
-       var keys: any = Object.keys(message);
- 
-       console.log(keys);
- 
-       for (var i = 0; i < keys.length; i++){
-        var k = keys[i];
- 
-        let obj = {
-          k:keys ,
-          message:message[k].message
- 
-        }
-        this.graduationArray.push(obj)
-
-        resolve(this.graduationArray);
-  }
- 
- 
-  })
-
- })
-  
 
 
 
-}
-
-weddingMessage(){
-  return new Promise((resolve, reject)=>{
-    firebase.database().ref('category/'+ 'Weddings' ).on('value', (data: any) => {
-
-      var message = data.val();
-       console.log(data.val());
- 
-       var keys: any = Object.keys(message);
- 
-       console.log(keys);
- 
-       for (var i = 0; i < keys.length; i++){
-        var k = keys[i];
- 
-        let obj = {
-          k:keys ,
-          message:message[k].message
- 
-        }
-        this.weddingArray.push(obj)
-
-        resolve(this.weddingArray);
-  }
- 
- 
-  })
-
- })
-  
-
-}
-
-newJobMessage(){
-  return new Promise((resolve, reject)=>{
-    firebase.database().ref('category/'+ 'newJob' ).on('value', (data: any) => {
-
-      var message = data.val();
-       console.log(data.val());
- 
-       var keys: any = Object.keys(message);
- 
-       console.log(keys);
- 
-       for (var i = 0; i < keys.length; i++){
-        var k = keys[i];
- 
-        let obj = {
-          k:keys ,
-          message:message[k].message
- 
-        }
-        this.newJobArray.push(obj)
-
-        resolve(this.newJobArray);
-  }
- 
- 
-  })
-
- })
 
 
-}
+
+
+
 
 
 sendviaWhatsApp(message, url){
@@ -451,12 +447,12 @@ sendviaWhatsApp(message, url){
   })
 }
 
-saveSentMessages(name,message , date, image){
+saveReviewMessages(name,message , date, image){
   var users= firebase.auth().currentUser;
   var userid=users.uid
  
   return new Promise((resolve, reject)=>{
-    firebase.database().ref("messagesent/"+userid).push({
+    firebase.database().ref("ReviewMessage/"+userid).push({
       name:name ,
       
       message:message ,
@@ -491,16 +487,16 @@ likedMessage(message){
 }
 
 
-Testing(message,name,date){
+sentMessage(message,name,date){
   var users= firebase.auth().currentUser;
   var userid=users.uid
  
   return new Promise((resolve, reject)=>{
-    firebase.database().ref("Testingmsg/"+userid).push({
+    firebase.database().ref("sentMessage/"+userid).push({
       
       
       message:message ,
-     date:date ,
+      date:date ,
       name:name,
     
       
@@ -532,7 +528,7 @@ customizedCard(image) {
 getMessages(){
 
   const loader = this.loadingCtrl.create({
-    content: "Please wait... still connecting ",
+    content: "Please wait... still connecting",
     cssClass: "loading-md .loading-wrapper ",
     //duration :30000
   
@@ -553,7 +549,7 @@ getMessages(){
         var k = keys[i];
  
         let obj = {
-          k:keys ,
+          k:k,
           message:message[k].message
  
         }
@@ -573,7 +569,7 @@ getMessages(){
 sendviaWhatsApps(message){
 
   return new Promise((resolve, reject)=>{
-    this.socialSharing.share(message,null,null,null)
+    this.socialSharing.share(null,null,message,null)
      resolve()
      
       
@@ -643,8 +639,16 @@ shareYourcut(message){
 
 }
 
+uploadProfilePic(){
+  return new Promise((resolve, reject)=>{
 
-getFavourite(){
+    
+  })
+
+}
+
+
+getFavouriteImages(){
   var users= firebase.auth().currentUser;
   var userid=users.uid
   
@@ -655,6 +659,8 @@ getFavourite(){
        console.log(data.val());
        if(message !=null){
 
+        this.likedArray = []
+
         var keys: any = Object.keys(message);
  
         console.log(keys);
@@ -663,8 +669,63 @@ getFavourite(){
          var k = keys[i];
   
          let obj = {
-           k:keys ,
+           k:k,
            message:message[k].message
+  
+         }
+         //this.likedArray = [];
+        this.likedArray.push(obj)
+ 
+        resolve(this.likedArray);
+ 
+         
+   }
+       }else{
+        //  alert("YOU DONT FAV MESSAGE") ;
+       }
+ 
+      
+ })
+
+ })
+
+
+ 
+
+ 
+  
+
+}
+
+
+
+
+getReviewMessage(){
+  var users= firebase.auth().currentUser;
+  var userid=users.uid
+  
+  return new Promise((resolve, reject)=>{
+    firebase.database().ref("ReviewMessage/"+userid).on('value', (data: any) => {
+
+      var message = data.val();
+       console.log(data.val());
+       if(message !=null){
+        this.likedArray = []
+
+
+        var keys: any = Object.keys(message);
+ 
+        console.log(keys);
+  
+        for (var i = 0; i < keys.length; i++){
+         var k = keys[i];
+  
+         let obj = {
+           k:k ,
+           message:message[k].message,
+           date:message[k].date ,
+           image:message[k].image ,
+           name:message[k].name
   
          }
         this.likedArray.push(obj)
@@ -678,13 +739,61 @@ getFavourite(){
        }
  
       
- 
- 
-  })
+ })
 
  })
   
 
+}
+
+
+testNumbers(x, y, z){
+  
+    return x + y + z;
+
+
+}
+
+getsentMessage(){
+  var users= firebase.auth().currentUser;
+  var userid=users.uid
+  
+  return new Promise((resolve, reject)=>{
+    firebase.database().ref("sentMessage/"+userid).on('value', (data: any) => {
+
+      var message = data.val();
+       console.log(data.val());
+       if(message !=null){
+        this.likedArray = [] ;
+        var keys: any = Object.keys(message);
+ 
+      //  console.log(keys);
+  
+        for (var i = 0; i < keys.length; i++){
+         var k = keys[i];
+  
+         let obj = {
+           key:k ,
+           message:message[k].message ,
+           name:message[k].name ,
+           date:message[k].date
+  
+         }
+        this.likedArray.push(obj)
+ 
+        resolve(this.likedArray);
+ 
+         
+   }
+       }else{
+        //  alert("YOU DONT FAV MESSAGE") ;
+       }
+ 
+      
+ })
+
+ })
+  
 }
 signout(){
   firebase.auth().signOut().then(function() {
@@ -716,37 +825,44 @@ savetoSentMessage(message,a,name){
  
  }
 
- General(){
+
+
+ getCustomisedCard(){
   return new Promise((resolve, reject)=>{
-    firebase.database().ref('category/'+ 'General' ).on('value', (data: any) => {
- 
-      var message = data.val();
-       console.log(data.val());
- 
-       var keys: any = Object.keys(message);
- 
-       console.log(keys);
- 
-       for (var i = 0; i < keys.length; i++){
-        var k = keys[i];
- 
-        let obj = {
-          k:keys ,
-          message:message[k].message
+
+    var users= firebase.auth().currentUser;
+    var userid=users.uid
+    firebase.database().ref("customisedCard/"+userid).on('value', 
+    (data: any) => {
+      var name = data.val();
+      this.customizedCardarray = []
+        if (name !== null) {
+          var keys: any = Object.keys(name);
+          for (var i = 0; i < keys.length; i++) {
+            var k = keys[i];
+            let  obj = {
+              key:k ,
+              image:name[k].image,
+              }
+              
+            this.customizedCardarray.push(obj);
+            console.log(this.customizedCardarray);
+          resolve(this.customizedCardarray)
+          }
+        } else{
  
         }
-        this.newJobArray.push(obj)
- 
-        resolve(this.newJobArray);
-  }
- 
- 
+       
+
+     })
   })
- 
- })
- 
- 
  }
+
+
+
+ 
+
+ 
  displayNetworkUpdate(connectionState:string){
   let networkType =this.networks.type
   this.toastCtrl.create({
@@ -777,47 +893,7 @@ savetoSentMessage(message,a,name){
    
   })
  }
- thinkingofyou(){
-  return new Promise((resolve, reject)=>{
-    firebase.database().ref('category/'+ 'thinking of you' ).on('value', (data: any) => {
  
-      var message = data.val();
-       console.log(data.val());
- 
-       var keys: any = Object.keys(message);
- 
-       console.log(keys);
- 
-       for (var i = 0; i < keys.length; i++){
-        var k = keys[i];
- 
-        let obj = {
-          k:keys ,
-          message:message[k].message
- 
-        }
-        this.newJobArray.push(obj)
-        alert
- 
-        resolve(this.newJobArray);
-  }
-   Error =>{
-    // reject(Error)
-    console.log("clicked")
-    alert(Error)
-   }
- 
- })
- 
-
-})
-
-
-
-
-
- 
-}
 
 // reviewMessage
 creatReviewMessage( name:string, image:string, message:string){
@@ -1023,5 +1099,161 @@ updateReviewMessage(message, id){
     })
   });
 }
+
+scheduleEmails(occassion, date,emailto,message, namefrom, uniquedate){
+  var users= firebase.auth().currentUser;
+ var uid  = users.uid
+ var userEmail = users.email;
+  return new Promise((resolve, reject)=>{
+    firebase.database().ref("scheduledEmails/"+uid).push({
+      email:userEmail ,
+      date:date,
+      emailto:emailto ,
+      occassion:occassion ,
+      message:message ,
+      namefrom:namefrom ,
+      uniquedate:uniquedate
+    })
  
+    resolve();
+ 
+ })
+
+}
+
+scheduleEmailForFunction(occassion, date,emailto,message, namefrom, uniquedate){
+  var users= firebase.auth().currentUser;
+  var userEmail = users.email;
+  return new Promise((resolve, reject)=>{
+    firebase.database().ref("schedulefunctionEmail/").push({
+      email:userEmail ,
+      date:date,
+      emailto:emailto ,
+      occassion:occassion ,
+      message:message ,
+      namefrom:namefrom,
+      uniquedate:uniquedate
+    })
+ 
+    resolve();
+ 
+ })
+ 
+ }
+
+
+
+ getScheduledEmails(){
+  var users= firebase.auth().currentUser;
+  var userid=users.uid
+ 
+  return new Promise((resolve, reject)=>{
+    firebase.database().ref("scheduledEmails/"+userid).on('value', (data: any) => {
+ 
+      var contactList = data.val();
+       console.log(data.val());
+       if(contactList !=null){
+ 
+        this.contactListArray = []
+ 
+        var keys: any = Object.keys(contactList);
+ 
+        console.log(keys);
+ 
+        for (var i = 0; i < keys.length; i++){
+         var k = keys[i];
+ 
+         let obj = {
+           k:k,
+           emailto:contactList[k].emailto ,
+ 
+           occassion:contactList[k].occassion ,
+           message:contactList[k].message ,
+           uniquedate:contactList[k].uniquedate
+ 
+         }
+         //this.likedArray = [];
+        this.contactListArray.push(obj)
+ 
+        resolve( this.contactListArray);
+ 
+ 
+   }
+       }else{
+        //  alert("YOU DONT FAV MESSAGE") ;
+        }
+ 
+ 
+ })
+ 
+ })
+ 
+ }
+
+
+
+
+ getScheduledFunctionEmails(){
+  var users= firebase.auth().currentUser;
+  var userid=users.uid
+ 
+  return new Promise((resolve, reject)=>{
+    firebase.database().ref("schedulefunctionEmail/").on('value', (data: any) => {
+ 
+      var contactList = data.val();
+       console.log(data.val());
+       if(contactList !=null){
+ 
+        this.contactListArray = []
+ 
+        var keys: any = Object.keys(contactList);
+ 
+        console.log(keys);
+ 
+        for (var i = 0; i < keys.length; i++){
+         var k = keys[i];
+ 
+         let obj = {
+           k:k,
+           uniquedate:contactList[k].uniquedate ,
+ 
+ 
+ 
+         }
+         //this.likedArray = [];
+        this.contactListArray.push(obj)
+ 
+        resolve( this.contactListArray);
+ 
+ 
+   }
+       }else{
+        //  alert("YOU DONT FAV MESSAGE") ;
+        }
+ 
+ 
+ })
+ 
+ })
+ 
+ }
+ 
+ errorAlert(message){
+  Swal.fire({
+    title: 'Ooops',
+    text: message,
+    type: 'error',
+    //confirmButtonText: 'Cool'
+  })
+ }
+
+ successAlert(message){
+  Swal.fire({
+    title: 'Successful',
+    text: message,
+    type: 'error',
+    //confirmButtonText: 'Cool'
+  })
+
+ }
 }

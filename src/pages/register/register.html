@@ -22,13 +22,13 @@
             
             <ion-item  class="ion-item" >
               <ion-label>  <ion-icon color="light" ios="ios-lock" md="md-lock"></ion-icon> &nbsp;&nbsp; </ion-label>
-              <ion-input placeholder="Password" type="password"  [(ngModel)]="user.password"></ion-input>
+              <ion-input placeholder="Password" type="password"   [(ngModel)]="user.password"></ion-input>
             </ion-item>
 
           
           <div class="button" >
-            <button  ion-button round block outline color="light" (click)="Register(user)">Register</button>
-            <button block ion-button round class="Login"  color="light" (click)="LoginPage()"> &nbsp; Sign in</button>
+            <button  ion-button round block  color="light"  (click)="Register(user)">Register</button>
+            <button block ion-button round class="Login" color="light" outline (click)="LoginPage()"> &nbsp; Sign in</button>
           </div>
              </div>
                <!-- close inputs section  -->

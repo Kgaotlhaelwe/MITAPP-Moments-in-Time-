@@ -6,14 +6,14 @@
 -->
 <ion-header>
 
-  <ion-navbar color="b" >
+  <ion-toolbar color="b" >
       <ion-buttons end>
           <button ion-button icon-only (click)="sendVia(msg,name , key) ">
             <ion-icon ios="ios-share" md="md-share"></ion-icon>
           </button> 
         </ion-buttons>
     <ion-title>{{name}}</ion-title>
-  </ion-navbar>
+  </ion-toolbar>
 
 </ion-header>
 
@@ -41,15 +41,11 @@
   
   <ion-item left no-padding >
 
-    <ion-textarea text-wrap  class="textarea"  value ="{{msg}}"  [(ngModel)]="msg" ></ion-textarea>
-  </ion-item>
-  <ion-item no-padding *ngIf="autoMessage" >
-
-    <ion-textarea text-wrap class="textarea" placeholder="Type your text....."   value="{{automsg}}"  [(ngModel)]="automsg"></ion-textarea> 
+    <ion-textarea text-wrap  class="textarea"  value ="{{msg}}"  [(ngModel)]="msg"  (input)="reviewChange()" ></ion-textarea>
   </ion-item>
   <br>
   <br>
-  <ion-buttons><button color="b" block full ion-button (click)="update()" >
+  <ion-buttons><button color="b" id="hidebtn" block full ion-button (click)="update()" >
  Save</button>
 </ion-buttons>
 

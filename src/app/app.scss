@@ -91,9 +91,33 @@
     max-height: 13%;
     border-radius: 25px
 
-   
   }
-
+  .action-sheet-md .action-sheet-group {
+    //background: rgb(247, 255, 255);
+    border-radius: 10px
+}
+.action-sheet-md .action-sheet-group .button-inner {
+    -webkit-box-pack: start;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: center;
+    font-weight: bold
+}
+.action-sheet-md .action-sheet-title {
+    text-align: center;
+    text-align: center;
+    font-size: 1.6rem;
+    color: #000000;
+    padding: 11px 16px 17px;
+    border-bottom: 1px #8d8d8d;
+    border-bottom-style: double;
+    font-weight: 450
+}
+.action-sheet-md .action-sheet-group:last-child {
+    padding-top: 0.8rem;
+    // border-top: 1px #8d8d8d;
+    // border-top-style: double;
+}
 
 
   

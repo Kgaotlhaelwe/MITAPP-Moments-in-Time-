@@ -1,47 +1,52 @@
 
 <ion-header >
     <ion-toolbar color="b" text-center>
-      <ion-title>Sent</ion-title>
-       <ion-buttons end>
-        <button ion-button icon-only  color="royal" (click)="presentModal()">
-          <ion-icon name="ios-information-circle"></ion-icon>
-        </button>
-      </ion-buttons>
+      <ion-title>Contacts</ion-title>
+      <ion-buttons end >
+          <button ion-button icon-only (click)="choosecontact()">
+            <ion-icon name="add"></ion-icon>
+          </button>
+          
+        </ion-buttons>
     </ion-toolbar>
   </ion-header>
- <ion-content padding class="background" text-center>
-  <h1 *ngIf="!hasMessages">You currently haven't sent any messages</h1>
- <div class="card" *ngFor="let v of sentMessages; let u = index">
-    <h6>{{v.date}} </h6>
-  
 
-  <ion-list class="item">
-        <ion-item-sliding>
-          <ion-item  (click)="readMore(v.message,v.name )">
-            <h2><b>{{v.name}}</b></h2>
-            <p>
-            {{v.message}}
-            </p> 
-          </ion-item>
-          <!-- <ion-item-options side="left">
-                <button ion-button class="buttons" >
-                  <ion-icon name="mail"></ion-icon>
-                  Read
-                </button>
-              </ion-item-options> -->
-              <ion-item-options side="right">
-                <button ion-button color="b" class="buttons"  (click)="Delete(v.id)">
-                  <ion-icon name="trash"></ion-icon>
-                  Delete
-                </button>
-              </ion-item-options>
-        </ion-item-sliding>
+ <ion-content  class="background" text-center>
+
+<!--   
+  <ion-list class="listcrop">
+      <button ion-item *ngFor="let details of contactListArray; let u = index"  (click)="itemSelected(details.name,details.email, details.date)">
+          <h2><b> {{details.name}}</b></h2>
+         <h2>{{details.email }}</h2>
+              
+  
+    <div class="note">
+       <p>{{details.date }}</p>
+    </div>
+      </button>
+ 
+    </ion-list> -->
+ 
+    <div *ngIf="contactListArray.length == 0; else conempty">
+<h1>You don't have any contacts available click on the add button to add a contact </h1>
+    </div>
+
+    <ng-template #conempty>
+      <ion-list class="listcrop">
+        <button ion-item *ngFor="let details of contactListArray; let u = index"  (click)="itemSelected(details.name,details.email, details.date)">
+            <h2><b> {{details.name}}</b></h2>
+           <h2>{{details.email }}</h2>
+                
+    
+      <div class="note">
+       
+      </div>
+        </button>
+   
       </ion-list>
- </div>
- 
- 
- 
- 
- 
- 
+    </ng-template>
+  <!-- <ion-fab top right >
+      <button ion-fab class="fabres" (click)="userDetails()"><ion-icon name="add"></ion-icon></button>
+  
+    </ion-fab> -->
  </ion-content>

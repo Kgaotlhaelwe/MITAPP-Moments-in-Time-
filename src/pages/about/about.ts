@@ -37,57 +37,58 @@ export class AboutPage {
 
   obj
 
+  schedulefunction = []
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private contacts: Contacts, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, private localNotifications: LocalNotifications, private sms: SMS, private socialSharing: SocialSharing, private db: DatabaseProvider, public modalCtrl: ModalController, private network: Network, public toastCtrl: ToastController) {
-    //     console.log(this.icon);
-
-    //     console.log(this.automessage);
-
-
-
-    //     console.log(this.cat);
-
-
-    //   this.sentMessages=[];
-
-    //   this. users= firebase.auth().currentUser;
-
-    //   firebase.database().ref("messagesent/"+this.users.uid).on('value', (data: any) => {
-    //   var name = data.val();
-
-
-    //     if (name !== null) {
-
-
-    //       var keys: any = Object.keys(name);
-
-    //       for (var i = 0; i < keys.length; i++) {
-    //         var k = keys[i];
-
-    //         let  obj = {
-    //          message: name[k].message,
-    //           name: name[k].name,
-    //           key: k ,
-    //           icon:this.icon,
-    //           date:name[k].date,
-    //           image:name[k].image 
-
-    //           }
-    //         this.sentMessages.push(obj);
-
-    //         console.log(this.sentMessages);
-
-    //       };
-
-    //       if(this.sentMessages.length > 0){
-    //         this.hasMessages = true;
-    //       }
-    //     } else{
-    //         this.hasMessages =  false;
-    //     }
-
+    // this.db.getReviewMessage().then((data:any)=>{
+    //   console.log(data);
+    //   this.sentMessages = [] ;
+    //   this.sentMessages = data
+    //   console.log( this.sentMessages);
+      
+    //   if(this.sentMessages.length > 0){
+    //     this.hasMessages = true;
+    //   }
     // })
+
+   this.db.getScheduledEmails().then((data:any)=>{
+     console.log(data);
+     this.sentMessages = data
+     console.log( this.sentMessages);
+
+         if(this.sentMessages.length > 0){
+        this.hasMessages = true;
+      }
+    
+
+   })
+
+
+   this.db.getScheduledFunctionEmails().then((data:any)=>{
+     this.schedulefunction =data ;
+
+   })
   }
+
   ionViewDidLoad() {
+    this.db.getScheduledEmails().then((data:any)=>{
+      console.log(data);
+      this.sentMessages = data
+      console.log( this.sentMessages);
+ 
+          if(this.sentMessages.length > 0){
+         this.hasMessages = true;
+       }
+     
+ 
+    })
+ 
+ 
+    this.db.getScheduledFunctionEmails().then((data:any)=>{
+      this.schedulefunction =data ;
+ 
+    })
+
     console.log(this.date);
     console.log(this.chosenCategory);
     // console.log(this.countDownDate);
@@ -115,6 +116,20 @@ export class AboutPage {
       this.image = "../../assets/icon/icons8_People_100px.png";
     }
 
+
+
+
+    this.db.getScheduledEmails().then((data:any)=>{
+      console.log(data);
+      this.sentMessages = [] ;
+      this.sentMessages = data
+      console.log( this.sentMessages);
+      
+      if(this.sentMessages.length > 0){
+        this.hasMessages = true;
+      }
+    })
+
   }
   ionViewWillEnter() {
     console.log(this.icon);
@@ -124,31 +139,102 @@ export class AboutPage {
     this.sentMessages = [];
     this.users = firebase.auth().currentUser;
 
+ this.db.getScheduledEmails().then((data:any)=>{
+     console.log(data);
+     this.sentMessages = data
+     console.log( this.sentMessages);
 
-
-
-    this.db.getReviewMessages().then((data: any) => {
-      console.log(data);
-      this.sentMessages = data;
-      if (this.sentMessages.length > 0) {
+         if(this.sentMessages.length > 0){
         this.hasMessages = true;
       }
-      else {
-        this.hasMessages = false;
-      }
-      console.log(this.sentMessages);
+    
 
-    })
+   })
+
+
+   this.db.getScheduledFunctionEmails().then((data:any)=>{
+     this.schedulefunction =data ;
+
+   })
+
+
+    
+
+    
 
   }
 
 
-  Delete(id) {
+ ionViewDidEnter(){
+  this.db.getScheduledEmails().then((data:any)=>{
+    console.log(data);
+    this.sentMessages = data
+    console.log( this.sentMessages);
 
-    this.db.deleteReviewMessage(id).then(() => {
-      this.navCtrl.push(AboutPage)
+        if(this.sentMessages.length > 0){
+       this.hasMessages = true;
+     }
+   
 
-    })
+  })
+
+
+  this.db.getScheduledFunctionEmails().then((data:any)=>{
+    this.schedulefunction =data ;
+
+  })
+ }
+
+
+  Delete(key, uniquedate) {
+
+    console.log(key);
+    
+
+    var users = firebase.auth().currentUser ;
+    var userid = users.uid ;
+    console.log( users);
+    console.log( userid);
+    console.log(this,this.schedulefunction)
+    
+    if(this.sentMessages.length == 1){
+      firebase.database().ref('scheduledEmails/'+ userid).child(key).remove().then(()=>{
+        for (let index = 0; index < this.schedulefunction.length; index++) {
+          if(this.schedulefunction[index].uniquedate ==uniquedate){
+            firebase.database().ref("schedulefunctionEmail/").child(this.schedulefunction[index].k).remove() ;
+          }
+        
+          
+        }
+
+      });
+      console.log("in");
+      
+      this.sentMessages = [] ;
+
+      this.ionViewDidLoad() ;
+
+    } else {
+      firebase.database().ref('scheduledEmails/'+ userid).child(key).remove().then(()=>{
+        for (let index = 0; index < this.schedulefunction.length; index++) {
+          if(this.schedulefunction[index].uniquedate ==uniquedate){
+            firebase.database().ref("schedulefunctionEmail/").child(this.schedulefunction[index].k).remove() ;
+          }
+        
+          
+        }
+
+      });
+
+      this.ionViewDidLoad() ;
+
+
+    }
+
+   
+    
+
+
   }
 
 
@@ -184,7 +270,7 @@ export class AboutPage {
   }
 
   sendviaFacebook(message) {
-    this.socialSharing.shareViaFacebook(this.message, null, null).then(() => { }, (error) => { })
+    this.socialSharing.shareViaFacebook(message).then(() => { }, (error) => { })
     this.icon = "checkmark-circle";
   }
 
@@ -205,20 +291,28 @@ export class AboutPage {
   sendVia(message, name, key) {
 
 
+
+
     const actionSheet = this.actionSheetCtrl.create({
       title: 'CHOOSE',
       buttons: [
-        {
-          text: 'SMS',
-          role: 'destructive',
-          handler: () => {
-            this.contactss(message, name, key);
-            this.db.creatSentessage(name, this.dates, message).then(() => { })
-            this.db.deleteSentMessage(key).then(() => {
+        // {
+        //   text: 'SMS',
+        //   role: 'destructive',
+        //   handler: () => {
+        //     this.contactss(message, name, key);
+        //    // this.db.creatSentessage(name, this.dates, message).then(() => { })
+        //    // this.db.deleteSentMessage(key).then(() => {
 
-            })
-          }
-        },
+        //     //})
+
+        //     this.db.sentMessage(name, this.dates, message);
+        //     console.log(key);
+            
+        //    firebase.database().ref('ReviewMessage/'+this.users.uid).child(key).remove();
+
+        //   }
+        // },
         {
           text: 'Email',
           role: 'destructive',
@@ -227,8 +321,14 @@ export class AboutPage {
 
             this.dates = moment(this.time.toString()).format('MMM Do YYYY,');
             this.sendViaemail(message)
-            this.db.creatSentessage(name, this.dates, message).then(() => { })
-            this.db.deleteReviewMessage(key).then(()=>{})
+           // this.db.creatSentessage(name, this.dates, message).then(() => { })
+           // this.db.deleteReviewMessage(key).then(()=>{})
+
+           this.db.sentMessage(message ,name,this.dates);
+           console.log(key);
+           
+          firebase.database().ref('ReviewMessage/'+this.users.uid).child(key).remove();
+ 
            
 
 
@@ -247,8 +347,15 @@ export class AboutPage {
             this.dates = moment(this.time.toString()).format('MMM Do YYYY,');
             console.log(this.dates);
 
-            this.db.creatSentessage(name, this.dates, message).then(() => { })
-            this.db.deleteReviewMessage(key).then(()=>{})
+            //this.db.creatSentessage(name, this.dates, message).then(() => { })
+           // this.db.deleteReviewMessage(key).then(()=>{})
+           this.db.sentMessage(message ,name,this.dates);
+           console.log(key);
+           
+           firebase.database().ref('ReviewMessage/'+this.users.uid).child(key).remove();
+
+           
+ 
 
 
 
@@ -261,32 +368,27 @@ export class AboutPage {
 
 
           }
-        }, {
-          text: 'Facebook',
-          role: 'cancel',
-          handler: () => {
-            //  this.db.sendviaFacebook(message, message).then(()=>{
-            //   //this.db.sentMessage(message, this.name , this.dates).then(()=>{})
-            //   var users= firebase.auth().currentUser;
-            //   var userid=users.uid
+        // }, {
+        //   text: 'Facebook',
+        //   role: 'destructive',
+        //   handler: () => {
+        //     console.log(message);
+            
+        //     this.sendviaFacebook(message)
+        
+        //     this.dates = moment(this.time.toString()).format('MMM Do YYYY,');
+        //     console.log(this.dates);
+
+        //    this.db.sentMessage(message ,name,this.dates);
+        //    console.log(key);
+           
+        //    firebase.database().ref('ReviewMessage/'+this.users.uid).child(key).remove();
+ 
+
+        //   }
 
 
-            //  firebase.database().ref('messagesent/'+userid).child(key).remove();
-            //  } , 
-
-            //  (error)=>{}) ;
-            this.sendviaFacebook(message)
-            this.db.creatSentessage(name, this.dates, message).then(() => { })
-            this.db.deleteSentMessage(key).then(() => {
-
-            })
-            // this.db.Testing(message, this.obj.name, this.dates)
-            // firebase.database().ref('messagesent/' + this.users.uid).child(key).remove();
-
-          }
-
-
-        },
+         },
         {
           text: 'Cancel',
           role: 'cancel',
@@ -328,7 +430,7 @@ export class AboutPage {
             })
 
 
-            this.db.Testing(message, name, this.dates)
+          //  this.db.Testing(message, name, this.dates)
 
             // alert("out");
             // firebase.database().ref('messagesent/'+this.users.uid).child(key).remove();

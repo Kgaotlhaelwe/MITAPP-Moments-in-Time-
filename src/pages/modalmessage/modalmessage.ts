@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, App, ViewController, IonicApp } fr
 import { EventPage } from '../event/event';
 import { HomePage } from '../home/home';
 import { TabsPage } from '../tabs/tabs';
+import { AlertController } from 'ionic-angular';
+import { AboutPage } from '../about/about';
 
 /**
  * Generated class for the ModalmessagePage page.
@@ -18,7 +20,7 @@ import { TabsPage } from '../tabs/tabs';
 })
 export class ModalmessagePage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private app:App, public viewCtrl :ViewController,public ionicApp: IonicApp) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private app:App, public viewCtrl :ViewController,public ionicApp: IonicApp, public alertCtrl: AlertController) {
   }
 
   ionViewDidLoad() {
@@ -26,13 +28,39 @@ export class ModalmessagePage {
     this.navCtrl.length());
   }
   poptoevent(){
-    this.navCtrl.popAll();
-   
-//     this.viewCtrl.dismiss().then(_=>{
-//   let activePortal = this.ionicApp._modalPortal.getActive()
-//   if (activePortal) {
-//     activePortal.dismiss(); //can use another .then here
-//   }
-// });
- }
+ 
+
+
+   const confirm = this.alertCtrl.create({
+    title: 'Choose A Page ',
+   // message: 'Do you agree to use this lightsaber to do good across the intergalactic galaxy?',
+    buttons: [
+      {
+        text: 'HOME',
+        handler: () => {
+          //this.navCtrl.push(TabsPage);
+          let currentIndex = this.navCtrl.getActive().index;
+          this.navCtrl.push(TabsPage).then(() => {
+             this.navCtrl.remove(currentIndex);
+           });
+        }
+
+
+      },
+      {
+        text: 'SCHEDULED',
+        handler: () => {
+          //this.navCtrl.push(AboutPage);
+          let currentIndex = this.navCtrl.getActive().index;
+          this.navCtrl.push(AboutPage).then(() => {
+             this.navCtrl.remove(currentIndex);
+           });
+        }
+      }
+    ]
+  });
+  confirm.present();
+
+
+}
 }

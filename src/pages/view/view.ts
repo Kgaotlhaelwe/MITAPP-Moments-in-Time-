@@ -10,6 +10,7 @@ import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/cont
 import { SMS } from '@ionic-native/sms';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import * as moment from 'moment';
+import { AboutPage } from '../about/about';
 /**
  * Generated class for the ViewPage page.
  *
@@ -45,6 +46,7 @@ export class ViewPage {
       this.image=this.message.image;
       this.key = this.message.id;
       console.log(this.message);
+      console.log(this.key);
       
       this.users= firebase.auth().currentUser;
       this.userid=this.users.uid
@@ -74,6 +76,11 @@ export class ViewPage {
                 tabs[key].style.display = 'flex';
             });
           }
+        }
+
+        reviewChange(){
+          document.getElementById("hidebtn").style.display="block" ;
+
         }
  
 
@@ -108,111 +115,109 @@ export class ViewPage {
       
         }
       
-        sendVia() {
-      
-      
+        sendVia(message, name, key) {
+
+
+
+
           const actionSheet = this.actionSheetCtrl.create({
             title: 'CHOOSE',
             buttons: [
-              {
-                text: 'SMS',
-                role: 'destructive',
-                handler: () => {
-                  this.contactss(this.msg, this.name, this.key);
-
-                  
-                 this.dates = moment(this.time.toString()).format('MMM Do YYYY,');
-                 console.log(this.dates);
-                  
-                  this.db.creatSentessage(this.name ,this.dates ,this.msg).then(()=>{})
-                  this.db.deleteReviewMessage(this.key).then(()=>{})
-       
-                 
-       
-       
-                }
-              },
+              
               {
                 text: 'Email',
                 role: 'destructive',
                 handler: () => {
+      
+      
+                  this.dates = moment(this.time.toString()).format('MMM Do YYYY,');
+                  this.sendViaemail(message)
 
-                  
-               
-      
-      
-                this.sendViaemail(this.msg)
-      
-             
-               
-                this.dates = moment(this.time.toString()).format('MMM Do YYYY,');
-                console.log(this.dates);
+                 console.log(message);
+                 console.log(name);
+                 console.log(key);
                  
-                 this.db.creatSentessage(this.name ,this.dates ,this.msg).then(()=>{})
-                 this.db.deleteReviewMessage(this.key).then(()=>{})
+                 
+                 
+                  this.db.sentMessage(message ,name,this.dates);
+              
+                 
+                firebase.database().ref('ReviewMessage/'+this.users.uid).child(key).remove();
        
                  
-       
-                 }
+      
+      
+                }
               },
-       
+      
               {
                 text: 'WhatsApp',
                 handler: () => {
       
-                 
-       
-                 this.sendviaWhatsApp(this.msg)
-             
-                
-              
-                 this.dates = moment(this.time.toString()).format('MMM Do YYYY,');
-                 console.log(this.dates);
-                  
-                  this.db.creatSentessage(this.name ,this.dates ,this.msg).then(()=>{})
-                  console.log(this.key);
-                  
-                  this.db.deleteReviewMessage(this.key).then(()=>{})
-        
-             
-              
       
-       
-       
-              
-             
-                }
-              },{
-                text: 'Facebook',
-                role: 'cancel',
-                handler: () => {
-                
-                  this.sendviaFacebook(this.message)
+      
+                 this.sendviaWhatsApp(message)
+      
+      
                   this.dates = moment(this.time.toString()).format('MMM Do YYYY,');
                   console.log(this.dates);
-                   
-                   this.db.creatSentessage(this.name ,this.dates ,this.msg).then(()=>{})
-                   this.db.deleteSentMessage(this.key).then(()=>{
-       
-                   })
-                
-                }
       
-                
-              },
+                  //this.db.creatSentessage(name, this.dates, message).then(() => { })
+                 // this.db.deleteReviewMessage(key).then(()=>{})
+                 this.db.sentMessage(message ,name,this.dates);
+                 console.log(key);
+                 
+                 firebase.database().ref('ReviewMessage/'+this.users.uid).child(key).remove();
+      
+                 
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+                }
+              // }, {
+              //   text: 'Facebook',
+              //   role: 'destructive',
+              //   handler: () => {
+              //     console.log(message);
+                  
+              //     this.sendviaFacebook(message)
+              
+              //     this.dates = moment(this.time.toString()).format('MMM Do YYYY,');
+              //     console.log(this.dates);
+      
+              //    this.db.sentMessage(message ,name,this.dates);
+              //    console.log(key);
+                 
+              //    firebase.database().ref('ReviewMessage/'+this.users.uid).child(key).remove();
+       
+      
+              //   }
+      
+      
+               },
               {
                 text: 'Cancel',
                 role: 'cancel',
                 handler: () => {
-         
+      
                 }
               }
-              
+      
             ]
           });
-       actionSheet.present();
-       
+          actionSheet.present();
+      
         }
+      
 
         contactss(message, name, key){
           this.contacts.pickContact().then((data:any)=>{
@@ -261,12 +266,12 @@ export class ViewPage {
                              })
       
             
-          this.db.Testing(message ,name,this.dates)
+        //  this.db.Testing(message ,name,this.dates)
           
           // alert("out");
           // firebase.database().ref('messagesent/'+this.users.uid).child(key).remove();
           
-          firebase.database().ref('messagesent/'+this.users.uid).child(key).remove();
+          firebase.database().ref('messagesent/'+this.users.uid).child(this.key).remove();
       
           // alert("in");
           
@@ -291,9 +296,28 @@ export class ViewPage {
     
     
     
-    this.db.updateReviewMessage(this.msg ,this.message.id).then(()=>{
+    // //this.db.updateReviewMessage(this.msg ,this.message.id).then(()=>{0
       
-    })
+    // })
+console.log(this.msg);
+
+    var update ={
+      message:this.msg
+
+
+    }
+    console.log(this.users.uid);
+    console.log(update);
+  
+    
+   
+     firebase.database().ref('ReviewMessage/'+this.users.uid).child(this.key).update(update).then(()=>{
+       this.navCtrl.push(AboutPage)
+
+     
+    });
+
+
         }     
 
       }

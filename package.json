@@ -26,6 +26,7 @@
     "@ionic-native/contacts": "^4.15.0",
     "@ionic-native/core": "~4.15.0",
     "@ionic-native/file": "^4.17.0",
+    "@ionic-native/image-picker": "^4.19.0",
     "@ionic-native/local-notifications": "^4.15.0",
     "@ionic-native/network": "^4.17.0",
     "@ionic-native/sms": "^4.15.0",
@@ -51,6 +52,7 @@
     "cordova-plugin-network-information": "^2.0.1",
     "cordova-plugin-splashscreen": "^5.0.2",
     "cordova-plugin-statusbar": "^2.4.2",
+    "cordova-plugin-telerik-imagepicker": "^2.2.2",
     "cordova-plugin-whitelist": "^1.3.3",
     "cordova-plugin-x-socialsharing": "^5.4.1",
     "cordova-sms-plugin": "^0.1.13",
@@ -66,11 +68,12 @@
     "ng2-swipe-cards": "^1.1.1",
     "rxjs": "5.5.11",
     "sw-toolbox": "3.6.0",
+    "sweetalert2": "^8.0.7",
     "zone.js": "0.8.26"
   },
   "devDependencies": {
-    "@ionic/app-scripts": "3.2.0",
-    "typescript": "~2.6.2"
+    "@ionic/app-scripts": "3.2.1",
+    "typescript": "^2.6.2"
   },
   "description": "An Ionic project",
   "cordova": {
@@ -92,7 +95,8 @@
       "cordova-plugin-ionic-webview": {
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
-      "cordova-plugin-ionic-keyboard": {}
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-telerik-imagepicker": {}
     },
     "platforms": [
       "android"

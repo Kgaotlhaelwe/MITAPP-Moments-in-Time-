@@ -22,6 +22,10 @@ page-view {
         top: -20px;
 
     }
+
+    #hidebtn{
+        display: none;
+    }
  
     .body{
         position: relative;
@@ -52,6 +56,10 @@ page-view {
         width: 50vh;
         border-radius: 10px;
 
+    }
+
+    #hidebtn{
+        display:none;
     }
  
     

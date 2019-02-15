@@ -1,11 +1,11 @@
 <ion-header>
 
     <ion-navbar color="b" >
-        <ion-buttons end>
+        <!-- <ion-buttons end>
             <button ion-button icon-only (click)="Personalcard()">
               <ion-icon ios="ios-create" md="md-create"></ion-icon>
             </button> 
-          </ion-buttons>
+          </ion-buttons> -->
       <ion-title align="center">
           Home
       </ion-title>
@@ -15,7 +15,7 @@
 
 
 <ion-content  class="backgroud" padding >
-  <div class="card-container" *ngIf="ready">
+  <div class="card-container" *ngIf="ready" id="cards">
     <sc-card  *ngFor="let attendant of attendants"
 [orientation]="cardDirection" [tinder-card]="cardOverlay"[callDestroy]="attendant.destroyEvent" [callLike]="attendant.likeEvent" (onLike)="onCardInteract($event)"  >
 
@@ -34,7 +34,7 @@
 
 <h1 class="hasmess" padding>{{hasMessages}}</h1>
       </ion-content>
-      <ion-footer >
+      <ion-footer *ngIf="noCards == 1">
         <ion-fab  left bottom padding>
           <button ion-fab  class="fabs" color="light" (click)="dislike()"><ion-icon color="danger" name="md-close"  ></ion-icon></button>
         </ion-fab>

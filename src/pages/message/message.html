@@ -1,63 +1,42 @@
 
 
- <ion-header>
 
-      <ion-toolbar color="b" >
-       <ion-buttons left>
-          <button ion-button icon-only color="light" (click)="back()">
-            <ion-icon name="arrow-round-back"></ion-icon>
-          </button>
-        </ion-buttons>
-        <ion-title text-center>
-        {{categoryChosen}}
-    </ion-title>
-  
-</ion-toolbar>  
-    
-  </ion-header>
+ 
 
+<ion-content class="background"  >
+  <div class="topdiv" >
+  <div class="half"></div>
 
-<ion-content class="background">
-  <div padding class="body" >
-    <div class="flex">
-     <h1 text-center> <b> Get People & {{categoryChosen}} Worth Celebrating</b></h1>
- </div>
-    <div class="top">
+  <div class="center" [hidden]="keyboard.isOpen()">
+    <div>
+  <h1 text-center padding>Wish {{showName}} on their {{userCategory}} </h1>
+</div>
+  <img class="img" src="../../assets/imgs/icons8_Wedding_Gift_96px.png" >
 
-          <ion-item>
-            <ion-input type="text"  maxlength="20" placeholder="Name  " type="text" [(ngModel)]="name" value="{{name}}"></ion-input>
-          </ion-item>
-       <ion-item class="item">
-        <ion-datetime placeholder="Time" displayFormat="h:mm A" pickerFormat="HH:mm A"  [(ngModel)]="time"  ></ion-datetime>
-        </ion-item>
-
-        <ion-item class="item">
-            <ion-datetime placeholder="Date" displayFormat="DD MMM YYYY"  [(ngModel)]="date" required="required"  min="{{tempdate}}" max="2030"></ion-datetime>
-         </ion-item>
-           
-
-          
-        </div>
-               <ion-item no-padding *ngIf="personalisedMessage" >
-
-                <ion-textarea text-wrap class="textarea" placeholder="Type your message....."    [(ngModel)]="messagez"></ion-textarea>
-              </ion-item>
-
-
-              <ion-item no-padding *ngIf="autoMessage" >
-
-                <ion-textarea text-wrap class="textarea" placeholder="Type your text....."   value="{{automsg}}"  [(ngModel)]="automsg"></ion-textarea> 
-               </ion-item> 
-          
-              <button ion-button color="b" class="buttons" full round (click)="chooseMessageType()" id="btnMessageType">Choose message type</button>
-             
-              <button ion-button block color="b" class="buttons" round (click)="schedule(automsg , messagez)" id="btnz">Set Reminder</button>
-    
-   
-
+    <br>
+    <div class="flex"> 
+      <h1 text-center padding>  Get People & {{categoryChosen}} {{userCategory}} Worth Celebrating</h1> <br> <br> 
   </div>
-    
-  
+  </div>
+</div>
 
 
+<div class="bottomdiv">
+
+
+  <ion-item class="textboxmove" no-lines>
+    <ion-textarea no-lines class="textbox" placeholder="Enter a description"  [(ngModel)]="textboxmessage" value="{{textboxmessage}}"></ion-textarea>
+  </ion-item>
+
+</div>
 </ion-content>
+<ion-footer  >
+
+      <div class="buttons">
+          <button color="b3" ion-button id="button2" (click)="autoMsg()">Predef msgs</button>
+        <button color="dust" ion-button id="button1" (click)="send()">SEND</button>
+      </div>
+  
+  </ion-footer>
+
+  

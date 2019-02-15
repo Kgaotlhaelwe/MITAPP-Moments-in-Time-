@@ -119,7 +119,7 @@ export class PersonalizedPage {
 
 
 
-   this.db.saveSentMessages(this.name ,this.message, this.chosenDate,this.image).then(()=>{} , (error)=>{})
+   this.db.saveReviewMessages(this.name ,this.message, this.chosenDate,this.image).then(()=>{} , (error)=>{})
   
     const modal = this.modalCtrl.create(ModalmessagePage);
     modal.present();

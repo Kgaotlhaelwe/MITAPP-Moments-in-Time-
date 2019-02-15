@@ -65,8 +65,8 @@ export class RegisterPage {
 
   Register(user:user){
     console.log(user.name);
-    
-  
+ 
+ 
     if(this.user.email !=null  && this.user.password  !=null  ){
     this.db.register(user.email ,user.password, user.name,user.image ).then(()=>{
       // const toast = this.toastCtrl.create({
@@ -80,11 +80,34 @@ export class RegisterPage {
       //   content: "Please wait... still connecting ",
       //   cssClass: "loading-md .loading-wrapper ",
       //   duration :3000
-      
+ 
       // });
       // loader.present();
-      this.navCtrl.setRoot(TabsPage);
-      
+      const alert = this.alertCtrl.create({
+        title: 'Email Confirmation',
+        subTitle: 'We have sent an email to ' + this.user.email + ', please click the link to confirm your email',
+        buttons: [{
+          text: 'OK',
+          handler: data => {
+            const loader = this.loadingCtrl.create({
+              content: "Loading...",
+              cssClass: "loading-md .loading-wrapper ",
+              duration :3000
+            
+            });
+            loader.present();
+            setTimeout(() => {
+              this.navCtrl.push(LoginPage)
+            }, 3000);
+          }
+        }]
+      });
+      alert.present();
+
+      user.email = "" 
+      user.password = ""
+      user.name = ""
+ 
     } , (error)=>{
  
  
@@ -93,7 +116,7 @@ export class RegisterPage {
         buttons: ['OK']
       });
       alert.present();
-     
+ 
  
     })
   }else{
@@ -104,6 +127,11 @@ export class RegisterPage {
     alert.present();
   }
   }
+
+
+
+
+
 
 
   google(){

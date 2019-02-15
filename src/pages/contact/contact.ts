@@ -1,9 +1,15 @@
 import { Component } from '@angular/core';
-import { NavController,AlertController, ModalController, NavParams } from 'ionic-angular';
+import { NavController, AlertController, ModalController, NavParams, ActionSheetController } from 'ionic-angular';
 import { ViewPage } from '../view/view';
 import { InfosentPage } from '../infosent/infosent';
 import { SplashPage } from '../splash/splash';
 import { DatabaseProvider } from '../../providers/database/database';
+import { AddContactsPage } from '../add-contacts/add-contacts';
+import { MessagePage } from '../message/message';
+import *as moment from 'moment';
+
+import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
+
 
 declare var firebase
 
@@ -13,125 +19,163 @@ declare var firebase
   templateUrl: 'contact.html'
 })
 export class ContactPage {
+  categoryChosen = this.navParams.get("categoryChosen")
+
+  date;
+  contactListArray = [];
+  contactDetails = {};
+  msg = "Cannot create property '0' on number '0'";
+  name2;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public modalCtrl: ModalController, private db: DatabaseProvider, private contacts: Contacts, public actionSheetCtrl: ActionSheetController) {
+    this.db.getContactlist().then((data: any) => {
+      this.contactListArray = data
+      console.log(this.contactListArray);
+
+      console.log(this.categoryChosen);
 
 
-  sentMessages = []
-  notsend ;
-  image ;
-  hasMessages : boolean = false;
-  chosenCategory = this.navParams.get("chosenCategory");
 
-  constructor(public navCtrl: NavController , public navParams: NavParams,private alertCtrl :AlertController,public modalCtrl: ModalController, private db: DatabaseProvider) {
-    if("Birthday" == this.chosenCategory){
-      this.image ="../../assets/icon/icons8_Wedding_Cake_100px.png";
-    }
-    else if("Graduation"== this.chosenCategory ){
-      this.image ="../../assets/icon/icons8_Graduation_Cap_100px.png" ;
-    }else if("Baby Shower" == this.chosenCategory ){
-      this.image = "../../assets/icon/icons8_Pram_100px.png";
-    }
-    else if("New Job" == this.chosenCategory ){
-      this.image = "../../assets/icon/icons8_Briefcase_100px.png";
-    }
-    else if("Anniversary" == this.chosenCategory ){
-      this.image ="../../assets/icon/icons8_Wedding_Gift_96px.png";
-    }
-    else if("Weddings" == this.chosenCategory ){
-      this.image = "../../assets/icon/icons8_Diamond_Ring_100px.png";
-    }
-    else if("Thinking of you" == this.chosenCategory ){
-      this.image = " ../../assets/icon/icons8_Collaboration_Female_Male_100px_1.png";
-    }
-    else if("General" == this.chosenCategory ){
-      this.image = "../../assets/icon/icons8_People_100px.png";
-    }
-  
+
+
+    })
+
   }
-  readMore(msg, name ){
+
+  choosecontact() {
+
+    console.log(name);
+
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Select contact  ',
+      buttons: [
+        {
+          text: 'Phone contact',
+          role: 'destructive',
+          handler: () => {
+            console.log('Destructive clicked');
+            this.addcontactz();
+          }
+        }, {
+          text: 'Add contact',
+          handler: () => {
+
+            console.log('Archive clicked');
+
+
+
+            // this.userDetails()
+            console.log(this.categoryChosen);
+
+
+            //this.navCtrl.push(AddContactsPage, { categoryChosen:this.categoryChosen});
+            let currentIndex = this.navCtrl.getActive().index;
+            this.navCtrl.push(AddContactsPage, { categoryChosen: this.categoryChosen }).then(() => {
+              this.navCtrl.remove(currentIndex);
+            });
+          }
+        },
+      ]
+    });
+    actionSheet.present();
+
+  }
+
+
+  userDetails() {
+    // this.navCtrl.push(AddContactsPage, { categoryChosen: this.categoryChosen });
+    let currentIndex = this.navCtrl.getActive().index;
+    this.navCtrl.push(AddContactsPage, { categoryChosen: this.categoryChosen }).then(() => {
+      this.navCtrl.remove(currentIndex);
+    });
+  }
+
+  itemSelected(name, email, date) {
+    console.log(this.categoryChosen);
+    if (this.msg == "Cannot create property '0' on number '0'") {
+
+    }
 
     let obj = {
-      message:msg ,
-      name:name ,
-      // image:image
-     
+      name: name,
+      email: email,
+      date: date,
+      categoryChosen: this.categoryChosen
+    }
+    //this.navCtrl.push(AddContactsPage, { selectedDetails: obj, categoryChosen: this.categoryChosen })
+    let currentIndex = this.navCtrl.getActive().index;
+    this.navCtrl.push(AddContactsPage, { selectedDetails: obj, categoryChosen: this.categoryChosen }).then(() => {
+      this.navCtrl.remove(currentIndex);
+    });
+
+  }
+
+
+
+  addcontactz() {
+    this.contacts.pickContact().then((data) => {
+      console.log(data);
+      console.log(data.name.formatted);
+      this.name2 = data.name.formatted
+      console.log(data.emails[0].value);
+
+      let a = "Cannot read property '0' of null";
+
+
+
+
+      if (data.emails[0].value === a) {
+        console.log("in");
+
+
+        this.contactDetails = {
+          name: data.name.formatted,
+          email: undefined,
+          track: 1
+        }
+        //this.navCtrl.push(AddContactsPage, { getContactDetails: this.contactDetails, categoryChosen: this.categoryChosen })
+        let currentIndex = this.navCtrl.getActive().index;
+        this.navCtrl.push(AddContactsPage, { getContactDetails: this.contactDetails, categoryChosen: this.categoryChosen }).then(() => {
+          this.navCtrl.remove(currentIndex);
+        });
+
+      } else {
+
+        this.contactDetails = {
+          name: data.name.formatted,
+          email: data.emails[0].value,
+          track: 1
+        }
+
+        //this.navCtrl.push(AddContactsPage, { getContactDetails: this.contactDetails, categoryChosen: this.categoryChosen })
+        let currentIndex = this.navCtrl.getActive().index;
+        this.navCtrl.push(AddContactsPage, { getContactDetails: this.contactDetails, categoryChosen: this.categoryChosen }).then(() => {
+          this.navCtrl.remove(currentIndex);
+        });
+      }
+
+
+
+    }).catch((error) => {
+      console.log(error.message);
+
+      this.contactDetails = {
+        name: this.name2,
+        email: undefined
+      }
+      //this.navCtrl.push(AddContactsPage, { getContactDetails: this.contactDetails, categoryChosen: this.categoryChosen })
+      let currentIndex = this.navCtrl.getActive().index;
+      this.navCtrl.push(AddContactsPage, { getContactDetails: this.contactDetails, categoryChosen: this.categoryChosen }).then(() => {
+        this.navCtrl.remove(currentIndex);
+      });
+
+    });
+
+
+
+
+  }
+
+
 }
-    this.navCtrl.push(SplashPage ,{message:obj} )
 
-  }
-
-  Delete(key){
-    this.db.deleteSentMessage(key).then(()=>{
-      this.navCtrl.push(ContactPage)
-    })
-  }
-  
-  presentModal() {
-    const modal = this.modalCtrl.create(InfosentPage);
-    modal.present();
-  }
-
-  ionViewWillEnter(){
-   
-
-  //   var users= firebase.auth().currentUser;
-  //   console.log(users.uid);
-  //   firebase.database().ref("Testingmsg/"+users.uid).on('value', (data: any) => {
-  //   var name = data.val();
-   
-  //   this.sentMessages=[];
-  //     if (name !== null) {
-   
-   
-  //       var keys: any = Object.keys(name);
-   
-  //       for (var i = 0; i < keys.length; i++) {
-  //         var k = keys[i];
-   
-  //         let  obj = {
-  //          message: name[k].message,
-  //           name: name[k].name,
-  //           key: k ,
-   
-  //           date:name[k].date
-   
-  //           }
-  //         this.sentMessages.push(obj);
-   
-  //         console.log(this.sentMessages);
-         
-  //       };
-  //       if(this.sentMessages.length > 0){
-  //         this.hasMessages = true;
-  //       }
-  //     } else{
-  //         this.hasMessages =  false;
-  //     }
-
-   
-   
-  //  })
-
-    this.db.getSentMessage().then((data:any)=>{
-    console.log(data);
-
-    this.sentMessages = data ;
-
-    if (this.sentMessages.length > 0) {
-      this.hasMessages = true;
-    }
-    else {
-      this.hasMessages = false;
-    }
-
-  
-
-})
-  
-  }
-
-  
-
-  
-  }
-  
 

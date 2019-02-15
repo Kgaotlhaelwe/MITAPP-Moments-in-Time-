@@ -313,26 +313,26 @@ let test =  this.canvasElement = this.canvas.nativeElement.toDataURL();
 // ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
 
 
-// this.db.customizedCard(test).then(()=>{
-//     //this.signaturePad.clear();
+this.db.customizedCard(test).then(()=>{
+    //this.signaturePad.clear();
     
-//     let toast = this.toastCtrl.create({
-//       message: 'image saved, please check profile to share the image.',
-//       duration: 3000
-//     });
-//     toast.present();
- 
-    
-// })
-
-this.db.creatcustomisedCard(test).then(()=>{
-
     let toast = this.toastCtrl.create({
       message: 'image saved, please check profile to share the image.',
-       duration: 3000
-     });
-     toast.present();
- })
+      duration: 3000
+    });
+    toast.present();
+ 
+    
+})
+
+// this.db.creatcustomisedCard(test).then(()=>{
+
+//     let toast = this.toastCtrl.create({
+//       message: 'image saved, please check profile to share the image.',
+//        duration: 3000
+//      });
+//      toast.present();
+//  })
 
 
 this.navCtrl.pop()

@@ -27,18 +27,6 @@ url ;
     console.log('ionViewDidLoad AdminPage');
   }
 
-  send(){
-    
-
-    firebase.database().ref('category/' + this.relationship).push({
-
-      message :this.message
-   
-
-    });
-
-  }
-
 
   insertpic(event){
     if (event.target.files && event.target.files[0]) {
@@ -57,4 +45,23 @@ url ;
 
   }
 
-  }}
+  }
+
+
+  send(){
+    
+
+    firebase.database().ref('category/' + this.relationship).push({
+
+      message :this.url
+   
+
+    });
+
+  }
+
+
+  
+
+
+}

@@ -45,7 +45,7 @@
   <div id='nameinput' *ngIf="showinput">
     <ion-list style="display: flex" padding-left  padding-bottom>
       <ion-item >
-        <ion-input type="text" placeholder="{{name}}" [(ngModel)]="updatename"></ion-input>
+        <ion-input type="text" placeholder="Enter the name "  value="{{name}}" [(ngModel)]="updatename"></ion-input>
       </ion-item>
       <button ion-button color="b" clear (click)="save()">save</button>
 
@@ -74,9 +74,7 @@
           <ion-segment-button value="Favourites">
             FAVOURITE
           </ion-segment-button>
-          <!-- <ion-segment-button value="puppies">
-            Customized cards
-          </ion-segment-button> -->
+         
         </ion-segment>
 
         <div [ngSwitch]="pet">
@@ -96,21 +94,7 @@
         </div>
 
 
-        <!-- <div [ngSwitch]="pet"   >
-          <div class="container" >
-          <ion-list *ngSwitchCase="'puppies'" color="dust" >
-            <ion-item>
-                  <ion-grid >
-                  <ion-row>
-                      <ion-col col-6 *ngFor="let a of  customizedCard"   (press)="ShareD(a.image, a.key)">
-                          <img src="{{a.image}}"  class="image" imageViewer>   
-                      </ion-col>
-                  </ion-row>
-                </ion-grid> 
-            </ion-item>
-          </ion-list>
-        </div>
-        </div> -->
+       
       </ion-item>
     </ion-list>
   </div>

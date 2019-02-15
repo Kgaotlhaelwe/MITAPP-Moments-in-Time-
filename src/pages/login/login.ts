@@ -48,7 +48,10 @@ export class LoginPage {
 
 
     if(email != '' && password != ''){
-     // document.getElementById("btnlogin").style.backgroundColor="yellow" ;
+      var btn = <HTMLInputElement>document.getElementById("btnloginz") ;
+      btn.disabled=true ;
+
+     var btn = <HTMLInputElement>document.getElementById("btnlogin") 
       this.db.loginx(email , password).then((data)=>{
         if(data.user.emailVerified == true){
           const loader = this.loadingCtrl.create({
@@ -86,11 +89,7 @@ export class LoginPage {
       
      
      
-    //  var btn = <HTMLInputElement>document.getElementById("btnlogin") ;
-    //  btn.style.backgroundColor="blue" ;
-    //  btn.disabled=false ;
-    //  //this.db.showAlert("Oops" ,"Please Enter all Details");
-    //  console.log("kb");
+    
      
      
 

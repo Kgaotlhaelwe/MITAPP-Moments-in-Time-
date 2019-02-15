@@ -1,6 +1,6 @@
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { NavController,PopoverController } from 'ionic-angular';
-import {DatabaseProvider} from '../../providers/database/database' ;
+import { NavController, PopoverController } from 'ionic-angular';
+import { DatabaseProvider } from '../../providers/database/database';
 import { AutomatePage } from '../automate/automate';
 import { MessagePage } from '../message/message';
 import { SocialSharing } from '@ionic-native/social-sharing';
@@ -8,9 +8,10 @@ import { ActionSheetController } from 'ionic-angular';
 import { PopoverPage } from '../popover/popover';
 import { Slides } from 'ionic-angular';
 import {
- StackConfig,Stack,Card,ThrowEvent,DragEvent,SwingStackComponent,SwingCardComponent} from 'angular2-swing';
- import { ToastController } from 'ionic-angular';
- import {EventEmitter } from '@angular/core';
+  StackConfig, Stack, Card, ThrowEvent, DragEvent, SwingStackComponent, SwingCardComponent
+} from 'angular2-swing';
+import { ToastController } from 'ionic-angular';
+import { EventEmitter } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { LoginPage } from '../login/login';
 import { PersonalisedcardPage } from '../personalisedcard/personalisedcard';
@@ -20,413 +21,383 @@ import { ImageLoader } from 'ionic-image-loader';
 import { AlertController } from 'ionic-angular';
 import { DiconnectedPage } from '../diconnected/diconnected';
 
-declare var firebase ;
-
 // 
 
 //import { IonicImageLoader } from 'ionic-image-loader';
 //import { ImgLoader } from 'ionic-image-loader';
 
 @Component({
- selector: 'page-home',
- templateUrl: 'home.html'
+  selector: 'page-home',
+  templateUrl: 'home.html'
 })
 export class HomePage {
- mesaagesArray =[] ;
- msgz =[]
- indx =0
- @ViewChild('myswing1') swingStack: SwingStackComponent;
- @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
- cards: Array<any>;
- stackConfig: StackConfig;
- recentCard: string = '';
- currentIndex :number = 0;
- count =0 ;
- liked = 0
- shareMsg
- imgstring :string ;
- @ViewChild(Slides) slides: Slides;
- ready = false;
+  mesaagesArray = [];
+  msgz = []
+  indx = 0
+  @ViewChild('myswing1') swingStack: SwingStackComponent;
+  @ViewChildren('mycards1') swingCards: QueryList<SwingCardComponent>;
+  cards: Array<any>;
+  stackConfig: StackConfig;
+  recentCard: string = '';
+  currentIndex: number = 0;
+  count = 0;
+  liked = 0
+  shareMsg
+  imgstring: string;
+  @ViewChild(Slides) slides: Slides;
+  ready = false;
   attendants = [];
- cardDirection = "xy";
- cardOverlay: any = {
-     like: {
-         backgroundColor: '#28e93b' ,
-         indicator:"Liked"
-     },
-     dislike: {
-         backgroundColor: '#e92828' ,
-         indicator:"Disliked"
-     }
- };
- images= [];
-slidingImage ;
-textdisplay;
-imzx=[] ;
-hasMessages ;
-noCards =1
-
-url ;
-
-imagesArray = []
-
-favouriteArray =[]
-
-
-imzxx ;
-
-
- constructor(public navCtrl: NavController , private db:DatabaseProvider, private socialSharing: SocialSharing, public actionSheetCtrl: ActionSheetController,public popoverCtrl: PopoverController , private sanitizer: DomSanitizer, public toastCtrl: ToastController,private network: Network, public loadingCtrl: LoadingController , private imageLoader: ImageLoader, public alertCtrl: AlertController ) {
- 
-  
-  this.db.getMessages().then((data:any)=>{
-     console.log(data);
-    this.images =data
-    
-
-
-
-     this.imzx = this.images[this.liked].message
-     
- 
-     console.log(this.imzx);
-    
-     for (let i = 0; i < this.images.length-2; i++) {
-      
-       this.attendants.push({
-            id: i + 1,
-           likeEvent: new EventEmitter(),
-           destroyEvent: new EventEmitter(),
-          asBg: sanitizer.bypassSecurityTrustStyle('url('+this.images[i]+')')
-       });
-  
-      
-    
-   
-  
-}
-   this.ready = true;
-    
-   } , (error)=>{})
-
-  this.db.getFavourite().then((data:any)=>{
-    console.log(data);
-    this.favouriteArray = data ;
-    
-  })
-
-   
-}
-
-
-
-
-
-
-clearCache(refresher) {
-  this.imageLoader.clearCache();
-  refresher.complete();
-}
-
-onImageLoad(event) {
-  //console.log('image ready: ', event);
-}
-
-
-presentLoading() {
- 
-}
-
-
- sum(x, y, z) {
-  //return x + y + z;
-}
-displayNetworkUpdate(connectionState:string){
-  let networkType =this.network.type
-  this.toastCtrl.create({
-    message:connectionState ,
-    duration:3000 ,
-
-    cssClass:'toast1' ,
-  }).present()
- 
- }
-
-ionViewDidEnter() {
-  this.network.onConnect().subscribe(data=>{
-    console.log(data)
-   // this.displayNetworkUpdate('Connected')
-   this.navCtrl.push(HomePage);
-   }
-  
-  ,error=>console.error(error));
-   
-   this.network.onDisconnect().subscribe(data=>{
-   
-    console.log(data)
-    this.displayNetworkUpdate('Disconnected to the network, please try again')
-    this.navCtrl.push(DiconnectedPage);
-   },error=>console.error(error));
-  
-  }
-onCardInteract(event) {
-  
- 
-if(event.like == false){
-  console.log(event.like);
-  this.liked = this.liked + 1
-  this.textdisplay=this.cardOverlay.dislike.indicator
-  const toast = this.toastCtrl.create({
-    message: this.textdisplay,
-    cssClass:'toast1' ,
-    duration: 3000
-  });
-  toast.present();
-  console.log( this.textdisplay);
-  
- 
-  
-  if(this.liked == this.images.length-2){
-    
-    this.hasMessages="Oops! you ran out of cards "
-   
-}
- 
-//  console.log( this.liked);
- 
-   this.imzx =this.images[this.liked].message
-  
-  
-  
- 
- 
-  
- 
- 
- 
-  
- 
- 
-}
-
-
-
- if(event.like == true){
-
-  // console.log(this.favouriteArray[0].k);
-  // console.log(this.images[0].k);
-
-  console.log(this.favouriteArray[0].message);
-  console.log(this.images[0].message);
-  
-  
-  
-  
- 
-  console.log(this.images);
-  
-  
-  // for (let index = 0; index < this.images.length; index++) {
-  //   for (let i = 0; i < this.favouriteArray.length; i++) {
-  //     console.log("out");
-      
-  //     if(this.images[index].message ==this.favouriteArray[i].message){
-  //       console.log("clicked twice");
-  //       console.log("in");
-        
-
-  //     }else {
-
-  //     }
-      
-      
-  //   }
-
-  
-    
-  // }
-
- 
-  //this.db.likedMessage(  this.imzx).then(()=>{})
-  //this.db.creatlikeImage(this.imzx).then(()=>{})
-//   this.db.likedMessage( this.imzx).then(()=>{})
-//   this.liked = this.liked + 1
-//   this.textdisplay=this.cardOverlay.like.indicator
-//   const toast = this.toastCtrl.create({
-//     message: this.textdisplay,
-//     cssClass:'toast' ,
-//     duration: 2000
-//   });
-//   toast.present();
-//   console.log( this.textdisplay);
-  
-  
-//   console.log(this.textdisplay);
-  
-//   if(this.liked ==this.images.length-2){
-   
-    
-//           this.noCards = 0
-//             this.hasMessages="Oops! you ran out of cards "
-          
-        
-     
-// }
-//   this.imzx =this.images[this.liked].message
-
- 
-  
-  
-}
- 
-}
-presentPopover(myEvent) {
- let popover = this.popoverCtrl.create(PopoverPage);
- popover.present({
-   ev: myEvent
- }); 
-}
-shareVia(){
-  ///this.liked = this.liked + 1
-    this.imzx =this.images[this.liked].message
-
-   
- 
-           this.db.sendviaWhatsApps(this.imzx)
-}
- 
- Personalcard(){
-   this.navCtrl.push(PersonalisedcardPage)
- }
- like(){
-
-
-  
-   
- 
-  // this.db.likedMessage( this.imzx).then(()=>{})
- 
-  // if(this.liked ==this.images.length-2){
-  //   document.getElementById("cards").style.display="none"
-
-  //   const prompt = this.alertCtrl.create({
-  //     title:"Oops! you ran out of cards ",
-  //     message: " You have no cards to swipe from ",
-   
-  //     buttons: [
-  //       {
-  //         text: 'OK',
-  //         handler: data => {
-  //           console.log('Cancel clicked');
-  //           this.noCards = 0
-  //           this.hasMessages="You have no cards left to swipe from "
-  //         }
-  //       },
-       
-  //     ]
-  //   });
-  //   prompt.present();
-   
-
-   
-   
-    
-  // } else {
-  //   this.textdisplay=this.cardOverlay.dislike.indicator
-  //   const toast = this.toastCtrl.create({
-  //     message: this.textdisplay,
-  //     cssClass:'toast1' ,
-  //     duration: 3000
-  //   });
-  //   toast.present();
-  //   console.log( this.textdisplay);
-  //   this.liked = this.liked + 1
-  // this.imzx =this.images[this.liked].message
-  
-
-  // }
-  
-  
-
-  this.db.likedMessage( this.imzx).then(()=>{})
-  if(this.liked ==this.images.length-2){
-    console.log("nothing");
-    document.getElementById("cards").style.display="none"
-  
-    const prompt = this.alertCtrl.create({
-      title:"Oops! you ran out of cards ",
-      message: " You have no cards to swipe from ",
-   
-      buttons: [
-        {
-          text: 'OK',
-          handler: data => {
-            console.log('Cancel clicked');
-            this.noCards = 0
-            this.hasMessages="You have no cards left to swipe from "
-          }
-        },
-       
-      ]
-    });
-    prompt.present();
-   
-    this.hasMessages="You have no cards left to swipe from "
-   
-  
-    }else{
-      this.liked = this.liked + 1
-    this.imzx =this.images[this.liked].message
+  cardDirection = "xy";
+  cardOverlay: any = {
+    like: {
+      backgroundColor: '#28e93b',
+      indicator: "Liked"
+    },
+    dislike: {
+      backgroundColor: '#e92828',
+      indicator: "Disliked"
     }
-    
-}
- 
- 
- 
-dislike(){
+  };
+  images = [];
+  slidingImage;
+  textdisplay;
+  imzx = [];
+  hasMessages;
+  noCards = 1
 
- if(this.liked ==this.images.length-2){
-  console.log("nothing");
-  document.getElementById("cards").style.display="none"
+  url;
 
-  const prompt = this.alertCtrl.create({
-    title:"Oops! you ran out of cards ",
-    message: " You have no cards to swipe from ",
- 
-    buttons: [
-      {
-        text: 'OK',
-        handler: data => {
-          console.log('Cancel clicked');
-          this.noCards = 0
-          this.hasMessages="You have no cards left to swipe from "
+  imagesArray = []
+
+  likedPic = []
+  imzxx;
+
+
+  constructor(public navCtrl: NavController, private db: DatabaseProvider, private socialSharing: SocialSharing, public actionSheetCtrl: ActionSheetController, public popoverCtrl: PopoverController, private sanitizer: DomSanitizer, public toastCtrl: ToastController, private network: Network, public loadingCtrl: LoadingController, private imageLoader: ImageLoader, public alertCtrl: AlertController) {
+
+
+    this.db.getMessages().then((data: any) => {
+      console.log(data);
+      this.images = data
+
+
+
+
+      this.imzx = this.images[this.liked].message
+
+
+      console.log(this.imzx);
+
+      for (let i = 0; i < this.images.length - 2; i++) {
+
+        this.attendants.push({
+          id: i + 1,
+          likeEvent: new EventEmitter(),
+          destroyEvent: new EventEmitter(),
+          asBg: sanitizer.bypassSecurityTrustStyle('url(' + this.images[i] + ')')
+        });
+
+
+
+
+
+      }
+      this.ready = true;
+
+    }, (error) => { })
+
+    this.db.getFavouriteImages().then((data: any) => {
+      console.log(data);
+      this.likedPic = data;
+
+
+    })
+
+  }
+
+
+
+
+
+
+  clearCache(refresher) {
+    this.imageLoader.clearCache();
+    refresher.complete();
+  }
+
+  onImageLoad(event) {
+    //console.log('image ready: ', event);
+  }
+
+
+  presentLoading() {
+
+  }
+
+
+  sum(x, y, z) {
+    //return x + y + z;
+  }
+  displayNetworkUpdate(connectionState: string) {
+    let networkType = this.network.type
+    this.toastCtrl.create({
+      message: connectionState,
+      duration: 3000,
+
+      cssClass: 'toast1',
+    }).present()
+
+  }
+
+  ionViewDidEnter() {
+    this.network.onConnect().subscribe(data => {
+      console.log(data)
+      // this.displayNetworkUpdate('Connected')
+      this.navCtrl.push(HomePage);
+    }
+
+      , error => console.error(error));
+
+    this.network.onDisconnect().subscribe(data => {
+
+      console.log(data)
+      this.displayNetworkUpdate('Disconnected to the network, please try again')
+      this.navCtrl.push(DiconnectedPage);
+    }, error => console.error(error));
+
+  }
+  onCardInteract(event) {
+
+
+    if (event.like == false) {
+      console.log(event.like);
+      this.liked = this.liked + 1
+      this.textdisplay = this.cardOverlay.dislike.indicator
+      const toast = this.toastCtrl.create({
+        message: this.textdisplay,
+        cssClass: 'toast4',
+        duration: 3000,
+        position: 'top'
+      });
+      toast.present();
+      console.log(this.textdisplay);
+      if (this.liked == this.images.length - 2) {
+
+        this.hasMessages = "Oops! you ran out of cards " ;
+        document.getElementById("hidebtnz").style.display="none" ;
+
+      }
+      this.imzx = this.images[this.liked].message
+    }
+    ////////////////////////////////////////////////////////////////////////////
+
+
+    var track;
+
+    if (event.like == true) {
+
+
+      for (let index = 0; index < this.likedPic.length; index++) {
+
+        if (this.likedPic[index].message == this.imzx) {
+          track = 1
+
+
+          const toast = this.toastCtrl.create({
+            message: "You already liked it ",
+            cssClass: 'toast1',
+            duration: 1000,
+            position: 'top'
+          });
+          toast.present();
+
+          break;
+
+        } else {
+          track = 0
+
         }
-      },
-     
-    ]
-  });
-  prompt.present();
- 
-  this.hasMessages="You have no cards left to swipe from "
- 
 
-  }else{
-    this.liked = this.liked + 1
-  this.imzx =this.images[this.liked].message
+
+      }
+
+
+
+      if (track == 0) {
+        this.db.likedMessage(this.imzx).then(() => { })
+
+      }
+
+
+
+
+      this.textdisplay = this.cardOverlay.like.indicator
+      const toast = this.toastCtrl.create({
+        message: this.textdisplay,
+        cssClass: 'toast',
+        duration: 2000,
+        position: 'top'
+      });
+      toast.present();
+
+
+
+
+
+      if (this.liked == this.images.length - 2) {
+        this.noCards = 0
+        this.hasMessages = "Oops! you ran out of cards " ;
+        document.getElementById("hidebtnz").style.display="none" ;
+
+      }
+      this.liked = this.liked + 1
+      this.imzx = this.images[this.liked].message
+
+
+    }
+
+  }
+
+
+
+
+
+  presentPopover(myEvent) {
+    let popover = this.popoverCtrl.create(PopoverPage);
+    popover.present({
+      ev: myEvent
+    });
+  }
+  shareVia() {
+    ///this.liked = this.liked + 1
+    this.imzx = this.images[this.liked].message
+
+
+
+    this.db.sendviaWhatsApps(this.imzx)
+  }
+
+  Personalcard() {
+    this.navCtrl.push(PersonalisedcardPage)
   }
   
- 
- 
   
- 
- 
-
-}
+  like() {
 
 
+    
+    var track;
+
+      for (let index = 0; index < this.likedPic.length; index++) {
+
+        if (this.likedPic[index].message == this.imzx) {
+          track = 1
 
 
-  insertpic(event){
+          const toast = this.toastCtrl.create({
+            message: "You already liked it ",
+            cssClass: 'toast4',
+            duration: 1000,
+            position: 'top'
+          });
+          toast.present();
+
+          break;
+
+        } else {
+          track = 0
+
+        }
+
+
+      }
+
+
+
+      if (track == 0) {
+        this.db.likedMessage(this.imzx).then(() => { })
+
+      }
+
+
+
+
+      this.textdisplay = this.cardOverlay.like.indicator
+      const toast = this.toastCtrl.create({
+        message: this.textdisplay,
+        cssClass: 'toast',
+        duration: 2000,
+        position: 'top'
+      });
+      toast.present();
+
+
+
+
+
+      if (this.liked == this.images.length - 2) {
+        this.noCards = 0
+        this.hasMessages = "Oops! you ran out of cards " ;
+        document.getElementById("hidebtnz").style.display="none" ;
+
+      }
+      this.liked = this.liked + 1
+      this.imzx = this.images[this.liked].message
+
+
+    
+
+
+
+  
+  }
+
+
+
+  dislike() {
+
+    if (this.liked == this.images.length - 2) {
+      console.log("nothing");
+      document.getElementById("cards").style.display = "none"
+
+      const prompt = this.alertCtrl.create({
+        title: "Oops! you ran out of cards ",
+        message: " You have no cards to swipe from ",
+
+        buttons: [
+          {
+            text: 'OK',
+            handler: data => {
+              console.log('Cancel clicked');
+              this.noCards = 0
+              this.hasMessages = "You have no cards left to swipe from "
+            }
+          },
+
+        ]
+      });
+      prompt.present();
+
+      this.hasMessages = "You have no cards left to swipe from "
+
+
+    } else {
+      this.liked = this.liked + 1
+      this.imzx = this.images[this.liked].message
+    }
+
+
+
+
+
+
+
+  }
+
+
+
+
+  insertpic(event) {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
       reader.onload = (event: any) => {
@@ -440,16 +411,17 @@ dislike(){
 
 
 
-        
-        
+
+
       };
       reader.readAsDataURL(event.target.files[0]);
       //console.log(event.target.files);
       let selectedfile = event.target.files[0];
 
-  }
+    }
 
-  }}
+  }
+}
 
 
 

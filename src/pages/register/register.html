@@ -45,7 +45,7 @@
                 <ion-input type="email" name="email" placeholder="Email" ngModel #email="ngModel" required="true" id="email"></ion-input>
               </ion-item>
       
-              <p padding-top style='font-family: Arial, Helvetica, sans-serif; font-size: 15px; color:red' *ngIf="email.valid && email.touched" class="err dis">Email Cannot Be Empty!</p>
+              <p padding-top style='font-family: Arial, Helvetica, sans-serif; font-size: 15px; color:red' *ngIf="!email.valid && email.touched" class="err dis">Email Cannot Be Empty!</p>
       
               <ion-item class="items">
                 <ion-label>
@@ -58,8 +58,8 @@
 
           
           <div class="button" >
-            <button  ion-button round block  color="light"  (click)="Register(user.value , email.value , password.value)">Register</button>
-            <button block ion-button round class="Login" color="light" outline (click)="LoginPage()"> &nbsp; Sign in</button>
+            <button  ion-button round block  color="light"   [disabled]="!user.valid && user.touched && !email.valid && email.touched && !password.valid && password.touched"  (click)="Register(user.value , email.value , password.value)">Register</button>
+            <button block ion-button round class="Login"      color="light" outline (click)="LoginPage()"> &nbsp; Sign in</button>
           </div>
              </div>
             

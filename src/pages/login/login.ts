@@ -31,27 +31,65 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams , private keyboard: Keyboard, private db:DatabaseProvider ,public alertCtrl: AlertController,public loadingCtrl: LoadingController, private network: Network, public toastCtrl: ToastController) {
 
+  
+
+
   }
   
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
+    var bt =  <HTMLInputElement>document.getElementById('btSubmit');
+    bt.disabled=true ;
   }
-  
+
   
      
 
+  getEmail(email){
+    console.log(email);
+    var bt =  <HTMLInputElement>document.getElementById('btSubmit');
+    if(email != ""){
+    
+      bt.disabled = false;
 
 
 
-  Login(email , password){
+    }else{
+      bt.disabled=true ;
+     
+      
 
+    }
+    
+
+  }
+
+  getPassword(pass){
+
+    console.log(pass);
+    var bt =  <HTMLInputElement>document.getElementById('btSubmit');
+    if(pass != ""){
+    
+      bt.disabled = false;
+
+
+    }else{
+      bt.disabled=true ;
+
+    }
+
+
+  }
+
+Login(email , password){
+   var bt =  <HTMLInputElement>document.getElementById('btSubmit');
 
     if(email != '' && password != ''){
-      var btn = <HTMLInputElement>document.getElementById("btnloginz") ;
-      btn.disabled=true ;
+    
+    
 
-     var btn = <HTMLInputElement>document.getElementById("btnlogin") 
+    
       this.db.loginx(email , password).then((data)=>{
         if(data.user.emailVerified == true){
           const loader = this.loadingCtrl.create({
@@ -87,13 +125,8 @@ export class LoginPage {
      
     }else{
       
+     bt.disabled = true;
      
-     
-    
-     
-     
-
-      
     }
     
 

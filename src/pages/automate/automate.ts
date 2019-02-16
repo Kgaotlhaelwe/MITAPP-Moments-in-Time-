@@ -136,6 +136,7 @@ export class AutomatePage {
     showConfirm() {
       const confirm = this.alertCtrl.create({
         title: this.name,
+        cssClass: "myAlert",
         message: this.phoneNumber,
         buttons: [
           {

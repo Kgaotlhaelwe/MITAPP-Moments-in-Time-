@@ -31,6 +31,7 @@ export class PopoverPage {
   signout(){
     this.db.signout();
     const confirm = this.alertCtrl.create({
+      cssClass: "myAlert",
       title: 'Log out',
       message: 'Do you want log out?',
       buttons: [

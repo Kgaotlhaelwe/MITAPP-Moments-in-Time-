@@ -106,6 +106,7 @@ export class ProfilePage {
 console.log(key);
 
     const prompt = this.alertCtrl.create({
+      cssClass: "myAlert",
       subTitle: "Would you like to share or delete the picture" ,
       buttons: [
         {
@@ -142,6 +143,7 @@ console.log(key);
   ShareDelete(a, key){
   
     const prompt = this.alertCtrl.create({
+      cssClass: "myAlert",
       subTitle: " Would you like to share or delete the picture  " ,
       buttons: [
         {
@@ -200,7 +202,7 @@ console.log(key);
         function(snapshot) {},
         function(error) {
           // Handle unsuccessful uploads
-          alert(error);
+          // alert(error);
         },
         function () {
           // Handle successful uploads on complete

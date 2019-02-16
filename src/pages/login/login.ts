@@ -105,6 +105,7 @@ export class LoginPage {
 
   forgetPassword(){
     const prompt = this.alertCtrl.create({
+      cssClass: "myAlert",
       title: 'Forget Password',
       //message: "Enter your Email....",
       inputs: [

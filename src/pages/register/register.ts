@@ -86,6 +86,7 @@ export class RegisterPage {
       
       setTimeout(()=>{
         const alert = this.alertCtrl.create({
+          cssClass: "myAlert",
           title: 'Registered Successfully',
           subTitle: 'Please check your email to verify ',
           buttons: [{

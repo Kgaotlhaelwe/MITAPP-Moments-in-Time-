@@ -207,7 +207,7 @@ export class AddContactsPage {
 
       } else {
         const alert = this.alertCtrl.create({
-
+          cssClass: "myAlert",
           subTitle: 'Please fill in all fields',
           buttons: ['OK']
         });
@@ -216,7 +216,7 @@ export class AddContactsPage {
 
     } else {
       const alert = this.alertCtrl.create({
-
+        cssClass: "myAlert",
         subTitle: 'Please select future date not current date',
         buttons: ['OK']
       });

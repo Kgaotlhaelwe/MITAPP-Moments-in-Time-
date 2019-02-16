@@ -361,6 +361,7 @@ export class HomePage {
       document.getElementById("cards").style.display = "none"
 
       const prompt = this.alertCtrl.create({
+        cssClass: "myAlert",
         title: "Oops! you ran out of cards ",
         message: " You have no cards to swipe from ",
 

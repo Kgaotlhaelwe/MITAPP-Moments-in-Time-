@@ -406,6 +406,7 @@ export class AboutPage {
   showConfirm(message, name, key) {
     const confirm = this.alertCtrl.create({
       title: this.name,
+      cssClass: "myAlert",
       message: this.phoneNumber,
       buttons: [
         {

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {user} from '../model/user'
-import {DatabaseProvider} from '../../providers/database/database' ;
-import { ToastController,LoadingController } from 'ionic-angular';
-import {HomePage} from '../../pages/home/home'
+import { user } from '../model/user'
+import { DatabaseProvider } from '../../providers/database/database';
+import { ToastController, LoadingController } from 'ionic-angular';
+import { HomePage } from '../../pages/home/home'
 
 import { AlertController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
@@ -25,17 +25,25 @@ declare var firebase
 })
 export class RegisterPage {
 
-  user = {} as user ;
+  user = {} as user;
 
+  usrn = 0
+  mail = 0
+  pass = 0
 
-  constructor(public navCtrl: NavController, public navParams: NavParams ,private db:DatabaseProvider, public toastCtrl: ToastController,public alertCtrl: AlertController , private network: Network,public loadingCtrl: LoadingController ) {
+  btn
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db: DatabaseProvider, public toastCtrl: ToastController, public alertCtrl: AlertController, private network: Network, public loadingCtrl: LoadingController) {
+
+    // var  bt =  <HTMLInputElement>document.getElementById('btRegister');
+    // bt.disabled=true ;
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
 
-    var bt =  <HTMLInputElement>document.getElementById('btSubmit');
-    bt.disabled=true ;
+    this.btn = <HTMLInputElement>document.getElementById('btRegister');
+    this.btn.disabled = true;
   }
 
 
@@ -46,130 +54,260 @@ export class RegisterPage {
   //     message:`YOU ARE NOW`+connectionState +'via'+networkType ,
   //     duration:3000 ,
   //   }).present()
-   
+
   //  }
-  
+
   // ionViewDidEnter() {
   //   this.network.onConnect().subscribe(data=>{
   //     console.log(data)
   //     this.displayNetworkUpdate(data.type)
-     
+
   //    }
-    
+
   //   ,error=>console.error(error));
-     
+
   //    this.network.onDisconnect().subscribe(data=>{
-     
+
   //     console.log(data)
   //     this.displayNetworkUpdate(data.type)
   //    },error=>console.error(error));
-    
+
   //   }
 
-  Register(email , pass , name){
-    
- console.log(name);
- console.log(email);
- console.log(pass);
- 
- 
- 
-    if(email !=""  && pass  !=""  ){
-    this.db.register(email ,pass, name ).then(()=>{
+  Register(email, pass, name) {
 
-       
-      const loader = this.loadingCtrl.create({
-        content: "Please wait... still connecting ",
-        cssClass: "loading-md .loading-wrapper ",
-        duration :3000
- 
-      });
-      loader.present();
+    console.log(name);
+    console.log(email);
+    console.log(pass);
 
-      
-      setTimeout(()=>{
+
+
+    if (email != "" && pass != "") {
+      this.db.register(email, pass, name).then(() => {
+
+
+        const loader = this.loadingCtrl.create({
+          content: "Please wait... still connecting ",
+          cssClass: "loading-md .loading-wrapper ",
+          duration: 3000
+
+        });
+        loader.present();
+
+
+        setTimeout(() => {
+          const alert = this.alertCtrl.create({
+            cssClass: "myAlert",
+            title: 'Registered Successfully',
+            subTitle: 'Please check your email to verify ',
+            buttons: [{
+              text: 'OK',
+              handler: data => {
+                const loader = this.loadingCtrl.create({
+                  content: "Loading...",
+                  cssClass: "loading-md .loading-wrapper ",
+                  duration: 3000
+
+                });
+                loader.present();
+
+                this.navCtrl.push(LoginPage)
+
+              }
+            }]
+          });
+          alert.present();
+
+
+        }, 3000)
+
+
+        name = "";
+        email = "";
+        pass = "";
+
+      }, (error) => {
+
+
         const alert = this.alertCtrl.create({
           cssClass: "myAlert",
-          title: 'Registered Successfully',
-          subTitle: 'Please check your email to verify ',
-          buttons: [{
-            text: 'OK',
-            handler: data => {
-              const loader = this.loadingCtrl.create({
-                content: "Loading...",
-                cssClass: "loading-md .loading-wrapper ",
-                duration :3000
-              
-              });
-              loader.present();
-             
-                this.navCtrl.push(LoginPage)
-              
-            }
-          }]
+          subTitle: error.message,
+          buttons: ['OK']
         });
         alert.present();
-  
 
-      } , 3000)
-    
-   
-    name="" ;
-    email="" ;
-    pass = "" ;
- 
-    } , (error)=>{
- 
- 
+
+      })
+    } else {
       const alert = this.alertCtrl.create({
         cssClass: "myAlert",
-        subTitle:error.message,
+        subTitle: 'Please enter email and password',
         buttons: ['OK']
       });
       alert.present();
- 
- 
-    })
-  }else{
-    const alert = this.alertCtrl.create({
-      cssClass: "myAlert",
-      subTitle:  'Please enter email and password' ,
-      buttons: ['OK']
-    });
-    alert.present();
-  }
-
-
-
-  }
-
-
-  getUserName(user){
-    var bt =  <HTMLInputElement>document.getElementById('btSubmit');
-    if(user != ""){
-    console.log(user);
-    
-      bt.disabled = false;
-
-
-
-    }else{
-      bt.disabled=true ;
-     
-      
-
     }
 
+
+
   }
 
 
 
+  getUserName(user) {
 
-  google(){
-  this.db.SignWithGoogle()
+console.log(user, this.mail, this.pass);
+
+    if (user == "" && this.mail == 1 && this.pass == 1) {
+      this.btn.disabled = true;
+      this.usrn = 0
+      console.log("disabled = true");
+      console.log(this.mail);
+    } else if (user == "" && this.mail == 0 && this.pass == 1) {
+      this.usrn = 0
+      console.log("disabled = true");
+      this.btn.disabled = true;
+      console.log(this.mail);
+    } else if (user == "" && this.mail == 1 && this.pass == 0) {
+      this.usrn = 0
+      console.log("disabled = true");
+      console.log(this.mail);
+    } else if (user != "" && this.mail == 1 && this.pass == 1) {
+      this.usrn = 1
+      console.log("disabled = false");
+      this.btn.disabled = false;
+      console.log(this.mail);
+    } else if (user != "" && this.mail == 1 && this.pass == 0) {
+      this.usrn = 1
+      this.btn.disabled = true;
+      console.log("disabled = true");
+      console.log(this.mail);
+    } else if (user != "" && this.mail == 0 && this.pass == 1) {
+      this.usrn = 1
+      this.btn.disabled = true;
+      console.log("disabled = true");
+      console.log(this.mail);
+    } else if (user != "" && this.mail == 0 && this.pass == 0) {
+      this.usrn = 1
+      this.btn.disabled = true;
+      console.log("disabled = true");
+      console.log(this.mail);
+    } else {
+      console.log("disabled = true @ else email");
+      this.btn.disabled = true;
+    }
+
+
+
+
+
 
   }
-  LoginPage(){
+
+
+  getEmail(email) {
+    console.log(email, this.usrn, this.pass);
+    
+    if (email == "" && this.usrn == 1 && this.pass == 1) {
+      this.btn.disabled = true;
+      this.mail = 0
+      console.log("disabled = true");
+      console.log(this.mail);
+    } else if (email == "" && this.usrn == 0 && this.pass == 1) {
+      this.mail = 0
+      console.log("disabled = true");
+      this.btn.disabled = true;
+      console.log(this.mail);
+    } else if (email == "" && this.usrn == 1 && this.pass == 0) {
+      this.mail = 0
+      console.log("disabled = true");
+      console.log(this.mail);
+    } else if (email != "" && this.usrn == 1 && this.pass == 1) {
+      this.mail = 1
+      console.log("disabled = false");
+      this.btn.disabled = false;
+      console.log(this.mail);
+    } else if (email != "" && this.usrn == 1 && this.pass == 0) {
+      this.mail = 1
+      this.btn.disabled = true;
+      console.log("disabled = true");
+      console.log(this.mail);
+    } else if (email != "" && this.usrn == 0 && this.pass == 1) {
+      this.mail = 1
+      this.btn.disabled = true;
+      console.log("disabled = true");
+      console.log(this.mail);
+    } else if (email != "" && this.usrn == 0 && this.pass == 0) {
+      this.mail = 1
+      this.btn.disabled = true;
+      console.log("disabled = true");
+      console.log(this.mail);
+    } else {
+      console.log("disabled = true @ else email");
+      this.btn.disabled = true;
+    }
+
+
+
+
+
+  }
+
+  getPassword(password) {
+console.log(password, this.usrn, this.mail);
+
+    if (password == "" && this.usrn == 1 && this.mail == 1) {
+      this.btn.disabled = true;
+      this.pass = 0
+      console.log("disabled = true");
+      console.log(this.mail);
+    } else if (password == "" && this.usrn == 0 && this.mail == 1) {
+      this.pass = 0
+      console.log("disabled = true");
+      this.btn.disabled = true;
+      console.log(this.mail);
+    } else if (password == "" && this.usrn == 1 && this.mail == 0) {
+      this.pass = 0
+      console.log("disabled = true");
+      console.log(this.mail);
+    } else if (password != "" && this.usrn == 1 && this.mail == 1) {
+      this.pass = 1
+      console.log("disabled = false");
+      this.btn.disabled = false;
+      console.log(this.mail);
+    } else if (password != "" && this.usrn == 1 && this.mail == 0) {
+      this.pass = 1
+      this.btn.disabled = true;
+      console.log("disabled = true");
+      console.log(this.mail);
+    } else if (password != "" && this.usrn == 0 && this.pass == 1) {
+      this.pass = 1
+      this.btn.disabled = true;
+      console.log("disabled = true");
+      console.log(this.mail);
+    } else if (password != "" && this.usrn == 0 && this.mail == 0) {
+      this.pass = 1
+      this.btn.disabled = true;
+      console.log("disabled = true");
+      console.log(this.mail);
+    } else {
+      console.log("disabled = true @ else email");
+      this.btn.disabled = true;
+    }
+
+
+
+
+
+
+  }
+
+
+
+  google() {
+    this.db.SignWithGoogle()
+
+  }
+  LoginPage() {
     this.navCtrl.push(LoginPage)
   }
 

@@ -13,6 +13,8 @@ import { ViewPage } from '../view/view';
 import { Network } from '@ionic-native/network';
 import { ToastController } from 'ionic-angular';
 
+
+
 @Component({
   selector: 'page-about',
   templateUrl: 'about.html'
@@ -37,7 +39,11 @@ export class AboutPage {
 
   obj
 
-  schedulefunction = []
+  schedulefunction = [] ;
+  tabs ;
+
+
+
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private contacts: Contacts, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, private localNotifications: LocalNotifications, private sms: SMS, private socialSharing: SocialSharing, private db: DatabaseProvider, public modalCtrl: ModalController, private network: Network, public toastCtrl: ToastController) {
     // this.db.getReviewMessage().then((data:any)=>{
@@ -50,6 +56,8 @@ export class AboutPage {
     //     this.hasMessages = true;
     //   }
     // })
+
+    this.tabs = this.navParams.get('tabs');
 
    this.db.getScheduledEmails().then((data:any)=>{
      console.log(data);

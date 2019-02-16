@@ -41,7 +41,7 @@ document.getElementById("hidebtn").style.display="none"
 
 
 viewScheduled(){
-  this.navCtrl.push(AboutPage) ;
+  this.navCtrl.push(AboutPage, {tabs:"4"}) ;
 
 }
 

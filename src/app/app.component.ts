@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform , Events } from 'ionic-angular';
+import { Platform , Events,Keyboard } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { DatabaseProvider } from '../providers/database/database';
@@ -25,7 +25,7 @@ export class MyApp {
   showSplash=true;
   selectedTheme
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,  db:DatabaseProvider,  private imageLoaderConfig: ImageLoaderConfig, public events: Events) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,  db:DatabaseProvider,  private imageLoaderConfig: ImageLoaderConfig, public events: Events,private keyboard: Keyboard ) {
   //   db.getActiveTheme().subscribe(val => this.selectedTheme = val)
   //  db.getActiveTheme().subscribe((val)=>{
   //   this.selectedTheme = val
@@ -76,5 +76,13 @@ export class MyApp {
       splashScreen.hide();
        timer(3000).subscribe(()=> this.showSplash = false )
     });
+
+  //   this.keyboard.onKeyboardShow().subscribe(() => {
+  //     document.body.classList.add('keyboard-is-open');
+  // });
+
+  // this.keyboard.onKeyboardHide().subscribe(() => {
+  //     document.body.classList.remove('keyboard-is-open');
+  // });
   }
 }

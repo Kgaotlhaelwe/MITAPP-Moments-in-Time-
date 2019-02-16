@@ -45,7 +45,7 @@
   <div id='nameinput' *ngIf="showinput">
     <ion-list style="display: flex" padding-left  padding-bottom>
       <ion-item >
-        <ion-input type="text" placeholder="Enter the name "  value="{{name}}" [(ngModel)]="updatename"></ion-input>
+        <ion-input type="text" placeholder="Enter the name "  value="{{name}}" [(ngModel)]="updatename" (ionChange)="tabcheck()"></ion-input>
       </ion-item>
       <button ion-button color="b" clear (click)="save()">save</button>
 

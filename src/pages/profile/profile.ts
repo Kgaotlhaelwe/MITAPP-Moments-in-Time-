@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,AlertController,PopoverController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,AlertController,PopoverController,Keyboard} from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { PopoverPage } from '../popover/popover';
 import {DatabaseProvider} from '../../providers/database/database';
@@ -37,7 +37,7 @@ export class ProfilePage {
 
   profileimage ;
   mypic ;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl:AlertController, private camera: Camera,public popoverCtrl: PopoverController, private db:DatabaseProvider, private network: Network , public toastCtrl: ToastController,public loadingCtrl: LoadingController ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl:AlertController, private camera: Camera,public popoverCtrl: PopoverController, private db:DatabaseProvider, private network: Network , public toastCtrl: ToastController,public loadingCtrl: LoadingController, private keyboard: Keyboard ) {
 
    
   
@@ -322,5 +322,8 @@ presentPopover(myEvent) {
   
   });
  }
-
+ tabcheck(){
+   console.log('dfgg');
+   
+ }
 }

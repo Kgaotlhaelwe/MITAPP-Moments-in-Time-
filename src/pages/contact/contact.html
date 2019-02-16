@@ -36,7 +36,7 @@
     <ng-template #conempty>
 
 <!-- <h2 text-center style="    background-color: oldlace;">My Contacts</h2> -->
-      <ion-list>
+      <ion-list no-lines>
           <!-- <ion-item-divider style="background-color: oldlace;"> <b>My Contacts List</b> </ion-item-divider> -->
           <ion-item *ngFor="let details of contactListArray; let u = index"  (click)="itemSelected(details.name,details.email, details.date)"> 
             <ion-avatar item-start>

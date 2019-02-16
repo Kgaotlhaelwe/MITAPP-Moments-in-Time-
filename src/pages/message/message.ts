@@ -393,7 +393,8 @@ export class MessagePage {
   send() {
     var users = firebase.auth().currentUser;
     var userName;
- 
+    console.log(this.image);
+    
  
     let today = new Date()
     let uniquedate = new Date().getTime();
@@ -425,7 +426,7 @@ export class MessagePage {
  
       else {
         //scheduleEmails
-        this.db.scheduleEmails(this.selectedDetails.categoryChosen,this.selectedDetails.date, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate).then(()=>{
+        this.db.scheduleEmails(this.selectedDetails.categoryChosen,this.selectedDetails.date, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate,this.image).then(()=>{
           this.db.scheduleEmailForFunction(this.selectedDetails.categoryChosen, this.selectedDetails.date, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate)
         });
  

@@ -94,7 +94,10 @@ var config = {
   ],
   imports: [
     BrowserModule,HttpClientModule ,SwipeCardsModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      
+
+    }),
     AngularFireModule.initializeApp(config),
     AngularFireAuthModule,IonicImageViewerModule,
     SignaturePadModule,
@@ -124,7 +127,7 @@ var config = {
     PersonalisedcardPage,
     InfosentPage,
     ModalmessagePage,
-    DiconnectedPage , AddContactsPage
+    DiconnectedPage , AddContactsPage,
   ],
   providers: [
     StatusBar,   SQLite ,

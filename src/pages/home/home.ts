@@ -203,13 +203,7 @@ export class HomePage {
           track = 1
 
 
-          const toast = this.toastCtrl.create({
-            message: "You already liked it ",
-            cssClass: 'toast1',
-            duration: 1000,
-            position: 'top'
-          });
-          toast.present();
+        
 
           break;
 
@@ -225,20 +219,32 @@ export class HomePage {
 
       if (track == 0) {
         this.db.likedMessage(this.imzx).then(() => { })
+        this.textdisplay = this.cardOverlay.like.indicator
+        const toast = this.toastCtrl.create({
+          message: this.textdisplay,
+          cssClass: 'toast',
+          duration: 2000,
+          position: 'top'
+        });
+        toast.present();
+
+      }else {
+
+        const toast = this.toastCtrl.create({
+          message: "You already liked it ",
+          cssClass: 'toast6',
+          duration: 1000,
+          position: 'top'
+        });
+        toast.present();
+      
 
       }
 
 
 
-
-      this.textdisplay = this.cardOverlay.like.indicator
-      const toast = this.toastCtrl.create({
-        message: this.textdisplay,
-        cssClass: 'toast',
-        duration: 2000,
-        position: 'top'
-      });
-      toast.present();
+      
+     
 
 
 
@@ -292,16 +298,6 @@ export class HomePage {
 
         if (this.likedPic[index].message == this.imzx) {
           track = 1
-
-
-          const toast = this.toastCtrl.create({
-            message: "You already liked it ",
-            cssClass: 'toast4',
-            duration: 1000,
-            position: 'top'
-          });
-          toast.present();
-
           break;
 
         } else {
@@ -316,26 +312,30 @@ export class HomePage {
 
       if (track == 0) {
         this.db.likedMessage(this.imzx).then(() => { })
-
-      }
-
-
-
-
-      this.textdisplay = this.cardOverlay.like.indicator
-      const toast = this.toastCtrl.create({
+        
+        this.textdisplay = this.cardOverlay.like.indicator
+        const toast = this.toastCtrl.create({
         message: this.textdisplay,
         cssClass: 'toast',
         duration: 2000,
         position: 'top'
-      });
+           });
       toast.present();
 
+      }else{
+        
+        const toast = this.toastCtrl.create({
+          message: "You already liked it ",
+          cssClass: 'toast4',
+          duration: 1000,
+          position: 'top'
+        });
+        toast.present();
+      }
 
 
 
-
-      if (this.liked == this.images.length - 2) {
+ if (this.liked == this.images.length - 2) {
         this.noCards = 0
         this.hasMessages = "Oops! you ran out of cards " ;
         document.getElementById("hidebtnz").style.display="none" ;

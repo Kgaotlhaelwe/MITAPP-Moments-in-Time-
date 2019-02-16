@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,AlertController,PopoverController,Keyboard} from 'ionic-angular';
+      import { IonicPage, NavController, NavParams ,AlertController,PopoverController,Keyboard} from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { PopoverPage } from '../popover/popover';
 import {DatabaseProvider} from '../../providers/database/database';

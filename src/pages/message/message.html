@@ -14,7 +14,7 @@
   <img class="img" src="../../assets/imgs/icons8_Wedding_Gift_96px.png" >
 
     <br>
-    <div class="flex" [hidden]="keyboard.isOpen()"> 
+    <div class="flex" > 
       <h1 text-center padding >  Get People & {{categoryChosen}} {{userCategory}} Worth Celebrating</h1> <br> <br> 
   </div>
   </div>
@@ -24,8 +24,8 @@
 <div class="bottomdiv">
 
 
-  <ion-item class="textboxmove" no-lines>
-    <ion-textarea no-lines class="textbox" placeholder="Enter a description"  [(ngModel)]="textboxmessage" value="{{textboxmessage}}"></ion-textarea>
+  <ion-item id="textfix" class="textboxmove" no-lines>
+    <ion-textarea no-lines class="textbox" placeholder="Enter a description"  [(ngModel)]="textboxmessage" value="{{textboxmessage}}" (ionChange)="textaera()"></ion-textarea>
   </ion-item>
 
 </div>

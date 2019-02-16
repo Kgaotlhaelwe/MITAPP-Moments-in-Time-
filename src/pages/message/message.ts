@@ -467,16 +467,11 @@ export class MessagePage {
  
  
     }
- 
- 
- 
- 
- 
- 
- 
- 
- 
- 
+
+  }
+  textaera(){
+    console.log('in');
+    document.getElementById('textfix').style.zIndex="10000000000000"
   }
 }
 

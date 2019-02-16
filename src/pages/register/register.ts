@@ -33,6 +33,9 @@ export class RegisterPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
+
+    var bt =  <HTMLInputElement>document.getElementById('btSubmit');
+    bt.disabled=true ;
   }
 
 
@@ -141,7 +144,23 @@ export class RegisterPage {
   }
 
 
+  getUserName(user){
+    var bt =  <HTMLInputElement>document.getElementById('btSubmit');
+    if(user != ""){
+    console.log(user);
+    
+      bt.disabled = false;
 
+
+
+    }else{
+      bt.disabled=true ;
+     
+      
+
+    }
+
+  }
 
 
 

@@ -36,15 +36,26 @@ export class AddContactsPage {
   selectedDetails = this.navParams.get("selectedDetails");
   tempCategory;
 
-  temparray = []
+  temparray = [] ;
+  hideDate ;
+
+  showDate ;
+  kb ;
+  
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: DatabaseProvider, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
 
+    
+    this.hideDate =true ;
+    
     this.db.getContactlist().then((data: any) => {
       this.temparray = data
       console.log(this.temparray)
 
 
     })
+
+    console.log(this.categoryChosen);
+    
 
     this.tempCategory = this.categoryChosen;
 
@@ -88,6 +99,12 @@ export class AddContactsPage {
 
 
 
+    if(this.tempCategory == "Birthday"){
+      this.showDate = true ;
+      this.hideDate=false ;
+
+    }
+
   }
 
   ionViewDidLoad() {
@@ -97,11 +114,151 @@ export class AddContactsPage {
   }
 
 
-  async addDetails() {
+  async addDetails(a) {
 
-    let today = new Date();
-    let currentday = moment(today).format('YYYY-MM-DD');
+    console.log(this.kb);
 
+  console.log(this.myDate)
+
+
+     let  b  =    moment(this.kb).format('l');   
+     console.log(b);
+    
+     var c = moment(b).format('YYYY-MM-DD');
+     console.log(c);
+     
+    
+
+
+     if(this.tempCategory == "Birthday"){
+       this.myDate = c;
+       console.log("innnn");
+
+         let today = new Date();
+     let currentday = moment(today).format('YYYY-MM-DD');
+     console.log(currentday);
+
+    
+
+      if (this.name != undefined && this.email != undefined && this.myDate != undefined) {
+
+        let atpos = this.email.indexOf("@");
+        let dotpos = this.email.lastIndexOf(".")
+        console.log(atpos);
+        console.log(dotpos);
+
+
+
+        if (atpos < 1 || (dotpos - atpos < 2)) {
+          console.log("in");
+
+          this.db.showAlert("Email Incorrect", "Please Enter the correct email")
+
+
+        } else {
+
+
+
+          let date = moment(this.myDate).format('ll');
+
+          var dup
+
+          if (this.temparray.length > 0) {
+            for (let index = 0; index < this.temparray.length; index++) {
+
+              console.log(this.email);
+              console.log(this.temparray[index].email);
+
+
+              if (this.temparray[index].email == this.email) {
+                dup = 1
+                console.log(dup);
+
+                break;
+              } else {
+                dup = 0
+
+
+              }
+
+            }
+
+            if (dup == 0) {
+              this.db.saveContactList(this.name, this.email, date).then(() => {
+                const loader = this.loadingCtrl.create({
+                  content: "Please wait...",
+                  duration: 3000
+                });
+                console.log(this.tempCategory);
+
+                loader.present();
+              })
+            }
+
+          } else {
+
+            this.db.saveContactList(this.name, this.email, date).then(() => {
+              const loader = this.loadingCtrl.create({
+                content: "Please wait...",
+                duration: 3000
+              });
+              console.log(this.tempCategory);
+
+              loader.present();
+            })
+
+          }
+
+
+
+          let obj = {
+            name: this.name,
+            email: this.email,
+            date: this.myDate,
+            categoryChosen: this.tempCategory
+          }
+
+          this.navCtrl.push(MessagePage, { selectedDetails:obj})
+          const loader = this.loadingCtrl.create({
+            content: "Please wait...",
+            duration: 3000
+          });
+          loader.present();
+
+
+          let currentIndex = this.navCtrl.getActive().index;
+          this.navCtrl.push(MessagePage, { selectedDetails: obj }).then(() => {
+
+            setTimeout(() => {
+              this.navCtrl.remove(currentIndex);
+            }, 1000);
+
+
+          });
+
+
+
+        }
+
+      } else {
+        const alert = this.alertCtrl.create({
+          cssClass: "myAlert",
+          subTitle: 'Please fill in all fields',
+          buttons: ['OK']
+        });
+        alert.present();
+      }
+
+     
+       
+
+     
+
+    }else{
+
+        let today = new Date();
+     let currentday = moment(today).format('YYYY-MM-DD');
+     console.log(currentday);
 
     if (this.myDate > currentday) {
 
@@ -183,7 +340,7 @@ export class AddContactsPage {
             categoryChosen: this.tempCategory
           }
 
-          //this.navCtrl.push(MessagePage, { selectedDetails:obj})
+          this.navCtrl.push(MessagePage, { selectedDetails:obj})
           const loader = this.loadingCtrl.create({
             content: "Please wait...",
             duration: 3000
@@ -225,9 +382,25 @@ export class AddContactsPage {
 
 
 
+     }
+
+      
     }
 
+   
 
+    console.log(this.myDate);
+
+ 
+    
+    
+
+   
+
+
+ 
+ 
+ 
   }
 
 

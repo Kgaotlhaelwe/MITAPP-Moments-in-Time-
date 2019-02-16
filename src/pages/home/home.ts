@@ -117,8 +117,7 @@ export class HomePage {
 
 
 
-
-
+ 
 
   clearCache(refresher) {
     this.imageLoader.clearCache();

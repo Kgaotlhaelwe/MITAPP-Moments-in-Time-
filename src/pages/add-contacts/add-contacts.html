@@ -30,11 +30,22 @@
           <ion-input type="text" placeholder="Email"  [(ngModel)]="email" value="{{email1}}"></ion-input>
         </ion-item>
 
-        <ion-item class="space">
+        <ion-item class="space" *ngIf="hideDate">
             <ion-label><ion-icon color="b"  ios="ios-calendar" md="md-calendar"></ion-icon> &nbsp;  &nbsp;  &nbsp;Date</ion-label>
             <!-- <ion-label>Date</ion-label> -->
             <ion-datetime displayFormat="MM/DD/YYYY"   [(ngModel)]="myDate" min="2019" max="2050"></ion-datetime>
           </ion-item>
+
+
+          <ion-item class="space" *ngIf="showDate">
+              <ion-label><ion-icon color="b"  ios="ios-calendar" md="md-calendar"></ion-icon> &nbsp;  &nbsp;  &nbsp;Date</ion-label>
+              <!-- <ion-label>Date</ion-label> -->
+              <ion-datetime displayFormat="MMM/DD"  #birthDate [(ngModel)]="kb"    min="2019" max="2050"></ion-datetime>
+            </ion-item>
+
+
+
+
       
       </ion-list>
 

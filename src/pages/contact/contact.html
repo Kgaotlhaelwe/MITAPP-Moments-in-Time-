@@ -11,7 +11,9 @@
     </ion-toolbar>
   </ion-header>
 
- <ion-content  class="background" text-center>
+ <ion-content text-center class="background" >
+
+
 
 <!--   
   <ion-list class="listcrop">
@@ -34,7 +36,7 @@
     <ng-template #conempty>
 
 <!-- <h2 text-center style="    background-color: oldlace;">My Contacts</h2> -->
-      <ion-list>
+      <ion-list no-lines>
           <!-- <ion-item-divider style="background-color: oldlace;"> <b>My Contacts List</b> </ion-item-divider> -->
           <ion-item *ngFor="let details of contactListArray; let u = index"  (click)="itemSelected(details.name,details.email, details.date)"> 
             <ion-avatar item-start>
@@ -50,4 +52,5 @@
       <button ion-fab class="fabres" (click)="userDetails()"><ion-icon name="add"></ion-icon></button>
   
     </ion-fab> -->
+
  </ion-content>

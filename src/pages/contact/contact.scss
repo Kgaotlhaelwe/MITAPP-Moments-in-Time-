@@ -15,12 +15,12 @@ page-contact {
     h2{
         position: relative;
        
-        color: rgb(104, 104, 104)
+        color: rgb(255, 255, 255)
     }
     h3{
         position: relative;
        
-           color: rgb(141, 141, 141)
+           color: rgb(255, 255, 255)
        }
     .fabres{
         background: linear-gradient(170deg,  rgb(193, 252, 245) 10% , rgba(255, 182, 193, 0.432) 70% );
@@ -40,11 +40,12 @@ page-contact {
         font-weight: normal;
         text-transform: none;
         color: #000;
-        background-color: #fff;
+        background-color: rgba(0, 0, 0, 0.4);
         -webkit-box-shadow: none;
         box-shadow: none;
         -webkit-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
         transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
-        // background-color:transparent;
+        //  background-color:transparent;
+        box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2)
     }
 }

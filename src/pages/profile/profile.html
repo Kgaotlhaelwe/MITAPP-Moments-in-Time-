@@ -32,7 +32,7 @@
        <input type="file" class="filechoose"  (change)="upload($event)"/> -->
 
       <button class="add" ion-button icon-only clear large color="b" (click)="uploadImage()">
-        <ion-icon name="add-circle"></ion-icon>
+        <img style="width: 30px; height: 30px;" src="../../assets/icon/add mit.png" alt="" srcset="">
       </button>
     </ion-avatar>
   </div>
@@ -45,7 +45,7 @@
   <div id='nameinput' *ngIf="showinput">
     <ion-list style="display: flex" padding-left  padding-bottom>
       <ion-item >
-        <ion-input type="text" placeholder="Enter the name "  value="{{name}}" [(ngModel)]="updatename"></ion-input>
+        <ion-input type="text" placeholder="Enter the name "  value="{{name}}" [(ngModel)]="updatename" (ionChange)="tabcheck()"></ion-input>
       </ion-item>
       <button ion-button color="b" clear (click)="save()">save</button>
 

@@ -84,28 +84,31 @@ export class RegisterPage {
       loader.present();
 
       
+      setTimeout(()=>{
+        const alert = this.alertCtrl.create({
+          title: 'Registered Successfully',
+          subTitle: 'Please check your email to verify ',
+          buttons: [{
+            text: 'OK',
+            handler: data => {
+              const loader = this.loadingCtrl.create({
+                content: "Loading...",
+                cssClass: "loading-md .loading-wrapper ",
+                duration :3000
+              
+              });
+              loader.present();
+             
+                this.navCtrl.push(LoginPage)
+              
+            }
+          }]
+        });
+        alert.present();
+  
 
-     const alert = this.alertCtrl.create({
-        title: 'Added Successfully',
-        subTitle: 'Please check your to verify your name ',
-        buttons: [{
-          text: 'OK',
-          handler: data => {
-            const loader = this.loadingCtrl.create({
-              content: "Loading...",
-              cssClass: "loading-md .loading-wrapper ",
-              duration :3000
-            
-            });
-            loader.present();
-            setTimeout(() => {
-              this.navCtrl.push(LoginPage)
-            }, 3000);
-          }
-        }]
-      });
-      alert.present();
-
+      } , 3000)
+    
    
     name="" ;
     email="" ;

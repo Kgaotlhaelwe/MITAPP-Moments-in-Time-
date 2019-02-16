@@ -11,7 +11,7 @@ import { BehaviorSubject } from 'rxjs/Rx';
 import { Storage } from '@ionic/storage';
 import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 import { Events } from 'ionic-angular';
-import Swal from 'sweetalert2'
+
 import { AlertController } from 'ionic-angular';
 
 declare var firebase ;
@@ -1293,8 +1293,9 @@ scheduleEmailForFunction(occassion, date,emailto,message, namefrom, uniquedate){
 
  showAlert(title , message) {
   const alert = this.alertCtrl.create({
+    cssClass: "myAlert",
     title: title,
-    subTitle:message ,
+    subTitle:message,
     buttons: ['OK']
   });
   alert.present();

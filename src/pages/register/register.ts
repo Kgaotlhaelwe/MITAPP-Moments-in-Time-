@@ -63,7 +63,7 @@ export class RegisterPage {
     
   //   }
 
-  Register(name , email , pass){
+  Register(email , pass , name){
     
  console.log(name);
  console.log(email);
@@ -72,7 +72,7 @@ export class RegisterPage {
  
  
     if(email !=""  && pass  !=""  ){
-    this.db.register(email ,pass, name, ).then(()=>{
+    this.db.register(email ,pass, name ).then(()=>{
 
        
       const loader = this.loadingCtrl.create({
@@ -86,8 +86,8 @@ export class RegisterPage {
       
 
      const alert = this.alertCtrl.create({
-        title: 'Email Confirmation',
-        subTitle: '',
+        title: 'Added Successfully',
+        subTitle: 'Please check your to verify your name ',
         buttons: [{
           text: 'OK',
           handler: data => {
@@ -115,6 +115,7 @@ export class RegisterPage {
  
  
       const alert = this.alertCtrl.create({
+        cssClass: "myAlert",
         subTitle:error.message,
         buttons: ['OK']
       });
@@ -124,6 +125,7 @@ export class RegisterPage {
     })
   }else{
     const alert = this.alertCtrl.create({
+      cssClass: "myAlert",
       subTitle:  'Please enter email and password' ,
       buttons: ['OK']
     });

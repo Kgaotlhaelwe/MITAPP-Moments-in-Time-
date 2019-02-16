@@ -119,9 +119,45 @@
     // border-top-style: double;
 }
 
+.myAlert {
+  
+  color: rgb(255, 138, 245);
+  button {
+    color: rgb(207, 117, 174);
+    margin: 0 auto;
+    text-transform: uppercase;
+  }
+  .alert-message {
+    color: rgb(207, 117, 174); // text color for confirm alerts
+  }
+  .alert-wrapper {
+    background-color: #ffffff;
+    border-radius: 10px;
+    color: rgb(207, 117, 174);
+    animation: 0.7s bounceIn;
+  }
+  .alert-subTitle{
+    color: white;
+  }
 
+  
+}
+.alert-md .alert-input {
+      margin: 5px 0;
+      border-bottom: 1px solid #ffffff;
+      color: rgb(207, 117, 174) !important;
+  }
+.alert-md .alert-button .button-inner {
+
+      border-radius: 2px;
+      position: relative;
+      overflow: hidden;
+      font-weight: 500;
+      text-transform: uppercase;
+      color: rgb(207, 117, 174) !important;
+      background-color: transparent;
+  
+  }
   
 
 
-// .toast3{.toast-wrapper { text-align: center;  background: color($colors, toast3);}
-// };

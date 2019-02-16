@@ -5,17 +5,17 @@
 
 <ion-content class="background"  >
   <div class="topdiv" >
-  <div class="half"></div>
+  <div class="half" ></div>
 
-  <div class="center" [hidden]="keyboard.isOpen()">
+  <div class="center" >
     <div>
   <h1 text-center padding>Wish {{showName}} on their {{userCategory}} </h1>
 </div>
   <img class="img" src="../../assets/imgs/icons8_Wedding_Gift_96px.png" >
 
     <br>
-    <div class="flex"> 
-      <h1 text-center padding>  Get People & {{categoryChosen}} {{userCategory}} Worth Celebrating</h1> <br> <br> 
+    <div class="flex" [hidden]="keyboard.isOpen()"> 
+      <h1 text-center padding >  Get People & {{categoryChosen}} {{userCategory}} Worth Celebrating</h1> <br> <br> 
   </div>
   </div>
 </div>

@@ -241,6 +241,7 @@ export class ViewPage {
 
         showConfirm(message, name , key) {
           const confirm = this.alertCtrl.create({
+            cssClass: "myAlert",
             title: this.name,
             message: this.phoneNumber,
             buttons: [

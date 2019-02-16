@@ -86,6 +86,7 @@ export class RegisterPage {
       
 
      const alert = this.alertCtrl.create({
+      cssClass: "myAlert",
         title: 'Added Successfully',
         subTitle: 'Please check your to verify your name ',
         buttons: [{

@@ -146,13 +146,13 @@
 .alert-md .alert-input {
       margin: 5px 0;
       border-bottom: 1px solid #ffffff;
-      color: rgb(207, 117, 174) !important;
+      color: rgb(0, 0, 0) !important;
   }
 .alert-md .alert-button .button-inner {
 
       border-radius: 2px;
       position: relative;
-      overflow: hidden;
+      // overflow: hidden;
       font-weight: 500;
       text-transform: uppercase;
       color: rgb(207, 117, 174) !important;

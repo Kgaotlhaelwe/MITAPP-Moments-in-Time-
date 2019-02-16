@@ -325,7 +325,7 @@ export class MessagePage {
     if (this.date == undefined) {
 
       const alert = this.alertCtrl.create({
-
+        cssClass: "myAlert",
         subTitle: "Please enter all details",
         buttons: ['OK']
       });
@@ -335,7 +335,7 @@ export class MessagePage {
 
     else if (this.name == undefined) {
       const alert = this.alertCtrl.create({
-
+        cssClass: "myAlert",
         subTitle: "Please fill in the name",
         buttons: ['OK']
       });
@@ -344,7 +344,7 @@ export class MessagePage {
     }
     else if (this.date < today) {
       const alert = this.alertCtrl.create({
-
+        cssClass: "myAlert",
         subTitle: "You have selected the previous year, please select current year or greater.",
         buttons: ['OK']
       });
@@ -411,6 +411,7 @@ export class MessagePage {
     if (scheduledetail > currentday) {
       if (this.textboxmessage == undefined) {
         const alert = this.alertCtrl.create({
+          cssClass: "myAlert",
           subTitle: 'Please Enter a message before sending ',
           buttons: ['OK']
  

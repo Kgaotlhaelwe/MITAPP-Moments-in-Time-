@@ -36,6 +36,7 @@ var users= firebase.auth().currentUser;
      };
    } else{
      const alert = this.alertCtrl.create({
+      cssClass: "myAlert",
        title: 'Confirmation',
        subTitle: 'YOUR DONT HAVE FAVOURITE CURRENTLY',
        buttons: ['OK']

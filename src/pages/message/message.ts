@@ -208,15 +208,25 @@ export class MessagePage {
   }
   closeCallback() {
     // call what ever functionality you want on keyboard close
-    console.log('Closing time');
-
+    // console.log('Closing time');  document.getElementById('textfix').style.top="-3%";
+    //  document.getElementById('textfix').style.left="-1%";
+    //  document.getElementById('textfix').style.position = 'relative';
   }
-  keyboardCheck() {
-    console.log('The keyboard is open:', this.keyboard.isOpen());
-    document.getElementById('textfix').style.display = 'none'
-    console.log('asdf');
+  test(){
+  
+  }
+  // keyboardCheck() {
+  //   console.log('The keyboard is open:', this.keyboard.isOpen());
+  //   // document.getElementById('textfix').style.top="50%";
+  //   // document.getElementById('textfix').style.left="50%";
+  //   // document.getElementById('textfix').style.position = 'relative';
+  //   document.getElementById('textfix').style.display="flex";
+  //   document.getElementById('textfix').style.justifyContent="center";
+  //   document.getElementById('textfix').style.alignItems="center";
+  //   document.getElementById('textfix').style.marginTop="10%";
+  //   console.log('asdf');
     
-  }
+  // }
   ngAfterViewInit() {
     let tabs = document.querySelectorAll('.show-tabbar');
     if (tabs !== null) {

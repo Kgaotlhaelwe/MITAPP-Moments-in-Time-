@@ -88,7 +88,7 @@ Login(email , password){
    const loader = this.loadingCtrl.create({
     content: "Processing...",
     cssClass: "loading-md .loading-wrapper ",
-    duration :2000
+    duration :3000
   
   });
   loader.present();
@@ -100,13 +100,13 @@ Login(email , password){
     
       this.db.loginx(email , password).then((data)=>{
         if(data.user.emailVerified == true){
-          const loader = this.loadingCtrl.create({
-                    content: "Loggin...",
-                    cssClass: "loading-md .loading-wrapper ",
-                    duration :2000
+          // const loader = this.loadingCtrl.create({
+          //           content: "Loggin...",
+          //           cssClass: "loading-md .loading-wrapper ",
+          //           duration :2000
                   
-                  });
-                  loader.present();
+          //         });
+          //         loader.present();
                
                 
                 

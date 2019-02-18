@@ -116,9 +116,9 @@ export class AddContactsPage {
 
   async addDetails(a) {
 
-    console.log(this.kb);
+    console.log(a);
 
-  console.log(this.myDate)
+  //console.log(this.myDate)
 
 
      let  b  =    moment(this.kb).format('l');   

@@ -52,10 +52,13 @@ $colors: (
   toast1:rgba(111, 202, 120, 0.815) ,
   toast4:rgba(236, 187, 95, 0.815) ,
   toast2:rgba(185, 29, 29, 0.548),
-  toast3:white,
   b1:#9CDCFF,
   b2:#FBD17F,
   b3:rgb(25, 140, 160),
+  blight:(
+    base:#f4f4f4,
+    contrast: #F9B2B8,
+  )
 );
 
 

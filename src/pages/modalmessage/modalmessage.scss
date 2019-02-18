@@ -1,4 +1,10 @@
 page-modalmessage {
+    .background{
+        background-image:linear-gradient(rgba(189, 146, 146, 0.521),#f5c3c3),url('../../assets/9512d7cc3af9d3c25abee36754e5d01a.jpg');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
     ion-title{
         text-align: center;
     }
@@ -16,7 +22,8 @@ page-modalmessage {
         font-size: 100px
     }
     h2{
-        color: rgb(141, 141, 141);
+        color: rgb(255, 255, 255);
+        text-shadow: 1px 1px 1px black
     }
 
 }

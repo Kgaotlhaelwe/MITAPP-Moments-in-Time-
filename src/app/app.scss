@@ -213,3 +213,28 @@
 .loading-md .spinner-crescent circle {
   stroke: rgb(207, 117, 174) !important;
 }
+.picker-md .picker-button, .picker-md .picker-button.activated {
+  margin: 0;
+  height: 44px;
+  color: rgb(207, 117, 174) !important;
+  background: transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.picker-md .picker-opt {
+  margin: 0;
+  height: 4.3rem;
+  font-size: 22px;
+  line-height: 42px;
+  color: rgb(207, 117, 174) ;
+  background: transparent;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  pointer-events: auto;
+  padding: 0;
+}
+.picker-md .picker-prefix, .picker-md .picker-suffix, .picker-md .picker-opt.picker-opt-selected {
+  color: #fcbcbc;
+}

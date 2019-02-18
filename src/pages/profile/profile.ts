@@ -77,7 +77,12 @@ export class ProfilePage {
   }
 
   save(){
-
+    let tabs = document.querySelectorAll('.show-tabbar');
+    if (tabs !== null) {
+        Object.keys(tabs).map((key) => {
+            tabs[key].style.display = 'flex';
+        });
+      }
       
     var update ={
       name:this.updatename 
@@ -91,6 +96,9 @@ export class ProfilePage {
     });
 
 
+    
+
+
   }
 
 
@@ -99,6 +107,12 @@ export class ProfilePage {
     this.showinput =true ;
     document.getElementById("btnhide").style.display="none"
     document.getElementById("namehide").style.display="none"
+    let tabs = document.querySelectorAll('.show-tabbar');
+    if (tabs !== null) {
+        Object.keys(tabs).map((key) => {
+            tabs[key].style.display = 'none';
+        });
+    }
   }
   
 
@@ -323,7 +337,7 @@ presentPopover(myEvent) {
   });
  }
  tabcheck(){
-   console.log('dfgg');
+ 
    
  }
 }

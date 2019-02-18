@@ -90,12 +90,15 @@ export class AboutPage {
      
  
     })
+
  
  
     this.db.getScheduledFunctionEmails().then((data:any)=>{
       this.schedulefunction =data ;
  
     })
+
+
 
     console.log(this.date);
     console.log(this.chosenCategory);
@@ -139,6 +142,17 @@ export class AboutPage {
     })
 
   }
+
+  // ionViewWillLeave() {
+  // let tabs = document.querySelectorAll('.show-tabbar');
+  // if (tabs !== null) {
+  //     Object.keys(tabs).map((key) => {
+  //         tabs[key].style.display = 'flex';
+  //     });
+ 
+  // }
+  // }
+
   ionViewWillEnter() {
     console.log(this.icon);
     console.log(this.automessage);

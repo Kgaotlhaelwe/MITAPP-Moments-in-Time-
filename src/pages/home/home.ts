@@ -390,7 +390,8 @@ if (this.likedPic.length == 0){
     
       
       if (this.liked == this.images.length - 2) {
-        //this.noCards = 0
+        
+        document.getElementById("cards").style.display="none" ;
         this.hasMessages = "Oops! you ran out of cards " ;
         document.getElementById("hidebtnz").style.display="none" ;
     
@@ -413,7 +414,7 @@ if (this.likedPic.length == 0){
 
     if(this.liked == this.images.length-2){
    
-    this.hideimage = false
+      document.getElementById("cards").style.display="none"
       this.hasMessages = "Oops! you ran out of cards " ;
       document.getElementById("hidebtnz").style.display="none" ;
       

@@ -176,6 +176,26 @@ export class ContactPage {
   }
 
 
+
+  ngAfterViewInit() {
+    let tabs = document.querySelectorAll('.show-tabbar');
+    if (tabs !== null) {
+        Object.keys(tabs).map((key) => {
+            tabs[key].style.display = 'none';
+        });
+    }
+  }
+ 
+//   ionViewWillLeave() {
+//   let tabs = document.querySelectorAll('.show-tabbar');
+//   if (tabs !== null) {
+//       Object.keys(tabs).map((key) => {
+//           tabs[key].style.display = 'flex';
+//       });
+ 
+//   }
+//   }
+
 }
 
 

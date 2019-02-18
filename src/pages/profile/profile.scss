@@ -85,7 +85,8 @@ page-profile {
     }
     .segment{
       position: relative;
-      top: -12%;
+      top: -5%;
+      background-color: red;
     }
     .box{
       position: absolute;
@@ -201,6 +202,9 @@ ion-input{
 }
 #pen{
   font-size: 1.5em
+}
+.segments{
+ background-color: red;
 }
 
 

@@ -203,13 +203,20 @@ export class MessagePage {
 
 
     })
-
+    this.keyboard.onClose(this.closeCallback);
 
   }
+  closeCallback() {
+    // call what ever functionality you want on keyboard close
+    console.log('Closing time');
 
-
-  
-
+  }
+  keyboardCheck() {
+    console.log('The keyboard is open:', this.keyboard.isOpen());
+    document.getElementById('textfix').style.display = 'none'
+    console.log('asdf');
+    
+  }
   ngAfterViewInit() {
     let tabs = document.querySelectorAll('.show-tabbar');
     if (tabs !== null) {

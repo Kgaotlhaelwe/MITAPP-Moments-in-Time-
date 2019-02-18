@@ -349,14 +349,14 @@ export class AddContactsPage {
 
 
           let currentIndex = this.navCtrl.getActive().index;
-          this.navCtrl.push(MessagePage, { selectedDetails: obj }).then(() => {
+          // this.navCtrl.push(MessagePage, { selectedDetails: obj }).then(() => {
 
-            setTimeout(() => {
-              this.navCtrl.remove(currentIndex);
-            }, 1000);
+          //   setTimeout(() => {
+          //     this.navCtrl.remove(currentIndex);
+          //   }, 1000);
 
 
-          });
+          // });
 
 
 

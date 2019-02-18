@@ -136,7 +136,7 @@ Login(email , password){
 
   }
 
-  forgetPassword(){
+  forgetPassword() {
     const prompt = this.alertCtrl.create({
       cssClass: "myAlert",
       title: 'Forget Password',
@@ -155,47 +155,66 @@ Login(email , password){
           }
         },
         {
-          text: 'Reset',
+          text: 'Send',
           handler: data => {
+
             console.log('Saved clicked');
+            const loader = this.loadingCtrl.create({
+              content: "Please wait...",
+              duration: 2000
+            });
+            loader.present();
+            var em: string = data.name
+            console.log(em.indexOf(' '));
+            if (em.indexOf(' ') == -1) {
+              this.db.forgetPassword(data.name).then(() => {
 
-            
-           ;
-            this.db.forgetPassword(data.name).then(()=>{
-              
-             
+                const alert2 = this.alertCtrl.create({
+                  cssClass: "myAlert",
+                  subTitle: "We have sent you email to recover password, Please check your Email",
+                  buttons: ['OK']
+                });
+                alert2.present();
+              }).catch((error) => {
+                //alert(error.message)
 
-              const loader = this.loadingCtrl.create({
-                content: "Please wait, still processing",
-                cssClass: "loading-md .loading-wrapper ",
-                duration :2000
-              
-              });
-              loader.present()
-
-              setTimeout(()=>{
-               
-
-                this.db.showAlert("Registered Successfully" ,"We have sent you email to recover password, Please check your Email") ;
-
-              } , 3000)
-
-           
- 
- 
- 
-            }).catch((error)=>{
-              
-            this.db.errorAlert(error.message)
+                const alert = this.alertCtrl.create({
+                  cssClass: "myAlert",
+                  subTitle: error.message,
+                  buttons: ['OK']
+                });
+                alert.present();
 
 
-            })
+              })
+            } else {
+              var emailLength = em.length
+              console.log(emailLength);
+              var constructedEmail = em.substring(0, emailLength - 1)
+              console.log(em.substring(0, emailLength - 1));
+              this.db.forgetPassword(constructedEmail).then(() => {
+
+                const alert = this.alertCtrl.create({
+                  cssClass: "myAlert",
+                  subTitle: "We have sent you email to recover password, Please check your Email",
+                  buttons: ['OK']
+                });
+                alert.present();
+              })
+            }
+
+
           }
         }
       ]
     });
     prompt.present();
   }
+
+
+
+
+
   message=function(){
     this.navCtrl.push(MessagePage)
     

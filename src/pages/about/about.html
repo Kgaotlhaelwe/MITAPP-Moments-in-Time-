@@ -23,8 +23,8 @@
 
 
     <ion-list class="mylist" *ngFor="let v of sentMessages; let u = index" >
-        <ion-item-sliding>
-          <ion-item >
+        <ion-item-sliding (click)="readMore(v.message , v.emailto)">
+          <ion-item  >
             <ion-avatar item-start  >
               <img src="{{v.image}}">
             </ion-avatar>

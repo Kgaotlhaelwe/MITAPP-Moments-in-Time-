@@ -7,11 +7,11 @@
 <ion-header>
 
   <ion-toolbar color="b" >
-      <ion-buttons end>
+      <!-- <ion-buttons end>
           <button ion-button icon-only (click)="sendVia(msg,name , key) ">
             <ion-icon ios="ios-share" md="md-share"></ion-icon>
           </button> 
-        </ion-buttons>
+        </ion-buttons> -->
     <ion-title>{{name}}</ion-title>
   </ion-toolbar>
 
@@ -19,6 +19,8 @@
 
 
 <ion-content padding class="background" >
+
+  
   <!-- <div id="body" >
     <ion-list>
       <ion-item  >
@@ -37,17 +39,11 @@
     </ion-list>
 
   </div> -->
+  <div class="message" >
+    <p>{{msg}}</p>
 
-  
-  <ion-item left no-padding >
+  </div>
 
-    <ion-textarea text-wrap  class="textarea"  value ="{{msg}}"  [(ngModel)]="msg"  (input)="reviewChange()" ></ion-textarea>
-  </ion-item>
-  <br>
-  <br>
-  <ion-buttons><button color="b" id="hidebtn" block full ion-button (click)="update()" >
- Save</button>
-</ion-buttons>
 
 
  

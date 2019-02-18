@@ -469,13 +469,12 @@ export class AboutPage {
     modal.present();
   }
 
-  readMore(msg, name, image, id) {
+  readMore(msg, name) {
 
     let obj = {
       message: msg,
-      name: name,
-      image: image,
-      id: id
+      name:name
+     
 
     }
     this.navCtrl.push(ViewPage, { message: obj })

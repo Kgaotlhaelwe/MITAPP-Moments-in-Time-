@@ -26,13 +26,13 @@ ion-footer{
 }
 .textboxmove{
     position: relative;
-    top: 35%;
-    left: 49%;
-    transform: translate( -50%,-50% );
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto
+    top: -10%;
+    left: -1%;
+    // transform: translate( -50%,-50% );
+    // display: flex;
+    // justify-content: flex-start;
+    // align-items: flex-start;
+    // margin: 0 auto
  }
 textarea{
     height: 20vh;

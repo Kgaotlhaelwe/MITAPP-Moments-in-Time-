@@ -1244,7 +1244,11 @@ scheduleEmailForFunction(occassion, date,emailto,message, namefrom, uniquedate){
  getFavourite(){
   return new Promise((resolve, reject)=>{
 
-    firebase.database().ref("likedPictures/").on('value', (data: any) => {
+    var user = firebase.auth().currentUser ;
+    var uid = user.uid ;
+
+
+    firebase.database().ref("likedPictures/"+uid).on('value', (data: any) => {
  
       var contactList = data.val();
        console.log(data.val());

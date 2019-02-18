@@ -25,7 +25,11 @@
 <!-- <div class="user_img" [style.background-image]="imzx.asBg" > -->
  
 <!-- <img src="{{slidingImage}} "> -->
-<img src="{{imzx}}" (load)="onImageLoad($event)" >
+<div *ngIf="hideimage">
+    <img src="{{imzx}}" (load)="onImageLoad($event)"  >
+
+</div>
+
 
 <!-- </div> -->
     </sc-card>

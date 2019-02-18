@@ -270,7 +270,7 @@ this.db.getCustomisedCard().then((data:any)=>{
 
 this.db.getFavouriteImages().then((data:any)=>{
   console.log(data);
-  this.favouriteArray = [] ;
+ // this.favouriteArray = [] ;
   this.favouriteArray=data
 })
 

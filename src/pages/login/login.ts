@@ -85,10 +85,18 @@ export class LoginPage {
 Login(email , password){
    var bt =  <HTMLInputElement>document.getElementById('btSubmit');
 
+   const loader = this.loadingCtrl.create({
+    content: "Processing...",
+    cssClass: "loading-md .loading-wrapper ",
+    duration :2000
+  
+  });
+  loader.present();
+
     if(email != '' && password != ''){
     
     
-
+      
     
       this.db.loginx(email , password).then((data)=>{
         if(data.user.emailVerified == true){
@@ -164,44 +172,58 @@ Login(email , password){
               duration: 2000
             });
             loader.present();
-            var em: string = data.name
-            console.log(em.indexOf(' '));
-            if (em.indexOf(' ') == -1) {
-              this.db.forgetPassword(data.name).then(() => {
 
-                const alert2 = this.alertCtrl.create({
-                  cssClass: "myAlert",
-                  subTitle: "We have sent you email to recover password, Please check your Email",
-                  buttons: ['OK']
-                });
-                alert2.present();
-              }).catch((error) => {
-                //alert(error.message)
+            console.log(data.name);
 
-                const alert = this.alertCtrl.create({
-                  cssClass: "myAlert",
-                  subTitle: error.message,
-                  buttons: ['OK']
-                });
-                alert.present();
+            if(data.name != ''){
+              console.log("in");
+              
 
+              var em: string = data.name
+              console.log(em.indexOf(' '));
+              if (em.indexOf(' ') == -1) {
+                this.db.forgetPassword(data.name).then(() => {
+  
+                  const alert2 = this.alertCtrl.create({
+                    cssClass: "myAlert",
+                    subTitle: "We have sent you email to recover password, Please check your Email",
+                    buttons: ['OK']
+                  });
+                  alert2.present();
+                }).catch((error) => {
+                  //alert(error.message)
+  
+                  const alert = this.alertCtrl.create({
+                    cssClass: "myAlert",
+                    subTitle: error.message,
+                    buttons: ['OK']
+                  });
+                  alert.present();
+  
+  
+                })
+              } else {
+                var emailLength = em.length
+                console.log(emailLength);
+                var constructedEmail = em.substring(0, emailLength - 1)
+                console.log(em.substring(0, emailLength - 1));
+                this.db.forgetPassword(constructedEmail).then(() => {
+  
+                  const alert = this.alertCtrl.create({
+                    cssClass: "myAlert",
+                    subTitle: "We have sent you email to recover password, Please check your Email",
+                    buttons: ['OK']
+                  });
+                  alert.present();
+                })
+              }
 
-              })
-            } else {
-              var emailLength = em.length
-              console.log(emailLength);
-              var constructedEmail = em.substring(0, emailLength - 1)
-              console.log(em.substring(0, emailLength - 1));
-              this.db.forgetPassword(constructedEmail).then(() => {
-
-                const alert = this.alertCtrl.create({
-                  cssClass: "myAlert",
-                  subTitle: "We have sent you email to recover password, Please check your Email",
-                  buttons: ['OK']
-                });
-                alert.present();
-              })
+            }else {
+              this.db.showAlert(" " ,"Please enter your email")
+              
             }
+            
+        
 
 
           }

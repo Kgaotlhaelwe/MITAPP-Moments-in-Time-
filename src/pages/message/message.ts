@@ -197,6 +197,9 @@ export class MessagePage {
       console.log(profile);
       this.userName = profile.name
 
+      console.log(this.userName);
+      
+
 
 
     })
@@ -204,6 +207,8 @@ export class MessagePage {
 
   }
 
+
+  
 
   ngAfterViewInit() {
     let tabs = document.querySelectorAll('.show-tabbar');
@@ -214,7 +219,7 @@ export class MessagePage {
     }
   }
  
-  // ionViewWillLeave() {
+   ionViewWillLeave() {
   // let tabs = document.querySelectorAll('.show-tabbar');
   // if (tabs !== null) {
   //     Object.keys(tabs).map((key) => {
@@ -232,9 +237,45 @@ export class MessagePage {
   //     duration:3000 ,
   //   }).present()
 
-  //  }
+
+
+  
+  var users = firebase.auth().currentUser;
+  firebase.database().ref("user/" + users.uid).on('value', (data: any) => {
+    var profile = data.val();
+
+    console.log(profile);
+    this.userName = profile.name
+
+    console.log(this.userName);
+    
+
+
+
+  })
+
+   }
 
   ionViewDidEnter() {
+
+
+    
+    var users = firebase.auth().currentUser;
+    firebase.database().ref("user/" + users.uid).on('value', (data: any) => {
+      var profile = data.val();
+
+      console.log(profile);
+      this.userName = profile.name
+
+      console.log(this.userName);
+      
+
+
+
+    })
+
+
+
     this.userCategory = this.selectedDetails.categoryChosen;
     // this.network.onConnect().subscribe(data=>{
     //   console.log(data)
@@ -445,6 +486,19 @@ export class MessagePage {
  
       else {
         //scheduleEmails
+        console.log(this.selectedDetails.categoryChosen);
+        console.log(this.selectedDetails.date);
+        console.log(this.selectedDetails.email);
+        console.log(this.textboxmessage);
+        console.log(this.userName);
+        console.log(uniquedate);
+        console.log(this.image);
+        
+        
+        
+        
+        // this.db.scheduleEmails("Birthday", "2019-02-2019" , "Kgaotlhaelwe@gmail.com'" , "gdggdgdggd" , " 0" , "  0" , "bbbbbbb")
+        
         this.db.scheduleEmails(this.selectedDetails.categoryChosen,this.selectedDetails.date, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate,this.image).then(()=>{
           this.db.scheduleEmailForFunction(this.selectedDetails.categoryChosen, this.selectedDetails.date, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate)
         });

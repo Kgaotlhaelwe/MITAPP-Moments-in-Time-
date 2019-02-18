@@ -396,7 +396,7 @@ export class AddContactsPage {
     
 
    
-
+    
 
  
  
@@ -410,7 +410,17 @@ export class AddContactsPage {
 
 
 
-
+  ngAfterViewInit() {
+    let tabs = document.querySelectorAll('.show-tabbar');
+    if (tabs !== null) {
+        Object.keys(tabs).map((key) => {
+            tabs[key].style.display = 'none';
+        });
+    }
+  }
+ 
+  
+  
 
 
 

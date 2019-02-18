@@ -29,6 +29,16 @@ export class ModalmessagePage {
     console.log('ionViewDidLoad ModalmessagePage' + 
     this.navCtrl.length());
   }
+
+  ionViewWillLeave() {
+  let tabs = document.querySelectorAll('.show-tabbar');
+  if (tabs !== null) {
+      Object.keys(tabs).map((key) => {
+          tabs[key].style.display = 'flex';
+      });
+ 
+  }
+  }
   poptoevent(){
  
 

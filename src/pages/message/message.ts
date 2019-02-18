@@ -205,6 +205,25 @@ export class MessagePage {
   }
 
 
+  ngAfterViewInit() {
+    let tabs = document.querySelectorAll('.show-tabbar');
+    if (tabs !== null) {
+        Object.keys(tabs).map((key) => {
+            tabs[key].style.display = 'none';
+        });
+    }
+  }
+ 
+  // ionViewWillLeave() {
+  // let tabs = document.querySelectorAll('.show-tabbar');
+  // if (tabs !== null) {
+  //     Object.keys(tabs).map((key) => {
+  //         tabs[key].style.display = 'flex';
+  //     });
+ 
+  // }
+  // }
+
 
   // displayNetworkUpdate(connectionState:string){
   //   let networkType =this.network.type
@@ -473,6 +492,9 @@ export class MessagePage {
     console.log('in');
     document.getElementById('textfix').style.zIndex="10000000000000"
   }
+
+
+  
 }
 
 

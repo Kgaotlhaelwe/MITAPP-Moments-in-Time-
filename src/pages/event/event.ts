@@ -103,7 +103,9 @@ export class EventPage {
 
 
     graduation(a) {
-      this.navCtrl.push(ContactPage, { categoryChosen: a });
+      this.navCtrl.push(ContactPage, { categoryChosen: a }).then(()=>{
+        
+      });
       // let currentIndex = this.navCtrl.getActive().index;
       // this.navCtrl.push(ContactPage, { categoryChosen: a }).then(() => {
       //   this.navCtrl.remove(currentIndex);

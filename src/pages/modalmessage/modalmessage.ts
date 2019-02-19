@@ -51,12 +51,7 @@ document.getElementById("hidebtn").style.display="none"
 
 
 viewScheduled(){
-  //this.navCtrl.setRoot(AboutPage, {tabs:"4"}) ;
-
-  let currentIndex = this.navCtrl.getActive().index;
-        this.navCtrl.push(AboutPage).then(() => {
-          this.navCtrl.remove(currentIndex);
-        });
+  this.navCtrl.push(AboutPage, {tabs:"4"}) ;
 
 }
 

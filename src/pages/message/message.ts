@@ -186,7 +186,7 @@ export class MessagePage {
 
     console.log(this.selectedDetails);
 
-    this.showName = this.selectedDetails.name
+   
 
     console.log(this.selectedDetails);
 
@@ -265,17 +265,23 @@ export class MessagePage {
       this.userName = profile.name
 
       console.log(this.userName);
-      
 
+      if(this.selectedDetails.categoryChosen == undefined){
+        this.userCategory="Happy Special Day" ;
+
+      }
+      
+      this.userCategory = this.selectedDetails.categoryChosen;
+      this.showName = this.selectedDetails.name ;
 
 
     })
 
-    
 
 
 
-    this.userCategory = this.selectedDetails.categoryChosen;
+
+  
     // this.network.onConnect().subscribe(data=>{
     //   console.log(data)
     //   this.displayNetworkUpdate('Connected')
@@ -356,6 +362,8 @@ export class MessagePage {
     else if ("General" == this.selectedDetails.categoryChosen) {
       this.image = "../../assets/icon/icons8_People_100px.png";
       console.log(this.image);
+
+    }else {
 
     }
 
@@ -444,6 +452,9 @@ export class MessagePage {
     } else if ("Anniversary" == this.selectedDetails.categoryChosen) {
       this.navCtrl.push(AutomatePage, { autoMsgArray: this.AnniversaryMessage })
 
+    } else {
+
+      this.navCtrl.push(AutomatePage, { autoMsgArray: this.generalMesage }) ;
     }
 
   }
@@ -453,6 +464,15 @@ export class MessagePage {
     var users = firebase.auth().currentUser;
     var userName;
     console.log(this.image);
+
+    if(this.selectedDetails.categoryChosen ==undefined){
+      this.selectedDetails.categoryChosen ="Birthay"  ;
+      this.image = "../../assets/icon/icons8_People_100px.png";
+
+      console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
+      
+
+    }
     
  
     let today = new Date()

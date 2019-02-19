@@ -55,6 +55,13 @@ export class AddContactsPage {
     })
 
     console.log(this.categoryChosen);
+
+    if(this.categoryChosen == undefined){
+      this.tempCategory="General" ;
+      console.log("general");
+      
+
+    }
     
 
     this.tempCategory = this.categoryChosen;

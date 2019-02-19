@@ -5,8 +5,8 @@
 
 <ion-content class="background"  >
 
-  <div class="topdiv" >
-    <div class="fix"></div>
+  <div class="topdiv"  >
+     
   <div class="half" ></div>
   <br>
   <br>
@@ -14,7 +14,7 @@
     <div>
   <h1 text-center padding>Wish {{showName}} on their {{userCategory}} </h1>
 </div>
-  <img class="img"  src="../../assets/imgs/icons8_Wedding_Gift_96px.png" >
+  <img class="img"  [hidden]="keyboard.isOpen()" src="../../assets/imgs/icons8_Wedding_Gift_96px.png" >
 
     <br>
     <div class="flex" > 
@@ -24,15 +24,9 @@
 </div>
 
 
-<!-- <div class="bottomdiv" > -->
-
-
- 
-
-<!-- </div> -->
 </ion-content>
 <ion-footer  >
- <ion-item  class="textboxmove" no-lines>
+ <ion-item   no-lines>
     <ion-textarea no-lines class="textbox" placeholder="Enter a description"  [(ngModel)]="textboxmessage" value="{{textboxmessage}}" ></ion-textarea>
   </ion-item>
   <br>

@@ -51,17 +51,19 @@ document.getElementById("hidebtn").style.display="none"
 
 
 viewScheduled(){
+  this.navCtrl.parent.select(3);
   //this.navCtrl.setRoot(AboutPage, {tabs:"4"}) ;
 
-  let currentIndex = this.navCtrl.getActive().index;
-        this.navCtrl.push(AboutPage).then(() => {
-          this.navCtrl.remove(currentIndex);
-        });
+  // let currentIndex = this.navCtrl.getActive().index;
+  //       this.navCtrl.push(AboutPage).then(() => {
+  //         this.navCtrl.remove(currentIndex);
+  //       });
 
 }
 
 CreateScheduled(){
-  this.navCtrl.push(EventPage) ;
+  // this.navCtrl.push(EventPage) ;
+  this.navCtrl.parent.select(1);
 }
 
 

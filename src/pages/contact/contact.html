@@ -39,9 +39,9 @@
       <ion-list no-lines>
           <!-- <ion-item-divider style="background-color: oldlace;"> <b>My Contacts List</b> </ion-item-divider> -->
           <ion-item *ngFor="let details of contactListArray; let u = index"  (click)="itemSelected(details.name,details.email, details.date)"> 
-            <ion-avatar item-start>
+            <!-- <ion-avatar item-start>
               <img src="../../assets/icon/download.png">
-            </ion-avatar>
+            </ion-avatar> -->
             <h2><b> {{details.name}}</b></h2>
             <h3>{{details.email }}</h3>
            

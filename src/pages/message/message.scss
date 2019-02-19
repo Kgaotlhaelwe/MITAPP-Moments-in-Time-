@@ -26,7 +26,7 @@ ion-footer{
 }
 .textboxmove{
     position: relative;
-    top: -3%;
+    
     left: -1%;
 
     // transform: translate( -50%,-50% );
@@ -53,7 +53,7 @@ h1{
 }
 .half{
     position: absolute;
-    height: 94%;
+    height: 100%;
     width: 100%;
     background-color: lightpink;
     z-index: -1;
@@ -114,7 +114,7 @@ h1{
 //     width: 100%;
 // }
 .topdiv{
-    height: 80%;
+    height: 100%;
     width: 100%;
 }
 

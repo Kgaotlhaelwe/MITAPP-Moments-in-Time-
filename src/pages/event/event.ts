@@ -91,105 +91,113 @@ export class EventPage {
   ionViewDidLoad() {
 
     console.log('ionViewDidLoad EventPage');
-  }
 
-
-
-
-  graduation(a) {
-    this.navCtrl.push(ContactPage,{categoryChosen:a});
-    // let currentIndex = this.navCtrl.getActive().index;
-    // this.navCtrl.push(ContactPage, { categoryChosen: a }).then(() => {
-    //   this.navCtrl.remove(currentIndex);
-    // });
+    let tabs = document.querySelectorAll('.show-tabbar');
+    if (tabs !== null) {
+      Object.keys(tabs).map((key) => {
+        tabs[key].style.display = 'flex';
+      });
+    }
 
   }
 
 
-  wedding(a) {
+    graduation(a) {
+      this.navCtrl.push(ContactPage, { categoryChosen: a });
+      // let currentIndex = this.navCtrl.getActive().index;
+      // this.navCtrl.push(ContactPage, { categoryChosen: a }).then(() => {
+      //   this.navCtrl.remove(currentIndex);
+      // });
+
+    }
 
 
-    this.navCtrl.push(ContactPage , {categoryChosen:a})
-    // let currentIndex = this.navCtrl.getActive().index;
-    // this.navCtrl.push(ContactPage, { categoryChosen: a }).then(() => {
-    //   this.navCtrl.remove(currentIndex);
-    // });
+    wedding(a) {
+
+
+      this.navCtrl.push(ContactPage, { categoryChosen: a })
+      // let currentIndex = this.navCtrl.getActive().index;
+      // this.navCtrl.push(ContactPage, { categoryChosen: a }).then(() => {
+      //   this.navCtrl.remove(currentIndex);
+      // });
+
+
+    }
+    anniversary(a) {
+
+
+      this.navCtrl.push(ContactPage, { categoryChosen: a });
+      // let currentIndex = this.navCtrl.getActive().index;
+      // this.navCtrl.push(ContactPage, { categoryChosen: a }).then(() => {
+      //   this.navCtrl.remove(currentIndex);
+      // });
+
+    }
+    newJob(a) {
+
+      this.navCtrl.push(ContactPage, { categoryChosen: a });
+      // let currentIndex = this.navCtrl.getActive().index;
+      // this.navCtrl.push(ContactPage, { categoryChosen: a }).then(() => {
+      //   this.navCtrl.remove(currentIndex);
+      // });
+
+    }
+    babyShower(a) {
+
+
+      this.navCtrl.push(ContactPage, { categoryChosen: a });
+      // let currentIndex = this.navCtrl.getActive().index;
+      // this.navCtrl.push(ContactPage, { categoryChosen: a }).then(() => {
+      //   this.navCtrl.remove(currentIndex);
+      // });
+
+    }
+    birthday(a) {
+
+
+
+
+      this.navCtrl.push(ContactPage, { categoryChosen: a });
+      // let currentIndex = this.navCtrl.getActive().index;
+      // this.navCtrl.push(ContactPage, { categoryChosen: a }).then(() => {
+      //   this.navCtrl.remove(currentIndex);
+      // });
+
+    }
+    thinkingofyou(a) {
+
+
+      this.navCtrl.push(ContactPage, { categoryChosen: a });
+      // let currentIndex = this.navCtrl.getActive().index;
+      // this.navCtrl.push(ContactPage, { categoryChosen: a }).then(() => {
+      //   this.navCtrl.remove(currentIndex);
+      // });
+
+
+    }
+
+    other(a) {
+
+
+
+      this.navCtrl.push(ContactPage, { categoryChosen: a });
+      // let currentIndex = this.navCtrl.getActive().index;
+      // this.navCtrl.push(ContactPage, { categoryChosen: a }).then(() => {
+      //   this.navCtrl.remove(currentIndex);
+      // });
+
+
+    }
+
+    presentPopover(myEvent) {
+      let popover = this.popoverCtrl.create(PopoverPage);
+      popover.present({
+        ev: myEvent
+      });
+    }
+
+
+
 
 
   }
-  anniversary(a) {
-
-
-    this.navCtrl.push(ContactPage, {categoryChosen:a});
-    // let currentIndex = this.navCtrl.getActive().index;
-    // this.navCtrl.push(ContactPage, { categoryChosen: a }).then(() => {
-    //   this.navCtrl.remove(currentIndex);
-    // });
-
-  }
-  newJob(a) {
-
-    this.navCtrl.push(ContactPage , { categoryChosen:a} );
-    // let currentIndex = this.navCtrl.getActive().index;
-    // this.navCtrl.push(ContactPage, { categoryChosen: a }).then(() => {
-    //   this.navCtrl.remove(currentIndex);
-    // });
-
-  }
-  babyShower(a) {
-
-
-    this.navCtrl.push(ContactPage , { categoryChosen:a});
-    // let currentIndex = this.navCtrl.getActive().index;
-    // this.navCtrl.push(ContactPage, { categoryChosen: a }).then(() => {
-    //   this.navCtrl.remove(currentIndex);
-    // });
-
-  }
-  birthday(a) {
-
-
-
-
-    this.navCtrl.push(ContactPage , {categoryChosen:a} );
-    // let currentIndex = this.navCtrl.getActive().index;
-    // this.navCtrl.push(ContactPage, { categoryChosen: a }).then(() => {
-    //   this.navCtrl.remove(currentIndex);
-    // });
-
-  }
-  thinkingofyou(a) {
-
-
-    this.navCtrl.push(ContactPage , {categoryChosen:a} );
-    // let currentIndex = this.navCtrl.getActive().index;
-    // this.navCtrl.push(ContactPage, { categoryChosen: a }).then(() => {
-    //   this.navCtrl.remove(currentIndex);
-    // });
-
-
-  }
-
-  other(a) {
-
-
-
-    this.navCtrl.push(ContactPage  , {categoryChosen:a});
-    // let currentIndex = this.navCtrl.getActive().index;
-    // this.navCtrl.push(ContactPage, { categoryChosen: a }).then(() => {
-    //   this.navCtrl.remove(currentIndex);
-    // });
-
-
-  }
-
-  presentPopover(myEvent) {
-    let popover = this.popoverCtrl.create(PopoverPage);
-    popover.present({
-      ev: myEvent
-    });
-  }
-
-
-
-}

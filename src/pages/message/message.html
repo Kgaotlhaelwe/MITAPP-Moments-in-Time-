@@ -5,7 +5,7 @@
 
 <ion-content class="background"  >
 
-  <div class="topdiv"  >
+  <div class="topdiv" [hidden]="keyboard.isOpen()" >
      
   <div class="half" ></div>
   
@@ -31,7 +31,7 @@
     <ion-textarea no-lines class="textbox" placeholder="Enter a description"  [(ngModel)]="textboxmessage" value="{{textboxmessage}}" ></ion-textarea>
   </ion-item>
   <br>
-      <div class="buttons" [hidden]="keyboard.isOpen()">
+      <div class="buttons" >
           <button color="b3" ion-button id="button2" (click)="autoMsg()">Predef msgs</button>
         <button color="dust" ion-button id="button1" (click)="send()">SEND</button>
       </div>

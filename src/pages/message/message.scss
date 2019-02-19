@@ -1,21 +1,18 @@
 page-message {
   
-.foot1{
+// .foot1{
     //background: linear-gradient(170deg,  lightpink 10% , rgb(255, 204, 204) 70%  );
-    padding: 1%;
-    text-align: center;
-    background-color: #FFBF95
-}
-.foot2{
+//     padding: 1%;
+//     text-align: center;
+//     background-color: #FFBF95
+// }
+// .foot2{
     //background: linear-gradient(  lightpink  , rgb(255, 204, 204)  );
-    padding: 1%;
-    text-align: center;
-    background-color: rgb(211, 115, 5)
-}
-ion-footer{
-    //background: rgb(161, 161, 161);
-    
-}
+//     padding: 1%;
+//     text-align: center;
+//     background-color: rgb(211, 115, 5)
+// }
+
 
 .textbox{
     background-color: rgb(231, 231, 231);
@@ -33,7 +30,7 @@ ion-footer{
     // display: flex;
     // justify-content: flex-start;
     // align-items: flex-start;
-     margin: 0 auto
+    
  }
 textarea{
     height: 20vh;
@@ -97,7 +94,7 @@ h1{
     padding: 0px;
 }
 .footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before {
-    top: -2px;
+    // top: -2px;
     bottom: auto;
     background-position: left 0 top 0;
     height: 0px;
@@ -114,6 +111,7 @@ h1{
 //     width: 100%;
 // }
 .topdiv{
+    position: relative;
     height: 100%;
     width: 100%;
 }

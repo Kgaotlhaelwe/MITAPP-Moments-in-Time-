@@ -271,6 +271,8 @@ export class MessagePage {
 
     })
 
+    
+
 
 
     this.userCategory = this.selectedDetails.categoryChosen;
@@ -466,7 +468,7 @@ export class MessagePage {
  
     console.log(this.textboxmessage)
  
-    if (scheduledetail > currentday) {
+    
       if (this.textboxmessage == undefined) {
         const alert = this.alertCtrl.create({
           cssClass: "myAlert",
@@ -536,7 +538,7 @@ export class MessagePage {
  
  
  
-    }
+    
 
   }
   textaera(){

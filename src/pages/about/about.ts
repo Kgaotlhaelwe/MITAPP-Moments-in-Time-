@@ -57,6 +57,13 @@ export class AboutPage {
     //   }
     // })
 
+    let tabs = document.querySelectorAll('.show-tabbar');
+    if (tabs !== null) {
+      Object.keys(tabs).map((key) => {
+        tabs[key].style.display = 'flex';
+      });
+    }
+
     this.tabs = this.navParams.get('tabs');
 
    this.db.getScheduledEmails().then((data:any)=>{
@@ -140,6 +147,13 @@ export class AboutPage {
         this.hasMessages = true;
       }
     })
+
+    let tabs = document.querySelectorAll('.show-tabbar');
+    if (tabs !== null) {
+      Object.keys(tabs).map((key) => {
+        tabs[key].style.display = 'flex';
+      });
+    }
 
   }
 

@@ -11,7 +11,7 @@
     </ion-toolbar>
   </ion-header>
 
- <ion-content text-center class="background" >
+ <ion-content  text-center class="background" >
 
 
 
@@ -35,18 +35,20 @@
 
     <ng-template #conempty>
 
-<!-- <h2 text-center style="    background-color: oldlace;">My Contacts</h2> -->
-      <ion-list no-lines>
+<div class="list" >
+      <ion-list  >
           <!-- <ion-item-divider style="background-color: oldlace;"> <b>My Contacts List</b> </ion-item-divider> -->
-          <ion-item *ngFor="let details of contactListArray; let u = index"  (click)="itemSelected(details.name,details.email, details.date)"> 
-            <!-- <ion-avatar item-start>
-              <img src="../../assets/icon/download.png">
-            </ion-avatar> -->
+          <ion-item  *ngFor="let details of contactListArray; let u = index"  (click)="itemSelected(details.name,details.email, details.date)"> 
+            <ion-avatar style="background-color: palevioletred; border-radius: 100px" item-start>
+             <h2 text-center style="font-size: 30px; margin: 0 auto; color: white"><b>A</b></h2>
+              <!-- <img src="../../assets/icon/download.png" alt="" srcset=""> -->
+            </ion-avatar>
             <h2><b> {{details.name}}</b></h2>
             <h3>{{details.email }}</h3>
-           
+            <!-- <button item-end ion-button  clear  icon-only><ion-icon color="b" name="create"></ion-icon></button> -->
           </ion-item>
         </ion-list>
+      </div>
     </ng-template>
   <!-- <ion-fab top right >
       <button ion-fab class="fabres" (click)="userDetails()"><ion-icon name="add"></ion-icon></button>

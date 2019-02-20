@@ -25,6 +25,13 @@ import { AboutPage } from '../about/about';
 })
 export class ViewPage {
   dummyText: string = "type text";
+  random= Math.floor(Math.random() * 6) + 0;
+ bigSize = ["url",
+                         "url('../../assets/ringbackground.jpg')",
+                         "url('../../assets/flowerbackground.jpg')",
+                         "url('../../assets/ballonbackground.jpg')",
+                         "url('../../assets/backgroun11.jpg')",
+                         "url('../../assets/background12.jpg')"];
 
   message =this.navParams.get("message");
   key ;
@@ -55,6 +62,7 @@ export class ViewPage {
     ionViewDidLoad() {
       console.log('ionViewDidLoad ViewPage');
       console.log(this.message);
+      this.randombg()
      
     }
 
@@ -319,6 +327,34 @@ console.log(this.msg);
     });
 
 
-        }     
+        }  
+        // randomBackground(){
+        //   var random= Math.floor(Math.random() * 6) + 0;
+        //   var bigSize = ["url",
+        //                  "url('../../assets/2c98d6483f21fc6882ef3b2bac11b522.jpg')",
+        //                  "url('../../assets/9ea74a0cd9946a282100bbbeae94d6be.jpg')",
+        //                  "url('../../assets/nicepics/Heart Candles Husband Birthday Card.jpg')",
+        //                  "url('../../assets/nicepics/Pink and Blue Baby Shower Card.png')",
+        //                  "url('../../assets/nicepics/Pink Balloons Illustration Wedding Announcement.png')"];
+        //   document.getElementById("random").style.backgroundImage=bigSize[random];
+
+
+        //   // var imgCount = 3;
+        //   // var dir = '../../assets/';
+        //   // var randomCount = (Math.floor(Math.random() * imgCount));
+        //   // var images = ['2c98d6483f21fc6882ef3b2bac11b522.jpg',
+        //   // '2c98d6483f21fc6882ef3b2bac11b522.jpg', 
+        //   // '2c98d6483f21fc6882ef3b2bac11b522.jpg'];
+        //   // document.getElementById('random').setAttribute('style', "background-image: url(" + dir + images[randomCount] + ");background-repeat: no-repeat;background-size: 388px 388px")
+
+        // }   
+
+        randombg(){
+         
+          document.getElementById("random").style.backgroundImage=this.bigSize[this.random];
+          // document.getElementById("random").style.backgroundColor="red";
+          // document.getElementById("random").style.backgroundImage="block" 
+       
+        }
 
       }

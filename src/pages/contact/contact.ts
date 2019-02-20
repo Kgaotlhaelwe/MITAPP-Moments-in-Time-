@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController, ModalController, NavParams, ActionSheetController } from 'ionic-angular';
 import { ViewPage } from '../view/view';
 import { InfosentPage } from '../infosent/infosent';
@@ -18,7 +18,7 @@ declare var firebase
   selector: 'page-contact',
   templateUrl: 'contact.html'
 })
-export class ContactPage {
+export class ContactPage   {
   categoryChosen = this.navParams.get("categoryChosen")
 
   date;
@@ -34,12 +34,39 @@ export class ContactPage {
       console.log(this.categoryChosen);
 
 
-
+     
 
 
     })
 
+    let tabs = document.querySelectorAll('.show-tabbar');
+    if (tabs !== null) {
+      Object.keys(tabs).map((key) => {
+          tabs[key].style.display = 'none';
+      });
+ 
   }
+
+  }
+
+
+  
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad AddContactsPage');
+
+    let tabs = document.querySelectorAll('.show-tabbar');
+    if (tabs !== null) {
+        Object.keys(tabs).map((key) => {
+            tabs[key].style.display = 'none';
+        });
+    }
+    
+
+  }
+  ionViewWillEnter(){
+    this.ngAfterViewInit()
+  }
+
 
   choosecontact() {
 
@@ -177,7 +204,7 @@ export class ContactPage {
 
 
 
-  ngAfterViewInit() {
+   ngAfterViewInit() {
     let tabs = document.querySelectorAll('.show-tabbar');
     if (tabs !== null) {
         Object.keys(tabs).map((key) => {
@@ -185,16 +212,41 @@ export class ContactPage {
         });
     }
   }
+
+
+
+  // ionViewWillLeave() {
+  //   let tabs = document.querySelectorAll('.show-tabbar');
+  //   if (tabs !== null) {
+  //       Object.keys(tabs).map((key) => {
+  //           tabs[key].style.display = 'flex';
+  //       });
+   
+  //   }
+  // }
+
+  
  
-//   ionViewWillLeave() {
-//   let tabs = document.querySelectorAll('.show-tabbar');
-//   if (tabs !== null) {
-//       Object.keys(tabs).map((key) => {
-//           tabs[key].style.display = 'flex';
-//       });
+  // ionViewWillLeave() {
+  // let tabs = document.querySelectorAll('.show-tabbar');
+  // if (tabs !== null) {
+  //     Object.keys(tabs).map((key) => {
+  //         tabs[key].style.display = 'none';
+  //     });
  
-//   }
-//   }
+  // }
+  // }
+
+  // ngOnInit(){
+  //   let tabs = document.querySelectorAll('.show-tabbar');
+  //   if (tabs !== null) {
+  //     Object.keys(tabs).map((key) => {
+  //         tabs[key].style.display = 'none';
+  //     });
+ 
+  // }
+
+  // }
 
 }
 

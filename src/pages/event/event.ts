@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, PopoverController, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, PopoverController, ModalController, ViewController } from 'ionic-angular';
 import { DatabaseProvider } from '../../providers/database/database';
 import { AutomatePage } from '../automate/automate';
 import { MessagePage } from '../message/message';
@@ -85,10 +85,14 @@ export class EventPage {
 
 
 
+
+
+
     }, (error) => { })
   }
 
   ionViewDidLoad() {
+    
 
     console.log('ionViewDidLoad EventPage');
 
@@ -103,13 +107,14 @@ export class EventPage {
 
 
     graduation(a) {
+      
+      
       this.navCtrl.push(ContactPage, { categoryChosen: a }).then(()=>{
         
+      
+        
       });
-      // let currentIndex = this.navCtrl.getActive().index;
-      // this.navCtrl.push(ContactPage, { categoryChosen: a }).then(() => {
-      //   this.navCtrl.remove(currentIndex);
-      // });
+      
 
     }
 
@@ -200,6 +205,27 @@ export class EventPage {
 
 
 
+
+    ngAfterViewInit() {
+      let tabs = document.querySelectorAll('.show-tabbar');
+      if (tabs !== null) {
+          Object.keys(tabs).map((key) => {
+              tabs[key].style.display = 'flex';
+          });
+      }
+    }
+
+
+
+    ionViewWillEnter() {
+      let tabs = document.querySelectorAll('.show-tabbar');
+      if (tabs !== null) {
+          Object.keys(tabs).map((key) => {
+              tabs[key].style.display = 'flex';
+          });
+     
+      }
+    }
 
 
   }

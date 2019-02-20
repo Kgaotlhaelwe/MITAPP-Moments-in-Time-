@@ -83,19 +83,17 @@ export class RegisterPage {
 
 
     if (email != "" && pass != "") {
+
+      const loader = this.loadingCtrl.create({
+        content: "Please wait... still connecting ",
+        cssClass: "loading-md .loading-wrapper ",
+        duration: 3000
+
+      });
+      loader.present();
       this.db.register(email, pass, name).then(() => {
 
-
-        const loader = this.loadingCtrl.create({
-          content: "Please wait... still connecting ",
-          cssClass: "loading-md .loading-wrapper ",
-          duration: 3000
-
-        });
-        loader.present();
-
-
-        setTimeout(() => {
+   setTimeout(() => {
           const alert = this.alertCtrl.create({
             cssClass: "myAlert",
             title: 'Registered Successfully',

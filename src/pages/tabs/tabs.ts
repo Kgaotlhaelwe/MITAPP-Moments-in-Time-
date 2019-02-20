@@ -15,7 +15,7 @@ export class TabsPage {
   tab2Root = EventPage;
   tab3Root = ProfilePage;
   tab4Root = AboutPage;
-  tab5Root = ContactPage;
+  //tab5Root = ContactPage;
   
 
   constructor() {

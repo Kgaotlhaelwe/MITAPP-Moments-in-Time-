@@ -33,12 +33,12 @@
         <ion-item class="space" >
             <ion-label><ion-icon color="b"  ios="ios-calendar" md="md-calendar"></ion-icon> &nbsp;  &nbsp;  &nbsp;Date</ion-label>
             <!-- <ion-label>Date</ion-label> -->
-            <ion-datetime displayFormat="MM/DD/YYYY"   [(ngModel)]="myDate" min="2019" max="2050"></ion-datetime>
+            <ion-datetime displayFormat="MMM/DD"  #dateformat pickerFormat="MMMM DD" [(ngModel)]="myDate" min="2019" max="2050" (ionChange)="dateChanged(dateformat.value)"></ion-datetime>
           </ion-item>
 
 
           
-
+          
 
 
 

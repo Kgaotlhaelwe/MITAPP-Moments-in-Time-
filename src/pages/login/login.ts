@@ -9,6 +9,7 @@ import { MessagePage } from '../message/message';
 import { EventPage } from '../event/event';
 import { Network } from '@ionic-native/network';
 import { ToastController } from 'ionic-angular';
+import { HomePage } from '../home/home';
 
 declare var firebase
 /**
@@ -94,27 +95,16 @@ Login(email , password){
   loader.present();
 
     if(email != '' && password != ''){
-    
-    
-      
-    
+
       this.db.loginx(email , password).then((data)=>{
         if(data.user.emailVerified == true){
-          // const loader = this.loadingCtrl.create({
-          //           content: "Loggin...",
-          //           cssClass: "loading-md .loading-wrapper ",
-          //           duration :2000
-                  
-          //         });
-          //         loader.present();
-               
-                
-                
+         
+
                   setTimeout(() => {
                   
                   
                            this.navCtrl.setRoot(TabsPage);
-                         }, 3000);
+                         }, 1000);
 
         }else{
         

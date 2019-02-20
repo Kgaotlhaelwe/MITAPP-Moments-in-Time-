@@ -35,6 +35,9 @@ export class MyApp {
   //  })
 
 
+  
+
+
   events.subscribe('user:created', (user, time) => {
     var id = user
     
@@ -75,6 +78,9 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
        timer(3000).subscribe(()=> this.showSplash = false )
+
+
+       
     });
 
   //   this.keyboard.onKeyboardShow().subscribe(() => {
@@ -85,4 +91,7 @@ export class MyApp {
   //     document.body.classList.remove('keyboard-is-open');
   // });
   }
+
+
+  
 }

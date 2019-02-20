@@ -95,7 +95,7 @@ var config = {
   imports: [
     BrowserModule,HttpClientModule ,SwipeCardsModule,
     IonicModule.forRoot(MyApp, {
-      tabsHideOnSubPages:false 
+      tabsHideOnSubPages:false  
       
 
     }),

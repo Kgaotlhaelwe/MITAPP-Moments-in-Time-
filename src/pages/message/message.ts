@@ -253,7 +253,7 @@ export class MessagePage {
 
    }
 
-  ionViewDidEnter() {
+  ionViewWillEnter() {
 
 
     
@@ -265,13 +265,14 @@ export class MessagePage {
       this.userName = profile.name
 
       console.log(this.userName);
+      this.userCategory = this.selectedDetails.categoryChosen;
 
       if(this.selectedDetails.categoryChosen == undefined){
         this.userCategory="Happy Special Day" ;
 
       }
       
-      this.userCategory = this.selectedDetails.categoryChosen;
+    
       this.showName = this.selectedDetails.name ;
 
 

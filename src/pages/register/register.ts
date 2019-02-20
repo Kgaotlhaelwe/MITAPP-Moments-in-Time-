@@ -84,13 +84,13 @@ export class RegisterPage {
 
     if (email != "" && pass != "") {
 
-      const loader = this.loadingCtrl.create({
-        content: "Please wait... still connecting ",
-        cssClass: "loading-md .loading-wrapper ",
-        duration: 3000
+        // const loader = this.loadingCtrl.create({
+        //   // content: "Please wait... still connecting ",
+        //   cssClass: "loading-md .loading-wrapper ",
+        //   duration: 3000
 
-      });
-      loader.present();
+        // });
+        // loader.present();
       this.db.register(email, pass, name).then(() => {
 
    setTimeout(() => {

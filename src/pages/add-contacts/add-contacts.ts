@@ -381,7 +381,7 @@ console.log(a)
          //  this.navCtrl.push(MessagePage, { selectedDetails:obj})
            const loader = this.loadingCtrl.create({
              content: "Please wait...",
-             duration: 3000
+             duration: 1000
            });
            loader.present();
  

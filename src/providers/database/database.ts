@@ -1101,7 +1101,7 @@ updateReviewMessage(message, id){
   });
 }
 
-scheduleEmails(occassion, date,emailto,message, namefrom, uniquedate,image){
+scheduleEmails(occassion, date,emailto,message, namefrom, uniquedate,image,name){
   var users= firebase.auth().currentUser;
  var uid  = users.uid
  var userEmail = users.email;
@@ -1114,7 +1114,8 @@ scheduleEmails(occassion, date,emailto,message, namefrom, uniquedate,image){
       message:message ,
       namefrom:namefrom ,
       uniquedate:uniquedate ,
-      image:image
+      image:image ,
+      name:name
     })
  
     resolve();
@@ -1172,7 +1173,8 @@ scheduleEmailForFunction(occassion, date,emailto,message, namefrom, uniquedate){
            occassion:contactList[k].occassion ,
            message:contactList[k].message ,
            uniquedate:contactList[k].uniquedate,
-           image:contactList[k].image
+           image:contactList[k].image ,
+           name:contactList[k].name
  
          }
          //this.likedArray = [];

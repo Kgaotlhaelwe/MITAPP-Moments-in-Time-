@@ -41,6 +41,9 @@ export class AddContactsPage {
 
   showDate ;
   kb ;
+
+  day ;
+  month ;
   
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: DatabaseProvider, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
 
@@ -106,11 +109,11 @@ export class AddContactsPage {
 
 
 
-    // if(this.tempCategory == "Birthday"){
-    //   this.showDate = true ;
-    //   this.hideDate=false ;
+    if(this.tempCategory == "Birthday"){
+      this.showDate = true ;
+      this.hideDate=false ;
 
-    // }
+    }
 
   }
 
@@ -124,18 +127,51 @@ export class AddContactsPage {
   }
 
   dateChanged(a){
-  console.log(a)
 
+    let z = "0" ;
+    let x = "-" ;
+ 
+console.log(a)
+
+ if(a.day <= 9){
+  let stringDate =a.day.toString() ;
+
+  this.day =z+stringDate
+
+
+ }else{
+  let stringDate =a.day.toString() ;
+  this.day =stringDate
+ }
+
+ if(a.month <= 9){
+  let stringDate =a.month.toString() ;
+
+  this.month =z+stringDate+x ;
+
+ }else{
+  let stringDate =a.month.toString() ;
+   this.month = stringDate+x
+ }
+
+ 
+  }
+
+
+  mydate1(d) {
+  
   }
   async addDetails(a) {
 
 
-console.log(this.myDate) ;
+   
+    
+    let full = this.month+this.day ;
+    console.log(full);
     
 
-
      if(this.tempCategory == "Birthday"){
-       this.myDate =  this.myDate;
+       this.myDate =  full;
        console.log("innnn");
 
      

@@ -16,18 +16,19 @@
   </ion-navbar>
 </ion-header>
 <img src="../../assets/imgs/BIRTHDAY.png">
-<ion-content class="background">
-    
+<ion-content  class="background" >
+ 
   <h1 *ngIf="!hasMessages">You currently don't have messages to review</h1>
 
 
-
-    <ion-list class="mylist" *ngFor="let v of sentMessages; let u = index" >
+  <!-- <div class="test"> -->
+    <ion-list  id="bck" class="mylist" *ngFor="let v of sentMessages; let u = index" >
         <ion-item-sliding (click)="readMore(v.message , v.emailto)">
           <ion-item  >
-            <ion-avatar item-start  >
+            <ion-thumbnail style="background-color: white" item-start  >
               <img src="{{v.image}}">
-            </ion-avatar>
+            </ion-thumbnail >
+        
             <h2 class="h2" >{{v.emailto}}</h2>
             <p> {{v.message}}
             {{v.automessage}}
@@ -41,7 +42,7 @@
           </ion-item-options>
         </ion-item-sliding>
       </ion-list>
-  
+    <!-- </div> -->
 
 
 </ion-content>

@@ -26,12 +26,35 @@ export class ContactPage   {
   contactDetails = {};
   msg = "Cannot create property '0' on number '0'";
   name2;
+  tempArray = [] ;
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public modalCtrl: ModalController, private db: DatabaseProvider, private contacts: Contacts, public actionSheetCtrl: ActionSheetController) {
     this.db.getContactlist().then((data: any) => {
-      this.contactListArray = data
-      console.log(this.contactListArray);
+      this.tempArray = data
+     console.log( this.tempArray);
 
-      console.log(this.categoryChosen);
+     // console.log(this.categoryChosen);
+
+     for (let index = 0; index < this.tempArray.length; index++) {
+
+      let shortname = this.tempArray[index].name.substring(1 , 0)
+      let fullname = this.tempArray[index].name ;
+      let email = this.tempArray[index].name ;
+          
+      
+      let obj = {
+        shortname:shortname,
+        name:fullname ,
+        email:email
+
+
+          }
+
+        this.contactListArray.push(obj) ;
+
+        console.log(this.contactListArray);
+        
+       
+     }
 
 
      

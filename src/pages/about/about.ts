@@ -42,8 +42,8 @@ export class AboutPage {
   schedulefunction = [] ;
   tabs ;
 
-
-
+  randomColor = Math.floor(Math.random()*16777215).toString(16);
+asdf = '#' + this.randomColor
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private contacts: Contacts, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, private localNotifications: LocalNotifications, private sms: SMS, private socialSharing: SocialSharing, private db: DatabaseProvider, public modalCtrl: ModalController, private network: Network, public toastCtrl: ToastController) {
     // this.db.getReviewMessage().then((data:any)=>{
@@ -56,6 +56,8 @@ export class AboutPage {
     //     this.hasMessages = true;
     //   }
     // })
+    
+console.log(this.asdf);
 
     let tabs = document.querySelectorAll('.show-tabbar');
     if (tabs !== null) {
@@ -86,6 +88,9 @@ export class AboutPage {
   }
 
   ionViewDidLoad() {
+ 
+
+    
     this.db.getScheduledEmails().then((data:any)=>{
       console.log(data);
       this.sentMessages = data
@@ -95,7 +100,6 @@ export class AboutPage {
          this.hasMessages = true;
        }
      
- 
     })
 
  
@@ -291,6 +295,7 @@ export class AboutPage {
 
 
 
+ 
 
   }
   sendviaWhatsApp(message) {
@@ -539,4 +544,11 @@ export class AboutPage {
 
   //   }
 
+
+// color(){
+//   var colorr = document.getElementsByClassName('test')  as HTMLCollectionOf <HTMLElement>;
+//   colorr[0].style.background= '#'+this.randomColor
+  
+  
+// }
 }

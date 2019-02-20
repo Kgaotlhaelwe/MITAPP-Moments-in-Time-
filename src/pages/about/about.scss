@@ -83,8 +83,8 @@ page-about {
                 font-size: 1.6rem;
                 font-weight: normal;
                 text-transform: none;
-                color: #000;
-                //background-color: rgb(240, 230, 230);
+                // color: #000;
+                background: linear-gradient(170deg,  rgb(255, 244, 244) 10% , rgb(235, 235, 235) 70% );
                 -webkit-box-shadow: none;
                 box-shadow: none;
                 -webkit-transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
@@ -101,15 +101,18 @@ page-about {
             .item-md ion-thumbnail ion-img, .item-md ion-thumbnail img {
                 width: 40px;
                 height: 40px;
+                background-color: rgba(0, 0, 0, 0) !important 
             }
             .item-md ion-avatar[item-left], .item-md ion-thumbnail[item-left], .item-md ion-avatar[item-start], .item-md ion-thumbnail[item-start] {
                 margin-top: 4px;
                 margin-right: 16px;
                 margin-bottom: 4px;
                 margin-left: 0px;
+                background-color: rgba(0, 0, 0, 0) !important 
             }
             .item-md ion-thumbnail {
                 min-width:40px; 
                 min-height: 40px; 
+                background-color: rgba(0, 0, 0, 0) !important 
             }
 }

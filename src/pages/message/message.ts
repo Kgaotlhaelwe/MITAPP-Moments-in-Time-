@@ -519,7 +519,7 @@ export class MessagePage {
         
         // this.db.scheduleEmails("Birthday", "2019-02-2019" , "Kgaotlhaelwe@gmail.com'" , "gdggdgdggd" , " 0" , "  0" , "bbbbbbb")
         
-        this.db.scheduleEmails(this.selectedDetails.categoryChosen,this.selectedDetails.date, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate,this.image).then(()=>{
+        this.db.scheduleEmails(this.selectedDetails.categoryChosen,this.selectedDetails.date, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate,this.image,this.selectedDetails.name).then(()=>{
           this.db.scheduleEmailForFunction(this.selectedDetails.categoryChosen, this.selectedDetails.date, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate)
         });
  

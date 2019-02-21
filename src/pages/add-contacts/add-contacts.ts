@@ -258,7 +258,7 @@ console.log(a)
           // this.navCtrl.push(MessagePage, { selectedDetails:obj})
            const loader = this.loadingCtrl.create({
              content: "Please wait...",
-            duration: 3000
+            duration: 1000
          });
            loader.present();
 
@@ -296,9 +296,10 @@ console.log(a)
       
       let today = new Date();
       let currentday = moment(today).format('YYYY-MM-DD');
+      let comparedate = moment(this.myDate).format('YYYY-MM-DD');
       console.log(currentday);
  
-     if (this.myDate > currentday) {
+     if ( comparedate > currentday) {
  
        if (this.name != undefined && this.email != undefined && this.myDate != undefined) {
  
@@ -360,7 +361,7 @@ console.log(a)
              this.db.saveContactList(this.name, this.email, date).then(() => {
                const loader = this.loadingCtrl.create({
                  content: "Please wait...",
-                 duration: 3000
+                 duration: 1000
                });
                console.log(this.tempCategory);
  
@@ -381,7 +382,7 @@ console.log(a)
          //  this.navCtrl.push(MessagePage, { selectedDetails:obj})
            const loader = this.loadingCtrl.create({
              content: "Please wait...",
-             duration: 3000
+             duration: 1000
            });
            loader.present();
  

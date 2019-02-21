@@ -88,8 +88,7 @@ console.log(this.asdf);
   }
 
   ionViewDidLoad() {
-    this.color()
-    console.log(this.color);
+
     
     this.db.getScheduledEmails().then((data:any)=>{
       console.log(data);
@@ -546,10 +545,10 @@ console.log(this.asdf);
   //   }
 
 
-color(){
-  var colorr = document.getElementsByClassName('test')  as HTMLCollectionOf <HTMLElement>;
-  colorr[0].style.background= '#'+this.randomColor
+// color(){
+//   var colorr = document.getElementsByClassName('test')  as HTMLCollectionOf <HTMLElement>;
+//   colorr[0].style.background= '#'+this.randomColor
   
   
-}
+// }
 }

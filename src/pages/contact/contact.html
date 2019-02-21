@@ -8,6 +8,9 @@
           </button>
           
         </ion-buttons>
+
+
+        
     </ion-toolbar>
   </ion-header>
 
@@ -36,11 +39,13 @@
     <ng-template #conempty>
 
 <div class="list" >
+
+ 
       <ion-list  >
           <!-- <ion-item-divider style="background-color: oldlace;"> <b>My Contacts List</b> </ion-item-divider> -->
           <ion-item  *ngFor="let details of contactListArray; let u = index"  (click)="itemSelected(details.name,details.email, details.date)"> 
             <ion-avatar style="background-color: palevioletred; border-radius: 100px" item-start>
-             <h2 text-center style="font-size: 30px; margin: 0 auto; color: white"><b>A</b></h2>
+             <h2 text-center   id="colorshow"  style="font-size: 30px; margin: 0 auto; color: white"><b>{{details.shortname}}  </b></h2>
               <!-- <img src="../../assets/icon/download.png" alt="" srcset=""> -->
             </ion-avatar>
             <h2><b> {{details.name}}</b></h2>

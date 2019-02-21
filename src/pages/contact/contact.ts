@@ -27,6 +27,8 @@ export class ContactPage   {
   msg = "Cannot create property '0' on number '0'";
   name2;
   tempArray = [] ;
+
+  color = ["red" , "yellow", "blue"]
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public modalCtrl: ModalController, private db: DatabaseProvider, private contacts: Contacts, public actionSheetCtrl: ActionSheetController) {
     this.db.getContactlist().then((data: any) => {
       this.tempArray = data
@@ -37,8 +39,10 @@ export class ContactPage   {
      for (let index = 0; index < this.tempArray.length; index++) {
 
       let shortname = this.tempArray[index].name.substring(1 , 0)
+      console.log(shortname)
+  
       let fullname = this.tempArray[index].name ;
-      let email = this.tempArray[index].name ;
+      let email = this.tempArray[index].email ;
           
       
       let obj = {
@@ -70,6 +74,8 @@ export class ContactPage   {
  
   }
 
+  
+
   }
 
 
@@ -85,12 +91,25 @@ export class ContactPage   {
     }
     
 
+
   }
-  ionViewWillEnter(){
-    this.ngAfterViewInit()
+  ionViewDidEnter(){
+   
+
+    
+   
   }
 
+  pikColor(){
+    for (let index = 0; index < this.contactListArray.length; index++) {
+      let pickColor =this.color[Math.floor(Math.random() * this.color.length)] 
+      console.log(pickColor)
+   document.getElementById("colorshow").style.backgroundColor=pickColor ;
+    
+      
+    }
 
+  }
   choosecontact() {
 
     console.log(name);

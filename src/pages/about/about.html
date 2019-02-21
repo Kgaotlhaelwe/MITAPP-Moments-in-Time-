@@ -25,9 +25,9 @@
     <ion-list  id="bck" class="mylist" *ngFor="let v of sentMessages; let u = index" >
         <ion-item-sliding (click)="readMore(v.message , v.emailto)">
           <ion-item  >
-            <ion-thumbnail style="background-color: white" item-start  >
+            <ion-avatar style="background-color: white" item-start  >
               <img src="{{v.image}}">
-            </ion-thumbnail >
+            </ion-avatar >
         
             <h2 class="h2" >{{v.emailto}}</h2>
             <p> {{v.message}}

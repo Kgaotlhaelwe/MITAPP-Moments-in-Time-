@@ -47,9 +47,9 @@ document.getElementById("hidebtn").style.display="none"
 
 viewScheduled(){
  // this.navCtrl.parent.select(3);
-  const index = this.viewCtrl.index;
+ // const index = this.viewCtrl.index;
   // then we remove it from the navigation stack
-  this.navCtrl.remove(index);
+ // this.navCtrl.remove(index);
   //this.navCtrl.setRoot(AboutPage, {tabs:"4"}) ;
 
   // let currentIndex = this.navCtrl.getActive().index;
@@ -60,13 +60,13 @@ viewScheduled(){
 
   this.navCtrl.push(AboutPage)
   
-    let tabs = document.querySelectorAll('.show-tabbar');
-    if (tabs !== null) {
-        Object.keys(tabs).map((key) => {
-            tabs[key].style.display = 'flex';
-        });
+    // let tabs = document.querySelectorAll('.show-tabbar');
+    // if (tabs !== null) {
+    //     Object.keys(tabs).map((key) => {
+    //         tabs[key].style.display = 'flex';
+    //     });
    
-    }
+    // }
     
 }
 

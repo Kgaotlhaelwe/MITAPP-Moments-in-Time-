@@ -188,7 +188,13 @@ console.log(this.asdf);
    })
 
 
-    
+   let tabs = document.querySelectorAll('.show-tabbar');
+   if (tabs !== null) {
+       Object.keys(tabs).map((key) => {
+           tabs[key].style.display = 'flex';
+       });
+  
+   }
 
     console.log(this.randomColor);
     
@@ -281,10 +287,19 @@ console.log(this.asdf);
   }
   
 
-
+  // ionViewWillLeave() {
+  //   let tabs = document.querySelectorAll('.show-tabbar');
+  //   if (tabs !== null) {
+  //       Object.keys(tabs).map((key) => {
+  //           tabs[key].style.display = 'flex';
+  //       });
+   
+  //   }
  
 
-  }
+ // }
+
+}
   
  
 

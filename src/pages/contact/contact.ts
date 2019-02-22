@@ -156,9 +156,9 @@ export class ContactPage   {
 
   userDetails() {
      this.navCtrl.push(AddContactsPage, { categoryChosen: this.categoryChosen });
-   let currentIndex = this.navCtrl.getActive().index;
+   //let currentIndex = this.navCtrl.getActive().index;
    this.navCtrl.push(AddContactsPage, { categoryChosen: this.categoryChosen }).then(() => {
-     this.navCtrl.remove(currentIndex);
+     //this.navCtrl.remove(currentIndex);
    });
 
     console.log("innnjn")
@@ -177,7 +177,7 @@ var track ;
     
 
     for (let index = 0; index < this.scheduledmsg.length; index++) {
-            if(this.scheduledmsg[index].occassion == this.categoryChosen && this.scheduledmsg[index].occassion){
+            if(this.scheduledmsg[index].occassion == this.categoryChosen ){
               console.log("in")
 
 
@@ -208,12 +208,14 @@ var track ;
              
               obj = {
                 message:undefined,
-                date:this.scheduledmsg[index].date ,
+                date:undefined ,
                 email:email  ,
                 name:name ,
                 key:this.scheduledmsg[index].k,
                 uniquedate:this.scheduledmsg[index]. uniquedate ,
-                categoryChosen:this.categoryChosen
+                categoryChosen:this.categoryChosen ,
+                track:1
+
               }
             //  this.navCtrl.push(MessagePage ,{ selectedDetails: obj} )
 
@@ -240,6 +242,12 @@ var track ;
 
   }
 
+  Delete(){
+      
+  //   firebase.database().ref('likedPictures/' + this.userID).child(key).remove();
+  // })
+
+  }
 
 
   addcontactz() {
@@ -266,7 +274,7 @@ var track ;
         //this.navCtrl.push(AddContactsPage, { getContactDetails: this.contactDetails, categoryChosen: this.categoryChosen })
         let currentIndex = this.navCtrl.getActive().index;
         this.navCtrl.push(AddContactsPage, { getContactDetails: this.contactDetails, categoryChosen: this.categoryChosen }).then(() => {
-          this.navCtrl.remove(currentIndex);
+          //this.navCtrl.remove(currentIndex);
         });
 
       } else {
@@ -280,7 +288,7 @@ var track ;
         //this.navCtrl.push(AddContactsPage, { getContactDetails: this.contactDetails, categoryChosen: this.categoryChosen })
         let currentIndex = this.navCtrl.getActive().index;
         this.navCtrl.push(AddContactsPage, { getContactDetails: this.contactDetails, categoryChosen: this.categoryChosen }).then(() => {
-          this.navCtrl.remove(currentIndex);
+         // this.navCtrl.remove(currentIndex);
         });
       }
 
@@ -296,7 +304,7 @@ var track ;
       //this.navCtrl.push(AddContactsPage, { getContactDetails: this.contactDetails, categoryChosen: this.categoryChosen })
       let currentIndex = this.navCtrl.getActive().index;
       this.navCtrl.push(AddContactsPage, { getContactDetails: this.contactDetails, categoryChosen: this.categoryChosen }).then(() => {
-        this.navCtrl.remove(currentIndex);
+        //this.navCtrl.remove(currentIndex);
       });
 
     });

@@ -80,17 +80,17 @@ export class RegisterPage {
     console.log(email);
     console.log(pass);
 
+    const loader = this.loadingCtrl.create({
+      content: "Please wait... still connecting ",
+      cssClass: "loading-md .loading-wrapper ",
+      duration: 3000
 
+    });
+    loader.present();
 
     if (email != "" && pass != "") {
 
-      const loader = this.loadingCtrl.create({
-        content: "Please wait... still connecting ",
-        cssClass: "loading-md .loading-wrapper ",
-        duration: 3000
-
-      });
-      loader.present();
+     
       this.db.register(email, pass, name).then(() => {
 
    setTimeout(() => {

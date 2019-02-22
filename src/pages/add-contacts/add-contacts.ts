@@ -36,36 +36,36 @@ export class AddContactsPage {
   selectedDetails = this.navParams.get("selectedDetails");
   tempCategory;
 
-  temparray = [] ;
-  hideDate ;
+  temparray = [];
+  hideDate;
 
-  showDate ;
-  kb ;
+  showDate;
+  kb;
 
-  day ;
-  month ;
-  
+  day;
+  month;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public db: DatabaseProvider, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
 
-    
-    this.hideDate =true ;
-    
+
+    this.hideDate = true;
+
     this.db.getContactlist().then((data: any) => {
       this.temparray = data
       console.log(this.temparray)
 
 
     })
-    
+
     console.log(this.categoryChosen);
 
-    if(this.categoryChosen == undefined){
-      this.tempCategory="General" ;
+    if (this.categoryChosen == undefined) {
+      this.tempCategory = "General";
       console.log("general");
-      
+
 
     }
-    
+
 
     this.tempCategory = this.categoryChosen;
 
@@ -109,9 +109,9 @@ export class AddContactsPage {
 
 
 
-    if(this.tempCategory == "Birthday"){
-      this.showDate = true ;
-      this.hideDate=false ;
+    if (this.tempCategory == "Birthday") {
+      this.showDate = true;
+      this.hideDate = false;
 
     }
 
@@ -122,118 +122,92 @@ export class AddContactsPage {
     console.log(this.getContactDetails);
 
   }
-  ionViewWillEnter(){
-    this.ngAfterViewInit()
-  }
-
-  dateChanged(a){
-
-    let z = "0" ;
-    let x = "-" ;
- 
-console.log(a)
-
- if(a.day <= 9){
-  let stringDate =a.day.toString() ;
-
-  this.day =z+stringDate
 
 
- }else{
-  let stringDate =a.day.toString() ;
-  this.day =stringDate
- }
 
- if(a.month <= 9){
-  let stringDate =a.month.toString() ;
 
-  this.month =z+stringDate+x ;
+  dateChanged(a) {
 
- }else{
-  let stringDate =a.month.toString() ;
-   this.month = stringDate+x
- }
+    let z = "0";
+    let x = "-";
 
- 
+    console.log(a)
+
+    if (a.day <= 9) {
+      let stringDate = a.day.toString();
+
+      this.day = z + stringDate
+
+
+    } else {
+      let stringDate = a.day.toString();
+      this.day = stringDate
+    }
+
+    if (a.month <= 9) {
+      let stringDate = a.month.toString();
+
+      this.month = z + stringDate + x;
+
+    } else {
+      let stringDate = a.month.toString();
+      this.month = stringDate + x
+    }
+
+
   }
 
 
   mydate1(d) {
-  
+
   }
   async addDetails(a) {
 
 
-   
-    
-    let full = this.month+this.day ;
-    console.log(full);
-    
 
-     if(this.tempCategory == "Birthday"){
-       this.myDate =  full;
-       console.log("innnn");
+    if (this.name != undefined && this.email != undefined) {
 
-     
-    
-
-      if (this.name != undefined && this.email != undefined && this.myDate != undefined) {
-
-        let atpos = this.email.indexOf("@");
-        let dotpos = this.email.lastIndexOf(".")
-        console.log(atpos);
-        console.log(dotpos);
+      let atpos = this.email.indexOf("@");
+      let dotpos = this.email.lastIndexOf(".")
+      console.log(atpos);
+      console.log(dotpos);
 
 
 
-        if (atpos < 1 || (dotpos - atpos < 2)) {
-          console.log("in");
+      if (atpos < 1 || (dotpos - atpos < 2)) {
 
-          this.db.showAlert("Email Incorrect", "Please Enter the correct email")
-
-
-        } else {
+        this.db.showAlert("Email Incorrect", "Please Enter the correct email")
 
 
-
-          let date = moment(this.myDate).format('ll');
-
-          var dup
-
-          if (this.temparray.length > 0) {
-            for (let index = 0; index < this.temparray.length; index++) {
-
-              console.log(this.email);
-              console.log(this.temparray[index].email);
+      } else {
 
 
-              if (this.temparray[index].email == this.email) {
-                dup = 1
-                console.log(dup);
 
-                break;
-              } else {
-                dup = 0
+        let date = moment(this.myDate).format('ll');
+
+        var dup
+
+        if (this.temparray.length > 0) {
+          for (let index = 0; index < this.temparray.length; index++) {
+
+            console.log(this.email);
+            console.log(this.temparray[index].email);
 
 
-              }
+            if (this.temparray[index].email == this.email) {
+              dup = 1
+              console.log(dup);
+
+              break;
+            } else {
+              dup = 0
+
 
             }
 
-            if (dup == 0) {
-              this.db.saveContactList(this.name, this.email, date).then(() => {
-                const loader = this.loadingCtrl.create({
-                  content: "Please wait...",
-                  duration: 3000
-                });
-                console.log(this.tempCategory);
+          }
 
-                loader.present();
-              })
-            }
-
-          } else {
-
+          if (dup == 0) {
             this.db.saveContactList(this.name, this.email, date).then(() => {
               const loader = this.loadingCtrl.create({
                 content: "Please wait...",
@@ -243,192 +217,73 @@ console.log(a)
 
               loader.present();
             })
-
           }
 
+        } else {
 
+          this.db.saveContactList(this.name, this.email, date).then(() => {
+            const loader = this.loadingCtrl.create({
+              content: "Please wait...",
+              duration: 1000
+            });
+            console.log(this.tempCategory);
 
-          let obj = {
-            name: this.name,
-            email: this.email,
-            date: this.myDate,
-            categoryChosen: this.tempCategory
-          }
-
-          // this.navCtrl.push(MessagePage, { selectedDetails:obj})
-           const loader = this.loadingCtrl.create({
-             content: "Please wait...",
-            duration: 1000
-         });
-           loader.present();
-
-
-
-          let currentIndex = this.navCtrl.getActive().index;
-          this.navCtrl.push(MessagePage, { selectedDetails: obj }).then(() => {
-            
-
-            setTimeout(() => {
-              this.navCtrl.remove(currentIndex);
-            }, 1000);
-
-
-          });
-
-
+            loader.present();
+          })
 
         }
 
-      } else {
-        const alert = this.alertCtrl.create({
-          cssClass: "myAlert",
-          subTitle: 'Please fill in all fields',
-          buttons: ['OK']
+
+
+        let obj = {
+          name: this.name,
+          email: this.email,
+          categoryChosen: this.tempCategory
+        }
+
+        //  this.navCtrl.push(MessagePage, { selectedDetails:obj})
+        const loader = this.loadingCtrl.create({
+          content: "Please wait...",
+          duration: 1000
         });
-        alert.present();
-      }
+        loader.present();
 
-     
-       
 
-    }else {
+        let currentIndex = this.navCtrl.getActive().index;
+        this.navCtrl.push(MessagePage, { selectedDetails: obj }).then(() => {
 
-      
-      let today = new Date();
-      let currentday = moment(today).format('YYYY-MM-DD');
-      let comparedate = moment(this.myDate).format('YYYY-MM-DD');
-      console.log(currentday);
- 
-     if ( comparedate > currentday) {
- 
-       if (this.name != undefined && this.email != undefined && this.myDate != undefined) {
- 
-         let atpos = this.email.indexOf("@");
-         let dotpos = this.email.lastIndexOf(".")
-         console.log(atpos);
-         console.log(dotpos);
- 
- 
- 
-         if (atpos < 1 || (dotpos - atpos < 2)) {
-           console.log("in");
- 
-           this.db.showAlert("Email Incorrect", "Please Enter the correct email")
- 
- 
-         } else {
- 
- 
- 
-           let date = moment(this.myDate).format('ll');
- 
-           var dup
- 
-           if (this.temparray.length > 0) {
-             for (let index = 0; index < this.temparray.length; index++) {
- 
-               console.log(this.email);
-               console.log(this.temparray[index].email);
- 
- 
-               if (this.temparray[index].email == this.email) {
-                 dup = 1
-                 console.log(dup);
- 
-                 break;
-               } else {
-                 dup = 0
- 
- 
-               }
- 
-             }
- 
-             if (dup == 0) {
-               this.db.saveContactList(this.name, this.email, date).then(() => {
-                 const loader = this.loadingCtrl.create({
-                   content: "Please wait...",
-                   duration: 3000
-                 });
-                 console.log(this.tempCategory);
- 
-                 loader.present();
-               })
-             }
- 
-           } else {
- 
-             this.db.saveContactList(this.name, this.email, date).then(() => {
-               const loader = this.loadingCtrl.create({
-                 content: "Please wait...",
-                 duration: 1000
-               });
-               console.log(this.tempCategory);
- 
-               loader.present();
-             })
- 
-           }
- 
- 
- 
-           let obj = {
-             name: this.name,
-             email: this.email,
-             date: this.myDate,
-             categoryChosen: this.tempCategory
-           }
- 
-         //  this.navCtrl.push(MessagePage, { selectedDetails:obj})
-           const loader = this.loadingCtrl.create({
-             content: "Please wait...",
-             duration: 1000
-           });
-           loader.present();
- 
- 
-           let currentIndex = this.navCtrl.getActive().index;
-           this.navCtrl.push(MessagePage, { selectedDetails: obj }).then(() => {
- 
-             setTimeout(() => {
-               this.navCtrl.remove(currentIndex);
-             }, 1000);
- 
- 
-           });
- 
- 
- 
-         }
- 
-       } else {
-         const alert = this.alertCtrl.create({
-           cssClass: "myAlert",
-           subTitle: 'Please fill in all fields',
-           buttons: ['OK']
-         });
-         alert.present();
-       }
- 
-     } else {
-       const alert = this.alertCtrl.create({
-         cssClass: "myAlert",
-         subTitle: 'Please select future date not current date',
-         buttons: ['OK']
-       });
-       alert.present();
- 
- 
- 
- 
-      }
- 
+          setTimeout(() => {
+            this.navCtrl.remove(currentIndex);
+          }, 1000);
+
+
+        });
+
+
 
       }
 
-
-
+    } else {
+      const alert = this.alertCtrl.create({
+        cssClass: "myAlert",
+        subTitle: 'Please fill in all fields',
+        buttons: ['OK']
+      });
+      alert.present();
     }
+
+
+
+
+
+  }
+
+
+
+
+
+
+
 
 
 
@@ -436,14 +291,14 @@ console.log(a)
   ngAfterViewInit() {
     let tabs = document.querySelectorAll('.show-tabbar');
     if (tabs !== null) {
-        Object.keys(tabs).map((key) => {
-            tabs[key].style.display = 'none';
-        });
+      Object.keys(tabs).map((key) => {
+        tabs[key].style.display = 'none';
+      });
     }
   }
- 
-  
-  
+
+
+
 
 
 

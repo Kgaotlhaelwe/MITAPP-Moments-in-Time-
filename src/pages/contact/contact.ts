@@ -26,6 +26,7 @@ export class ContactPage   {
   contactDetails = {};
   msg = "Cannot create property '0' on number '0'";
   name2;
+  scheduledmsg = [] ;
   tempArray = [] ;
 
   color = ["red" , "yellow", "blue"]
@@ -61,7 +62,10 @@ export class ContactPage   {
      }
 
 
-     
+     this.db.getScheduledEmails().then((data:any)=>{
+          this.scheduledmsg = data ;
+
+     })
 
 
     })
@@ -151,30 +155,63 @@ export class ContactPage   {
 
 
   userDetails() {
-    // this.navCtrl.push(AddContactsPage, { categoryChosen: this.categoryChosen });
-    let currentIndex = this.navCtrl.getActive().index;
-    this.navCtrl.push(AddContactsPage, { categoryChosen: this.categoryChosen }).then(() => {
-      this.navCtrl.remove(currentIndex);
-    });
+     this.navCtrl.push(AddContactsPage, { categoryChosen: this.categoryChosen });
+   let currentIndex = this.navCtrl.getActive().index;
+   this.navCtrl.push(AddContactsPage, { categoryChosen: this.categoryChosen }).then(() => {
+     this.navCtrl.remove(currentIndex);
+   });
+
+    console.log("innnjn")
   }
 
-  itemSelected(name, email, date) {
+  itemSelected(name, email, occassion) {
     console.log(this.categoryChosen);
-    if (this.msg == "Cannot create property '0' on number '0'") {
+    console.log( this.scheduledmsg);
 
+    
+
+var obj = {}
+    
+
+    for (let index = 0; index < this.scheduledmsg.length; index++) {
+            if(this.scheduledmsg[index].occassion == this.categoryChosen && this.scheduledmsg[index].occassion){
+              console.log("in")
+              
+
+               obj = {
+                message:this.scheduledmsg[index].message ,
+                date:this.scheduledmsg[index].date ,
+                categoryChosen:this.categoryChosen,
+                email:email ,
+                name:name
+              }
+             
+              console.log(obj);
+              
+
+              this.navCtrl.push(MessagePage ,{ selectedDetails: obj} )
+              
+
+            }else{
+
+             
+              obj = {
+                message:undefined,
+                date:undefined ,
+                email:email  ,
+                name:name ,
+
+                categoryChosen:this.categoryChosen
+              }
+              this.navCtrl.push(MessagePage ,{ selectedDetails: obj} )
+
+
+            }
+     
+      
     }
 
-    let obj = {
-      name: name,
-      email: email,
-      date: date,
-      categoryChosen: this.categoryChosen
-    }
-    //this.navCtrl.push(AddContactsPage, { selectedDetails: obj, categoryChosen: this.categoryChosen })
-    let currentIndex = this.navCtrl.getActive().index;
-    this.navCtrl.push(AddContactsPage, { selectedDetails: obj, categoryChosen: this.categoryChosen }).then(() => {
-      this.navCtrl.remove(currentIndex);
-    });
+
 
   }
 

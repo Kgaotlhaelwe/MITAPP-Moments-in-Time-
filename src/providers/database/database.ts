@@ -278,7 +278,7 @@ forgetPassword(email){
 }
 
 
-saveContactList(name , email,date){
+saveContactList(name , email, occassion){
   var users= firebase.auth().currentUser;
   var userid=users.uid
 
@@ -286,7 +286,9 @@ saveContactList(name , email,date){
     firebase.database().ref('contactList/'+ userid).push({
       name:name ,
       email:email,
-      date:date
+      
+      occassion:occassion
+
       
  
       
@@ -1174,7 +1176,8 @@ scheduleEmailForFunction(occassion, date,emailto,message, namefrom, uniquedate){
            message:contactList[k].message ,
            uniquedate:contactList[k].uniquedate,
            image:contactList[k].image ,
-           name:contactList[k].name
+           name:contactList[k].name,
+           date:contactList[k].date
  
          }
          //this.likedArray = [];

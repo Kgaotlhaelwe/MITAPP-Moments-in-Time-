@@ -46,7 +46,7 @@ document.getElementById("hidebtn").style.display="none"
 
 
 viewScheduled(){
-  this.navCtrl.parent.select(3);
+ // this.navCtrl.parent.select(3);
   const index = this.viewCtrl.index;
   // then we remove it from the navigation stack
   this.navCtrl.remove(index);
@@ -58,6 +58,7 @@ viewScheduled(){
   //       });
 
 
+  this.navCtrl.push(AboutPage)
   
     let tabs = document.querySelectorAll('.show-tabbar');
     if (tabs !== null) {

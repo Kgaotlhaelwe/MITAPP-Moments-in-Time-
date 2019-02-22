@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController, ModalController, AlertController,Keyboard } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, ModalController, AlertController, Keyboard } from 'ionic-angular';
 import { AutomatePage } from '../automate/automate';
 import { PersonalizedPage } from '../personalized/personalized';
 import { AdminPage } from '../admin/admin';
@@ -60,6 +60,9 @@ export class MessagePage {
   today;
   messagez;
   image;
+  day;
+  month;
+  myDate;
 
   messagezz;
   // name1 =this.navParams.get("name1"); ;
@@ -174,19 +177,21 @@ export class MessagePage {
   ]
 
   userCategory;
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, private sms: SMS, private socialSharing: SocialSharing, private contacts: Contacts, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private backgroundMode: BackgroundMode, private db: DatabaseProvider, private calendar: Calendar, private network: Network, public toastCtrl: ToastController, public loadingCtrl: LoadingController,private keyboard: Keyboard) {
+  hideDate;
+  showDate;
+  userdate ;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, private sms: SMS, private socialSharing: SocialSharing, private contacts: Contacts, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private backgroundMode: BackgroundMode, private db: DatabaseProvider, private calendar: Calendar, private network: Network, public toastCtrl: ToastController, public loadingCtrl: LoadingController, private keyboard: Keyboard) {
     this.time = moment(new Date()).format()
-    // this.temptime = moment(new Date()).format()
 
 
+    this.hideDate = true;
 
 
     this.tempdate = moment(new Date()).format()
 
     console.log(this.selectedDetails);
 
-   
+
 
     console.log(this.selectedDetails);
 
@@ -198,65 +203,107 @@ export class MessagePage {
       this.userName = profile.name
 
       console.log(this.userName);
-      
+
 
 
 
     })
-    // this.keyboard.onClose(this.closeCallback);
+
+    if (this.selectedDetails.categoryChosen == "Birthday") {
+      this.showDate = true;
+      this.hideDate = false;
+
+    }
+    console.log(this.selectedDetails);
+
+
 
   }
- 
+
+
+
+
+  dateChanged(a) {
+
+    let z = "0";
+    let x = "-";
+
+    console.log(a)
+
+    if (a.day <= 9) {
+      let stringDate = a.day.toString();
+
+      this.day = z + stringDate
+
+
+    } else {
+      let stringDate = a.day.toString();
+      this.day = stringDate
+    }
+
+    if (a.month <= 9) {
+      let stringDate = a.month.toString();
+
+      this.month = z + stringDate + x;
+
+    } else {
+      let stringDate = a.month.toString();
+      this.month = stringDate + x
+    }
+
+
+  }
+
   ngAfterViewInit() {
     let tabs = document.querySelectorAll('.show-tabbar');
     if (tabs !== null) {
-        Object.keys(tabs).map((key) => {
-            tabs[key].style.display = 'none';
-        });
+      Object.keys(tabs).map((key) => {
+        tabs[key].style.display = 'none';
+      });
     }
   }
- 
-   ionViewWillLeave() {
-  // let tabs = document.querySelectorAll('.show-tabbar');
-  // if (tabs !== null) {
-  //     Object.keys(tabs).map((key) => {
-  //         tabs[key].style.display = 'flex';
-  //     });
- 
-  // }
-  // }
+
+  ionViewWillLeave() {
+    // let tabs = document.querySelectorAll('.show-tabbar');
+    // if (tabs !== null) {
+    //     Object.keys(tabs).map((key) => {
+    //         tabs[key].style.display = 'flex';
+    //     });
+
+    // }
+    // }
 
 
-  // displayNetworkUpdate(connectionState:string){
-  //   let networkType =this.network.type
-  //   this.toastCtrl.create({
-  //     message:connectionState ,
-  //     duration:3000 ,
-  //   }).present()
-
-
-
-  
-  var users = firebase.auth().currentUser;
-  firebase.database().ref("user/" + users.uid).on('value', (data: any) => {
-    var profile = data.val();
-
-    console.log(profile);
-    this.userName = profile.name
-
-    console.log(this.userName);
-    
+    // displayNetworkUpdate(connectionState:string){
+    //   let networkType =this.network.type
+    //   this.toastCtrl.create({
+    //     message:connectionState ,
+    //     duration:3000 ,
+    //   }).present()
 
 
 
-  })
 
-   }
+    var users = firebase.auth().currentUser;
+    firebase.database().ref("user/" + users.uid).on('value', (data: any) => {
+      var profile = data.val();
+
+      console.log(profile);
+      this.userName = profile.name
+
+      console.log(this.userName);
+
+
+
+
+    })
+
+  }
 
   ionViewWillEnter() {
 
 
-    
+
     var users = firebase.auth().currentUser;
     firebase.database().ref("user/" + users.uid).on('value', (data: any) => {
       var profile = data.val();
@@ -267,13 +314,13 @@ export class MessagePage {
       console.log(this.userName);
       this.userCategory = this.selectedDetails.categoryChosen;
 
-      if(this.selectedDetails.categoryChosen == undefined){
-        this.userCategory="Happy Special Day" ;
+      if (this.selectedDetails.categoryChosen == undefined) {
+        this.userCategory = "Happy Special Day";
 
       }
-      
-    
-      this.showName = this.selectedDetails.name ;
+
+
+      this.showName = this.selectedDetails.name;
 
 
     })
@@ -282,20 +329,8 @@ export class MessagePage {
 
 
 
-  
-    // this.network.onConnect().subscribe(data=>{
-    //   console.log(data)
-    //   this.displayNetworkUpdate('Connected')
 
-    //  }
 
-    // ,error=>console.error(error));
-
-    //  this.network.onDisconnect().subscribe(data=>{
-
-    //   console.log(data)
-    //   this.displayNetworkUpdate('Disconected')
-    //  },error=>console.error(error));
 
 
     if (this.messageArry.length == 1) {
@@ -303,14 +338,12 @@ export class MessagePage {
       console.log(this.messageArry);
 
       this.messageArry.splice(0, this.messageArry.length)
+}
 
-      // this.autoMessage = true;
-      // document.getElementById("btnz").style.display = "block";
-      // document.getElementById("btnMessageType").style.display = "none"
+    if(this.textboxmessage == undefined){
+      this.textboxmessage =this.selectedDetails.message
 
     }
-
-
 
 
 
@@ -364,7 +397,7 @@ export class MessagePage {
       this.image = "../../assets/icon/icons8_People_100px.png";
       console.log(this.image);
 
-    }else {
+    } else {
 
     }
 
@@ -430,7 +463,7 @@ export class MessagePage {
 
     if (this.selectedDetails.categoryChosen == "Birthday") {
       this.navCtrl.push(AutomatePage, { autoMsgArray: this.birthdayMessage })
-      
+
     } else if (this.selectedDetails.categoryChosen == "Graduations") {
       this.navCtrl.push(AutomatePage, { autoMsgArray: this.grads });
 
@@ -455,120 +488,109 @@ export class MessagePage {
 
     } else {
 
-      this.navCtrl.push(AutomatePage, { autoMsgArray: this.generalMesage }) ;
+      this.navCtrl.push(AutomatePage, { autoMsgArray: this.generalMesage });
     }
 
   }
 
 
   send() {
+
+    let full = this.month + this.day;
+
+    if (this.selectedDetails.categoryChosen == "Birthday") {
+      this.myDate = full;
+      console.log("innnn");
+    }
+
     var users = firebase.auth().currentUser;
     var userName;
     console.log(this.image);
 
-    if(this.selectedDetails.categoryChosen ==undefined){
-      this.selectedDetails.categoryChosen ="Birthay"  ;
+    if (this.selectedDetails.categoryChosen == undefined) {
+      this.selectedDetails.categoryChosen = "Birthay";
       this.image = "../../assets/icon/icons8_People_100px.png";
 
-      console.log("nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn");
-      
-
     }
-    
- 
+
+
     let today = new Date()
     let uniquedate = new Date().getTime();
- 
-    console.log(today) ;
- 
+
+    console.log(today);
+
     console.log(this.userName);
- 
+
     let currentday = moment(today).format('YYYY-MM-DD');
     let scheduledetail = moment(this.selectedDetails.date).format('YYYY-MM-DD');
- 
- 
+
+
     console.log(this.textboxmessage)
- 
-    
-      if (this.textboxmessage == undefined) {
-        const alert = this.alertCtrl.create({
-          cssClass: "myAlert",
-          subTitle: 'Please Enter a message before sending ',
-          buttons: ['OK']
- 
+
+
+    if (this.textboxmessage == undefined) {
+      const alert = this.alertCtrl.create({
+        cssClass: "myAlert",
+        subTitle: 'Please Enter a message before sending ',
+        buttons: ['OK']
+
+      });
+      alert.present();
+
+
+
+    }
+
+
+    else {
+      //scheduleEmails
+      console.log(this.selectedDetails.categoryChosen);
+      console.log(this.myDate);
+
+      console.log(this.selectedDetails.email);
+      console.log(this.textboxmessage);
+      console.log(this.userName);
+      console.log(uniquedate);
+      console.log(this.image);
+      console.log(this.selectedDetails.name);
+      
+
+
+
+
+     // this.db.scheduleEmails("Birthday", "2019-02-2019" , "Kgaotlhaelwe@gmail.com'" , "gdggdgdggd" , " 0" , "  0" , "bbbbbbb")
+
+      this.db.scheduleEmails(this.selectedDetails.categoryChosen, this.myDate, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate, this.image, this.selectedDetails.name).then(() => {
+        this.db.scheduleEmailForFunction(this.selectedDetails.categoryChosen, this.myDate, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate)
+        let currentIndex = this.navCtrl.getActive().index;
+        this.navCtrl.push(ModalmessagePage).then(() => {
+          this.navCtrl.remove(currentIndex);
         });
-        alert.present();
- 
- 
- 
-      }
- 
- 
-      else {
-        //scheduleEmails
-        console.log(this.selectedDetails.categoryChosen);
-        console.log(this.selectedDetails.date);
-        console.log(this.selectedDetails.email);
-        console.log(this.textboxmessage);
-        console.log(this.userName);
-        console.log(uniquedate);
-        console.log(this.image);
-        
-        
-        
-        
-        // this.db.scheduleEmails("Birthday", "2019-02-2019" , "Kgaotlhaelwe@gmail.com'" , "gdggdgdggd" , " 0" , "  0" , "bbbbbbb")
-        
-        this.db.scheduleEmails(this.selectedDetails.categoryChosen,this.selectedDetails.date, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate,this.image,this.selectedDetails.name).then(()=>{
-          this.db.scheduleEmailForFunction(this.selectedDetails.categoryChosen, this.selectedDetails.date, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate)
-        });
- 
- 
- 
-        console.log(this.selectedDetails.name);
-        console.log(this.textboxmessage);
-        console.log(this.selectedDetails.date);
-        console.log(this.image);
- 
- 
- 
- 
-        this.db.saveReviewMessages(this.selectedDetails.name, this.textboxmessage, this.selectedDetails.date, this.image).then(() => {
-          const loader = this.loadingCtrl.create({
-            content: "Scheduling message, please wait...",
-            duration: 3000
-          });
-          loader.present();
-          setTimeout(() => {
-            let currentIndex = this.navCtrl.getActive().index;
-            this.navCtrl.push(ModalmessagePage).then(() => {
-              this.navCtrl.remove(currentIndex);
-            });
- 
- 
-          }, 3000)
- 
- 
-        }, (error) => { })
- 
- 
- 
- 
-      }
- 
- 
- 
- 
-    
+      });
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
 
   }
-  textaera(){
-    console.log('in');
-    document.getElementById('textfix').style.zIndex="10000000000000"
-  }
 
-
-  
 }
 
 

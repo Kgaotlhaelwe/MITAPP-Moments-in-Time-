@@ -278,237 +278,12 @@ console.log(this.asdf);
   }
 
 
-  contactss(message, name, key) {
-    this.contacts.pickContact().then((data: any) => {
-      console.log(data);
-
-      this.phoneNumber = (data.phoneNumbers[0].value);
-      this.name = (data.displayName);
-    }, (error) => {
-      //alert(error)
-    })
-
-    setTimeout(() => {
-      this.showConfirm(message, name, key)
-
-    }, 3000)
-
-
-
- 
-
-  }
-  sendviaWhatsApp(message) {
-    this.socialSharing.shareViaWhatsApp(message, null, null).then((data) => {
-      console.log(data);
-      this.icon = "checkmark-circle";
-
-
-    }, (error) => {
-
-    })
-
-  }
-
-  sendviaFacebook(message) {
-    this.socialSharing.shareViaFacebook(message).then(() => { }, (error) => { })
-    this.icon = "checkmark-circle";
-  }
-
-  sendViaemail(message) {
-    this.socialSharing.shareViaEmail(message, null, null).then(() => {
-
-
-    },
-
-
-
-      (error) => {
-
-      })
-
-  }
-
-  sendVia(message, name, key) {
-
-
-
-
-    const actionSheet = this.actionSheetCtrl.create({
-      title: 'CHOOSE',
-      buttons: [
-        // {
-        //   text: 'SMS',
-        //   role: 'destructive',
-        //   handler: () => {
-        //     this.contactss(message, name, key);
-        //    // this.db.creatSentessage(name, this.dates, message).then(() => { })
-        //    // this.db.deleteSentMessage(key).then(() => {
-
-        //     //})
-
-        //     this.db.sentMessage(name, this.dates, message);
-        //     console.log(key);
-            
-        //    firebase.database().ref('ReviewMessage/'+this.users.uid).child(key).remove();
-
-        //   }
-        // },
-        {
-          text: 'Email',
-          role: 'destructive',
-          handler: () => {
-
-
-            this.dates = moment(this.time.toString()).format('MMM Do YYYY,');
-            this.sendViaemail(message)
-           // this.db.creatSentessage(name, this.dates, message).then(() => { })
-           // this.db.deleteReviewMessage(key).then(()=>{})
-
-           this.db.sentMessage(message ,name,this.dates);
-           console.log(key);
-           
-          firebase.database().ref('ReviewMessage/'+this.users.uid).child(key).remove();
- 
-           
-
-
-          }
-        },
-
-        {
-          text: 'WhatsApp',
-          handler: () => {
-
-
-
-            this.sendviaWhatsApp(message)
-
-
-            this.dates = moment(this.time.toString()).format('MMM Do YYYY,');
-            console.log(this.dates);
-
-            //this.db.creatSentessage(name, this.dates, message).then(() => { })
-           // this.db.deleteReviewMessage(key).then(()=>{})
-           this.db.sentMessage(message ,name,this.dates);
-           console.log(key);
-           
-           firebase.database().ref('ReviewMessage/'+this.users.uid).child(key).remove();
-
-           
- 
-
-
-
-
-
-
-
-
-
-
-
-          }
-        // }, {
-        //   text: 'Facebook',
-        //   role: 'destructive',
-        //   handler: () => {
-        //     console.log(message);
-            
-        //     this.sendviaFacebook(message)
-        
-        //     this.dates = moment(this.time.toString()).format('MMM Do YYYY,');
-        //     console.log(this.dates);
-
-        //    this.db.sentMessage(message ,name,this.dates);
-        //    console.log(key);
-           
-        //    firebase.database().ref('ReviewMessage/'+this.users.uid).child(key).remove();
- 
-
-        //   }
-
-
-         },
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-
-          }
-        }
-
-      ]
-    });
-    actionSheet.present();
-
-  }
-
-  showConfirm(message, name, key) {
-    const confirm = this.alertCtrl.create({
-      title: this.name,
-      cssClass: "myAlert",
-      message: this.phoneNumber,
-      buttons: [
-        {
-          text: 'Disagree',
-          handler: () => {
-            console.log('Disagree clicked');
-          }
-        },
-        {
-          text: 'Send',
-          handler: () => {
-
-
-
-
-            this.sms.send(this.phoneNumber, message).then(() => {
-
-              this.icon = "checkmark-circle";
-            }, (error) => {
-
-
-            })
-
-
-          //  this.db.Testing(message, name, this.dates)
-
-            // alert("out");
-            // firebase.database().ref('messagesent/'+this.users.uid).child(key).remove();
-
-            firebase.database().ref('messagesent/' + this.users.uid).child(key).remove();
-
-            // alert("in");
-
-
-
-
-
-
-          }
-        }
-      ]
-    });
-    confirm.present();
-
-
-
-
-
-  }
-  presentModal() {
-    const modal = this.modalCtrl.create(InfoPage);
-    modal.present();
-  }
-
+  
   readMore(msg, name) {
 
     let obj = {
       message: msg,
       name:name
-     
-
     }
     this.navCtrl.push(ViewPage, { message: obj })
 
@@ -516,39 +291,19 @@ console.log(this.asdf);
   
 
 
+ 
 
-
-  // displayNetworkUpdate(connectionState:string){
-  //   let networkType =this.network.type
-  //   this.toastCtrl.create({
-  //     message:connectionState ,
-  //     duration:3000 ,
-  //   }).present()
-
-  //  }
-
-  // ionViewDidEnter() {
-  //   this.network.onConnect().subscribe(data=>{
-  //     console.log(data)
-  //     this.displayNetworkUpdate('Connected')
-
-  //    }
-
-  //   ,error=>console.error(error));
-
-  //    this.network.onDisconnect().subscribe(data=>{
-
-  //     console.log(data)
-  //     this.displayNetworkUpdate('Disconected')
-  //    },error=>console.error(error));
-
-  //   }
-
-
-// color(){
-//   var colorr = document.getElementsByClassName('test')  as HTMLCollectionOf <HTMLElement>;
-//   colorr[0].style.background= '#'+this.randomColor
+  }
   
+ 
+
+ 
+
   
-// }
-}
+
+
+
+
+
+
+

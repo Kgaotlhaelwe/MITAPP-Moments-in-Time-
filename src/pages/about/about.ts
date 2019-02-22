@@ -46,16 +46,7 @@ export class AboutPage {
 asdf = '#' + this.randomColor
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private contacts: Contacts, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, private localNotifications: LocalNotifications, private sms: SMS, private socialSharing: SocialSharing, private db: DatabaseProvider, public modalCtrl: ModalController, private network: Network, public toastCtrl: ToastController) {
-    // this.db.getReviewMessage().then((data:any)=>{
-    //   console.log(data);
-    //   this.sentMessages = [] ;
-    //   this.sentMessages = data
-    //   console.log( this.sentMessages);
-      
-    //   if(this.sentMessages.length > 0){
-    //     this.hasMessages = true;
-    //   }
-    // })
+   
     
 console.log(this.asdf);
 

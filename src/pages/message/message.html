@@ -26,14 +26,16 @@
 <ion-item class="space" *ngIf="hideDate">
   <ion-label><ion-icon color="b"  ios="ios-calendar" md="md-calendar"></ion-icon> &nbsp;  &nbsp;  &nbsp;Date</ion-label>
  
-  <ion-datetime displayFormat="MMM/DD/YYYY" [(ngModel)]="myDate"></ion-datetime>
+  <ion-datetime displayFormat="MMM/DD/YYYY" min="2019" max="2050" [(ngModel)]="myDate" placeholder="{{userDate}}" (ionChange)="dateChange()"></ion-datetime>
 </ion-item>
 
 
 <ion-item class="space" *ngIf="showDate" >
   <ion-label><ion-icon color="b"  ios="ios-calendar" md="md-calendar"></ion-icon> &nbsp;  &nbsp;  &nbsp;Date</ion-label>
 
-  <ion-datetime displayFormat="MMM/DD"  #dateformat pickerFormat="MMMM DD" [(ngModel)]="kb" min="2019" max="2050" (ionChange)="dateChanged(dateformat.value)" ></ion-datetime>
+  <ion-datetime displayFormat="MMM/DD"  #dateformat pickerFormat="MMMM DD"     (ionChange)="dateChanged(dateformat.value)"  placeholder="{{userDate}}"></ion-datetime>
+
+
 </ion-item>
 
 
@@ -46,7 +48,8 @@
   <br>
       <div class="buttons"  >
           <button color="b3" ion-button id="button2" (click)="autoMsg()">Predef msgs</button>
-        <button color="dust" ion-button id="button1" (click)="send()">SEND</button>
+        <button color="dust" ion-button id="button1" (click)="send()"  *ngIf="showSendBtn">SEND</button>
+        <button color="dust" ion-button id="button1" (click)="update()" *ngIf="showUpdateBtn">update</button>
       </div>
   
   </ion-footer>

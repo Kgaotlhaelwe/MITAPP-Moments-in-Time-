@@ -52,7 +52,8 @@ import { IonicImageLoader } from 'ionic-image-loader';
 import {  } from '../components/expandable-header/expandable-header'
 import { Network } from '@ionic-native/network';
 import { DiconnectedPage } from '../pages/diconnected/diconnected';
-import {AddContactsPage} from '../pages/add-contacts/add-contacts'
+import {AddContactsPage} from '../pages/add-contacts/add-contacts' ;
+import { FormsModule } from '@angular/forms';
 
 import { from } from 'rxjs/observable/from';
 
@@ -93,7 +94,7 @@ var config = {
       // ExpandableHeader
   ],
   imports: [
-    BrowserModule,HttpClientModule ,SwipeCardsModule,
+    BrowserModule,HttpClientModule ,SwipeCardsModule, FormsModule ,
     IonicModule.forRoot(MyApp, {
       tabsHideOnSubPages:false  
       

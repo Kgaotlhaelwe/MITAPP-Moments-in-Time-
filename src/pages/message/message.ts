@@ -82,6 +82,8 @@ export class MessagePage {
   textboxmessage;
 
   userName;
+  schedulefunction ;
+  userDate ;
 
 
   grads = [{ message: "You can achieve whatever you want in life. All you have to do is believe that you can. We believe in you, happy graduation day." },
@@ -180,12 +182,15 @@ export class MessagePage {
   hideDate;
   showDate;
   userdate ;
+  showUpdateBtn ;
+  showSendBtn ;
   constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, private sms: SMS, private socialSharing: SocialSharing, private contacts: Contacts, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private backgroundMode: BackgroundMode, private db: DatabaseProvider, private calendar: Calendar, private network: Network, public toastCtrl: ToastController, public loadingCtrl: LoadingController, private keyboard: Keyboard) {
     this.time = moment(new Date()).format()
 
 
     this.hideDate = true;
-
+    this.showUpdateBtn =false;
+    this.showSendBtn =true ;
 
     this.tempdate = moment(new Date()).format()
 
@@ -216,43 +221,20 @@ export class MessagePage {
     }
     console.log(this.selectedDetails);
 
+    
+   this.db.getScheduledFunctionEmails().then((data:any)=>{
+    this.schedulefunction =data ;
 
+  })
 
-  }
-
-
-
-
-  dateChanged(a) {
-
-    let z = "0";
-    let x = "-";
-
-    console.log(a)
-
-    if (a.day <= 9) {
-      let stringDate = a.day.toString();
-
-      this.day = z + stringDate
-
-
-    } else {
-      let stringDate = a.day.toString();
-      this.day = stringDate
-    }
-
-    if (a.month <= 9) {
-      let stringDate = a.month.toString();
-
-      this.month = z + stringDate + x;
-
-    } else {
-      let stringDate = a.month.toString();
-      this.month = stringDate + x
-    }
 
 
   }
+
+
+
+
+ 
 
   ngAfterViewInit() {
     let tabs = document.querySelectorAll('.show-tabbar');
@@ -340,10 +322,58 @@ export class MessagePage {
       this.messageArry.splice(0, this.messageArry.length)
 }
 
-    if(this.textboxmessage == undefined){
-      this.textboxmessage =this.selectedDetails.message
+    if(this.textboxmessage != undefined && this.selectedDetails.track == 1){
+     
+     
+     // this.showSendBtn =false ;
+  }else if(this.selectedDetails.track == 1){
+    this.showSendBtn =true ;
 
+  }
+  
+  else{
+    this.showUpdateBtn = true ;
+    this.showSendBtn =false
+    this.textboxmessage =this.selectedDetails.message  ;
+    this.userDate =this.selectedDetails.date ;
+    if(this.selectedDetails.categoryChosen == "Birthday"){
+      let cutdate = this.selectedDetails.date.substring(0, 2) ;
+      let cutMonth = this.selectedDetails.date.substring(3, this.selectedDetails.date.length) ;
+        if(cutdate == "02"){
+          this.userDate ="FEB"+"/"+cutMonth
+        }else if(cutdate =="01"){
+          this.userDate ="JAN"+"/"+cutMonth
+        }
+        
+        else if(cutdate == "03"){
+          this.userDate ="MARCH"+"/"+cutMonth
+        }else if(cutdate =="O4"){
+          this.userDate="APRIL"+"/"+cutMonth;
+        }else if(cutdate =="05"){
+          this.userDate ="MAY"+"/"+cutMonth
+        }else if(cutdate =="06"){
+          this.userDate ="JUNE"+"/"+cutMonth
+
+        }else if (cutdate =="07"){
+          this.userDate ="JULY"+"/"+cutMonth
+        }else if(cutdate=="08"){
+          this.userDate ="AUG"+"/"+cutMonth
+
+        }else if(cutdate =="09"){
+          this.userDate="SEP"+"/"+cutMonth
+        }else if(cutdate =="10"){
+          this.userDate ="OCT"+"/"+cutMonth
+        }else if(cutdate =="11"){
+          this.userDate ="NOV"+"/"+cutMonth
+        }else if (cutdate =="12"){
+          this.userDate ="DEC"+"/"+cutMonth
+
+        }
+      
     }
+
+
+  }
 
 
 
@@ -568,28 +598,94 @@ export class MessagePage {
         });
       });
 
+}
 
 
 
+}
+
+
+dateChange(){
+  console.log(this.myDate);
+  if(this.myDate ==this.selectedDetails.date){
+
+  }else{
+    this.showSendBtn=true;
+    this.showUpdateBtn=false ;
+  }
+  
+}
+
+
+dateChanged(a) {
+
+  let z = "0";
+  let x = "-";
+
+  console.log(a)
+
+  if (a.day <= 9) {
+    let stringDate = a.day.toString();
+
+    this.day = z + stringDate
+
+
+  } else {
+    let stringDate = a.day.toString();
+    this.day = stringDate
+  }
+
+  if (a.month <= 9) {
+    let stringDate = a.month.toString();
+
+    this.month = z + stringDate + x;
+
+  } else {
+    let stringDate = a.month.toString();
+    this.month = stringDate + x
+  }
+
+  let fullDate =this.month+this.day ;
+  console.log(this.selectedDetails.date);
+  console.log(fullDate);
+  
+  
+  
+  
+  if(fullDate == this.selectedDetails.date){
+
+  }else {
+    this.showSendBtn=true;
+    this.showUpdateBtn=false ;
+  }
+
+
+}
 
 
 
+update(){
+  var users = firebase.auth().currentUser ;
+  var userid = users.uid ;
 
-
-
-
-
+  console.log(this.selectedDetails.key);
+  console.log(this.selectedDetails.uniquedate);
+  
+  var update = {
+    message:this.textboxmessage
+  }
+  
+  firebase.database().ref('scheduledEmails/'+ userid).child(this.selectedDetails.key).update(update).then(()=>{
+    for (let index = 0; index < this.schedulefunction.length; index++) {
+      if(this.schedulefunction[index].uniquedate ==this.selectedDetails.uniquedate){
+        firebase.database().ref("schedulefunctionEmail/").child(this.schedulefunction[index].k).update(update);
+      }
+    
+      
     }
 
-
-
-
-
-
-
-
-
-  }
+  });
+}
 
 }
 

@@ -158,9 +158,7 @@ export class AddContactsPage {
   }
 
 
-  mydate1(d) {
-
-  }
+ 
   async addDetails(a) {
 
 
@@ -238,7 +236,8 @@ export class AddContactsPage {
         let obj = {
           name: this.name,
           email: this.email,
-          categoryChosen: this.tempCategory
+          categoryChosen: this.tempCategory ,
+          track:1 
         }
 
         //  this.navCtrl.push(MessagePage, { selectedDetails:obj})

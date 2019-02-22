@@ -171,11 +171,17 @@ export class ContactPage   {
     
 
 var obj = {}
+
+var track ;
+
     
 
     for (let index = 0; index < this.scheduledmsg.length; index++) {
             if(this.scheduledmsg[index].occassion == this.categoryChosen && this.scheduledmsg[index].occassion){
               console.log("in")
+
+
+              track  = 1
               
 
                obj = {
@@ -183,32 +189,51 @@ var obj = {}
                 date:this.scheduledmsg[index].date ,
                 categoryChosen:this.categoryChosen,
                 email:email ,
-                name:name
+                name:name,
+                track:0,
+                
+                key:this.scheduledmsg[index].k,
+                uniquedate:this.scheduledmsg[index]. uniquedate
               }
              
-              console.log(obj);
+            break ;
               
 
-              this.navCtrl.push(MessagePage ,{ selectedDetails: obj} )
+            
               
 
             }else{
 
+              track = 0 ;
              
               obj = {
                 message:undefined,
-                date:undefined ,
+                date:this.scheduledmsg[index].date ,
                 email:email  ,
                 name:name ,
-
+                key:this.scheduledmsg[index].k,
+                uniquedate:this.scheduledmsg[index]. uniquedate ,
                 categoryChosen:this.categoryChosen
               }
-              this.navCtrl.push(MessagePage ,{ selectedDetails: obj} )
+            //  this.navCtrl.push(MessagePage ,{ selectedDetails: obj} )
 
 
             }
+
+
+
      
       
+    }
+
+    if(track = 0){
+      this.navCtrl.push(MessagePage ,{ selectedDetails: obj} )
+
+
+    }else{
+      this.navCtrl.push(MessagePage ,{ selectedDetails: obj} )
+
+
     }
 
 

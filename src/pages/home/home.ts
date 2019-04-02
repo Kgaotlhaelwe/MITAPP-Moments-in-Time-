@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewChildren, QueryList } from '@angular/core';
-import { NavController, PopoverController } from 'ionic-angular';
+import { NavController, PopoverController} from 'ionic-angular';
 import { DatabaseProvider } from '../../providers/database/database';
 import { AutomatePage } from '../automate/automate';
 import { MessagePage } from '../message/message';
@@ -20,6 +20,7 @@ import { LoadingController } from 'ionic-angular';
 import { ImageLoader } from 'ionic-image-loader';
 import { AlertController } from 'ionic-angular';
 import { DiconnectedPage } from '../diconnected/diconnected';
+import { Platform } from 'ionic-angular';
 
 // 
 
@@ -73,7 +74,7 @@ export class HomePage {
   imzxx;
 
   hideimage;
-  constructor(public navCtrl: NavController, private db: DatabaseProvider, private socialSharing: SocialSharing, public actionSheetCtrl: ActionSheetController, public popoverCtrl: PopoverController, private sanitizer: DomSanitizer, public toastCtrl: ToastController, private network: Network, public loadingCtrl: LoadingController, private imageLoader: ImageLoader, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, private db: DatabaseProvider, private socialSharing: SocialSharing, public actionSheetCtrl: ActionSheetController, public popoverCtrl: PopoverController, private sanitizer: DomSanitizer, public toastCtrl: ToastController, private network: Network, public loadingCtrl: LoadingController, private imageLoader: ImageLoader, public alertCtrl: AlertController,public platform: Platform) {
     this.hideimage = true;
     this.db.getMessages().then((data: any) => {
       console.log(data);
@@ -112,6 +113,12 @@ export class HomePage {
 
     })
 
+    platform.registerBackButtonAction(() => {
+      console.log("backPressed 1");
+      this.navCtrl.pop() ;
+    },1);
+  
+
   }
 
 
@@ -148,6 +155,12 @@ export class HomePage {
   }
 
   ionViewDidEnter() {
+
+    this.platform.registerBackButtonAction(function() {
+      this.navCtrl.pop()
+ 
+    });
+
     this.network.onConnect().subscribe(data => {
       console.log(data)
       // this.displayNetworkUpdate('Connected')

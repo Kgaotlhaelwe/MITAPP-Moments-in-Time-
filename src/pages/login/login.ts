@@ -153,7 +153,7 @@ Login(email , password){
           }
         },
         {
-          text: 'Send',
+          text: 'RESET',
           handler: data => {
 
             console.log('Saved clicked');

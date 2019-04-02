@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController, ModalController, NavParams, ActionSheetController } from 'ionic-angular';
+import { NavController, AlertController, ModalController, NavParams, ActionSheetController, ViewController } from 'ionic-angular';
 import { ViewPage } from '../view/view';
 import { InfosentPage } from '../infosent/infosent';
 import { SplashPage } from '../splash/splash';
@@ -9,6 +9,7 @@ import { MessagePage } from '../message/message';
 import *as moment from 'moment';
 
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
+import { Platform } from 'ionic-angular';
 
 
 declare var firebase
@@ -28,9 +29,39 @@ export class ContactPage   {
   name2;
   scheduledmsg = [] ;
   tempArray = [] ;
-
+  image ;
+  imagez ;
   color = ["red" , "yellow", "blue"]
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public modalCtrl: ModalController, private db: DatabaseProvider, private contacts: Contacts, public actionSheetCtrl: ActionSheetController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl: AlertController, public modalCtrl: ModalController, private db: DatabaseProvider, private contacts: Contacts, public actionSheetCtrl: ActionSheetController, private viewCtrl: ViewController, platform: Platform) {
+   
+
+    let tabs = document.querySelectorAll('.show-tabbar');
+    if (tabs !== null) {
+      Object.keys(tabs).map((key) => {
+          tabs[key].style.display = 'none';
+      });
+ 
+  }
+
+  let backAction =  platform.registerBackButtonAction(() => {
+    console.log("second");
+    this.navCtrl.pop();
+    backAction();
+  },2)
+  }
+
+
+  
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad AddContactsPage');
+
+    let tabs = document.querySelectorAll('.show-tabbar');
+    if (tabs !== null) {
+        Object.keys(tabs).map((key) => {
+            tabs[key].style.display = 'none';
+        });
+    }
+    
     this.db.getContactlist().then((data: any) => {
       this.tempArray = data
      console.log( this.tempArray);
@@ -44,17 +75,21 @@ export class ContactPage   {
   
       let fullname = this.tempArray[index].name ;
       let email = this.tempArray[index].email ;
+      let key =  this.tempArray[index].k
           
       
       let obj = {
         shortname:shortname,
         name:fullname ,
-        email:email
+        email:email,
+        key:key
+      
 
 
           }
 
         this.contactListArray.push(obj) ;
+        this.contactListArray.sort(this.dynamicSort("name"));
 
         console.log(this.contactListArray);
         
@@ -70,34 +105,54 @@ export class ContactPage   {
 
     })
 
-    let tabs = document.querySelectorAll('.show-tabbar');
-    if (tabs !== null) {
-      Object.keys(tabs).map((key) => {
-          tabs[key].style.display = 'none';
-      });
- 
-  }
-
-  
-
-  }
-
-
-  
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddContactsPage');
-
-    let tabs = document.querySelectorAll('.show-tabbar');
-    if (tabs !== null) {
-        Object.keys(tabs).map((key) => {
-            tabs[key].style.display = 'none';
-        });
-    }
-    
-
 
   }
   ionViewDidEnter(){
+
+    if ("Birthday" == this.categoryChosen) {
+      this.imagez = "../../assets/imgs/icons8_Wedding_Cake_96px_1.png";
+      console.log(this.imagez);
+
+    }
+    else if ("Graduations" == this.categoryChosen) {
+      this.imagez = "../../assets/imgs/icons8_Graduation_Cap_96px.png";
+      console.log(this.imagez);
+
+    } else if ("Baby Shower" == this.categoryChosen) {
+      this.imagez = "../../assets/imgs/icons8_Mother_96px.png";
+      console.log("getimage");
+
+      console.log(this.imagez);
+
+    }
+    else if ("New Jobs" == this.categoryChosen) {
+      this.imagez = "../../assets/imgs/icons8_Briefcase_96px.png";
+      console.log(this.imagez);
+
+    }
+    else if ("Anniversary" == this.categoryChosen) {
+      this.imagez = "../../assets/imgs/icons8_Wedding_Gift_96px.png";
+      console.log(this.imagez);
+
+    }
+    else if ("Weddings" == this.categoryChosen) {
+      this.imagez = "../../assets/imgs/icons8_Diamond_Ring_100px.png";
+      console.log(this.imagez);
+
+    }
+    else if ("Thinking of you" == this.categoryChosen) {
+      this.imagez = " ../../assets/imgs/icons8_Collaboration_Female_Male_100px_1.png";
+      console.log(this.imagez);
+
+    }
+    else if ("General" == this.categoryChosen) {
+      this.imagez = "../../assets/imgs/icons8_People_100px.png";
+      console.log(this.imagez);
+
+    } else {
+
+      this.image = "../../assets/imgs/icons8_People_100px.png";
+    }
    
 
     
@@ -136,14 +191,15 @@ export class ContactPage   {
 
 
 
-            // this.userDetails()
+          
             console.log(this.categoryChosen);
 
 
-            //this.navCtrl.push(AddContactsPage, { categoryChosen:this.categoryChosen});
-            let currentIndex = this.navCtrl.getActive().index;
+          
             this.navCtrl.push(AddContactsPage, { categoryChosen: this.categoryChosen }).then(() => {
-              this.navCtrl.remove(currentIndex);
+              //const index = this.viewCtrl.index
+             //this.navCtrl.remove(index);
+            
             });
           }
         },
@@ -158,7 +214,8 @@ export class ContactPage   {
      this.navCtrl.push(AddContactsPage, { categoryChosen: this.categoryChosen });
    //let currentIndex = this.navCtrl.getActive().index;
    this.navCtrl.push(AddContactsPage, { categoryChosen: this.categoryChosen }).then(() => {
-     //this.navCtrl.remove(currentIndex);
+   ;// const index = this.viewCtrl.index
+   // this.navCtrl.remove(index);
    });
 
     console.log("innnjn")
@@ -168,7 +225,7 @@ export class ContactPage   {
     console.log(this.categoryChosen);
     console.log( this.scheduledmsg);
 
-    
+    console.log( this.scheduledmsg.length);
 
 var obj = {}
 
@@ -177,9 +234,10 @@ var track ;
     
 
     for (let index = 0; index < this.scheduledmsg.length; index++) {
-            if(this.scheduledmsg[index].occassion == this.categoryChosen ){
-              console.log("in")
-
+            if(this.scheduledmsg[index].occassion == this.categoryChosen  && this.scheduledmsg[index].emailto == email){
+             
+              console.log("if statement");
+              
 
               track  = 1
               
@@ -200,10 +258,10 @@ var track ;
               
 
             
-              
-
+            
             }else{
-
+              console.log("else statement");
+              
               track = 0 ;
              
               obj = {
@@ -218,7 +276,8 @@ var track ;
 
               }
             //  this.navCtrl.push(MessagePage ,{ selectedDetails: obj} )
-
+                console.log(obj);
+                
 
             }
 
@@ -228,12 +287,34 @@ var track ;
       
     }
 
+
+    console.log(this.scheduledmsg.length);
+    
+    if(this.scheduledmsg.length == 0){
+      console.log("insidedddddd");
+      
+      obj = {
+        name:name ,
+        email:email ,
+        categoryChosen:this.categoryChosen ,
+        empty:1 ,
+        datex:"02-24" 
+      }
+    }
+
     if(track = 0){
-      this.navCtrl.push(MessagePage ,{ selectedDetails: obj} )
+      console.log(obj);
+     this.navCtrl.push(MessagePage ,{ selectedDetails: obj} )
+    //  let currentIndex = this.navCtrl.getActive().index;
+    // this.navCtrl.remove(currentIndex);
+   
 
 
     }else{
-      this.navCtrl.push(MessagePage ,{ selectedDetails: obj} )
+      console.log(obj);
+     this.navCtrl.push(MessagePage ,{ selectedDetails: obj} )
+   //  let currentIndex = this.navCtrl.getActive().index;
+   //  this.navCtrl.remove(currentIndex);
 
 
     }
@@ -242,12 +323,56 @@ var track ;
 
   }
 
-  Delete(){
-      
-  //   firebase.database().ref('likedPictures/' + this.userID).child(key).remove();
-  // })
+  Delete(key , index){
+    console.log(key);
+    this.tempArray = [] ;
+    
+    
+    
 
-  }
+
+    const prompt = this.alertCtrl.create({
+      title: 'Delete',
+      message: " Are sure you want to delete this contact",
+      cssClass: "myAlert",
+      buttons: [
+        {
+          text: 'No',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: data => {
+            var users = firebase.auth().currentUser ;
+            var userid = users.uid ;
+            if(this.contactListArray.length == 1){
+              firebase.database().ref('contactList/'+ userid).child(key).remove().then(()=>{
+                console.log("success");
+                this.contactListArray = [] ;
+              
+                
+                
+              })
+        
+            }
+            firebase.database().ref('contactList/'+ userid).child(key).remove().then(()=>{
+              console.log("success");
+             this.contactListArray.splice(index , 1)
+              
+              
+            })
+            console.log('Saved clicked');
+
+          }
+        }
+      ]
+    });
+    prompt.present();
+
+      
+}
 
 
   addcontactz() {
@@ -272,9 +397,9 @@ var track ;
           track: 1
         }
         //this.navCtrl.push(AddContactsPage, { getContactDetails: this.contactDetails, categoryChosen: this.categoryChosen })
-        let currentIndex = this.navCtrl.getActive().index;
+       // let currentIndex = this.navCtrl.getActive().index;
         this.navCtrl.push(AddContactsPage, { getContactDetails: this.contactDetails, categoryChosen: this.categoryChosen }).then(() => {
-          //this.navCtrl.remove(currentIndex);
+         // this.navCtrl.remove(currentIndex);
         });
 
       } else {
@@ -286,9 +411,9 @@ var track ;
         }
 
         //this.navCtrl.push(AddContactsPage, { getContactDetails: this.contactDetails, categoryChosen: this.categoryChosen })
-        let currentIndex = this.navCtrl.getActive().index;
+       // let currentIndex = this.navCtrl.getActive().index;
         this.navCtrl.push(AddContactsPage, { getContactDetails: this.contactDetails, categoryChosen: this.categoryChosen }).then(() => {
-         // this.navCtrl.remove(currentIndex);
+          //his.navCtrl.remove(currentIndex);
         });
       }
 
@@ -302,9 +427,9 @@ var track ;
         email: undefined
       }
       //this.navCtrl.push(AddContactsPage, { getContactDetails: this.contactDetails, categoryChosen: this.categoryChosen })
-      let currentIndex = this.navCtrl.getActive().index;
+     // let currentIndex = this.navCtrl.getActive().index;
       this.navCtrl.push(AddContactsPage, { getContactDetails: this.contactDetails, categoryChosen: this.categoryChosen }).then(() => {
-        //this.navCtrl.remove(currentIndex);
+       // this.navCtrl.remove(currentIndex);
       });
 
     });
@@ -359,6 +484,24 @@ var track ;
   // }
 
   // }
+
+
+   dynamicSort(property) {
+    var sortOrder = 1;
+
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
+    }
+
+    return function (a,b) {
+        if(sortOrder == -1){
+            return b[property].localeCompare(a[property]);
+        }else{
+            return a[property].localeCompare(b[property]);
+        }        
+    }
+}
 
 }
 

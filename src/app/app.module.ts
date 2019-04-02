@@ -133,7 +133,7 @@ var config = {
   ],
   providers: [
     StatusBar,   SQLite ,
-    SplashScreen, DatabaseProvider , SMS , SocialSharing ,Contacts,LocalNotifications,Camera ,BackgroundMode ,Calendar ,Network ,
+    SplashScreen, DatabaseProvider , SMS , SocialSharing ,Contacts,LocalNotifications,Camera ,BackgroundMode ,Calendar ,Network ,SwipeCardsModule,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   
   ]

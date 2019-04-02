@@ -12,6 +12,7 @@ import { InfoPage } from '../info/info';
 import { ViewPage } from '../view/view';
 import { Network } from '@ionic-native/network';
 import { ToastController } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 
 
 
@@ -45,17 +46,17 @@ export class AboutPage {
   randomColor = Math.floor(Math.random()*16777215).toString(16);
 asdf = '#' + this.randomColor
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private contacts: Contacts, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, private localNotifications: LocalNotifications, private sms: SMS, private socialSharing: SocialSharing, private db: DatabaseProvider, public modalCtrl: ModalController, private network: Network, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private contacts: Contacts, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, private localNotifications: LocalNotifications, private sms: SMS, private socialSharing: SocialSharing, private db: DatabaseProvider, public modalCtrl: ModalController, private network: Network, public toastCtrl: ToastController, platform: Platform) {
    
     
 console.log(this.asdf);
 
-    let tabs = document.querySelectorAll('.show-tabbar');
-    if (tabs !== null) {
-      Object.keys(tabs).map((key) => {
-        tabs[key].style.display = 'flex';
-      });
-    }
+    // let tabs = document.querySelectorAll('.show-tabbar');
+    // if (tabs !== null) {
+    //   Object.keys(tabs).map((key) => {
+    //     tabs[key].style.display = 'flex';
+    //   });
+    // }
 
     this.tabs = this.navParams.get('tabs');
 
@@ -76,6 +77,14 @@ console.log(this.asdf);
      this.schedulefunction =data ;
 
    })
+
+
+   let backAction =  platform.registerBackButtonAction(() => {
+    console.log("second");
+    this.navCtrl.pop();
+    backAction();
+  },2)
+
   }
 
   ionViewDidLoad() {
@@ -225,7 +234,26 @@ console.log(this.asdf);
 
   Delete(key, uniquedate) {
 
-    console.log(key);
+    
+
+
+
+    const prompt = this.alertCtrl.create({
+      title: 'Delete',
+      message: " Are sure you want to delete this schedule message ",
+      cssClass: "myAlert",
+      buttons: [
+        {
+          text: 'No',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Yes',
+          handler: data => {
+
+            console.log(key);
     
 
     var users = firebase.auth().currentUser ;
@@ -267,6 +295,12 @@ console.log(this.asdf);
 
 
     }
+            console.log('Saved clicked');
+          }
+        }
+      ]
+    });
+    prompt.present();
 
    
     
@@ -287,17 +321,17 @@ console.log(this.asdf);
   }
   
 
-  // ionViewWillLeave() {
-  //   let tabs = document.querySelectorAll('.show-tabbar');
-  //   if (tabs !== null) {
-  //       Object.keys(tabs).map((key) => {
-  //           tabs[key].style.display = 'flex';
-  //       });
-   
-  //   }
  
 
- // }
+
+  ngAfterViewInit() {
+    let tabs = document.querySelectorAll('.show-tabbar');
+    if (tabs !== null) {
+        Object.keys(tabs).map((key) => {
+            tabs[key].style.display = 'flex';
+        });
+    }
+  }
 
 }
   

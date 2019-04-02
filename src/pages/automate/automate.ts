@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ActionSheetController, Tabs,ModalController,ViewController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ActionSheetController, Tabs,ModalController,ViewController } from 'ionic-angular';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import { SMS } from '@ionic-native/sms';
@@ -45,15 +45,81 @@ export class AutomatePage {
   name = this.navParams.get("name");
   categoryChosen = this.navParams.get("categoryChosen") ;
 
+  tempArray = [];
+
   image ;
   constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController, private localNotifications: LocalNotifications,private sms:SMS, private contacts: Contacts, private db:DatabaseProvider, private calendar:Calendar,public toastCtrl: ToastController,public modalCtrl: ModalController, public viewCtrl: ViewController ) {
+
+  
+  
+  
   
   }
 
   ionViewDidLoad() {
+
+
+    if (this.categoryChosen == "Weddings"){
+      this.db.getWeddingMessage().then((data:any)=>{
+        console.log(data);
+        
+        this.tempArray =(data) ;
+        console.log(this.tempArray);
+        
+  
+      })
+  
+    }else if (this. categoryChosen =="Birthday" ){
+      this.db.getBirthdayMessages().then((data:any)=>{
+        console.log(data);
+        
+        this.tempArray =data ;
+        console.log(this.tempArray);
+        
+      })
+  
+  
+    }else if (this. categoryChosen =="Graduations"){
+      this.db.getGraduationMessages().then((data:any)=>{
+        this.tempArray =data ;
+  
+      })
+  
+    }else if (this. categoryChosen =="Baby Shower"){
+      this.db.getbabyShower().then((data:any)=>{
+        this.tempArray =data ;
+  
+      })
+  
+    }else if (this. categoryChosen =="New Jobs"){
+      this.db.getJobMessage().then((data:any)=>{
+        this.tempArray = data ;
+  
+      })
+  
+  
+    }else if (this. categoryChosen =="Anniversary"){
+      this.db.getAnniversaryMessages().then((data:any)=>{
+        this.tempArray =data ;
+  
+      })
+  
+    }else if (this. categoryChosen =="Thinking of you"){
+      this.db.getThinkingofyou().then((data:any)=>{
+        this.tempArray =data ;
+
+      })
+  
+    } else {
+      this.db.getGeneralMessage().then((data:any)=>{
+        this.tempArray =data ;
+  
+      })
+  
+    }
     console.log('ionViewDidLoad AutomatePage');
 
-   
+    console.log(this.categoryChosen);
 
     
     if("Birthday" == this.categoryChosen){
@@ -117,7 +183,9 @@ export class AutomatePage {
    
    let obj = {message:message}
 
-   arry.push(obj)
+   arry [0] = obj ;
+
+  /// arry.push(obj)
 
    console.log(arry);
 

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Platform , Events,Keyboard } from 'ionic-angular';
+import { Platform , Events,Keyboard, App } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { DatabaseProvider } from '../providers/database/database';
@@ -25,7 +25,7 @@ export class MyApp {
   showSplash=true;
   selectedTheme
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,  db:DatabaseProvider,  private imageLoaderConfig: ImageLoaderConfig, public events: Events,private keyboard: Keyboard ) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,  db:DatabaseProvider,  private imageLoaderConfig: ImageLoaderConfig, public events: Events,private keyboard: Keyboard, app: App ) {
   //   db.getActiveTheme().subscribe(val => this.selectedTheme = val)
   //  db.getActiveTheme().subscribe((val)=>{
   //   this.selectedTheme = val
@@ -35,8 +35,19 @@ export class MyApp {
   //  })
 
 
-  
+ 
+  // platform.registerBackButtonAction(function() {
+  //   console.log("clicked");
+    
+  //   //this.navCtrl.pop()
 
+  // });
+  
+  platform.ready().then(() => {
+    platform.registerBackButtonAction(() => {
+        app.navPop();
+    });
+})     
 
   events.subscribe('user:created', (user, time) => {
     var id = user
@@ -82,6 +93,8 @@ export class MyApp {
 
        
     });
+
+    platform.runBackButtonAction
 
   //   this.keyboard.onKeyboardShow().subscribe(() => {
   //     document.body.classList.add('keyboard-is-open');

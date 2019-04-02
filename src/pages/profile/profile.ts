@@ -6,6 +6,7 @@ import {DatabaseProvider} from '../../providers/database/database';
 import { Network } from '@ionic-native/network';
 import { ToastController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
+// import { Keyboard } from '@ionic-native/keyboard';
 declare var firebase ;
 
 /**
@@ -103,7 +104,7 @@ export class ProfilePage {
 
 
   edit(){
-    
+    // this.keyboard.show();
     this.showinput =true ;
     document.getElementById("btnhide").style.display="none"
     document.getElementById("namehide").style.display="none"

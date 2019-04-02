@@ -125,7 +125,59 @@ h1{
    border-bottom-color : rgb(255, 255, 255); 
    -webkit-box-shadow: inset 0 -1px 0 0 rgb(255, 255, 255); 
    box-shadow: inset 0 -1px 0 0 rgb(255, 255, 255); 
-   height: 30vh !important;
+   height: 50vh !important;
 }
+.datetime-md{
+    color: white;
+}
+ .textarear-box{
+     padding: 10px;
+ }
+ .space{
+    //  border: 2px solid red;
+    //  background-color: rgba(238, 0, 0, 0.664);
+ }
+ .datetime-md .datetime-placeholder {
+    color: rgb(255, 255, 255);
+    font-weight: bold
+}
+.datetime-md{
+    color: white;
+}
+ .textarear-box{
+     padding: 10px;
+ }
+
+ .datetime-md .datetime-placeholder {
+    color: rgb(255, 255, 255);
+    font-weight: bold
+}
+
+.datetime-md{
+    color: white;
+    font-weight: bold
+}
+ .textarear-box{
+     padding: 10px;
+ }
+
+ .datetime-md .datetime-placeholder {
+    color: rgb(231, 231, 231);
+}
+.date-box{
+    //  position: absolute;
+    // text-align: center;
+    // width: 90%;
+    // left: 50%;
+    // transform: translateX(-50%);    
+    // bottom: 10px;
+    // border: 2px solid rgb(255, 202, 202);
+    // border-radius: 20px;
+  
+  }
+  .toolbar{
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.5); 
+  
+  }
 
 }

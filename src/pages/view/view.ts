@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController , ActionSheetController, ModalController } from 'ionic-angular';
+import { NavController, NavParams, AlertController , ActionSheetController, ModalController } from 'ionic-angular';
 
 declare var firebase
 import {DatabaseProvider} from '../../providers/database/database';
@@ -11,14 +11,7 @@ import { SMS } from '@ionic-native/sms';
 import { LocalNotifications } from '@ionic-native/local-notifications';
 import * as moment from 'moment';
 import { AboutPage } from '../about/about';
-/**
- * Generated class for the ViewPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
-@IonicPage()
 @Component({
   selector: 'page-view',
   templateUrl: 'view.html',
@@ -38,6 +31,19 @@ export class ViewPage {
   phoneNumber;
   dates;
   time = new Date();
+    
+  background= Math.floor(Math.random() * 4) + 0;
+ bigSize = ["url",
+                         "url('../../assets/flowerbackground.jpg')",
+                         "url('../../assets/ballonbackground.jpg')",
+                         "url('../../assets/backgroun11.jpg')",
+                         "url('../../assets/background12.jpg')"];
+
+
+
+
+
+
 
 
     constructor(public navCtrl: NavController, public navParams: NavParams,private contacts: Contacts, public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController, private localNotifications: LocalNotifications,private sms:SMS ,private socialSharing:SocialSharing, private db:DatabaseProvider,public modalCtrl: ModalController , private network: Network , public toastCtrl: ToastController) {
@@ -55,7 +61,12 @@ export class ViewPage {
     ionViewDidLoad() {
       console.log('ionViewDidLoad ViewPage');
       console.log(this.message);
+      this.randombg();
      
+    }
+    ionwillEnter(){
+      this.randombg();
+
     }
 
    
@@ -319,6 +330,13 @@ console.log(this.msg);
     });
 
 
-        }     
+        }  
+        randombg(){
+
+          document.getElementById("background").style.backgroundImage=this.bigSize[this.background];
+          // document.getElementById("random").style.backgroundColor="red";
+          // document.getElementById("random").style.backgroundImage="block"
+ 
+        }   
 
       }

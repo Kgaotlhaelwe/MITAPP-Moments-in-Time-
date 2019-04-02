@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, NavParams, AlertController, ViewController } from 'ionic-angular';
 
 import { DatabaseProvider } from '../../providers/database/database';
 import { ContactPage } from '../contact/contact';
@@ -10,14 +10,7 @@ import { TabsPage } from '../tabs/tabs';
 import { EventPage } from '../event/event';
 import { MessagePage } from '../message/message';
 
-/**
- * Generated class for the AddContactsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
-@IonicPage()
 @Component({
   selector: 'page-add-contacts',
   templateUrl: 'add-contacts.html',
@@ -45,7 +38,7 @@ export class AddContactsPage {
   day;
   month;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public db: DatabaseProvider, public loadingCtrl: LoadingController, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public db: DatabaseProvider, public loadingCtrl: LoadingController, public alertCtrl: AlertController, private viewCtrl: ViewController) {
 
 
     this.hideDate = true;
@@ -126,39 +119,10 @@ export class AddContactsPage {
 
 
 
-  dateChanged(a) {
-
-    let z = "0";
-    let x = "-";
-
-    console.log(a)
-
-    if (a.day <= 9) {
-      let stringDate = a.day.toString();
-
-      this.day = z + stringDate
 
 
-    } else {
-      let stringDate = a.day.toString();
-      this.day = stringDate
-    }
-
-    if (a.month <= 9) {
-      let stringDate = a.month.toString();
-
-      this.month = z + stringDate + x;
-
-    } else {
-      let stringDate = a.month.toString();
-      this.month = stringDate + x
-    }
 
 
-  }
-
-
- 
   async addDetails(a) {
 
 
@@ -169,6 +133,8 @@ export class AddContactsPage {
       let dotpos = this.email.lastIndexOf(".")
       console.log(atpos);
       console.log(dotpos);
+
+      let checkbirth;
 
 
 
@@ -190,9 +156,9 @@ export class AddContactsPage {
 
             console.log(this.email);
             console.log(this.temparray[index].email);
+            //let tempEmail = this.email.toLowerCase();
 
-
-            if (this.temparray[index].email == this.email) {
+            if (this.temparray[index].email.toLowerCase() == this.email.toLowerCase()) {
               dup = 1
               console.log(dup);
 
@@ -231,32 +197,41 @@ export class AddContactsPage {
 
         }
 
+        if (this.categoryChosen == "Birthday") {
+          checkbirth = "birthday"
 
+        } else {
+          checkbirth = undefined
+
+        }
 
         let obj = {
           name: this.name,
           email: this.email,
-          categoryChosen: this.tempCategory ,
-          track:1 
+          message: undefined,
+          categoryChosen: this.tempCategory,
+          track: 1,
+          check: checkbirth
         }
 
-        //  this.navCtrl.push(MessagePage, { selectedDetails:obj})
         const loader = this.loadingCtrl.create({
           content: "Please wait...",
-          duration: 1000
+          duration: 500
         });
         loader.present();
 
-
-        let currentIndex = this.navCtrl.getActive().index;
         this.navCtrl.push(MessagePage, { selectedDetails: obj }).then(() => {
+          //const index = this.viewCtrl.index-1
 
-          setTimeout(() => {
-            this.navCtrl.remove(currentIndex);
-          }, 1000);
+          //this.navCtrl.remove(index);
+
+        })
 
 
-        });
+
+
+
+
 
 
 

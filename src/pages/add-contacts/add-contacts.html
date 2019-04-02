@@ -1,4 +1,4 @@
-<!--
+<!-- <!--
   Generated template for the AddContactsPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
@@ -14,11 +14,11 @@
 
 
 <ion-content padding class="back">
-  <br>
-<h1 text-center>Please enter new contact</h1>
-<br>
+  <!-- <div class="main-container" >
+<h1 text-center>Please enter new <br> contact</h1>
 
-    <ion-list>
+
+    <ion-list class="ion-list" >
 
         <ion-item class="space">
           <ion-label><ion-icon color="b" ios="ios-person-add" md="md-person-add"></ion-icon> &nbsp; </ion-label>
@@ -36,9 +36,40 @@
 
      </ion-list>
 
-<br>
-<br> 
-<br>
-      <button color="b" ion-button full round (click)="addDetails()">Add deatils</button>
 
+<div class="btns" >
+    <button color="b" ion-button full round (click)="addDetails()">Add deatils</button>
+</div>
+    
+
+  </div> -->
+
+
+  <div class="mainconent">
+      <h3>Create New Contact </h3>
+  
+      <ion-list color="seethrough">
+  
+          <ion-item class="TheItem">
+            <ion-label><ion-icon color="b" ios="ios-person-add" md="md-person-add"></ion-icon> &nbsp; </ion-label>
+            <ion-input   type="text" placeholder="Name"  [(ngModel)]="name" value="{{name1}}"></ion-input>
+          </ion-item>
+        
+          <ion-item class="TheItem">
+            <ion-label><ion-icon color="b"  ios="ios-mail" md="md-mail"></ion-icon> &nbsp; </ion-label>
+            <ion-input type="text" placeholder="Email"  [(ngModel)]="email" value="{{email1}}"></ion-input>
+          </ion-item>
+        
+        </ion-list>
+
+        <button class="Thebutton" ion-button  (click)="addDetails()">Add contact</button>
+    
+       
+  
+          
+  
+  
+  
+  
+      </div>
 </ion-content>

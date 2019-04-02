@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ActionSheetController, ModalController, AlertController, Keyboard } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ActionSheetController, ModalController, AlertController, Keyboard, ViewController } from 'ionic-angular';
 import { AutomatePage } from '../automate/automate';
 import { PersonalizedPage } from '../personalized/personalized';
 import { AdminPage } from '../admin/admin';
@@ -21,6 +21,9 @@ import { Network } from '@ionic-native/network';
 
 import { ToastController, LoadingController } from 'ionic-angular';
 import { memory } from '@angular/core/src/render3/instructions';
+import { ContactPage } from '../contact/contact';
+import { AboutPage } from '../about/about';
+import { Platform } from 'ionic-angular';
 
 declare var firebase;
 
@@ -52,7 +55,8 @@ export class MessagePage {
   categoryChosen = this.navParams.get("categoryChosen");
 
   phoneNumber;
-  name = this.navParams.get("name");;
+  name = this.navParams.get("name"); imagez: string;
+  ;
   date = this.navParams.get("date");
   time = this.navParams.get("time");
   countDownDate;
@@ -63,12 +67,14 @@ export class MessagePage {
   day;
   month;
   myDate;
-
+  messageauto;
+  mybirthDate;
+  messageArry = arry;
   messagezz;
   // name1 =this.navParams.get("name1"); ;
   date1;
 
-  messageArry = arry;
+
   personalisedMessage: boolean = false;
   autoMessage: boolean = false;
   automsg;
@@ -82,8 +88,10 @@ export class MessagePage {
   textboxmessage;
 
   userName;
-  schedulefunction ;
-  userDate ;
+  schedulefunction;
+  userDate = 'select a date';
+  fullDate;
+  updateDate;
 
 
   grads = [{ message: "You can achieve whatever you want in life. All you have to do is believe that you can. We believe in you, happy graduation day." },
@@ -181,16 +189,16 @@ export class MessagePage {
   userCategory;
   hideDate;
   showDate;
-  userdate ;
-  showUpdateBtn ;
-  showSendBtn ;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, private sms: SMS, private socialSharing: SocialSharing, private contacts: Contacts, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private backgroundMode: BackgroundMode, private db: DatabaseProvider, private calendar: Calendar, private network: Network, public toastCtrl: ToastController, public loadingCtrl: LoadingController, private keyboard: Keyboard) {
+  userdate;
+  showUpdateBtn;
+  showSendBtn;
+  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, private sms: SMS, private socialSharing: SocialSharing, private contacts: Contacts, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private backgroundMode: BackgroundMode, private db: DatabaseProvider, private calendar: Calendar, private network: Network, public toastCtrl: ToastController, public loadingCtrl: LoadingController, private keyboard: Keyboard, private viewCtrl: ViewController ,platform: Platform) {
     this.time = moment(new Date()).format()
 
 
     this.hideDate = true;
-    this.showUpdateBtn =false;
-    this.showSendBtn =true ;
+    this.showUpdateBtn = false;
+    this.showSendBtn = true;
 
     this.tempdate = moment(new Date()).format()
 
@@ -221,11 +229,19 @@ export class MessagePage {
     }
     console.log(this.selectedDetails);
 
-    
-   this.db.getScheduledFunctionEmails().then((data:any)=>{
-    this.schedulefunction =data ;
 
-  })
+    this.db.getScheduledFunctionEmails().then((data: any) => {
+      this.schedulefunction = data;
+
+    })
+    let backAction =  platform.registerBackButtonAction(() => {
+      console.log("second");
+      this.navCtrl.pop();
+      backAction();
+    },2)
+
+  
+  
 
 
 
@@ -234,7 +250,7 @@ export class MessagePage {
 
 
 
- 
+
 
   ngAfterViewInit() {
     let tabs = document.querySelectorAll('.show-tabbar');
@@ -246,22 +262,7 @@ export class MessagePage {
   }
 
   ionViewWillLeave() {
-    // let tabs = document.querySelectorAll('.show-tabbar');
-    // if (tabs !== null) {
-    //     Object.keys(tabs).map((key) => {
-    //         tabs[key].style.display = 'flex';
-    //     });
 
-    // }
-    // }
-
-
-    // displayNetworkUpdate(connectionState:string){
-    //   let networkType =this.network.type
-    //   this.toastCtrl.create({
-    //     message:connectionState ,
-    //     duration:3000 ,
-    //   }).present()
 
 
 
@@ -282,7 +283,27 @@ export class MessagePage {
 
   }
 
-  ionViewWillEnter() {
+  ionViewDidEnter() {
+
+    if (this.messageArry.length == 1) {
+      this.textboxmessage = this.messageArry[0].message
+
+
+
+
+
+
+    } else {
+
+
+
+    }
+
+
+
+  }
+
+  ionViewDidLoad() {
 
 
 
@@ -296,10 +317,7 @@ export class MessagePage {
       console.log(this.userName);
       this.userCategory = this.selectedDetails.categoryChosen;
 
-      if (this.selectedDetails.categoryChosen == undefined) {
-        this.userCategory = "Happy Special Day";
 
-      }
 
 
       this.showName = this.selectedDetails.name;
@@ -308,7 +326,9 @@ export class MessagePage {
     })
 
 
-
+    if (this.selectedDetails.check == "birthday") {
+      this.showSendBtn = true;
+    }
 
 
 
@@ -316,64 +336,108 @@ export class MessagePage {
 
 
     if (this.messageArry.length == 1) {
-      this.textboxmessage = this.messageArry[0].message
-      console.log(this.messageArry);
+      this.textboxmessage = this.messageArry[0].message;
 
-      this.messageArry.splice(0, this.messageArry.length)
-}
 
-    if(this.textboxmessage != undefined && this.selectedDetails.track == 1){
-     
-     
-     // this.showSendBtn =false ;
-  }else if(this.selectedDetails.track == 1){
-    this.showSendBtn =true ;
 
-  }
-  
-  else{
-    this.showUpdateBtn = true ;
-    this.showSendBtn =false
-    this.textboxmessage =this.selectedDetails.message  ;
-    this.userDate =this.selectedDetails.date ;
-    if(this.selectedDetails.categoryChosen == "Birthday"){
-      let cutdate = this.selectedDetails.date.substring(0, 2) ;
-      let cutMonth = this.selectedDetails.date.substring(3, this.selectedDetails.date.length) ;
-        if(cutdate == "02"){
-          this.userDate ="FEB"+"/"+cutMonth
-        }else if(cutdate =="01"){
-          this.userDate ="JAN"+"/"+cutMonth
-        }
-        
-        else if(cutdate == "03"){
-          this.userDate ="MARCH"+"/"+cutMonth
-        }else if(cutdate =="O4"){
-          this.userDate="APRIL"+"/"+cutMonth;
-        }else if(cutdate =="05"){
-          this.userDate ="MAY"+"/"+cutMonth
-        }else if(cutdate =="06"){
-          this.userDate ="JUNE"+"/"+cutMonth
+      this.messageArry.splice(0, 1)
 
-        }else if (cutdate =="07"){
-          this.userDate ="JULY"+"/"+cutMonth
-        }else if(cutdate=="08"){
-          this.userDate ="AUG"+"/"+cutMonth
 
-        }else if(cutdate =="09"){
-          this.userDate="SEP"+"/"+cutMonth
-        }else if(cutdate =="10"){
-          this.userDate ="OCT"+"/"+cutMonth
-        }else if(cutdate =="11"){
-          this.userDate ="NOV"+"/"+cutMonth
-        }else if (cutdate =="12"){
-          this.userDate ="DEC"+"/"+cutMonth
+    } else {
 
-        }
-      
     }
 
+    if (this.textboxmessage != undefined && this.selectedDetails.track == 1) {
 
-  }
+
+      console.log("test1");
+
+
+      this.showSendBtn = true
+      this.textboxmessage = undefined;
+
+      // this.showSendBtn =false ;
+    } else if (this.selectedDetails.track == 1) {
+      this.showSendBtn = true;
+      console.log("test2");
+
+
+    }
+
+    else {
+
+      if (this.selectedDetails.empty == 1) {
+        console.log("innnnside");
+        console.log("test3");
+
+
+        this.showUpdateBtn = false;
+        this.showSendBtn = true
+
+      } else {
+        this.showUpdateBtn = true;
+        this.showSendBtn = false
+        console.log("test4");
+
+        console.log(this.selectedDetails.empty)
+
+      }
+
+      if (this.messageArry.length == 0) {
+        this.textboxmessage = this.selectedDetails.message;
+
+
+
+      }
+
+      this.updateDate = this.selectedDetails.date
+      this.userDate = this.selectedDetails.date;
+
+      if (this.selectedDetails.categoryChosen == "Birthday") {
+        this.imagez = "../../assets/imgs/icons8_Wedding_Gift_96px.png";
+        this.image = "../../assets/icon/icons8_Wedding_Cake_100px.png";
+        
+        let cutdate = this.selectedDetails.date.substring(0, 2);
+        let cutMonth = this.selectedDetails.date.substring(3, this.selectedDetails.date.length);
+        if (cutdate == "02") {
+          this.userDate = "FEB" + "/" + cutMonth
+        } else if (cutdate == "01") {
+          this.userDate = "JAN" + "/" + cutMonth
+        }
+
+        else if (cutdate == "03") {
+          this.userDate = "MARCH" + "/" + cutMonth
+          console.log("march");
+
+        } else if (cutdate == "O4") {
+          this.userDate = "APRIL" + "/" + cutMonth;
+          console.log("april");
+
+        } else if (cutdate == "05") {
+          this.userDate = "MAY" + "/" + cutMonth
+        } else if (cutdate == "06") {
+          this.userDate = "JUNE" + "/" + cutMonth
+
+        } else if (cutdate == "07") {
+          this.userDate = "JULY" + "/" + cutMonth
+        } else if (cutdate == "08") {
+          this.userDate = "AUG" + "/" + cutMonth
+
+        } else if (cutdate == "09") {
+          this.userDate = "SEP" + "/" + cutMonth
+        } else if (cutdate == "10") {
+          this.userDate = "OCT" + "/" + cutMonth
+        } else if (cutdate == "11") {
+          this.userDate = "NOV" + "/" + cutMonth
+        } else if (cutdate == "12") {
+          this.userDate = "DEC" + "/" + cutMonth
+
+        }
+
+      }
+
+
+    }
 
 
 
@@ -385,6 +449,50 @@ export class MessagePage {
 
     }
 
+
+    if ("Birthday" == this.selectedDetails.categoryChosen) {
+      this.imagez = "../../assets/imgs/icons8_Wedding_Cake_96px_1.png";
+      console.log(this.imagez);
+
+    }
+    else if ("Graduations" == this.selectedDetails.categoryChosen) {
+      this.imagez = "../../assets/imgs/icons8_Graduation_Cap_96px.png";
+      console.log(this.imagez);
+
+    } else if ("Baby Shower" == this.selectedDetails.categoryChosen) {
+      this.imagez = "../../assets/imgs/icons8_Mother_96px.png";
+      console.log("getimage");
+
+      console.log(this.imagez);
+
+    }
+    else if ("New Jobs" == this.selectedDetails.categoryChosen) {
+      this.imagez = "../../assets/imgs/icons8_Briefcase_96px.png";
+      console.log(this.imagez);
+
+    }
+    else if ("Anniversary" == this.selectedDetails.categoryChosen) {
+      this.imagez = "../../assets/imgs/icons8_Wedding_Gift_96px.png";
+      console.log(this.imagez);
+
+    }
+    else if ("Weddings" == this.selectedDetails.categoryChosen) {
+      this.imagez = "../../assets/imgs/icons8_Diamond_Ring_100px.png";
+      console.log(this.imagez);
+
+    }
+    else if ("Thinking of you" == this.selectedDetails.categoryChosen) {
+      this.imagez = " ../../assets/imgs/icons8_Collaboration_Female_Male_100px_1.png";
+      console.log(this.imagez);
+
+    }
+    else if ("General" == this.selectedDetails.categoryChosen) {
+      this.imagez = "../../assets/imgs/icons8_People_100px.png";
+      console.log(this.imagez);
+
+    } else {
+
+    }
 
 
     if ("Birthday" == this.selectedDetails.categoryChosen) {
@@ -435,91 +543,44 @@ export class MessagePage {
 
 
 
-  chooseDate() {
 
-
-    let d = new Date();
-    var day = d.getDate();
-    var month = d.getMonth() + 1;
-    var year = d.getFullYear();
-    var hour = d.getUTCHours();
-    var minute = d.getUTCMinutes();
-    var second = d.getUTCSeconds();
-    var today = year + "-" + '0' + month + "-" + day + "T" + hour + ":" + minute + ":" + second;
-
-    console.log(today);
-    console.log(this.date);
-
-
-
-
-    if (this.date == undefined) {
-
-      const alert = this.alertCtrl.create({
-        cssClass: "myAlert",
-        subTitle: "Please enter all details",
-        buttons: ['OK']
-      });
-      alert.present();
-
-    }
-
-    else if (this.name == undefined) {
-      const alert = this.alertCtrl.create({
-        cssClass: "myAlert",
-        subTitle: "Please fill in the name",
-        buttons: ['OK']
-      });
-      alert.present();
-
-    }
-    else if (this.date < today) {
-      const alert = this.alertCtrl.create({
-        cssClass: "myAlert",
-        subTitle: "You have selected the previous year, please select current year or greater.",
-        buttons: ['OK']
-      });
-      alert.present();
-    }
-
-    else {
-      //this.message() ;}
-
-    }
-  }
 
 
   autoMsg() {
 
-    if (this.selectedDetails.categoryChosen == "Birthday") {
-      this.navCtrl.push(AutomatePage, { autoMsgArray: this.birthdayMessage })
+    this.navCtrl.push(AutomatePage, { categoryChosen: this.selectedDetails.categoryChosen })
 
-    } else if (this.selectedDetails.categoryChosen == "Graduations") {
-      this.navCtrl.push(AutomatePage, { autoMsgArray: this.grads });
+    // if (this.selectedDetails.categoryChosen == "Birthday") {
+    //   this.navCtrl.push(AutomatePage, { autoMsgArray: this.birthdayMessage })
 
-    }
+    // } else if (this.selectedDetails.categoryChosen == "Graduations") {
+    //   this.navCtrl.push(AutomatePage, { autoMsgArray: this.grads });
 
-    else if (this.selectedDetails.categoryChosen == "Baby Shower") {
-      this.navCtrl.push(AutomatePage, { autoMsgArray: this.babyShowerMessage })
-    } else if (this.selectedDetails.categoryChosen == "Weddings") {
+    // }
 
-      this.navCtrl.push(AutomatePage, { autoMsgArray: this.wed })
-    } else if ("New Jobs" == this.selectedDetails.categoryChosen) {
-      console.log("in");
+    // else if (this.selectedDetails.categoryChosen == "Baby Shower") {
+    //   this.navCtrl.push(AutomatePage, { autoMsgArray: this.babyShowerMessage })
+    // } else if (this.selectedDetails.categoryChosen == "Weddings") {
 
-      this.navCtrl.push(AutomatePage, { autoMsgArray: this.jobMessage })
-    } else if ("Thinking of you" == this.selectedDetails.categoryChosen) {
-      this.navCtrl.push(AutomatePage, { autoMsgArray: this.thinkingofyouMessage })
-    } else if ("General" == this.selectedDetails.categoryChosen) {
-      this.navCtrl.push(AutomatePage, { autoMsgArray: this.generalMesage })
+    //   this.navCtrl.push(AutomatePage, { autoMsgArray: this.wed })
+    // } else if ("New Jobs" == this.selectedDetails.categoryChosen) {
+    //   console.log("in");
 
-    } else if ("Anniversary" == this.selectedDetails.categoryChosen) {
-      this.navCtrl.push(AutomatePage, { autoMsgArray: this.AnniversaryMessage })
+    //   this.navCtrl.push(AutomatePage, { autoMsgArray: this.jobMessage })
+    // } else if ("Thinking of you" == this.selectedDetails.categoryChosen) {
+    //   this.navCtrl.push(AutomatePage, { autoMsgArray: this.thinkingofyouMessage })
+    // } else if ("General" == this.selectedDetails.categoryChosen) {
+    //   this.navCtrl.push(AutomatePage, { autoMsgArray: this.generalMesage })
 
-    } else {
+    // } else if ("Anniversary" == this.selectedDetails.categoryChosen) {
+    //   this.navCtrl.push(AutomatePage, { autoMsgArray: this.AnniversaryMessage })
 
-      this.navCtrl.push(AutomatePage, { autoMsgArray: this.generalMesage });
-    }
+    // } else {
+
+    //   this.navCtrl.push(AutomatePage, { autoMsgArray: this.generalMesage });
+    // }
+
+    //this.textboxmessage = undefined ;
 
   }
 
@@ -527,25 +588,20 @@ export class MessagePage {
   send() {
 
     let full = this.month + this.day;
-
-    if (this.selectedDetails.categoryChosen == "Birthday") {
-      this.myDate = full;
-      console.log("innnn");
-    }
-
     var users = firebase.auth().currentUser;
     var userName;
-    console.log(this.image);
+    // console.log(this.image);
 
-    if (this.selectedDetails.categoryChosen == undefined) {
-      this.selectedDetails.categoryChosen = "Birthay";
-      this.image = "../../assets/icon/icons8_People_100px.png";
 
-    }
+
+
 
 
     let today = new Date()
     let uniquedate = new Date().getTime();
+
+    //console.log(this.selectedDetails.categoryChosen, this.myDate, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate, this.image, this.selectedDetails.name);
+
 
     console.log(today);
 
@@ -554,140 +610,290 @@ export class MessagePage {
     let currentday = moment(today).format('YYYY-MM-DD');
     let scheduledetail = moment(this.selectedDetails.date).format('YYYY-MM-DD');
 
-
-    console.log(this.textboxmessage)
-
-
-    if (this.textboxmessage == undefined) {
-      const alert = this.alertCtrl.create({
-        cssClass: "myAlert",
-        subTitle: 'Please Enter a message before sending ',
-        buttons: ['OK']
-
-      });
-      alert.present();
+    // if (this.selectedDetails.categoryChosen == undefined) {
+    //   this.selectedDetails.categoryChosen = "Birthay";
+    //   this.image = "../../assets/icon/icons8_People_100px.png";
 
 
+    // }
 
-    }
 
+    if (this.selectedDetails.categoryChosen == "Birthday") {
 
-    else {
-      //scheduleEmails
-      console.log(this.selectedDetails.categoryChosen);
+      this.myDate = full;
       console.log(this.myDate);
+      
 
-      console.log(this.selectedDetails.email);
-      console.log(this.textboxmessage);
-      console.log(this.userName);
-      console.log(uniquedate);
-      console.log(this.image);
-      console.log(this.selectedDetails.name);
+      console.log(this.myDate);
+      console.log( this.image);
       
 
 
+      if (this.textboxmessage != undefined && this.month != undefined) {
 
 
-     // this.db.scheduleEmails("Birthday", "2019-02-2019" , "Kgaotlhaelwe@gmail.com'" , "gdggdgdggd" , " 0" , "  0" , "bbbbbbb")
 
-      this.db.scheduleEmails(this.selectedDetails.categoryChosen, this.myDate, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate, this.image, this.selectedDetails.name).then(() => {
-        this.db.scheduleEmailForFunction(this.selectedDetails.categoryChosen, this.myDate, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate)
-        let currentIndex = this.navCtrl.getActive().index;
-        this.navCtrl.push(ModalmessagePage).then(() => {
-          this.navCtrl.remove(currentIndex);
+        this.db.scheduleEmails(this.selectedDetails.categoryChosen, this.myDate, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate, this.image, this.selectedDetails.name).then(() => {
+          this.db.scheduleEmailForFunction(this.selectedDetails.categoryChosen, this.myDate, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate)
+          
+          this.navCtrl.push(ModalmessagePage).then(() => {
+            const index = this.viewCtrl.index-1;
+            // then we remove it from the navigation stack
+            this.navCtrl.remove(index);
+
+          });
+
         });
-      });
-
-}
 
 
-
-}
-
-
-dateChange(){
-  console.log(this.myDate);
-  if(this.myDate ==this.selectedDetails.date){
-
-  }else{
-    this.showSendBtn=true;
-    this.showUpdateBtn=false ;
-  }
-  
-}
-
-
-dateChanged(a) {
-
-  let z = "0";
-  let x = "-";
-
-  console.log(a)
-
-  if (a.day <= 9) {
-    let stringDate = a.day.toString();
-
-    this.day = z + stringDate
-
-
-  } else {
-    let stringDate = a.day.toString();
-    this.day = stringDate
-  }
-
-  if (a.month <= 9) {
-    let stringDate = a.month.toString();
-
-    this.month = z + stringDate + x;
-
-  } else {
-    let stringDate = a.month.toString();
-    this.month = stringDate + x
-  }
-
-  let fullDate =this.month+this.day ;
-  console.log(this.selectedDetails.date);
-  console.log(fullDate);
-  
-  
-  
-  
-  if(fullDate == this.selectedDetails.date){
-
-  }else {
-    this.showSendBtn=true;
-    this.showUpdateBtn=false ;
-  }
-
-
-}
-
-
-
-update(){
-  var users = firebase.auth().currentUser ;
-  var userid = users.uid ;
-
-  console.log(this.selectedDetails.key);
-  console.log(this.selectedDetails.uniquedate);
-  
-  var update = {
-    message:this.textboxmessage
-  }
-  
-  firebase.database().ref('scheduledEmails/'+ userid).child(this.selectedDetails.key).update(update).then(()=>{
-    for (let index = 0; index < this.schedulefunction.length; index++) {
-      if(this.schedulefunction[index].uniquedate ==this.selectedDetails.uniquedate){
-        firebase.database().ref("schedulefunctionEmail/").child(this.schedulefunction[index].k).update(update);
+      } else {
+        this.db.showAlert("", "Please Enter all Details")
       }
-    
-      
+
+
+
+
+
+    } else {
+
+
+      if (this.textboxmessage != undefined && this.myDate != undefined) {
+
+        if (this.myDate > currentday) {
+          this.db.scheduleEmails(this.selectedDetails.categoryChosen, this.myDate, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate, this.image, this.selectedDetails.name).then(() => {
+            this.db.scheduleEmailForFunction(this.selectedDetails.categoryChosen, this.myDate, this.selectedDetails.email, this.textboxmessage, this.userName, uniquedate)
+            
+            this.navCtrl.push(ModalmessagePage).then(() => {
+              const index = this.viewCtrl.index-1
+             // let currentIndex = this.navCtrl.getActive().index;
+              this.navCtrl.remove(index);
+              //this.app.getRootNav().popToRoot();
+
+            });
+          });
+
+
+        } else {
+          this.db.showAlert("", "Please choose future days ")
+
+        }
+
+
+
+
+      }
+
+      // else if (this.textboxmessage == undefined){
+      //   this.db.showAlert("" , "Please write the message ")
+
+
+      // }else if (this.textboxmessage == undefined){
+      //   this.db.showAlert("" , "Please choose the date ")
+
+      // }
+      else {
+        this.db.showAlert("", "Please Enter all Details ")
+
+      }
+
+
+
+
+
     }
 
-  });
+
+
+   
+
+
+
+  }
+
+
+  dateChange() {
+    console.log(this.myDate);
+
+
+    if (this.myDate == this.selectedDetails.date) {
+
+    } else {
+      this.showSendBtn = true;
+      this.showUpdateBtn = false;
+    }
+
+
+    if (this.selectedDetails.categoryChosen == "Birthday") {
+      this.showSendBtn = false;
+      this.showUpdateBtn = true
+
+    }
+
+    if (this.selectedDetails.check == "birthday") {
+      this.showSendBtn = true;
+      this.showUpdateBtn = false
+
+    }
+
+
+
+
+  }
+
+
+  dateChanged(a) {
+
+    let z = "0";
+    let x = "-";
+
+    console.log(a)
+
+    if (a.day <= 9) {
+      let stringDate = a.day.toString();
+
+      this.day = z + stringDate
+
+
+    } else {
+      let stringDate = a.day.toString();
+      this.day = stringDate
+    }
+
+    if (a.month <= 9) {
+      let stringDate = a.month.toString();
+
+      this.month = z + stringDate + x;
+
+    } else {
+      let stringDate = a.month.toString();
+      this.month = stringDate + x
+    }
+
+    this.fullDate = this.month + this.day;
+    //console.log(this.selectedDetails.date);
+    // console.log(this.fullDate);
+
+
+
+
+    if (this.fullDate == this.selectedDetails.date) {
+
+    } else {
+      this.showSendBtn = true;
+      this.showUpdateBtn = false;
+
+      console.log("check0 ")
+    }
+
+    if (this.selectedDetails.categoryChosen == "Birthday") {
+      if (this.selectedDetails.message == undefined) {
+        this.showSendBtn = true;
+        console.log("check1 ")
+
+      } else {
+        console.log("check4");
+        this.showSendBtn = false
+        this.showUpdateBtn = true
+
+      }
+
+
+
+    }
+
+    if (this.selectedDetails.check == "birthday") {
+      this.showSendBtn = true;
+      this.showUpdateBtn = false
+
+    }
+
+
+  }
+
+
+
+  update() {
+
+    console.log(this.updateDate);
+    console.log(this.fullDate);
+
+
+    const loader = this.loadingCtrl.create({
+      content: "Please wait...",
+      duration: 1000
+    });
+    loader.present();
+    let updatingtime;
+    console.log(this.updateDate);
+
+    console.log(this.userDate);
+    console.log(this.myDate);
+
+
+    if (this.myDate == undefined) {
+      updatingtime = this.updateDate
+
+    } else {
+      updatingtime = this.myDate;
+
+    }
+
+
+
+
+    if (this.selectedDetails.categoryChosen == "Birthday") {
+      if (this.fullDate == undefined) {
+        updatingtime = this.updateDate
+
+      } else {
+        updatingtime = this.fullDate
+
+      }
+
+    }
+
+
+    if (this.textboxmessage != undefined) {
+      var users = firebase.auth().currentUser;
+      var userid = users.uid;
+      let tempdate;
+      console.log(this.selectedDetails.key);
+      console.log(this.selectedDetails.uniquedate);
+
+
+
+
+
+
+      var update = {
+        message: this.textboxmessage,
+        date: updatingtime
+      }
+
+      firebase.database().ref('scheduledEmails/' + userid).child(this.selectedDetails.key).update(update).then(() => {
+        for (let index = 0; index < this.schedulefunction.length; index++) {
+          if (this.schedulefunction[index].uniquedate == this.selectedDetails.uniquedate) {
+            firebase.database().ref("schedulefunctionEmail/").child(this.schedulefunction[index].k).update(update).then(() => {
+              //this.navCtrl.push(AboutPage) ;
+              this.navCtrl.parent.select(3);
+              let currentIndex = this.navCtrl.getActive().index-1;
+              this.navCtrl.remove(currentIndex, 2);
+            });
+          }
+
+
+        }
+
+
+      });
+    } else {
+      this.db.showAlert("", "Please write a message")
+    }
+
+  }
 }
 
-}
+
 
 
 

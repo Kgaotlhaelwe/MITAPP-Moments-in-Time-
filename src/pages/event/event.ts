@@ -82,7 +82,7 @@ export class EventPage {
 
       this.msgz = this.mesaagesArray[0].message;
 
-
+     // this.navCtrl.push(EventPage)
 
 
 
@@ -102,6 +102,7 @@ export class EventPage {
         tabs[key].style.display = 'flex';
       });
     }
+    // ;
 
   }
 
@@ -110,6 +111,8 @@ export class EventPage {
       
       
       this.navCtrl.push(ContactPage, { categoryChosen: a }).then(()=>{
+       // let currentIndex = this.navCtrl.getActive().index
+       // this.navCtrl.remove(currentIndex) ;
         
       
         

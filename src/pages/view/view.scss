@@ -1,7 +1,7 @@
 page-view {
     #background{
         //  background-color: rgb(240, 240, 240);
-         background-image:linear-gradient(rgba(189, 146, 146, 0.521),#f5c3c3),url('../../assets/9512d7cc3af9d3c25abee36754e5d01a.jpg');
+         background-image:linear-gradient(rgba(53, 45, 45, 0.521),#111010),url('../../assets/9512d7cc3af9d3c25abee36754e5d01a.jpg');
 
     }
 
@@ -78,6 +78,15 @@ page-view {
       transform: translate(-50%, -50%)
 
     }
+
+    #random{
+        // background-image:linear-gradient(rgba(10, 10, 10, 0.966)),url('../../assets/9512d7cc3af9d3c25abee36754e5d01a.jpg');
+        background-image: url('../../assets/9512d7cc3af9d3c25abee36754e5d01a.jpg');
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;  
+        // background-color: red;
+      }
  
     
 

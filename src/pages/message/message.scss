@@ -106,16 +106,12 @@ h1{
     left: 50%;
     transform: translate( -50%,-50% )
 }
-// .bottomdiv{
-//     height: 30%;
-//     width: 100%;
-// }
+
 .topdiv{
     position: relative;
     height: 100%;
     width: 100%;
 }
-
 .item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, .item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
     border-bottom-color : rgb(255, 255, 255); 
     -webkit-box-shadow: inset 0 -1px 0 0 rgb(255, 255, 255); 

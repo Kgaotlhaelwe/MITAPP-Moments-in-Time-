@@ -205,7 +205,6 @@ console.log(this.asdf);
   
    }
 
-    console.log(this.randomColor);
     
 
   }

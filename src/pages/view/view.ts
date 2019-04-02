@@ -18,6 +18,13 @@ import { AboutPage } from '../about/about';
 })
 export class ViewPage {
   dummyText: string = "type text";
+  random= Math.floor(Math.random() * 6) + 0;
+ bigSize = ["url",
+                         "url('../../assets/ringbackground.jpg')",
+                         "url('../../assets/flowerbackground.jpg')",
+                         "url('../../assets/ballonbackground.jpg')",
+                         "url('../../assets/backgroun11.jpg')",
+                         "url('../../assets/background12.jpg')"];
 
   message =this.navParams.get("message");
   key ;
@@ -33,12 +40,7 @@ export class ViewPage {
   time = new Date();
     
   background= Math.floor(Math.random() * 4) + 0;
- bigSize = ["url",
-                         "url('../../assets/flowerbackground.jpg')",
-                         "url('../../assets/ballonbackground.jpg')",
-                         "url('../../assets/backgroun11.jpg')",
-                         "url('../../assets/background12.jpg')"];
-
+ 
 
 
 

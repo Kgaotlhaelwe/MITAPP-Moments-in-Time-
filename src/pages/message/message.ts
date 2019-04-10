@@ -608,6 +608,8 @@ export class MessagePage {
     console.log(this.userName);
 
     let currentday = moment(today).format('YYYY-MM-DD');
+    console.log(currentday);
+    
     let scheduledetail = moment(this.selectedDetails.date).format('YYYY-MM-DD');
 
     // if (this.selectedDetails.categoryChosen == undefined) {

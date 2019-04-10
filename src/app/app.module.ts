@@ -54,8 +54,9 @@ import { Network } from '@ionic-native/network';
 import { DiconnectedPage } from '../pages/diconnected/diconnected';
 import {AddContactsPage} from '../pages/add-contacts/add-contacts' ;
 import { FormsModule } from '@angular/forms';
-
+import {CustomisedCardPage} from "../pages/customised-card/customised-card"
 import { from } from 'rxjs/observable/from';
+import { AngularCropperjsModule } from 'angular-cropperjs';
 
 var config = {
   apiKey: "AIzaSyD-60vJrUA-k0qFjOyc-2quuULN2t9DKAc",
@@ -90,11 +91,11 @@ var config = {
       PersonalisedcardPage,
       InfosentPage,
       ModalmessagePage , 
-      DiconnectedPage, AddContactsPage
+      DiconnectedPage, AddContactsPage , CustomisedCardPage
       // ExpandableHeader
   ],
   imports: [
-    BrowserModule,HttpClientModule ,SwipeCardsModule, FormsModule ,
+    BrowserModule,HttpClientModule ,SwipeCardsModule, FormsModule ,AngularCropperjsModule ,
     IonicModule.forRoot(MyApp, {
       tabsHideOnSubPages:false  
       
@@ -129,7 +130,7 @@ var config = {
     PersonalisedcardPage,
     InfosentPage,
     ModalmessagePage,
-    DiconnectedPage , AddContactsPage,
+    DiconnectedPage , AddContactsPage,CustomisedCardPage
   ],
   providers: [
     StatusBar,   SQLite ,

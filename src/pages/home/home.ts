@@ -21,6 +21,7 @@ import { ImageLoader } from 'ionic-image-loader';
 import { AlertController } from 'ionic-angular';
 import { DiconnectedPage } from '../diconnected/diconnected';
 import { Platform } from 'ionic-angular';
+import { CustomisedCardPage } from '../customised-card/customised-card';
 
 // 
 
@@ -331,7 +332,9 @@ export class HomePage {
   }
 
   Personalcard() {
-    this.navCtrl.push(PersonalisedcardPage)
+    console.log("personalised card");
+    
+    this.navCtrl.push(CustomisedCardPage)
   }
 
 

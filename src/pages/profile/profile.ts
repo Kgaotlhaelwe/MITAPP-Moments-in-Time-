@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component , ViewChild } from '@angular/core';
       import { IonicPage, NavController, NavParams ,AlertController,PopoverController,Keyboard} from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { PopoverPage } from '../popover/popover';
@@ -6,6 +6,7 @@ import {DatabaseProvider} from '../../providers/database/database';
 import { Network } from '@ionic-native/network';
 import { ToastController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
+import { AngularCropperjsComponent } from 'angular-cropperjs';
 // import { Keyboard } from '@ionic-native/keyboard';
 declare var firebase ;
 
@@ -38,10 +39,33 @@ export class ProfilePage {
 
   profileimage ;
   mypic ;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl:AlertController, private camera: Camera,public popoverCtrl: PopoverController, private db:DatabaseProvider, private network: Network , public toastCtrl: ToastController,public loadingCtrl: LoadingController, private keyboard: Keyboard ) {
 
-   
-  
+
+  @ViewChild('angularCropper') public angularCropper: AngularCropperjsComponent;
+  cropperOptions: any;
+  croppedImage = null;
+ 
+  myImage = null;
+  scaleValX = 1;
+  scaleValY = 1;
+  myprofilepic:boolean ;
+  mycropmagez :boolean ;
+  showbtn:boolean ;
+  showuploadbtn:boolean ;
+  constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl:AlertController, private camera: Camera,public popoverCtrl: PopoverController, private db:DatabaseProvider, private network: Network , public toastCtrl: ToastController,public loadingCtrl: LoadingController, private keyboard: Keyboard ) {
+    this.myprofilepic =true ;
+    this.mycropmagez = false ; 
+    this.showbtn =false ;
+   this.showuploadbtn =true ;
+    this.cropperOptions = {
+      dragMode: 'crop',
+      aspectRatio: 1,
+      autoCrop: true,
+      movable: true,
+      zoomable: true,
+      scalable: true,
+      autoCropArea: 0.8,
+    };
 
     this.pet="Favourites";
 
@@ -55,27 +79,9 @@ export class ProfilePage {
         this. email =profile.email ;
         this.profileimage=profile.proPicture;
        })
-    // firebase.database().ref("Pic/"+this.users.uid).on('value', (data: any) => {
-    //   var profilepic = data.val();
-    //   console.log(this.profileimage);
-      
-
-
-    //     this.profileimage = profilepic.url
-    //     console.log("image profile");
-        
-    //     console.log(this.image);
-        
- 
-    // })
-
-
    
-
-
-
-    
-  }
+ 
+   }
 
   save(){
     let tabs = document.querySelectorAll('.show-tabbar');
@@ -320,14 +326,16 @@ presentPopover(myEvent) {
   }
   
   this.camera.getPicture(options).then((imageData) => {
-    let userID = firebase.auth().currentUser.uid;
+    this.myprofilepic =false
+    
    this.mypic = 'data:image/jpeg;base64,' + imageData;
    console.log(this.mypic);
+   this.showbtn =true ;
+   this.mycropmagez = true ;
+   this.showuploadbtn =false ;
+  
 
-   firebase.database().ref("user/" + userID).update({
-    proPicture: this.mypic
-
-   })
+  
 
 
 
@@ -336,9 +344,69 @@ presentPopover(myEvent) {
   console.log(err);
   
   });
+
+
+
+
+  
  }
  tabcheck(){
  
    
  }
+
+
+
+
+ zoom(zoomIn: boolean) {
+  let factor = zoomIn ? 0.1 : -0.1;
+  this.angularCropper.cropper.zoom(factor);
+}
+
+scaleX() {
+  this.scaleValX = this.scaleValX * -1;
+  this.angularCropper.cropper.scaleX(this.scaleValX);
+}
+
+scaleY() {
+  this.scaleValY = this.scaleValY * -1;
+  this.angularCropper.cropper.scaleY(this.scaleValY);
+}
+
+move(x, y) {
+  this.angularCropper.cropper.move(x, y);
+}
+
+savez() {
+  console.log("clicked");
+  
+  let croppedImgB64String: string = this.angularCropper.cropper.getCroppedCanvas().toDataURL('image/jpeg', (100 / 100));
+  this.croppedImage = croppedImgB64String;
+  let userID = firebase.auth().currentUser.uid;
+  firebase.database().ref("user/" + userID).update({
+    proPicture:this.croppedImage
+
+   })
+   this.showbtn =false ;
+   this.myprofilepic =true ;
+   this.mycropmagez = false ;
+   this.showuploadbtn =true ; 
+
+  console.log(this.croppedImage) ;
+
+}
+
+
+reset() {
+  this.angularCropper.cropper.reset();
+}
+
+clear() {
+  this.angularCropper.cropper.clear();
+}
+
+rotate() {
+  this.angularCropper.cropper.rotate(90);
+}
+
 }

@@ -24,7 +24,7 @@
 
 <ion-content class="background">
 
-    <ion-buttons  *ngIf="showbtn" end>
+    <!-- <ion-buttons  *ngIf="showbtn" end>
         <button ion-button icon-only color="danger" (click)="clear()">
           <ion-icon name="close"></ion-icon>
         </button>
@@ -33,16 +33,16 @@
         </button>
       </ion-buttons>
 
-  <angular-cropper #angularCropper [cropperOptions]="cropperOptions" [imageUrl]="mypic" *ngIf="mycropmagez" ></angular-cropper>
+  <angular-cropper #angularCropper [cropperOptions]="cropperOptions" [imageUrl]="mypic" *ngIf="mycropmagez" ></angular-cropper> -->
   
  
   
- 
+ <br>
   
   <div class="flex" align="center">
     <ion-avatar align="center">
 
-      <img id="images" [src]="profileimage" onerror="this.style.opacity='1'" class="Avatar" *ngIf="myprofilepic" imageViewer>
+      <img id="images" [src]="profileimage" onerror="this.style.opacity='1'" class="Avatar"  imageViewer>
       <!-- <label for="hide"><ion-icon class="add" color="b" ios="ios-add-circle" md="md-add-circle"></ion-icon></label> -->
       <!-- <input type="file" id="hide"  (change)="upload($event)"/>
        <input type="file" class="filechoose"  (change)="upload($event)"/> -->
@@ -57,9 +57,10 @@
 
  
   </div> -->
-
+<br>
+<br>
   <div id='nameinput' *ngIf="showinput">
-    <ion-list style="display: flex" padding-left  padding-bottom>
+    <ion-list style="display: flex; position :relative; top: 23" padding-left  padding-bottom>
       <ion-item >
         <ion-input type="text" placeholder="Enter the name "  value="{{name}}" [(ngModel)]="updatename" (ionChange)="tabcheck()"></ion-input>
       </ion-item>

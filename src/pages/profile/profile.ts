@@ -1,5 +1,5 @@
 import { Component , ViewChild } from '@angular/core';
-      import { IonicPage, NavController, NavParams ,AlertController,PopoverController,Keyboard} from 'ionic-angular';
+ import { IonicPage, NavController, NavParams ,AlertController,PopoverController,Keyboard} from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { PopoverPage } from '../popover/popover';
 import {DatabaseProvider} from '../../providers/database/database';
@@ -53,19 +53,19 @@ export class ProfilePage {
   showbtn:boolean ;
   showuploadbtn:boolean ;
   constructor(public navCtrl: NavController, public navParams: NavParams, private alertCtrl:AlertController, private camera: Camera,public popoverCtrl: PopoverController, private db:DatabaseProvider, private network: Network , public toastCtrl: ToastController,public loadingCtrl: LoadingController, private keyboard: Keyboard ) {
-    this.myprofilepic =true ;
-    this.mycropmagez = false ; 
-    this.showbtn =false ;
-   this.showuploadbtn =true ;
-    this.cropperOptions = {
-      dragMode: 'crop',
-      aspectRatio: 1,
-      autoCrop: true,
-      movable: true,
-      zoomable: true,
-      scalable: true,
-      autoCropArea: 0.8,
-    };
+  //   this.myprofilepic =true ;
+  //   this.mycropmagez = false ; 
+  //   this.showbtn =false ;
+  //  this.showuploadbtn =true ;
+  //   this.cropperOptions = {
+  //     dragMode: 'crop',
+  //     aspectRatio: 1,
+  //     autoCrop: true,
+  //     movable: true,
+  //     zoomable: true,
+  //     scalable: true,
+  //     autoCropArea: 0.8,
+  //   };
 
     this.pet="Favourites";
 
@@ -330,11 +330,14 @@ presentPopover(myEvent) {
     
    this.mypic = 'data:image/jpeg;base64,' + imageData;
    console.log(this.mypic);
-   this.showbtn =true ;
-   this.mycropmagez = true ;
-   this.showuploadbtn =false ;
-  
+  //  this.showbtn =true ;
+  //  this.mycropmagez = true ;
+  //  this.showuploadbtn =false ;
+  let userID = firebase.auth().currentUser.uid;
+  firebase.database().ref("user/" + userID).update({
+    proPicture:this.mypic,
 
+   })
   
 
 
@@ -377,24 +380,21 @@ move(x, y) {
   this.angularCropper.cropper.move(x, y);
 }
 
-savez() {
-  console.log("clicked");
+// savez() {
+//   console.log("clicked");
   
-  let croppedImgB64String: string = this.angularCropper.cropper.getCroppedCanvas().toDataURL('image/jpeg', (100 / 100));
-  this.croppedImage = croppedImgB64String;
-  let userID = firebase.auth().currentUser.uid;
-  firebase.database().ref("user/" + userID).update({
-    proPicture:this.croppedImage
+//   let croppedImgB64String: string = this.angularCropper.cropper.getCroppedCanvas().toDataURL('image/jpeg', (100 / 100));
+//   this.croppedImage = croppedImgB64String;
+ 
+  
+//    this.showbtn =false ;
+//    this.myprofilepic =true ;
+//    this.mycropmagez = false ;
+//    this.showuploadbtn =true ; 
 
-   })
-   this.showbtn =false ;
-   this.myprofilepic =true ;
-   this.mycropmagez = false ;
-   this.showuploadbtn =true ; 
+//   console.log(this.croppedImage) ;
 
-  console.log(this.croppedImage) ;
-
-}
+// }
 
 
 reset() {

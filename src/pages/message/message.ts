@@ -3,16 +3,15 @@ import { IonicPage, NavController, NavParams, ActionSheetController, ModalContro
 import { AutomatePage } from '../automate/automate';
 import { PersonalizedPage } from '../personalized/personalized';
 import { AdminPage } from '../admin/admin';
-import { SMS } from '@ionic-native/sms';
+
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
 import { TabsPage } from '../tabs/tabs';
 import { EventPage } from '../event/event';
 import *as moment from 'moment';
 
-import { LocalNotifications } from '@ionic-native/local-notifications';
-import { Calendar } from '@ionic-native/calendar';
-import { BackgroundMode } from '@ionic-native/background-mode';
+
+
 import { DatabaseProvider } from '../../providers/database/database';
 import arry from '../automate/automate'
 import { ModalmessagePage } from '../modalmessage/modalmessage';
@@ -192,7 +191,7 @@ export class MessagePage {
   userdate;
   showUpdateBtn;
   showSendBtn;
-  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, private sms: SMS, private socialSharing: SocialSharing, private contacts: Contacts, public modalCtrl: ModalController, private localNotifications: LocalNotifications, private backgroundMode: BackgroundMode, private db: DatabaseProvider, private calendar: Calendar, private network: Network, public toastCtrl: ToastController, public loadingCtrl: LoadingController, private keyboard: Keyboard, private viewCtrl: ViewController ,platform: Platform) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public actionSheetCtrl: ActionSheetController, public alertCtrl: AlertController, private socialSharing: SocialSharing, private contacts: Contacts, public modalCtrl: ModalController,   private db: DatabaseProvider,  private network: Network, public toastCtrl: ToastController, public loadingCtrl: LoadingController, private keyboard: Keyboard, private viewCtrl: ViewController ,platform: Platform) {
     this.time = moment(new Date()).format()
 
 
@@ -877,7 +876,7 @@ export class MessagePage {
           if (this.schedulefunction[index].uniquedate == this.selectedDetails.uniquedate) {
             firebase.database().ref("schedulefunctionEmail/").child(this.schedulefunction[index].k).update(update).then(() => {
               //this.navCtrl.push(AboutPage) ;
-              this.navCtrl.parent.select(3);
+              this.navCtrl.parent.select(2);
               let currentIndex = this.navCtrl.getActive().index-1;
               this.navCtrl.remove(currentIndex, 2);
             });

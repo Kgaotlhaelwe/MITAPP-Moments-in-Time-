@@ -193,76 +193,7 @@ console.log(key);
     prompt.present();
   }
   
-  upload(event: any) {
-
-
-    
-
   
-   
- if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-      reader.onload = (event: any) => {
-        this.profileimage = event.target.result;
-      };
-      reader.readAsDataURL(event.target.files[0]);
-      console.log(event.target.files);0
-      let selectedfile = event.target.files[0];
-      let filename = selectedfile.name;
-     
-    
- 
-      let storageRef = firebase.storage().ref("profilepic/" + filename);
- 
-      let metadata = { contentType: "image/jpeg", size: 0.75 };
-      let uploadTask = storageRef.put(selectedfile, metadata);
- 
-     
-      uploadTask.on(
-        "state_changed",
-        function(snapshot) {},
-        function(error) {
-          // Handle unsuccessful uploads
-          // alert(error);
-        },
-        function () {
-          // Handle successful uploads on complete
- 
-          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-            console.log("File available at", downloadURL);
- 
-            firebase.auth().onAuthStateChanged(user => {
-              if (user) {
-                console.log("User has sign in");
-                let userID = firebase.auth().currentUser.uid;
-                let obj = {
-                  cover: downloadURL
-                };
- 
-                firebase
-                  .database()
-                  .ref("user/" + userID)
-                  .update({
-                    proPicture: downloadURL
-                  },(error)=>{
-                    if (error) {
-                    
-                    } else {
-                    
-                    }
-                  });
- 
-                console.log(userID);
-              } else {
-                console.log("User has not sign in");
-              }
-            });
-          });
-        }
-      );
- 
-      }
-  }
 
     
   
@@ -326,13 +257,11 @@ presentPopover(myEvent) {
   }
   
   this.camera.getPicture(options).then((imageData) => {
-    this.myprofilepic =false
+   
     
    this.mypic = 'data:image/jpeg;base64,' + imageData;
    console.log(this.mypic);
-  //  this.showbtn =true ;
-  //  this.mycropmagez = true ;
-  //  this.showuploadbtn =false ;
+  
   let userID = firebase.auth().currentUser.uid;
   firebase.database().ref("user/" + userID).update({
     proPicture:this.mypic,

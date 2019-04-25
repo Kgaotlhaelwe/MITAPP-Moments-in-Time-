@@ -20,10 +20,10 @@ import {AdminPage} from '../pages/admin/admin'
 import {AngularFireModule} from 'angularfire2';
 import {AngularFireAuthModule} from 'angularfire2/auth';
 import { MessagePage } from '../pages/message/message';
-import { SMS } from '@ionic-native/sms';
+
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
-import { LocalNotifications } from '@ionic-native/local-notifications';
+
 import { EventPage } from '../pages/event/event';
 import { PopoverPage } from '../pages/popover/popover';
 import { FavouriteMessagesPage } from '../pages/favourite-messages/favourite-messages';
@@ -40,22 +40,20 @@ import { SQLite, SQLiteObject } from '@ionic-native/sqlite';
 
 import {PersonalisedcardPage} from '../pages/personalisedcard/personalisedcard'
 import { InfosentPage } from '../pages/infosent/infosent';
-import { SplashPage } from '../pages/splash/splash'
-import { BackgroundMode } from '@ionic-native/background-mode';
+import { SplashPage } from '../pages/splash/splash';
 import { IonicImageViewerModule } from 'ionic-img-viewer';
 import { SignaturePadModule } from 'angular2-signaturepad';
 import { IonicStorageModule } from '@ionic/storage';
-import { Calendar } from '@ionic-native/calendar';
+
 import { ModalmessagePage } from '../pages/modalmessage/modalmessage';
 import { IonicImageLoader } from 'ionic-image-loader';
-// import { ExpandableHeader } from '../components/expandable-header/expandable-header';
-import {  } from '../components/expandable-header/expandable-header'
+
 import { Network } from '@ionic-native/network';
 import { DiconnectedPage } from '../pages/diconnected/diconnected';
 import {AddContactsPage} from '../pages/add-contacts/add-contacts' ;
 import { FormsModule } from '@angular/forms';
 import {CustomisedCardPage} from "../pages/customised-card/customised-card"
-import { from } from 'rxjs/observable/from';
+
 import { AngularCropperjsModule } from 'angular-cropperjs';
 
 var config = {
@@ -134,7 +132,7 @@ var config = {
   ],
   providers: [
     StatusBar,   SQLite ,
-    SplashScreen, DatabaseProvider , SMS , SocialSharing ,Contacts,LocalNotifications,Camera ,BackgroundMode ,Calendar ,Network ,SwipeCardsModule,
+    SplashScreen, DatabaseProvider  , SocialSharing ,Contacts,Camera   ,Network ,SwipeCardsModule,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   
   ]

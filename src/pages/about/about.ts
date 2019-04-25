@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController, ActionSheetController, ModalController } from 'ionic-angular';
-import { SMS } from '@ionic-native/sms';
+
 import { SocialSharing } from '@ionic-native/social-sharing';
 import { Contacts, Contact, ContactField, ContactName } from '@ionic-native/contacts';
 import { TabsPage } from '../tabs/tabs';
-import { LocalNotifications } from '@ionic-native/local-notifications';
+
 import * as moment from 'moment';
 declare var firebase
 import { DatabaseProvider } from '../../providers/database/database';
@@ -46,17 +46,11 @@ export class AboutPage {
   randomColor = Math.floor(Math.random()*16777215).toString(16);
 asdf = '#' + this.randomColor
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private contacts: Contacts, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController, private localNotifications: LocalNotifications, private sms: SMS, private socialSharing: SocialSharing, private db: DatabaseProvider, public modalCtrl: ModalController, private network: Network, public toastCtrl: ToastController, platform: Platform) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private contacts: Contacts, public alertCtrl: AlertController, public actionSheetCtrl: ActionSheetController,  private socialSharing: SocialSharing, private db: DatabaseProvider, public modalCtrl: ModalController, private network: Network, public toastCtrl: ToastController, platform: Platform) {
    
     
 console.log(this.asdf);
 
-    // let tabs = document.querySelectorAll('.show-tabbar');
-    // if (tabs !== null) {
-    //   Object.keys(tabs).map((key) => {
-    //     tabs[key].style.display = 'flex';
-    //   });
-    // }
 
     this.tabs = this.navParams.get('tabs');
 

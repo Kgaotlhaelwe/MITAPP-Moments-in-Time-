@@ -50,7 +50,7 @@ export class ModalmessagePage {
 
 
     viewScheduled() {
-      this.navCtrl.parent.select(3);
+      this.navCtrl.parent.select(2);
        // this.navCtrl.push(AboutPage)
        
      

@@ -1,18 +1,18 @@
 import { Component, ViewChild } from '@angular/core';
 import { NavController, NavParams, AlertController, ActionSheetController, Tabs,ModalController,ViewController } from 'ionic-angular';
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
-import { LocalNotifications } from '@ionic-native/local-notifications';
-import { SMS } from '@ionic-native/sms';
+
+
 import { Contacts } from '@ionic-native/contacts';
 import * as moment from 'moment';
 import { AboutPage } from '../about/about';
 import { DatabaseProvider } from '../../providers/database/database';
 import { TabsPage } from '../tabs/tabs';
 import { EventPage } from '../event/event';
-import { Calendar } from '@ionic-native/calendar';
+
 import { ToastController } from 'ionic-angular';
 import { ModalmessagePage } from '../modalmessage/modalmessage';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
 import { MessagePage } from '../message/message';
 
 /**
@@ -48,7 +48,7 @@ export class AutomatePage {
   tempArray = [];
 
   image ;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController, private localNotifications: LocalNotifications,private sms:SMS, private contacts: Contacts, private db:DatabaseProvider, private calendar:Calendar,public toastCtrl: ToastController,public modalCtrl: ModalController, public viewCtrl: ViewController ) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public alertCtrl: AlertController,public actionSheetCtrl: ActionSheetController,  private contacts: Contacts, private db:DatabaseProvider ,public toastCtrl: ToastController,public modalCtrl: ModalController, public viewCtrl: ViewController ) {
 
   
   
@@ -201,54 +201,12 @@ export class AutomatePage {
   
 
 
-    showConfirm() {
-      const confirm = this.alertCtrl.create({
-        title: this.name,
-        cssClass: "myAlert",
-        message: this.phoneNumber,
-        buttons: [
-          {
-            text: 'Disagree',
-            handler: () => {
-              console.log('Disagree clicked');
-            }
-          },
-          {
-            text: 'Schedule',
-            handler: () => {
-              console.log(this.phoneNumber);
-           
-              this.sms.send(this.phoneNumber, this.message).then(()=>{
-                
-                            // alert('success')
-                            
-                          } , (error)=>{
-                            alert(error)
-              
-                         }) 
-   
-   
-            }
-          }
-        ]
-      });
-      confirm.present();
-
-      
-      
-    }
+    
     back(){
       this.navCtrl.pop();
     }
 
-    // ngAfterViewInit() {
-    //   let tabs = document.querySelectorAll('.show-tabbar');
-    //   if (tabs !== null) {
-    //       Object.keys(tabs).map((key) => {
-    //           tabs[key].style.display = 'none';
-    //       });
-    //   }
-    // }
+   
   
 
   

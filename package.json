@@ -20,17 +20,13 @@
     "@angular/http": "5.2.11",
     "@angular/platform-browser": "5.2.11",
     "@angular/platform-browser-dynamic": "5.2.11",
-    "@ionic-native/background-mode": "^4.16.0",
-    "@ionic-native/calendar": "^4.16.0",
     "@ionic-native/camera": "^4.15.0",
     "@ionic-native/contacts": "^4.15.0",
     "@ionic-native/core": "~4.15.0",
     "@ionic-native/file": "^4.17.0",
     "@ionic-native/image-picker": "^4.19.0",
     "@ionic-native/keyboard": "^4.20.0",
-    "@ionic-native/local-notifications": "^4.15.0",
     "@ionic-native/network": "^4.17.0",
-    "@ionic-native/sms": "^4.15.0",
     "@ionic-native/social-sharing": "^4.15.0",
     "@ionic-native/splash-screen": "~4.15.0",
     "@ionic-native/sqlite": "^4.17.0",
@@ -66,6 +62,7 @@
     "ionic-angular": "3.9.2",
     "ionic-image-loader": "^6.3.2",
     "ionic-img-viewer": "^2.9.0",
+    "ionic-native": "^2.9.0",
     "ionicons": "3.0.0",
     "ng2-swipe-cards": "^1.1.1",
     "rxjs": "5.5.11",
@@ -82,8 +79,6 @@
     "plugins": {
       "cordova-plugin-camera": {},
       "cordova-plugin-contacts": {},
-      "cordova-plugin-local-notification": {},
-      "cordova-sms-plugin": {},
       "cordova-plugin-x-socialsharing": {
         "ANDROID_SUPPORT_V4_VERSION": "24.1.1+"
       },
@@ -100,7 +95,9 @@
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
       "cordova-plugin-ionic-keyboard": {},
-      "cordova-plugin-telerik-imagepicker": {}
+      "cordova-plugin-telerik-imagepicker": {},
+      "cordova-plugin-local-notification": {},
+      "cordova-sms-plugin": {}
     },
     "platforms": [
       "android"
